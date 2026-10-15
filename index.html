@@ -10,13 +10,20 @@
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Jay Jaramillo — jaywrkr">
 <meta property="og:description" content="Una persona. Seis formas de leerla. Elige una.">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_EC">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23000'/%3E%3Crect x='5' y='5' width='6' height='6' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Jay Jaramillo","alternateName":"jaywrkr","address":{"@type":"PostalAddress","addressLocality":"Cuenca","addressCountry":"EC"},"alumniOf":"Politecnico di Milano","worksFor":{"@type":"Organization","name":"Coresolutions"},"sameAs":["https://www.instagram.com/jaywrkr/","https://github.com/Jaywrkr","https://jaywrkr.substack.com/"]}
+{"@context":"https://schema.org","@type":"Person","name":"Jay Jaramillo","alternateName":"jaywrkr","address":{"@type":"PostalAddress","addressLocality":"Cuenca","addressCountry":"EC"},"alumniOf":"Politecnico di Milano","knowsAbout":["Infraestructura TI","Cloud","Ciberseguridad","Diseño UX/UI","TouchDesigner","GLSL"],"worksFor":{"@type":"Organization","name":"Coresolutions"},"sameAs":["https://www.instagram.com/jaywrkr/","https://github.com/Jaywrkr","https://jaywrkr.substack.com/"]}
 </script>
 <style>
 :root{--bg:#000;--fg:#fff;--mute:#8a8a8a;--line:#242424;--pad:clamp(16px,6vw,112px)}
@@ -30,6 +37,38 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .mute{color:var(--mute)}
 .small{font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 [hidden]{display:none!important}
+::selection{background:var(--fg);color:var(--bg)}
+html{scrollbar-width:thin;scrollbar-color:var(--line) var(--bg)}
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:16px;top:16px;z-index:60;background:var(--fg);color:var(--bg);padding:8px 12px;border:0}
+#clock,.kpi b,.dim,.cnt,.eq-ctl b,.eq-out,.vj-hud,.tu-count{font-variant-numeric:tabular-nums}
+.facets button span{display:flex;align-items:center;gap:10px}
+.fi{display:inline-block;position:relative;width:18px;height:12px;color:inherit;flex:none}
+.fi::before{content:"";position:absolute;inset:0}
+.fi-ingeniero::before{content:">_";inset:auto;left:0;top:-3px;font-size:11px;letter-spacing:0}
+.fi-disenador::before{border:1px solid currentColor;background:repeating-linear-gradient(90deg,currentColor 0 1px,transparent 1px 5px)}
+.fi-escritor::before{background:repeating-linear-gradient(180deg,currentColor 0 1px,transparent 1px 4px);right:4px}
+.fi-lider::before{background:linear-gradient(currentColor,currentColor) 0 100%/3px 5px no-repeat,linear-gradient(currentColor,currentColor) 5px 100%/3px 9px no-repeat,linear-gradient(currentColor,currentColor) 10px 100%/3px 7px no-repeat,linear-gradient(currentColor,currentColor) 15px 100%/3px 12px no-repeat}
+.fi-vj::before{border:1px solid currentColor;width:12px}
+.fi-vj::after{content:"";position:absolute;left:4px;top:4px;width:4px;height:4px;background:currentColor}
+.fi-creador::before{border:1px solid currentColor;background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+.progress{position:fixed;top:0;left:0;height:1px;width:100%;background:var(--fg);transform-origin:left;transform:scaleX(0);z-index:41;pointer-events:none}
+.intro{position:fixed;inset:0;z-index:70;background:#000;color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:20px var(--pad) 40px;cursor:pointer}
+.intro-n{font-size:11px;letter-spacing:.08em;color:#8a8a8a}
+.intro-w{font-size:clamp(30px,5.2vw,56px);line-height:1.15;letter-spacing:-.02em;min-height:1.15em}
+.intro-bar{height:1px;background:#262626;position:relative;margin-top:24px}
+.intro-bar i{position:absolute;left:0;top:0;height:1px;width:100%;background:#fff;transform:scaleX(0);transform-origin:left}
+.bar-r{display:flex;gap:16px;align-items:center}
+.snd{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.snd[aria-pressed=true]{color:var(--fg)}
+html.has-cur,html.has-cur a,html.has-cur button,html.has-cur label,html.has-cur canvas,html.has-cur .vj-gl,html.has-cur .phone,html.has-cur .cien{cursor:none}
+html.has-cur body{cursor:none}
+html.has-cur input[type=text],html.has-cur textarea,html.has-cur .prose,html.has-cur .term{cursor:text}
+.cur{position:fixed;left:0;top:0;width:10px;height:10px;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:80;opacity:0}
+.cur.frame{background:transparent;border:1px solid #fff}
+.cur.text{opacity:0!important}
+.foot-meta{display:flex;flex-direction:column;gap:6px}
+.foot-meta a{border:0}
 .nw{white-space:nowrap}
 .tx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:40}
 html.inv{filter:invert(1)}
@@ -48,10 +87,10 @@ h1{font-weight:300;font-size:clamp(30px,5.2vw,56px);line-height:1.15;letter-spac
 h1 .ch{display:inline-block;white-space:pre;will-change:transform}
 .caret{display:inline-block;width:.55em;height:.95em;background:var(--fg);vertical-align:-.1em;margin-left:.06em;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
-.hint{margin-top:20px;max-width:46ch}
+.hint{margin-top:20px;max-width:60ch;text-wrap:pretty}
 .facets{display:grid;grid-template-columns:repeat(6,1fr);margin-top:12vh;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .facets button{position:relative;text-align:left;padding:16px 14px 18px 0;color:var(--mute);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
-.facets button span{display:block;color:var(--mute);margin-bottom:6px}
+.facets button>span{display:flex;align-items:center;gap:12px;color:var(--mute);margin-bottom:6px}
 .facets button:hover,.facets button[aria-selected=true]{color:var(--fg)}
 .facets button[aria-selected=true]::before{content:"";position:absolute;left:0;right:14px;top:-1px;height:1px;background:var(--fg)}
 .tour{position:absolute;left:0;top:-1px;height:1px;background:var(--fg);width:0}
@@ -62,7 +101,9 @@ h1 .ch{display:inline-block;white-space:pre;will-change:transform}
 
 /* ingeniero */
 .eng{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,360px);gap:48px;align-items:start}
-.topo{display:block;width:100%;aspect-ratio:3/4;position:sticky;top:24px}
+.topo-fig{position:sticky;top:24px}
+.topo{display:block;width:100%;aspect-ratio:3/4}
+.topo-fig figcaption{margin-top:12px}
 .term{max-width:860px;font-size:14px;min-width:0;cursor:text}
 .term .cmdline{display:flex}
 .term input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--fg);font:inherit;caret-color:var(--fg)}
@@ -96,7 +137,12 @@ h1 .ch{display:inline-block;white-space:pre;will-change:transform}
 .box:hover{background:var(--fg);color:var(--bg)}
 .box:hover .dim,.box:hover .mute{color:var(--bg)}
 .b12{grid-column:span 12}.b6{grid-column:span 6}.b4{grid-column:span 4}.b3{grid-column:span 3}.b8{grid-column:span 8}
-.ds-tools{margin-top:32px;display:flex;gap:24px}
+.ds-tools{margin-top:32px;display:flex;gap:24px;flex-wrap:wrap}
+.tokens{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:96px}
+.tokens>div{border-top:1px solid var(--fg);padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.tokens p{display:flex;align-items:center;gap:10px}
+.tokens .sq{width:14px;height:14px;border:1px solid var(--fg);flex:none}
+.tokens .sp{height:8px;background:var(--fg);flex:none}
 .ds-tools button{border-bottom:1px solid var(--line)}
 
 /* escritor */
@@ -109,7 +155,13 @@ h1 .ch{display:inline-block;white-space:pre;will-change:transform}
 .kpi{padding:20px 16px 20px 0;border-bottom:1px solid var(--line)}
 .kpi b{display:block;font-weight:300;font-size:56px;line-height:1.1;letter-spacing:-.02em}
 .table{border-top:1px solid var(--fg)}
-.tr{display:grid;grid-template-columns:minmax(140px,1.1fr) minmax(120px,1fr) 220px 110px;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.tr{display:grid;grid-template-columns:minmax(140px,1.1fr) minmax(120px,1fr) 220px 110px;gap:16px;align-items:center;padding:14px 8px;border-bottom:1px solid var(--line)}
+.tr:not(.th):hover{background:var(--fg);color:var(--bg)}
+.tr:not(.th):hover .mute{color:var(--bg)}
+.tr:not(.th):hover a{border-color:var(--bg)}
+.tr:not(.th):hover .seg i{border-color:var(--bg)}
+.tr:not(.th):hover .seg i.on{background:var(--bg)}
+.seg-lg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:9px}
 .th{padding:10px 0}
 .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;height:8px}
 .seg i{display:block;border:1px solid var(--mute)}
@@ -123,6 +175,8 @@ h1 .ch{display:inline-block;white-space:pre;will-change:transform}
 .vj-gl:fullscreen{aspect-ratio:auto;width:100vw;height:100vh}
 .vj-gl .lbl{position:absolute;font-size:9px;color:#555;pointer-events:none}
 .vj-status{margin-top:12px}
+.vj-hud{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:12px}
+.vj-gl.idle{cursor:none}
 .vj-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px}
 .vj-ctl{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .vj-ctl button{border:1px solid var(--line);padding:8px 12px}
@@ -194,6 +248,7 @@ body[data-mode=creador] .stage-label{padding:10vh var(--pad) 4vh;margin:0}
 .tu-form{display:flex;flex-direction:column;gap:12px}
 .tu-form textarea{font:inherit;font-size:18px;background:none;color:var(--fg);border:1px solid var(--line);padding:12px;resize:vertical;min-width:0}
 .tu-btns{display:flex;gap:12px;flex-wrap:wrap}
+.tu-count{align-self:flex-end}
 .tu-img{display:block;width:100%;aspect-ratio:1;border:1px solid var(--line)}
 /* vj: llamado al micrófono */
 .vj-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:24px}
@@ -224,7 +279,8 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
  .term .row{grid-template-columns:1fr;gap:0;margin-bottom:8px}
  .eng{grid-template-columns:1fr;gap:24px}
  .fondo-wrap,.tu-wrap{grid-template-columns:1fr}
- .topo{position:static;aspect-ratio:auto;height:240px;order:-1}
+ .topo-fig{position:static;order:-1}
+ .topo{aspect-ratio:auto;height:240px}
 }
 @media(max-width:520px){
  .hero{padding-top:9vh}
@@ -241,10 +297,13 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
 </style>
 </head>
 <body data-theme="dark" data-mode="">
+<a class="skip" href="#stage">Saltar al contenido</a>
+<div class="intro" hidden aria-hidden="true"><p class="intro-n small">JAY JARAMILLO — CARGANDO <span class="intro-c">000</span></p><div><p class="intro-n small">Jay es</p><p class="intro-w"></p><div class="intro-bar"><i></i></div></div><p class="intro-n small">Clic para saltar</p></div>
+<noscript><style>.facets,.hint,.caret{display:none}</style></noscript>
 
-<header class="bar small mute">
- <a href="#">Jay Jaramillo</a>
- <span id="clock">Cuenca, Ecuador</span>
+<header class="bar small mute" id="top">
+ <a href="#" aria-label="Jay Jaramillo, inicio">Jay Jaramillo</a>
+ <span class="bar-r"><button type="button" class="snd" aria-pressed="false">Sonido: no</button><span id="clock">Cuenca, Ecuador</span></span>
 </header>
 
 <section class="hero">
@@ -254,7 +313,7 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
  <nav class="facets" role="tablist" aria-label="Facetas"></nav>
 </section>
 
-<main id="stage" aria-live="polite">
+<main id="stage" role="tabpanel" tabindex="-1" aria-labelledby="t-ingeniero">
  <div class="prose">
   <p>Me llamo Jay Jaramillo. Vivo en Cuenca, Ecuador.</p>
   <p>Estudié telecomunicaciones y diseño UX/UI en el Politecnico di Milano. Dirijo proyectos de infraestructura, cloud y ciberseguridad en Coresolutions. Escribo y publico como @jaywrkr. Hago visuales en vivo y construyo mis propias herramientas.</p>
@@ -269,7 +328,7 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
   <div><span class="mute">Código</span><br><a href="https://github.com/Jaywrkr" target="_blank" rel="noopener">GitHub ↗</a></div>
  </div>
  <div class="foot-end">
-  <span class="small mute">© <span id="year">2026</span> Jay Jaramillo</span>
+  <div class="foot-meta small mute"><span>© <span id="year">2026</span> Jay Jaramillo</span><span>Hecho a mano en Cuenca, Ecuador. HTML, CSS y JavaScript, sin plantillas.</span><a href="#top" data-top>↑ Arriba</a></div>
   <span class="simple">simple.</span>
  </div>
 </footer>
@@ -369,7 +428,7 @@ function mountIngeniero(stage){
  L.push(pr('echo $FILOSOFIA'));
  L.push('simple');
 
- stage.innerHTML = `<p class="stage-label small mute">01 — ingeniero / terminal</p><div class="eng"><div class="term" role="log" aria-label="Terminal"></div><canvas class="topo" aria-label="Topología: Jay conectado a sus proyectos"></canvas></div>`;
+ stage.innerHTML = `<p class="stage-label small mute">01 — ingeniero / terminal</p><div class="eng"><div class="term" role="log" aria-label="Terminal"></div><figure class="topo-fig"><canvas class="topo" aria-label="Topología: Jay conectado a sus proyectos"></canvas><figcaption class="small mute">Escribe ping ‹proyecto› y mira la ruta.</figcaption></figure></div>`;
  const box = stage.querySelector('.term');
  const topo = makeTopo(stage.querySelector('.topo'));
  let cmdLine = null, input = null;
@@ -386,7 +445,7 @@ function mountIngeniero(stage){
   const [c0, ...args] = v.split(/\s+/); const c = c0.toLowerCase(); const a = args.join(' ');
   const facet = MODES.find(m => m.id === norm(a || c) || norm(m.label) === norm(a || c));
   switch (c){
-   case 'help': HELP.forEach(([k,d]) => out(kv(k,d).replace('class="kv"','class="kv w"'))); out('<span class="mute">Hay más comandos. No están en la lista.</span>'); break;
+   case 'help': HELP.forEach(([k,d]) => out(kv(k,d).replace('class="kv"','class="kv w"'))); out('<span class="mute">Tab completa. ↑ ↓ recorren el historial. Hay más comandos; no están en la lista.</span>'); break;
    case 'whoami': out('Jay Jaramillo. Ingeniero, diseñador, escritor, líder, VJ y creador.'); out('Cuenca, Ecuador. Formado en el Politecnico di Milano.'); break;
    case 'ls': P.forEach(p => out(row(p))); break;
    case 'cat': { const p = findP(a); if (!p){ out(`cat: ${esc(a)||'¿qué archivo?'}: no existe. Prueba ls.`); break; }
@@ -427,12 +486,25 @@ function mountIngeniero(stage){
    out(pr(esc(v)));
    if (v){ hist.push(v); hi = hist.length; run(v); }
    input.scrollIntoView({block:'nearest'});
+  } else if (e.key === 'Tab'){
+   e.preventDefault();
+   const v = input.value, parts = v.split(/\s+/), CMDS = ['help','whoami','ls','cat','open','ping','stack','git log','date','contacto','clear','cd','echo'];
+   const first = parts.length <= 1, pre = (first ? v : parts.slice(1).join(' ')).toLowerCase();
+   const pool = first ? CMDS : parts[0] === 'cd' ? MODES.map(m => m.id) : P.map(p => p.dir.replace('/',''));
+   const opts = pool.filter(x => x.startsWith(pre));
+   if (opts.length === 1) input.value = first ? opts[0] + ' ' : parts[0] + ' ' + opts[0];
+   else if (opts.length > 1){
+    let cp = opts[0]; opts.forEach(o => { while (!o.startsWith(cp)) cp = cp.slice(0, -1); });
+    if (cp.length > pre.length) input.value = first ? cp : parts[0] + ' ' + cp;
+    else { out(pr(esc(v))); out(`<span class="mute">${opts.join('   ')}</span>`); }
+   }
   } else if (e.key === 'ArrowUp'){ if (hi > 0){ hi--; input.value = hist[hi]; } e.preventDefault(); }
   else if (e.key === 'ArrowDown'){ if (hi < hist.length){ hi++; input.value = hist[hi] || ''; } e.preventDefault(); }
  }
  function addPrompt(){
+  const sk = box.querySelector('[data-skip]'); if (sk) sk.parentNode.remove();
   out('<div class="gap"></div>');
-  out('<span class="hint">Esta terminal es real. Escribe help.</span>');
+  out('<span class="hint">Esta terminal es real. Escribe help y usa Tab para completar.</span>');
   cmdLine = document.createElement('label'); cmdLine.className = 'ln cmdline';
   cmdLine.innerHTML = `${pr('')}<input id="cmd" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Escribe un comando">`;
   box.appendChild(cmdLine); input = cmdLine.querySelector('input');
@@ -440,10 +512,14 @@ function mountIngeniero(stage){
  }
  box.addEventListener('click', e => { if (input && !e.target.closest('a') && !getSelection().toString()) input.focus({preventScroll:true}); });
 
- let i = 0;
- const step = () => { out(L[i++]); if (i < L.length) later(step, L[i-1].includes('jay@cuenca') ? 240 : 40); else addPrompt(); };
- if (reduce){ L.forEach(out); addPrompt(); } else step();
- return () => { timers.forEach(clearTimeout); topo.stop(); };
+ let i = 0, typing = true;
+ const finish = () => { if (!typing) return; typing = false; timers.forEach(clearTimeout); while (i < L.length) out(L[i++]); addPrompt(); };
+ const step = () => { out(L[i++]); if (i < L.length) later(step, L[i-1].includes('jay@cuenca') ? 240 : 40); else { typing = false; addPrompt(); } };
+ const skipKey = e => { if (typing && (e.target === document.body || box.contains(e.target)) && (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape')){ e.preventDefault(); finish(); } };
+ box.addEventListener('click', finish);
+ addEventListener('keydown', skipKey);
+ if (reduce) finish(); else { step(); out('<span class="mute small" data-skip>Clic o Enter para saltar la intro.</span>'); }
+ return () => { timers.forEach(clearTimeout); topo.stop(); removeEventListener('keydown', skipKey); };
 }
 
 /* topología: Jay al centro, rutas ortogonales a cada proyecto */
@@ -509,10 +585,17 @@ function mountDisenador(stage){
     <li>Solo ángulos rectos</li><li>70% vacío</li><li>El texto no grita</li><li>Una sola fuente</li><li>Cierra con simple</li>
    </ul>
   </div>
+  <div class="tokens small">
+   <div><p class="mute">Color</p>${['--bg','--fg','--mute','--line'].map(v=>`<p><i class="sq" style="background:var(${v})"></i>${v} <span class="mute" data-tok="${v}"></span></p>`).join('')}</div>
+   <div><p class="mute">Tipo</p><p style="font-size:11px">11 · etiqueta</p><p style="font-size:15px;text-transform:none;letter-spacing:0">15 · cuerpo</p><p style="font-size:56px;line-height:1;letter-spacing:-.02em">56</p></div>
+   <div><p class="mute">Espacio</p>${[4,8,16,24,48,96].map(n=>`<p><i class="sp" style="width:${n}px"></i>${n}</p>`).join('')}</div>
+  </div>
   <div class="boxes">${P.map((p,i)=>`<div class="box ${sizes[i]}"><span class="dim">—</span><span class="small mute">${String(i+1).padStart(2,'0')} / ${p.t}</span><div><h3>${link(p)}</h3><p class="mute">${p.d}</p></div></div>`).join('')}</div>
-  <div class="ds-tools small"><button type="button" data-g>Guías: sí</button><span class="mute">Las medidas son reales. Cambia el tamaño de la ventana.</span></div>
+  <div class="ds-tools small"><button type="button" data-g>Guías: sí</button><span class="mute">Las medidas y los tokens son reales: se leen de esta página en vivo. Tecla G para las guías.</span></div>
  </div>`;
  const ds = stage.querySelector('.ds'), g = stage.querySelector('[data-g]');
+ const cs = getComputedStyle(document.body);
+ stage.querySelectorAll('[data-tok]').forEach(el => { el.textContent = cs.getPropertyValue(el.dataset.tok).trim().toUpperCase(); });
  const toggle = () => { ds.classList.toggle('grid'); g.textContent = 'Guías: ' + (ds.classList.contains('grid') ? 'sí' : 'no'); };
  g.addEventListener('click', toggle);
  const onKey = e => { if (e.key === 'g' && !e.metaKey && !e.ctrlKey && !e.target.closest('input, textarea')) toggle(); };
@@ -538,6 +621,11 @@ function mountEscritor(stage){
  const words = paras.join(' ').split(/\s+/).length;
  stage.innerHTML = `<p class="stage-label small mute">03 — escritor / ${words} palabras · ${Math.max(1,Math.round(words/200))} min</p>
   <div class="prose">${paras.map(p=>`<p>${p}</p>`).join('')}</div>`;
+ const bar = document.createElement('i'); bar.className = 'progress'; bar.setAttribute('aria-hidden','true'); document.body.appendChild(bar);
+ const prose = stage.querySelector('.prose');
+ const upd = () => { const r = prose.getBoundingClientRect(), total = r.height - innerHeight*.5; bar.style.transform = `scaleX(${clamp((innerHeight*.5 - r.top)/(total > 0 ? total : 1))})`; };
+ addEventListener('scroll', upd, {passive:true}); upd();
+ return () => { removeEventListener('scroll', upd); bar.remove(); };
 }
 
 /* 4 · líder: tablero */
@@ -551,7 +639,7 @@ function mountLider(stage){
   <div class="kpi"><b>8</b><span class="mute">marcas socias en Coresolutions</span></div>
  </div>
  <div class="table">
-  <div class="tr th small mute"><span>Proyecto</span><span>Tipo</span><span class="hide">Etapa</span><span class="hide"></span></div>
+  <div class="tr th small mute"><span>Proyecto</span><span>Tipo</span><span class="hide seg-lg"><b>idea</b><b>diseño</b><b>constr.</b><b>oper.</b></span><span class="hide">Etapa</span></div>
   ${P.map(p=>`<div class="tr"><span>${link(p)}</span><span class="mute small">${p.t}</span><span class="seg" aria-label="Etapa: ${ETAPAS[p.e]}">${ETAPAS.map((_,i)=>`<i class="${i<=p.e?'on':''}"></i>`).join('')}</span><span class="small">${ETAPAS[p.e]}</span></div>`).join('')}
  </div>
  <div class="principles">
@@ -644,6 +732,7 @@ function mountVJ(stage){
    <label class="mute">Estela <input id="vj-trail" type="range" min="0" max="100" value="80"></label>
   </div>
   <div class="vj-gl"><canvas aria-label="Visuales audio-reactivos en una cuadrícula de 20 escenas"></canvas></div>
+  <div class="vj-hud small mute"><span data-h="src">Fuente: pulso interno</span><span data-h="bpm">BPM —</span><span data-h="sc">20 escenas</span></div>
   <p class="vj-status small mute" role="status">Haz clic en una escena para verla sola. Clic otra vez o Esc para volver.</p>
   <p class="note mute">Así trabajo en vivo: 20 escenas en TouchDesigner, una perilla que oscurece todo, cambio de escena y vuelvo a subir el brillo. El brillo aquí funciona igual: solo aclara los claros. La estela es el feedback que uso en cada set.${canMidi ? ' Con un controlador MIDI, los pads cambian de escena y las cuatro primeras perillas que muevas controlan brillo, estela, velocidad e intensidad.' : ''} Strobe hace destellos; actívalo solo si te sientes cómodo con luces intermitentes.</p>
   <p class="small" style="margin-top:16px"><a href="https://www.instagram.com/naturalnoise/" target="_blank" rel="noopener">@naturalnoise ↗</a> &nbsp; <a href="https://www.instagram.com/jay.infinito/" target="_blank" rel="noopener">@jay.infinito ↗</a></p></div>`;
@@ -655,6 +744,8 @@ function mountVJ(stage){
  const meshes = [], labels = [], tweens = [];
  const ctl = {speed:1, gain:1, auto:false, strobe:false};
  const setStatus = s => { status.textContent = s; };
+ const NAMES = ['barras','cuadrados concéntricos','línea horizontal','ruido en bloques','franjas','bloque','línea vertical','marco','plasma en píxeles','retícula','laberinto','ciudad','onda en escalones','moiré','datamosh','lluvia','onda cuadrada','quadtree','XOR','vúmetro'];
+ const sceneName = i => `Escena ${String(i+1).padStart(2,'0')} · ${NAMES[i]}`;
  const press = (b, on) => b && b.setAttribute('aria-pressed', on ? 'true' : 'false');
 
  /* audio */
@@ -693,6 +784,7 @@ function mountVJ(stage){
  /* bandas y golpes */
  const bands = new Float32Array(5);
  function onBeat(now){
+  beatTimes.push(now); if (beatTimes.length > 9) beatTimes.shift();
   beats++; boost = Math.max(boost, .35);
   if (ctl.strobe && beats % 2 === 0) strobe = 1;
   if (ctl.auto && (source === 'mic' || beats % 4 === 0)) focusScene(pick(), true);
@@ -750,7 +842,7 @@ function mountVJ(stage){
  function focusScene(i, fromBeat){
   focused = (i < 0 || (!fromBeat && focused === i)) ? -1 : i;
   layout(true, fromBeat);
-  if (!fromBeat) setStatus(focused < 0 ? 'Haz clic en una escena para verla sola. Clic otra vez o Esc para volver.' : `Escena ${String(focused+1).padStart(2,'0')}. Clic o Esc para volver a las 20.`);
+  if (!fromBeat) setStatus(focused < 0 ? 'Haz clic en una escena para verla sola. Clic otra vez o Esc para volver.' : `${sceneName(focused)}. ← → para cambiar, Esc para volver.`);
  }
  wrap.addEventListener('click', e => {
   if (!renderer) return;
@@ -758,7 +850,20 @@ function mountVJ(stage){
   const r = wrap.getBoundingClientRect(), [W,H] = size(), x = e.clientX - r.left, y = e.clientY - r.top;
   for (let i = 0; i < 20; i++){ const g = gridRect(i, W, H); if (x >= g.x && x <= g.x+g.w && y >= g.y && y <= g.y+g.h) return focusScene(i); }
  });
- const onKey = e => { if (e.key === 'Escape' && focused >= 0) focusScene(-1); };
+ const onKey = e => {
+  if (focused < 0 || e.target.closest('input, textarea')) return;
+  if (e.key === 'Escape') focusScene(-1);
+  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft'){ e.preventDefault(); focusScene((focused + (e.key === 'ArrowRight' ? 1 : 19)) % 20); }
+ };
+ const hud = {src:stage.querySelector('[data-h=src]'), bpm:stage.querySelector('[data-h=bpm]'), sc:stage.querySelector('[data-h=sc]')}, beatTimes = [];
+ const hudT = setInterval(() => {
+  hud.src.textContent = 'Fuente: ' + (source === 'mic' ? 'tu micrófono' : source === 'synth' ? 'demo 120 BPM' : 'pulso interno');
+  const iv = beatTimes.slice(1).map((t,k) => t - beatTimes[k]).sort((a,b) => a-b), med = iv[iv.length >> 1];
+  hud.bpm.textContent = 'BPM ' + (source && med ? Math.round(Math.min(200, Math.max(60, 60000/med))) : source ? '—' : '120');
+  hud.sc.textContent = focused >= 0 ? sceneName(focused) : '20 escenas';
+ }, 300);
+ let idleT; const wake = () => { wrap.classList.remove('idle'); clearTimeout(idleT); if (document.fullscreenElement === wrap) idleT = setTimeout(() => wrap.classList.add('idle'), 1800); };
+ wrap.addEventListener('pointermove', wake);
  addEventListener('keydown', onKey);
  stage.querySelector('[data-fs]').addEventListener('click', () => {
   if (document.fullscreenElement) return document.exitFullscreen();
@@ -835,7 +940,7 @@ function mountVJ(stage){
  }).catch(() => setStatus('No se pudo cargar el motor 3D. Revisa tu conexión.'));
 
  return () => {
-  alive = false; cancelAnimationFrame(raf); ro.disconnect(); removeEventListener('keydown', onKey);
+  alive = false; cancelAnimationFrame(raf); ro.disconnect(); removeEventListener('keydown', onKey); clearInterval(hudT); clearTimeout(idleT);
   tweens.forEach(t => t.kill()); stopSynth(); stopMic(); if (ac) ac.close();
   midiIns.forEach(i => i.onmidimessage = null);
   if (document.fullscreenElement === wrap) document.exitFullscreen();
@@ -895,7 +1000,7 @@ function mountCreador(stage){
   <section class="serie" data-s="fondo">${head(5,'Viernes','Fondo')}
    <div class="fondo-wrap"><div class="phone"><p>Hazlo igual.</p><span class="small">simple.</span></div>
     <div><p class="big">Un fondo para tu pantalla.</p><p class="small mute" style="margin-top:12px">Toca el teléfono para invertirlo.</p>
-     <p style="margin-top:24px" class="small"><button type="button" class="get-fondo">${canDownload ? 'Descargar fondo' : 'Generar imagen'}</button></p>
+     <p style="margin-top:24px" class="small"><button type="button" class="get-fondo">${canDownload ? 'Descargar fondo 1080 × 1920' : 'Generar imagen 1080 × 1920'}</button></p>
      <img class="fondo-img" alt="Fondo de pantalla generado" hidden></div></div></section>
 
   <section class="serie" data-s="semana">${head(6,'Sábado','Semana')}
@@ -913,6 +1018,7 @@ function mountCreador(stage){
     <div class="tu-form">
      <label class="small mute" for="tu-txt">Tu frase (máx. 90 caracteres)</label>
      <textarea id="tu-txt" maxlength="90" rows="3">Nadie te está viendo. Hazlo igual.</textarea>
+     <span class="tu-count small mute" aria-live="polite"></span>
      <div class="small tu-btns"><button type="button" class="tu-inv">Fondo blanco</button>${canDownload ? '<button type="button" class="tu-dl">Descargar 1080 × 1080</button>' : ''}</div>
      <p class="small mute">${canDownload ? 'Listo para tus stories.' : 'Mantén presionada la imagen o usa clic derecho para guardarla.'}</p>
     </div>
@@ -961,7 +1067,8 @@ function mountCreador(stage){
  /* ahora tú */
  const txt = q('#tu-txt'), img = q('.tu-img'); let light = false, deb;
  const render = async () => { try { await document.fonts.load("300 54px 'Geist Mono'"); } catch(e){} img.src = makePost(txt.value || 'Escribe algo.', light, 1080, 1080).toDataURL('image/png'); };
- txt.addEventListener('input', () => { clearTimeout(deb); deb = setTimeout(render, 120); });
+ const cnt2 = q('.tu-count'), count = () => { cnt2.textContent = `${txt.value.length} / 90`; };
+ txt.addEventListener('input', () => { count(); clearTimeout(deb); deb = setTimeout(render, 120); }); count();
  txt.addEventListener('keydown', e => e.stopPropagation());
  q('.tu-inv').addEventListener('click', e => { light = !light; e.target.textContent = light ? 'Fondo negro' : 'Fondo blanco'; render(); });
  const dl = q('.tu-dl'); if (dl) dl.addEventListener('click', () => { const a = document.createElement('a'); a.href = img.src; a.download = 'mi-verdad-simple.png'; a.click(); });
@@ -1050,7 +1157,7 @@ function transition(o, bg, fg, swap){
 }
 
 /* ───────── control ───────── */
-nav.innerHTML = MODES.map((m,i)=>`<button type="button" role="tab" id="t-${m.id}" aria-controls="stage" aria-selected="false" data-id="${m.id}"><span>${String(i+1).padStart(2,'0')}</span>${m.label}</button>`).join('');
+nav.innerHTML = MODES.map((m,i)=>`<button type="button" role="tab" id="t-${m.id}" aria-controls="stage" aria-selected="false" data-id="${m.id}"><span>${String(i+1).padStart(2,'0')}<i class="fi fi-${m.id}" aria-hidden="true"></i></span>${m.label}</button>`).join('');
 let current = null, cleanup = null;
 const tabCenter = id => { const b = nav.querySelector(`[data-id="${id}"]`).getBoundingClientRect(); return {x:b.left + b.width/2, y:b.top + b.height/2}; };
 
@@ -1067,7 +1174,10 @@ function setMode(id, push, origin){
   document.body.dataset.theme = m.theme; document.body.dataset.mode = m.id;
   const tc = document.querySelector('meta[name=theme-color]'); if (tc) tc.content = m.theme === 'light' ? '#ffffff' : '#000000';
   cleanup = m.mount(stage) || null;
+  stage.setAttribute('aria-labelledby', 't-' + m.id);
+  if (!window.__ARTIFACT__) document.title = `Jay es ${m.label} — Jay Jaramillo`;
  };
+ if (!first){ ui.sweep(); if (navigator.vibrate && !finePointer) try { navigator.vibrate(6); } catch(e){} }
  if (first || reduce || !G) swap();
  else transition(origin || tabCenter(m.id), m.theme === 'light' ? '#fff' : '#000', m.theme === 'light' ? '#000' : '#fff', swap);
 }
@@ -1102,10 +1212,11 @@ addEventListener('keydown', e => {
   nav.querySelector('[aria-selected=true]').focus();
  }
 });
-addEventListener('hashchange', () => setMode(location.hash.slice(1)));
+addEventListener('hashchange', () => { const id = location.hash.slice(1); if (MODES.some(m => m.id === id)) setMode(id); });
+document.querySelectorAll('[data-top], .bar a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); if (window.__lenis) window.__lenis.scrollTo(0); else scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'}); }));
 
 /* scroll suave */
-if (!reduce && window.Lenis){ const lenis = new Lenis({lerp:.12}); const lr = t => { lenis.raf(t); requestAnimationFrame(lr); }; requestAnimationFrame(lr); }
+if (!reduce && window.Lenis){ const lenis = new Lenis({lerp:.12}); window.__lenis = lenis; const lr = t => { lenis.raf(t); requestAnimationFrame(lr); }; requestAnimationFrame(lr); }
 
 /* reloj de Cuenca */
 const clock = document.getElementById('clock');
@@ -1116,9 +1227,70 @@ document.getElementById('year').textContent = new Date().getFullYear();
 console.log('%cJay es ___', 'font:300 18px monospace');
 console.log('Si lees esto, sabes de código.\nPrueba la faceta ingeniero y escribe help.\nO escribe "simple" en cualquier parte de la página.\n→ https://www.instagram.com/jaywrkr/');
 
+/* sonido de interfaz: opcional, apagado por defecto */
+const ss = {get(k){ try { return sessionStorage.getItem(k); } catch(e){ return null; } }, set(k, v){ try { sessionStorage.setItem(k, v); } catch(e){} }};
+const ui = {on:false, ac:null};
+function uiAC(){ if (!ui.ac){ ui.ac = new (window.AudioContext||window.webkitAudioContext)(); } ui.ac.resume(); return ui.ac; }
+ui.tick = (f = 1800, v = .05) => { if (!ui.on) return; const a = uiAC(), t = a.currentTime, o = a.createOscillator(), g = a.createGain(); o.type = 'square'; o.frequency.value = f; g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(.0001, t + .03); o.connect(g).connect(a.destination); o.start(t); o.stop(t + .04); };
+ui.sweep = () => { if (!ui.on) return; const a = uiAC(), t = a.currentTime, n = a.createBuffer(1, a.sampleRate*.6, a.sampleRate), d = n.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random()*2-1;
+ const s = a.createBufferSource(), f = a.createBiquadFilter(), g = a.createGain(); s.buffer = n; f.type = 'bandpass'; f.Q.value = 6; f.frequency.setValueAtTime(400, t); f.frequency.exponentialRampToValueAtTime(5000, t + .5); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.12, t + .25); g.gain.exponentialRampToValueAtTime(.0001, t + .58); s.connect(f).connect(g).connect(a.destination); s.start(t); s.stop(t + .6); };
+const sndBtn = document.querySelector('.snd');
+const setSnd = on => { ui.on = on; sndBtn.setAttribute('aria-pressed', on); sndBtn.textContent = 'Sonido: ' + (on ? 'sí' : 'no'); ss.set('jay-snd', on ? '1' : '0'); };
+sndBtn.addEventListener('click', () => { setSnd(!ui.on); if (ui.on){ uiAC(); ui.tick(1200, .06); } });
+nav.addEventListener('pointerenter', e => { if (e.target.closest && e.target.closest('button')) ui.tick(2400, .025); }, true);
+
+/* cursor: un cuadrado que invierte; enmarca lo que se puede tocar */
+if (finePointer && !reduce && G){
+ const cur = document.createElement('div'); cur.className = 'cur'; cur.setAttribute('aria-hidden','true'); document.body.appendChild(cur);
+ document.documentElement.classList.add('has-cur');
+ const cx = G.quickTo(cur, 'x', {duration:.18, ease:'power3'}), cy = G.quickTo(cur, 'y', {duration:.18, ease:'power3'});
+ let target = null, shown = false;
+ const SEL = 'a, button, [role=tab], .vj-gl, .phone, .cien span, input[type=range]';
+ addEventListener('pointermove', e => {
+  if (!shown){ shown = true; G.to(cur, {opacity:1, duration:.2}); }
+  const t = e.target.closest ? e.target.closest(SEL) : null;
+  const txt = e.target.closest && e.target.closest('input[type=text], textarea, .prose, .term');
+  cur.classList.toggle('text', !!txt && !t);
+  if (t && t.matches('.vj-gl, .cien span, input[type=range]')){ target = null; cur.classList.remove('frame'); G.to(cur, {width:t.matches('.vj-gl') ? 18 : 10, height:t.matches('.vj-gl') ? 18 : 10, duration:.2}); cx(e.clientX - (t.matches('.vj-gl') ? 9 : 5)); cy(e.clientY - (t.matches('.vj-gl') ? 9 : 5)); return; }
+  if (t){
+   if (target !== t){ target = t; const r = t.getBoundingClientRect(); cur.classList.add('frame'); G.to(cur, {width:r.width + 12, height:r.height + 12, duration:.25, ease:'power3'}); }
+   const r = t.getBoundingClientRect(); cx(r.left - 6 + (e.clientX - (r.left + r.width/2))*.08); cy(r.top - 6 + (e.clientY - (r.top + r.height/2))*.08);
+  } else {
+   if (target){ target = null; cur.classList.remove('frame'); G.to(cur, {width:10, height:10, duration:.2}); }
+   cx(e.clientX - 5); cy(e.clientY - 5);
+  }
+ }, {passive:true});
+ document.addEventListener('pointerleave', () => { shown = false; G.to(cur, {opacity:0, duration:.2}); });
+ addEventListener('scroll', () => { if (target){ target = null; cur.classList.remove('frame'); G.to(cur, {width:10, height:10, duration:.15}); } }, {passive:true});
+}
+
+/* intro: 000 → 100 mientras la palabra recorre las seis facetas; se revela con cuadrados */
+function runIntro(done){
+ const el = document.querySelector('.intro');
+ if (reduce || !G || ss.get('jay-intro')){ el.remove(); return done(); }
+ ss.set('jay-intro', '1'); el.hidden = false;
+ const c = el.querySelector('.intro-c'), w = el.querySelector('.intro-w'), bar = el.querySelector('.intro-bar i');
+ const words = MODES.map(m => m.label).concat(['simple.']), D = 2400, t0 = performance.now(); let last = -1, raf, ended = false;
+ const end = () => {
+  if (ended) return; ended = true; cancelAnimationFrame(raf);
+  ui.sweep();
+  transition({x:innerWidth/2, y:innerHeight/2}, '#000', '#fff', () => { el.remove(); done(); });
+ };
+ const tick = now => {
+  const p = Math.min(1, (now - t0)/D), k = Math.min(words.length - 1, Math.floor(p * words.length));
+  c.textContent = String(Math.round(p*100)).padStart(3, '0'); bar.style.transform = `scaleX(${p})`;
+  if (k !== last){ last = k; const target = words[k]; let n = 0; const sc = setInterval(() => { n++; w.textContent = target.split('').map((ch, i) => i < n*1.6 ? ch : GLYPH[(Math.random()*GLYPH.length)|0]).join(''); if (n*1.6 >= target.length){ clearInterval(sc); w.textContent = target; } }, 28); }
+  if (p < 1) raf = requestAnimationFrame(tick); else setTimeout(end, 380);
+ };
+ raf = requestAnimationFrame(tick);
+ el.addEventListener('pointerdown', e => { e.stopPropagation(); end(); });
+ addEventListener('keydown', function k(e){ if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' '){ removeEventListener('keydown', k); end(); } });
+}
+
+if (ss.get('jay-snd') === '1') setSnd(true);
 word.textContent = '';
 setMode(location.hash.slice(1) || 'ingeniero');
-if (tourOn) tourRaf = requestAnimationFrame(tour);
+runIntro(() => { if (tourOn){ tourT0 = 0; tourRaf = requestAnimationFrame(tour); } });
 })();
 </script>
 </body>

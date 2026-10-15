@@ -37,6 +37,14 @@ Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 0
 - Física real (Rapier) en "Rompe el diseño": las cajas caen, chocan y se arrastran; "Ordenar" las devuelve a la cuadrícula.
 - Secuenciador de 16 pasos (Tone.js) en VJ: bombo, hat, bajo y blip; los visuales siguen el patrón; el enlace guarda el patrón en `?seq=`.
 - Espejo en creador: la cámara convierte tu cara en Geist Mono en vivo y la puedes capturar. Todo local. Comando `espejo`.
+- La web envejece: lee el último push público de Jaywrkr en GitHub. Desde 2 días sin código aparece polvo sobre la página y un aviso arriba; el cursor lo limpia solo para quien mira. Probar con `?age=15`.
+- Tu vida en semanas (creador): fecha de nacimiento → 4.160 cuadrados, la semana actual parpadea.
+- Modo Jay (creador o comando `modojay`): un marcador que se arrastra a la barra y pone cualquier web en negro, blanco, Geist Mono y "simple.".
+- Portada: al pasar el cursor por una faceta, la palabra y el fondo la adelantan; "jaywrkr" se abre en "jay + worker"; el reloj muestra el día.
+
+## Idiomas
+Español, inglés, italiano, francés y japonés. Selector arriba a la derecha; se guarda en el navegador. También `?lang=en|it|fr|ja`. Si no hay elección, usa el idioma del navegador.
+Todos los textos están en `I18N` dentro de `index.html`; cada idioma tiene las mismas claves.
 
 ## Brand style
 - Monocromo: negro y blanco puros. El acento es la inversión.
@@ -46,10 +54,9 @@ Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 0
 
 ## Editar contenido
 Todo vive en el bloque `datos` del script de `index.html`:
-- `P`: proyectos (nombre, tipo, descripción, etapa 0–3, url).
+- `P`: proyectos (nombre, etapa 0–3, url). Tipo y descripción por idioma en `I18N.<lang>.proj`.
 - `STACK`: tecnologías del modo ingeniero.
-- `MANTRAS`: frases del modo creador.
-- Párrafos del modo escritor en `mountEscritor`.
+- Párrafos del modo escritor en `I18N.<lang>.paras` (`~~texto~~` = borrador tachado).
 
 ## Stack
 HTML, CSS y JavaScript sin dependencias ni build. Web Audio y Canvas para el modo VJ.

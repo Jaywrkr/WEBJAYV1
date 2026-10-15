@@ -30,7 +30,7 @@
 body[data-theme=light]{--bg:#fff;--fg:#000;--mute:#6b6b6b;--line:#e4e4e4}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;border-radius:0}
 html{-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--fg);font:300 15px/1.65 'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;overflow-x:hidden}
+body{background:var(--bg);color:var(--fg);font:300 15px/1.65 'Geist Mono','M PLUS 1 Code',ui-monospace,SFMono-Regular,Menlo,monospace;overflow-x:hidden}
 a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line)}
 a:hover{border-color:var(--fg)}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -335,6 +335,39 @@ body>*,footer>*,.foot-end>*{transition:opacity .4s}
 /* espejo */
 .ascii{font:300 clamp(5px,1.02vw,11px)/1.05 'Geist Mono',ui-monospace,monospace;letter-spacing:0;white-space:pre;overflow:hidden;max-width:100%;margin:0}
 .mirror-ctl{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+/* idiomas */
+.langs{display:flex;gap:2px;align-items:center;margin-right:8px}
+.langs button{font-size:11px;letter-spacing:.06em;color:var(--mute);padding:2px 5px}
+.langs button[aria-pressed=true]{background:var(--fg);color:var(--bg)}
+html[lang=ja] .small{letter-spacing:.03em}
+html[lang=ja] h1{letter-spacing:0}
+/* hover en la portada */
+.hero{position:relative}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s steps(4);z-index:0}
+.hero>*{position:relative;z-index:1}
+body{--pv:rgba(255,255,255,.08)}
+body[data-theme=light]{--pv:rgba(0,0,0,.07)}
+.hero.pv::before{opacity:1}
+.hero.pv-ingeniero::before{background:repeating-linear-gradient(180deg,var(--pv) 0 1px,transparent 1px 24px)}
+.hero.pv-disenador::before{left:var(--pad);right:var(--pad);background:repeating-linear-gradient(90deg,var(--pv) 0 calc((100% - 176px)/12),transparent 0 calc((100% - 176px)/12 + 16px))}
+.hero.pv-escritor::before{left:var(--pad);right:45%;background:repeating-linear-gradient(180deg,transparent 0 31px,var(--pv) 31px 32px)}
+.hero.pv-lider::before{background:linear-gradient(var(--pv),var(--pv)) 8% 100%/5% 30% no-repeat,linear-gradient(var(--pv),var(--pv)) 22% 100%/5% 55% no-repeat,linear-gradient(var(--pv),var(--pv)) 36% 100%/5% 40% no-repeat,linear-gradient(var(--pv),var(--pv)) 50% 100%/5% 75% no-repeat,linear-gradient(var(--pv),var(--pv)) 64% 100%/5% 50% no-repeat,linear-gradient(var(--pv),var(--pv)) 78% 100%/5% 88% no-repeat,linear-gradient(var(--pv),var(--pv)) 92% 100%/5% 62% no-repeat}
+.hero.pv-vj::before{background:repeating-conic-gradient(var(--pv) 0 25%,transparent 0 50%) 0 0/48px 48px;animation:pvj .5s steps(1) infinite}
+@keyframes pvj{50%{background-position:24px 0}}
+.hero.pv-creador::before{background:linear-gradient(90deg,var(--pv) 50%,transparent 50%)}
+#word.pvw{opacity:.45}
+.hero-l{display:inline-block;min-width:20ch}
+/* la web envejece */
+.age{margin:0 var(--pad);padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--fg)}
+.dust{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:38}
+/* vida en semanas */
+.wk-ctl{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end}
+.wk-ctl label{display:flex;flex-direction:column;gap:8px}
+.wk-ctl input{font:inherit;font-size:15px;background:none;color:var(--fg);border:1px solid var(--line);padding:8px 10px;color-scheme:light dark}
+.wk-cv{display:block;width:100%;max-width:640px;height:auto}
+/* modo Jay */
+.bm{display:inline-block;border:1px solid var(--fg)!important;padding:12px 18px;cursor:grab;font-size:15px}
+.bm-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
 /* pie */
 footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
 .where{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:72px}
@@ -374,21 +407,22 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
 </style>
 </head>
 <body data-theme="dark" data-mode="">
-<a class="skip" href="#stage">Saltar al contenido</a>
-<div class="intro" hidden aria-hidden="true"><p class="intro-n small">JAY JARAMILLO — CARGANDO <span class="intro-c">000</span></p><div><p class="intro-n small">Jay es</p><p class="intro-w"></p><div class="intro-bar"><i></i></div></div><p class="intro-n small">Clic para saltar</p></div>
+<a class="skip" href="#stage" data-i18n="skip">Saltar al contenido</a>
+<div class="intro" hidden aria-hidden="true"><p class="intro-n small"><span data-i18n="loading">JAY JARAMILLO — CARGANDO</span> <span class="intro-c">000</span></p><div><p class="intro-n small" data-i18n="leadT">Jay es</p><p class="intro-w"></p><div class="intro-bar"><i></i></div></div><p class="intro-n small" data-i18n="introSkip">Clic para saltar</p></div>
 <noscript><style>.facets,.hint,.caret{display:none}</style></noscript>
 
 <header class="bar small mute" id="top">
  <a href="#" aria-label="Jay Jaramillo, inicio">Jay Jaramillo</a>
- <span class="bar-r"><button type="button" class="ecos-b" aria-pressed="true" hidden title="Ecos: otras versiones de Jay recorriendo la web. Son simulados.">2 ecos</button><button type="button" class="snd" aria-pressed="false">Sonido: no</button><span id="clock">Cuenca, Ecuador</span></span>
+ <span class="bar-r"><span class="langs" role="group" data-i18n-aria="lang"></span><button type="button" class="ecos-b" aria-pressed="true" hidden data-i18n-title="ecosTitle">2 ecos</button><button type="button" class="snd" aria-pressed="false">Sonido: no</button><span id="clock">Cuenca, Ecuador</span></span>
 </header>
+<p class="age small" hidden></p>
 
 <section class="hero">
- <p class="small mute">jaywrkr / 2026</p>
+ <p class="small mute"><span class="hero-l">jaywrkr / 2026</span></p>
  <h1><span id="lead">Jay es </span><span id="word">ingeniero</span><span class="caret" aria-hidden="true"></span></h1>
  <p class="guess-out small" aria-live="polite"></p>
- <p class="hint mute">Mismo contenido. Seis formas de leerlo. Elige una, <button type="button" class="six-open">míralas todas</button> o toca la palabra y escribe qué crees que es Jay.</p>
- <nav class="facets" role="tablist" aria-label="Facetas"></nav>
+ <p class="hint mute"><span data-i18n="hintA">Mismo contenido. Seis formas de leerlo. Elige una, </span><button type="button" class="six-open" data-i18n="sixOpen">míralas todas</button><span data-i18n="hintB"> o toca la palabra y escribe qué crees que es Jay.</span></p>
+ <nav class="facets" role="tablist" aria-label="Facetas" data-i18n-aria="facetsAria"></nav>
 </section>
 
 <main id="stage" role="tabpanel" tabindex="-1" aria-labelledby="t-ingeniero">
@@ -400,13 +434,13 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
 
 <footer>
  <div class="where small">
-  <div><span class="mute">Contenido</span><br><a href="https://www.instagram.com/jaywrkr/" target="_blank" rel="noopener">@jaywrkr ↗</a><br><a href="https://jaywrkr.substack.com/" target="_blank" rel="noopener">Substack ↗</a></div>
-  <div><span class="mute">Trabajo</span><br><a href="https://www.instagram.com/coresolutionsec/" target="_blank" rel="noopener">@coresolutionsec ↗</a><br><a href="https://www.instagram.com/minervostudio/" target="_blank" rel="noopener">@minervostudio ↗</a></div>
-  <div><span class="mute">Música</span><br><a href="https://www.instagram.com/naturalnoise/" target="_blank" rel="noopener">@naturalnoise ↗</a><br><a href="https://www.instagram.com/jay.infinito/" target="_blank" rel="noopener">@jay.infinito ↗</a></div>
-  <div><span class="mute">Código</span><br><a href="https://github.com/Jaywrkr" target="_blank" rel="noopener">GitHub ↗</a></div>
+  <div><span class="mute" data-i18n="fContent">Contenido</span><br><a href="https://www.instagram.com/jaywrkr/" target="_blank" rel="noopener">@jaywrkr ↗</a><br><a href="https://jaywrkr.substack.com/" target="_blank" rel="noopener">Substack ↗</a></div>
+  <div><span class="mute" data-i18n="fWork">Trabajo</span><br><a href="https://www.instagram.com/coresolutionsec/" target="_blank" rel="noopener">@coresolutionsec ↗</a><br><a href="https://www.instagram.com/minervostudio/" target="_blank" rel="noopener">@minervostudio ↗</a></div>
+  <div><span class="mute" data-i18n="fMusic">Música</span><br><a href="https://www.instagram.com/naturalnoise/" target="_blank" rel="noopener">@naturalnoise ↗</a><br><a href="https://www.instagram.com/jay.infinito/" target="_blank" rel="noopener">@jay.infinito ↗</a></div>
+  <div><span class="mute" data-i18n="fCode">Código</span><br><a href="https://github.com/Jaywrkr" target="_blank" rel="noopener">GitHub ↗</a></div>
  </div>
  <div class="foot-end">
-  <div class="foot-meta small mute"><span>© <span id="year">2026</span> Jay Jaramillo</span><span>Hecho en Cuenca, Ecuador. HTML, CSS y JavaScript, sin plantillas.</span><a href="#top" data-top>↑ Arriba</a></div>
+  <div class="foot-meta small mute"><span>© <span id="year">2026</span> Jay Jaramillo</span><span data-i18n="made">Hecho en Cuenca, Ecuador. HTML, CSS y JavaScript, sin plantillas.</span><span class="age-last"></span><a href="#top" data-top data-i18n="top">↑ Arriba</a></div>
   <span class="simple">simple.</span>
  </div>
 </footer>
@@ -423,20 +457,391 @@ const clamp = v => v < 0 ? 0 : v > 1 ? 1 : v;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const norm = s => String(s).toLowerCase().replace(/[@\/\s]/g, '').replace('ñ','n').replace('í','i');
 
+/* ───────── idiomas ───────── */
+const I18N = {
+es:{
+ locale:'es-EC', skip:'Saltar al contenido', loading:'JAY JARAMILLO — CARGANDO', introSkip:'Clic para saltar', lead:'Jay es ', leadT:'Jay es',
+ ecosTitle:'Ecos: otras versiones de Jay recorriendo la web. Son simulados.', ecosOn:'2 ecos', ecosOff:'ecos: no',
+ snd:on=>'Sonido: '+(on?'sí':'no'),
+ hintA:'Mismo contenido. Seis formas de leerlo. Elige una, ', sixOpen:'míralas todas', hintB:' o toca la palabra y escribe qué crees que es Jay.',
+ facetsAria:'Facetas', fContent:'Contenido', fWork:'Trabajo', fMusic:'Música', fCode:'Código',
+ made:'Hecho en Cuenca, Ecuador. HTML, CSS y JavaScript, sin plantillas.', top:'↑ Arriba', city:'Cuenca',
+ docTitle:l=>`Jay es ${l} — Jay Jaramillo`, tabAway:'Jay sigue trabajando.',
+ simpleOn:'simple. Escribe simple otra vez para volver.', copied:'Copiado con firma.',
+ night:tm=>`Son las ${tm} en Cuenca. Deberías estar durmiendo. Yo también.`, sunday:'Domingo. Sin filtro.',
+ console:'Si lees esto, sabes de código.\nPrueba la faceta ingeniero y escribe help.\nO escribe "simple" en cualquier parte de la página.',
+ stages:['idea','diseño','construcción','operación'], stagesShort:['idea','diseño','constr.','oper.'],
+ facets:['ingeniero','diseñador','escritor','líder','VJ','creador'],
+ proj:[['infraestructura · cloud · ciberseguridad','Dirijo proyectos y un equipo de ingenieros. Más de 20 años de la empresa en Ecuador.'],['contenido','Verdades incómodas, diseñadas simple. No vendo nada.'],['estudio digital','Diseño de producto, landing pages y copy de interfaz.'],['Terraform · Ansible · Prometheus','Plataforma de monitoreo multicliente, automatizada.'],['Next.js · Neon · MCP','Plataforma central de Coresolutions: une las apps operativas en un tablero para decidir y un MCP privado para consultar el negocio.'],['IA on-premise','IA propia: primero herramienta interna, luego producto.'],['TouchDesigner · MIDI','20 escenas audio-reactivas controladas con un Arturia MiniLab.'],['web · MIDI','Practicar batería: las notas caen y se tocan en una Roland TD-02.'],['videojuego','Juego en desarrollo. Web hoy, iOS, Android y PC después.'],['app de hábitos','No es disciplina, es un sistema. Un hábito nuevo cada 30 días.']],
+ log:['wip: ANKLA · CoreAI · J-Drums · WhiteDot','feat: CoreOperaciones','feat: visuales en vivo con TouchDesigner','feat: @jaywrkr','feat: Coresolutions','feat: telecomunicaciones + UX/UI en Milán','init: Ecuador'],
+ who1:'Jay Jaramillo — ingeniero en telecomunicaciones, Politecnico di Milano.', who2:'Dirijo proyectos de infraestructura, cloud y ciberseguridad.',
+ dirP:'proyectos/', philo:'$FILOSOFIA', terminal:'terminal', topoCap:'Escribe ping ‹proyecto› y mira la ruta.', topoAria:'Topología: Jay conectado a sus proyectos',
+ help:[['help','esta lista'],['whoami','quién soy'],['ls','proyectos'],['cat ‹proyecto›','detalle, ej. cat ankla'],['ping ‹proyecto›','prueba la conexión'],['open ‹proyecto›','enlace'],['stack','tecnologías'],['git log','historia'],['cd ‹faceta›','ej. cd vj'],['date','hora en Cuenca'],['contacto','dónde encontrarme'],['clear','limpia la pantalla']],
+ helpTail:'Tab completa. ↑ ↓ recorren el historial. Hay más comandos; no están en la lista.',
+ whoA:'Jay Jaramillo. Ingeniero, diseñador, escritor, líder, VJ y creador.', whoB:'Cuenca, Ecuador. Formado en el Politecnico di Milano.',
+ catMiss:a=>`cat: ${a||'¿qué archivo?'}: no existe. Prueba ls.`, stageW:'etapa',
+ openWhich:'open: ¿cuál? Prueba open ankla.', openNo:n=>`${n}: todavía sin enlace público.`,
+ pingMiss:a=>`ping: ${a||'¿a quién?'}: host desconocido. Prueba ping coresolutions.`, pingFrom:h=>`PING ${h} desde jay@cuenca`, pingLine:(h,i,ms)=>`64 bytes de ${h}: seq=${i} tiempo=${ms} ms`, pingSum:'4 enviados, 4 recibidos, 0% perdidos',
+ gitOnly:'git: por aquí solo funciona git log.', dateLine:(d,tm)=>`${d}, ${tm} en Cuenca.`,
+ cContent:'contenido', cCode:'código', cWriting:'escritura',
+ neo:{edu:'Formación', work:'Trabajo', workV:'infraestructura · cloud · ciberseguridad', shellV:'pragmatismo', font:'Fuente', theme:'Tema', projects:'Proyectos'},
+ topHead:'PROCESO', topSleep:'dormir', topExc:'excusas',
+ hist:['cd ecuador','mv jay ./milano      # telecomunicaciones + UX/UI','mv jay ./ecuador','cd coresolutions','echo "simple." > jaywrkr','cd cuenca','./construir --sin-atajos'],
+ uptime:(m,s)=>`arriba ${m} min ${s} s en esta página. Sin pausa desde Milán.`,
+ opening:'Abriendo el código de esta página…', toSix:'→ las seis a la vez', toMirror:'→ creador / espejo', toBm:'→ creador / modo Jay',
+ ecosT:on=>'Ecos '+(on?'encendidos.':'apagados.'), ecosMouse:'Los ecos solo aparecen con mouse.',
+ sudo:'Permiso denegado. El único atajo es no buscar atajos.', rm:'Buen intento.', exit:'Aquí no hay exit. Elige otra faceta arriba o escribe cd vj.', hello:'Hola. Escribe help.', jay:'Ese soy yo. Escribe whoami.', coffee:'418: soy una terminal, no una cafetera.',
+ cdMiss:(a,l)=>`cd: ${a||'?'}: no existe. Facetas: ${l}`, notFound:c=>`${c}: comando no encontrado. Escribe help.`,
+ termHint:'Esta terminal es real. Escribe help y usa Tab para completar.', cmdAria:'Escribe un comando', skipIntro:'Clic o Enter para saltar la intro.',
+ system:'sistema', specNote:'Geist Mono · 300 · 400 · nunca bold<br>UX/UI · Politecnico di Milano', swTitle:'El acento es la inversión',
+ rules:['Solo ángulos rectos','70% vacío','El texto no grita','Una sola fuente','Cierra con simple'],
+ tokColor:'Color', tokType:'Tipo', tokSpace:'Espacio', tokLabel:'11 · etiqueta', tokBody:'15 · cuerpo',
+ guides:on=>'Guías: '+(on?'sí':'no'), breakB:'Rompe el diseño', physLoading:'Cargando física…', order:'Ordenar', dragToast:'Arrastra las cajas.', orderToast:'Orden. simple.',
+ dsNote:'Las medidas y los tokens son reales: se leen de esta página en vivo. Tecla G para las guías.',
+ paras:['Me llamo Jay Jaramillo~~ y en esta sección quiero contarte un poco sobre quién soy realmente~~. Vivo en Cuenca, Ecuador.','Estudié telecomunicaciones y diseño UX/UI en el Politecnico di Milano~~, una de las universidades más reconocidas de Europa~~. Viví en Italia entre cuatro y cinco años. Volví con dos preguntas que hago siempre: ¿funciona? y ¿se entiende?','Hoy dirijo proyectos de infraestructura, cloud y ciberseguridad en Coresolutions~~, donde cada día enfrento retos muy interesantes~~. Coordino un equipo de ingenieros y trabajo con clientes que necesitan que las cosas funcionen.','Fuera de la oficina sigo construyendo~~ muchísimas cosas diferentes porque me apasiona crear~~. Apps, herramientas internas, visuales en vivo con TouchDesigner, una app para practicar batería y un juego.','Escribo y publico como @jaywrkr. No vendo nada. Lo hago para que, cuando me conozcas, ya sepas cómo trabajo~~ y qué tipo de persona soy en realidad~~.','Si hablo de algo, es porque así soy.'],
+ unitWords:'palabras', removed:'eliminadas', min:'min',
+ board:'tablero', kpis:['frentes abiertos','en operación','en construcción','marcas socias en Coresolutions'], thP:'Proyecto', thT:'Tipo', thE:'Etapa',
+ principles:['Pragmatismo.','Escucha. Habla menos.','El único atajo es no buscar atajos.'],
+ decideT:'Cómo decido · pon una idea a prueba', qs:['¿Funciona?','¿Se entiende?','¿Es lo mínimo?'], nos:['Todavía no. Pruébalo antes de mostrarlo.','Si no se entiende, no existe. Quita hasta que se entienda.','Quita una cosa más.'], yes:'Sí', no:'No', doIt:'Hazlo. simple.', again:'Otra idea',
+ vjSub:'20 escenas GLSL', micBtn:'Usa tu micrófono', micNote:'Habla, aplaude o pon música cerca. Cada golpe fuerte cambia de escena. El audio se analiza en tu navegador; no se graba ni se envía.', demoBtn:'Escucha la demo', demoNote:'Un loop de 120 BPM hecho con código. Los visuales reaccionan a cada golpe.', demo120:'Demo 120 BPM', fs:'Pantalla completa', bright:'Brillo', trail:'Estela',
+ seqPlay:'▶ Secuenciador', seqStop:'■ Detener', rand:'Al azar', clear:'Limpiar', share:'Copiar enlace', tracks:['bombo','hat','bajo','blip'], step:(n,c)=>`${n}, paso ${c}`,
+ vjAria:'Visuales audio-reactivos en una cuadrícula de 20 escenas', src:'Fuente: ', srcs:{mic:'tu micrófono', synth:'demo 120 BPM', seq:'tu secuencia', none:'pulso interno'}, scenes20:'20 escenas',
+ vjIdle:'Haz clic en una escena para verla sola. Clic otra vez o Esc para volver.',
+ vjNote:midi=>`Así trabajo en vivo: 20 escenas en TouchDesigner, una perilla que oscurece todo, cambio de escena y vuelvo a subir el brillo. El brillo aquí funciona igual: solo aclara los claros. La estela es el feedback que uso en cada set.${midi?' Con un controlador MIDI, los pads cambian de escena y las cuatro primeras perillas que muevas controlan brillo, estela, velocidad e intensidad.':''} Strobe hace destellos; actívalo solo si te sientes cómodo con luces intermitentes.`,
+ sceneNames:['barras','cuadrados concéntricos','línea horizontal','ruido en bloques','franjas','bloque','línea vertical','marco','plasma en píxeles','retícula','laberinto','ciudad','onda en escalones','moiré','datamosh','lluvia','onda cuadrada','quadtree','XOR','vúmetro'], scene:'Escena', focusMsg:n=>`${n}. ← → para cambiar, Esc para volver.`,
+ audioOff:'Audio apagado. Las escenas siguen con su propio pulso.', micOn:'Micrófono activo. Aplaude o pon música: cada golpe fuerte cambia de escena.', demoOn:'Demo sonando a 120 BPM.', micErr:'No pude usar el micrófono. Revisa el permiso del navegador e inténtalo de nuevo.', autoOn:'Auto: la web mezcla sola al ritmo.', autoOff:'Auto apagado.', seqOn:'Secuenciador sonando. Enciende o apaga pasos: los visuales siguen tu patrón.', seqErr:'No se pudo cargar el secuenciador. Revisa tu conexión.', linkCopied:'Enlace copiado. Quien lo abra escucha tu patrón.', yourPat:u=>'Tu patrón: '+u, fsErr:'Tu navegador no permite pantalla completa aquí.', roles:['brillo','estela','velocidad','intensidad'], midiNone:'No encontré controladores MIDI. Conecta uno y vuelve a intentar.', midiFound:n=>`MIDI: ${n}. Mueve una perilla o toca un pad.`, midiDenied:'El navegador no dio permiso para MIDI.', webglErr:'Tu navegador no tiene WebGL disponible.', engineErr:'No se pudo cargar el motor 3D. Revisa tu conexión.',
+ creSub:'mis 7 series, para que las juegues', days:['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'], series:['Tachado','100 veces','Ecuación','Truco','Fondo','Semana','Sin filtro'],
+ tach:['No es ','disciplina','.','Es un sistema.'], tachHint:'Toca la palabra.',
+ cien:'hazlo otra vez', cienAria:'La frase hazlo otra vez, cien veces', cienHint:'Pasa el cursor o el dedo por encima.', cienN:n=>`Vez ${n} de 100.`, cien100:'Vez 100 de 100. Esa es la que cuenta.',
+ eqT:'resultado = constancia × tiempo', eqD:'Días por semana', eqW:'Semanas', eqOut:n=>`${n} días hechos. Sin motivación. Solo repetición.`, eqZero:'0 días hechos. Cero por cualquier número es cero.',
+ trucoQ:'¿Cuál cuadrado es más claro?', reveal:'Revelar', hideB:'Ocultar', trucoOut:'Es el mismo gris. El fondo cambia lo que ves.',
+ anyway:'Hazlo igual.', fondoT:'Un fondo para tu pantalla.', fondoHint:'Toca el teléfono para invertirlo.', fondoDl:'Descargar fondo 1080 × 1920', fondoGen:'Generar imagen 1080 × 1920', fondoAlt:'Fondo de pantalla generado',
+ weekL:['L','M','M','J','V','S','D'], weekLine:(d,l)=>`Hoy es ${d}. ${l===0?'Es el último día de la semana.':`Te ${l===1?'queda 1 día':`quedan ${l} días`} esta semana.`}`, weekHint:'¿Qué vas a cerrar antes del domingo?',
+ noOne:'Nadie te está viendo.',
+ mirrorH:'Extra · Espejo', mirrorT:'Tú, en Geist Mono.', mirrorAria:'Imagen convertida en caracteres', camLive:'La cámara funciona en la web publicada.', camOn:'Encender cámara', camOff:'Apagar cámara', capture:'Capturar', camPriv:'La imagen se procesa en tu navegador. No se graba ni se envía.', camErr:'No pude usar la cámara. Revisa el permiso del navegador.',
+ tuH:'Ahora tú', tuT:'Escribe tu verdad incómoda.', tuL:'Tu frase (máx. 90 caracteres)', tuWhite:'Fondo blanco', tuBlack:'Fondo negro', tuDl:'Descargar 1080 × 1080', tuReady:'Listo para tus stories.', tuHold:'Mantén presionada la imagen o usa clic derecho para guardarla.', tuAlt:'Vista previa de tu frase como post', tuEmpty:'Escribe algo.', postStyle:'estilo @jaywrkr',
+ sixHead:'La misma persona. Seis formas.', close:'Cerrar · Esc', sixAria:'Las seis facetas a la vez', fronts:'frentes', sixEsc:'Me llamo Jay Jaramillo. Vivo en Cuenca. Volví de Milán con dos preguntas: ¿funciona? y ¿se entiende?',
+ guessAria:'¿Qué crees que es Jay?', guessWordAria:'Toca para escribir qué crees que es Jay', guessYes:'Sí. Mira.', guessFlat:v=>`${v}: no. Tacha eso. Es trabajo.`, guessExact:'Exacto.', guessHuman:'También. Por eso se equivoca y vuelve.', guessMaybe:v=>`"${v}". Puede ser. Sigue mirando.`,
+ flat:['perfecto','genio','suerte','rico','famoso','talento','talentoso','crack','dios','millonario'], human:['humano','persona'],
+ srcHead:n=>`Esta página, por dentro: ${n} líneas. Ninguna sobra.`, srcAria:'El código de esta página',
+ saver:'Sigue aquí cuando vuelvas.', gen:n=>`Generación ${n}.`,
+ ageMsg:d=>`Jay no ha publicado código en ${d} días. La web lo nota. Puedes limpiarla con el cursor; él tiene que publicar.`, ageLast:d=>d===0?'Último commit: hoy.':`Último commit: hace ${d} ${d===1?'día':'días'}.`,
+ wkH:'Extra · Tu vida en semanas', wkT:'Tu vida en semanas.', wkL:'Tu fecha de nacimiento', wkEx:'Ejemplo: alguien nacido el 1 de enero de 1990.', wkLine:(n,l)=>`Esta es tu semana número ${n}. Si llegas a los 80, te quedan unas ${l}.`, wkQ:'¿Qué vas a cerrar en esta?', wkAria:'Cuadrícula de 80 años en semanas',
+ bmH:'Extra · Modo Jay', bmT:'Modo Jay para cualquier web.', bmText:'Arrastra el botón a tu barra de marcadores. En cualquier web, haz clic: blanco y negro, Geist Mono, sin ruido. Otro clic lo quita.', bmBtn:'Modo Jay', bmDrag:'Arrástralo a tu barra de marcadores. Aquí ya estás en modo Jay.', bmCopy:'Copiar el código', bmCopied:'Código copiado. Créalo como marcador nuevo.',
+ lang:'Idioma'
+},
+en:{
+ locale:'en-US', skip:'Skip to content', loading:'JAY JARAMILLO — LOADING', introSkip:'Click to skip', lead:'Jay is ', leadT:'Jay is',
+ ecosTitle:'Echoes: other versions of Jay moving through the site. They are simulated.', ecosOn:'2 echoes', ecosOff:'echoes: off',
+ snd:on=>'Sound: '+(on?'on':'off'),
+ hintA:'Same content. Six ways to read it. Pick one, ', sixOpen:'see them all', hintB:' or tap the word and type what you think Jay is.',
+ facetsAria:'Facets', fContent:'Content', fWork:'Work', fMusic:'Music', fCode:'Code',
+ made:'Made in Cuenca, Ecuador. HTML, CSS and JavaScript, no templates.', top:'↑ Top', city:'Cuenca',
+ docTitle:l=>`Jay is ${l} — Jay Jaramillo`, tabAway:'Jay is still working.',
+ simpleOn:'simple. Type simple again to go back.', copied:'Copied with signature.',
+ night:tm=>`It’s ${tm} in Cuenca. You should be sleeping. So should I.`, sunday:'Sunday. No filter.',
+ console:'If you are reading this, you know code.\nTry the engineer facet and type help.\nOr type "simple" anywhere on the page.',
+ stages:['idea','design','build','live'], stagesShort:['idea','design','build','live'],
+ facets:['engineer','designer','writer','leader','VJ','creator'],
+ proj:[['infrastructure · cloud · cybersecurity','I lead projects and a team of engineers. The company has been in Ecuador for more than 20 years.'],['content','Uncomfortable truths, designed simple. I sell nothing.'],['digital studio','Product design, landing pages and interface copy.'],['Terraform · Ansible · Prometheus','Automated multi-client monitoring platform.'],['Next.js · Neon · MCP','Coresolutions’ central platform: it joins the operational apps into one board for decisions and a private MCP to query the business.'],['on-premise AI','Our own AI: first an internal tool, then a product.'],['TouchDesigner · MIDI','20 audio-reactive scenes controlled with an Arturia MiniLab.'],['web · MIDI','Drum practice: notes fall and get played on a Roland TD-02.'],['video game','Game in development. Web today, iOS, Android and PC later.'],['habit app','It’s not discipline, it’s a system. One new habit every 30 days.']],
+ log:['wip: ANKLA · CoreAI · J-Drums · WhiteDot','feat: CoreOperaciones','feat: live visuals with TouchDesigner','feat: @jaywrkr','feat: Coresolutions','feat: telecom + UX/UI in Milan','init: Ecuador'],
+ who1:'Jay Jaramillo — telecommunications engineer, Politecnico di Milano.', who2:'I lead infrastructure, cloud and cybersecurity projects.',
+ dirP:'projects/', philo:'$PHILOSOPHY', terminal:'terminal', topoCap:'Type ping ‹project› and watch the route.', topoAria:'Topology: Jay connected to his projects',
+ help:[['help','this list'],['whoami','who I am'],['ls','projects'],['cat ‹project›','details, e.g. cat ankla'],['ping ‹project›','test the connection'],['open ‹project›','link'],['stack','technologies'],['git log','history'],['cd ‹facet›','e.g. cd vj'],['date','time in Cuenca'],['contact','where to find me'],['clear','clear the screen']],
+ helpTail:'Tab completes. ↑ ↓ browse history. There are more commands; they are not on the list.',
+ whoA:'Jay Jaramillo. Engineer, designer, writer, leader, VJ and creator.', whoB:'Cuenca, Ecuador. Trained at Politecnico di Milano.',
+ catMiss:a=>`cat: ${a||'which file?'}: not found. Try ls.`, stageW:'stage',
+ openWhich:'open: which one? Try open ankla.', openNo:n=>`${n}: no public link yet.`,
+ pingMiss:a=>`ping: ${a||'who?'}: unknown host. Try ping coresolutions.`, pingFrom:h=>`PING ${h} from jay@cuenca`, pingLine:(h,i,ms)=>`64 bytes from ${h}: seq=${i} time=${ms} ms`, pingSum:'4 sent, 4 received, 0% lost',
+ gitOnly:'git: only git log works here.', dateLine:(d,tm)=>`${d}, ${tm} in Cuenca.`,
+ cContent:'content', cCode:'code', cWriting:'writing',
+ neo:{edu:'Education', work:'Work', workV:'infrastructure · cloud · cybersecurity', shellV:'pragmatism', font:'Font', theme:'Theme', projects:'Projects'},
+ topHead:'PROCESS', topSleep:'sleep', topExc:'excuses',
+ hist:['cd ecuador','mv jay ./milano      # telecom + UX/UI','mv jay ./ecuador','cd coresolutions','echo "simple." > jaywrkr','cd cuenca','./build --no-shortcuts'],
+ uptime:(m,s)=>`up ${m} min ${s} s on this page. No pause since Milan.`,
+ opening:'Opening this page’s code…', toSix:'→ all six at once', toMirror:'→ creator / mirror', toBm:'→ creator / Jay mode',
+ ecosT:on=>'Echoes '+(on?'on.':'off.'), ecosMouse:'Echoes only appear with a mouse.',
+ sudo:'Permission denied. The only shortcut is not looking for shortcuts.', rm:'Nice try.', exit:'There is no exit here. Pick another facet above or type cd vj.', hello:'Hi. Type help.', jay:'That’s me. Type whoami.', coffee:'418: I’m a terminal, not a teapot.',
+ cdMiss:(a,l)=>`cd: ${a||'?'}: not found. Facets: ${l}`, notFound:c=>`${c}: command not found. Type help.`,
+ termHint:'This terminal is real. Type help and use Tab to complete.', cmdAria:'Type a command', skipIntro:'Click or press Enter to skip the intro.',
+ system:'system', specNote:'Geist Mono · 300 · 400 · never bold<br>UX/UI · Politecnico di Milano', swTitle:'The accent is inversion',
+ rules:['Right angles only','70% empty','Text never shouts','One typeface','Ends with simple'],
+ tokColor:'Color', tokType:'Type', tokSpace:'Space', tokLabel:'11 · label', tokBody:'15 · body',
+ guides:on=>'Guides: '+(on?'on':'off'), breakB:'Break the design', physLoading:'Loading physics…', order:'Restore order', dragToast:'Drag the boxes.', orderToast:'Order. simple.',
+ dsNote:'The measurements and tokens are real: read live from this page. Press G for the guides.',
+ paras:['My name is Jay Jaramillo~~ and in this section I want to tell you a little about who I really am~~. I live in Cuenca, Ecuador.','I studied telecommunications and UX/UI design at Politecnico di Milano~~, one of the most renowned universities in Europe~~. I lived in Italy for four or five years. I came back with two questions I always ask: does it work? and is it clear?','Today I lead infrastructure, cloud and cybersecurity projects at Coresolutions~~, where every day I face really interesting challenges~~. I coordinate a team of engineers and work with clients who need things to work.','Outside the office I keep building~~ lots of different things because I am passionate about creating~~. Apps, internal tools, live visuals in TouchDesigner, a drum practice app and a game.','I write and publish as @jaywrkr. I sell nothing. I do it so that when you meet me, you already know how I work~~ and what kind of person I really am~~.','If I talk about something, it is because that is who I am.'],
+ unitWords:'words', removed:'removed', min:'min',
+ board:'board', kpis:['open fronts','live','in build','partner brands at Coresolutions'], thP:'Project', thT:'Type', thE:'Stage',
+ principles:['Pragmatism.','Listen. Talk less.','The only shortcut is not looking for shortcuts.'],
+ decideT:'How I decide · put an idea to the test', qs:['Does it work?','Is it clear?','Is it the minimum?'], nos:['Not yet. Test it before you show it.','If it’s not clear, it doesn’t exist. Remove until it’s clear.','Remove one more thing.'], yes:'Yes', no:'No', doIt:'Do it. simple.', again:'Another idea',
+ vjSub:'20 GLSL scenes', micBtn:'Use your microphone', micNote:'Talk, clap or play music nearby. Every strong hit changes the scene. Audio is analyzed in your browser; it is not recorded or sent.', demoBtn:'Play the demo', demoNote:'A 120 BPM loop made with code. The visuals react to every hit.', demo120:'Demo 120 BPM', fs:'Fullscreen', bright:'Brightness', trail:'Trail',
+ seqPlay:'▶ Sequencer', seqStop:'■ Stop', rand:'Random', clear:'Clear', share:'Copy link', tracks:['kick','hat','bass','blip'], step:(n,c)=>`${n}, step ${c}`,
+ vjAria:'Audio-reactive visuals in a grid of 20 scenes', src:'Source: ', srcs:{mic:'your microphone', synth:'demo 120 BPM', seq:'your sequence', none:'internal pulse'}, scenes20:'20 scenes',
+ vjIdle:'Click a scene to see it alone. Click again or press Esc to go back.',
+ vjNote:midi=>`This is how I work live: 20 scenes in TouchDesigner, one knob that darkens everything, switch scenes and bring the brightness back up. Brightness here works the same way: it only lifts the lights. The trail is the feedback I use in every set.${midi?' With a MIDI controller, pads change scenes and the first four knobs you move control brightness, trail, speed and intensity.':''} Strobe flashes; turn it on only if you are comfortable with flashing lights.`,
+ sceneNames:['bars','concentric squares','horizontal line','block noise','stripes','block','vertical line','frame','pixel plasma','grid','maze','city','stepped wave','moiré','datamosh','rain','square wave','quadtree','XOR','VU meter'], scene:'Scene', focusMsg:n=>`${n}. ← → to switch, Esc to go back.`,
+ audioOff:'Audio off. The scenes keep their own pulse.', micOn:'Microphone on. Clap or play music: every strong hit changes the scene.', demoOn:'Demo playing at 120 BPM.', micErr:'I couldn’t use the microphone. Check the browser permission and try again.', autoOn:'Auto: the site mixes itself to the beat.', autoOff:'Auto off.', seqOn:'Sequencer playing. Turn steps on or off: the visuals follow your pattern.', seqErr:'The sequencer could not load. Check your connection.', linkCopied:'Link copied. Whoever opens it hears your pattern.', yourPat:u=>'Your pattern: '+u, fsErr:'Your browser does not allow fullscreen here.', roles:['brightness','trail','speed','intensity'], midiNone:'No MIDI controllers found. Connect one and try again.', midiFound:n=>`MIDI: ${n}. Move a knob or hit a pad.`, midiDenied:'The browser did not allow MIDI.', webglErr:'WebGL is not available in your browser.', engineErr:'The 3D engine could not load. Check your connection.',
+ creSub:'my 7 series, for you to play', days:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], series:['Strikethrough','100 times','Equation','Trick','Wallpaper','Week','No filter'],
+ tach:['It’s not ','discipline','.','It’s a system.'], tachHint:'Tap the word.',
+ cien:'do it again', cienAria:'The phrase do it again, a hundred times', cienHint:'Move your cursor or finger over it.', cienN:n=>`Time ${n} of 100.`, cien100:'Time 100 of 100. That’s the one that counts.',
+ eqT:'result = consistency × time', eqD:'Days per week', eqW:'Weeks', eqOut:n=>`${n} days done. No motivation. Just repetition.`, eqZero:'0 days done. Zero times anything is zero.',
+ trucoQ:'Which square is lighter?', reveal:'Reveal', hideB:'Hide', trucoOut:'Same gray. The background changes what you see.',
+ anyway:'Do it anyway.', fondoT:'A wallpaper for your screen.', fondoHint:'Tap the phone to invert it.', fondoDl:'Download wallpaper 1080 × 1920', fondoGen:'Generate image 1080 × 1920', fondoAlt:'Generated wallpaper',
+ weekL:['M','T','W','T','F','S','S'], weekLine:(d,l)=>`Today is ${d}. ${l===0?'It’s the last day of the week.':`You have ${l===1?'1 day':`${l} days`} left this week.`}`, weekHint:'What will you finish before Sunday?',
+ noOne:'No one is watching.',
+ mirrorH:'Extra · Mirror', mirrorT:'You, in Geist Mono.', mirrorAria:'Image converted to characters', camLive:'The camera works on the published site.', camOn:'Turn on camera', camOff:'Turn off camera', capture:'Capture', camPriv:'The image is processed in your browser. It is not recorded or sent.', camErr:'I couldn’t use the camera. Check the browser permission.',
+ tuH:'Your turn', tuT:'Write your uncomfortable truth.', tuL:'Your phrase (max. 90 characters)', tuWhite:'White background', tuBlack:'Black background', tuDl:'Download 1080 × 1080', tuReady:'Ready for your stories.', tuHold:'Press and hold the image, or right-click it, to save it.', tuAlt:'Preview of your phrase as a post', tuEmpty:'Write something.', postStyle:'style @jaywrkr',
+ sixHead:'Same person. Six forms.', close:'Close · Esc', sixAria:'All six facets at once', fronts:'fronts', sixEsc:'My name is Jay Jaramillo. I live in Cuenca. I came back from Milan with two questions: does it work? is it clear?',
+ guessAria:'What do you think Jay is?', guessWordAria:'Tap to type what you think Jay is', guessYes:'Yes. Look.', guessFlat:v=>`${v}: no. Strike that. It’s work.`, guessExact:'Exactly.', guessHuman:'That too. That’s why he gets it wrong and comes back.', guessMaybe:v=>`"${v}". Maybe. Keep looking.`,
+ flat:['perfect','genius','lucky','luck','rich','famous','talent','talented','god','millionaire'], human:['human','person'],
+ srcHead:n=>`This page, from the inside: ${n} lines. None extra.`, srcAria:'This page’s code',
+ saver:'Still here when you come back.', gen:n=>`Generation ${n}.`,
+ ageMsg:d=>`Jay hasn’t pushed code in ${d} days. The site notices. You can wipe it with your cursor; he has to publish.`, ageLast:d=>d===0?'Last commit: today.':`Last commit: ${d} ${d===1?'day':'days'} ago.`,
+ wkH:'Extra · Your life in weeks', wkT:'Your life in weeks.', wkL:'Your date of birth', wkEx:'Example: someone born on January 1, 1990.', wkLine:(n,l)=>`This is your week number ${n}. If you reach 80, you have about ${l} left.`, wkQ:'What will you finish in this one?', wkAria:'Grid of 80 years in weeks',
+ bmH:'Extra · Jay mode', bmT:'Jay mode for any website.', bmText:'Drag the button to your bookmarks bar. On any website, click it: black and white, Geist Mono, no noise. Click again to remove it.', bmBtn:'Jay mode', bmDrag:'Drag it to your bookmarks bar. Here you are already in Jay mode.', bmCopy:'Copy the code', bmCopied:'Code copied. Save it as a new bookmark.',
+ lang:'Language'
+},
+it:{
+ locale:'it-IT', skip:'Vai al contenuto', loading:'JAY JARAMILLO — CARICAMENTO', introSkip:'Clic per saltare', lead:'Jay è ', leadT:'Jay è',
+ ecosTitle:'Echi: altre versioni di Jay che girano per il sito. Sono simulati.', ecosOn:'2 echi', ecosOff:'echi: no',
+ snd:on=>'Suono: '+(on?'sì':'no'),
+ hintA:'Stesso contenuto. Sei modi di leggerlo. Scegline uno, ', sixOpen:'guardali tutti', hintB:' oppure tocca la parola e scrivi cosa pensi che sia Jay.',
+ facetsAria:'Sfaccettature', fContent:'Contenuti', fWork:'Lavoro', fMusic:'Musica', fCode:'Codice',
+ made:'Fatto a Cuenca, Ecuador. HTML, CSS e JavaScript, senza template.', top:'↑ Su', city:'Cuenca',
+ docTitle:l=>`Jay è ${l} — Jay Jaramillo`, tabAway:'Jay sta ancora lavorando.',
+ simpleOn:'simple. Scrivi simple di nuovo per tornare.', copied:'Copiato con firma.',
+ night:tm=>`Sono le ${tm} a Cuenca. Dovresti dormire. Anch’io.`, sunday:'Domenica. Senza filtro.',
+ console:'Se stai leggendo questo, conosci il codice.\nProva la faccia ingegnere e scrivi help.\nOppure scrivi "simple" in qualsiasi punto della pagina.',
+ stages:['idea','design','costruzione','operativo'], stagesShort:['idea','design','costr.','oper.'],
+ facets:['ingegnere','designer','scrittore','leader','VJ','creatore'],
+ proj:[['infrastruttura · cloud · cybersicurezza','Guido progetti e un team di ingegneri. L’azienda è in Ecuador da più di 20 anni.'],['contenuti','Verità scomode, progettate semplici. Non vendo niente.'],['studio digitale','Design di prodotto, landing page e testi per interfacce.'],['Terraform · Ansible · Prometheus','Piattaforma di monitoraggio multicliente, automatizzata.'],['Next.js · Neon · MCP','La piattaforma centrale di Coresolutions: unisce le app operative in una dashboard per decidere e un MCP privato per interrogare il business.'],['IA on-premise','Un’IA nostra: prima strumento interno, poi prodotto.'],['TouchDesigner · MIDI','20 scene audio-reattive controllate con un Arturia MiniLab.'],['web · MIDI','Esercitarsi alla batteria: le note cadono e si suonano su una Roland TD-02.'],['videogioco','Gioco in sviluppo. Oggi web, poi iOS, Android e PC.'],['app di abitudini','Non è disciplina, è un sistema. Una nuova abitudine ogni 30 giorni.']],
+ log:['wip: ANKLA · CoreAI · J-Drums · WhiteDot','feat: CoreOperaciones','feat: visual dal vivo con TouchDesigner','feat: @jaywrkr','feat: Coresolutions','feat: telecomunicazioni + UX/UI a Milano','init: Ecuador'],
+ who1:'Jay Jaramillo — ingegnere delle telecomunicazioni, Politecnico di Milano.', who2:'Guido progetti di infrastruttura, cloud e cybersicurezza.',
+ dirP:'progetti/', philo:'$FILOSOFIA', terminal:'terminale', topoCap:'Scrivi ping ‹progetto› e guarda il percorso.', topoAria:'Topologia: Jay collegato ai suoi progetti',
+ help:[['help','questa lista'],['whoami','chi sono'],['ls','progetti'],['cat ‹progetto›','dettagli, es. cat ankla'],['ping ‹progetto›','prova la connessione'],['open ‹progetto›','link'],['stack','tecnologie'],['git log','storia'],['cd ‹faccia›','es. cd vj'],['date','ora a Cuenca'],['contact','dove trovarmi'],['clear','pulisce lo schermo']],
+ helpTail:'Tab completa. ↑ ↓ scorrono la cronologia. Ci sono altri comandi; non sono in lista.',
+ whoA:'Jay Jaramillo. Ingegnere, designer, scrittore, leader, VJ e creatore.', whoB:'Cuenca, Ecuador. Formato al Politecnico di Milano.',
+ catMiss:a=>`cat: ${a||'quale file?'}: non esiste. Prova ls.`, stageW:'fase',
+ openWhich:'open: quale? Prova open ankla.', openNo:n=>`${n}: ancora senza link pubblico.`,
+ pingMiss:a=>`ping: ${a||'chi?'}: host sconosciuto. Prova ping coresolutions.`, pingFrom:h=>`PING ${h} da jay@cuenca`, pingLine:(h,i,ms)=>`64 byte da ${h}: seq=${i} tempo=${ms} ms`, pingSum:'4 inviati, 4 ricevuti, 0% persi',
+ gitOnly:'git: qui funziona solo git log.', dateLine:(d,tm)=>`${d}, ${tm} a Cuenca.`,
+ cContent:'contenuti', cCode:'codice', cWriting:'scrittura',
+ neo:{edu:'Formazione', work:'Lavoro', workV:'infrastruttura · cloud · cybersicurezza', shellV:'pragmatismo', font:'Font', theme:'Tema', projects:'Progetti'},
+ topHead:'PROCESSO', topSleep:'dormire', topExc:'scuse',
+ hist:['cd ecuador','mv jay ./milano      # telecomunicazioni + UX/UI','mv jay ./ecuador','cd coresolutions','echo "simple." > jaywrkr','cd cuenca','./costruire --senza-scorciatoie'],
+ uptime:(m,s)=>`attivo da ${m} min ${s} s su questa pagina. Senza pause da Milano.`,
+ opening:'Apro il codice di questa pagina…', toSix:'→ tutte e sei insieme', toMirror:'→ creatore / specchio', toBm:'→ creatore / modalità Jay',
+ ecosT:on=>'Echi '+(on?'accesi.':'spenti.'), ecosMouse:'Gli echi appaiono solo con il mouse.',
+ sudo:'Permesso negato. L’unica scorciatoia è non cercare scorciatoie.', rm:'Bel tentativo.', exit:'Qui non c’è exit. Scegli un’altra faccia sopra o scrivi cd vj.', hello:'Ciao. Scrivi help.', jay:'Sono io. Scrivi whoami.', coffee:'418: sono un terminale, non una caffettiera.',
+ cdMiss:(a,l)=>`cd: ${a||'?'}: non esiste. Facce: ${l}`, notFound:c=>`${c}: comando non trovato. Scrivi help.`,
+ termHint:'Questo terminale è vero. Scrivi help e usa Tab per completare.', cmdAria:'Scrivi un comando', skipIntro:'Clic o Invio per saltare l’intro.',
+ system:'sistema', specNote:'Geist Mono · 300 · 400 · mai bold<br>UX/UI · Politecnico di Milano', swTitle:'L’accento è l’inversione',
+ rules:['Solo angoli retti','70% vuoto','Il testo non urla','Un solo font','Chiude con simple'],
+ tokColor:'Colore', tokType:'Tipo', tokSpace:'Spazio', tokLabel:'11 · etichetta', tokBody:'15 · corpo',
+ guides:on=>'Guide: '+(on?'sì':'no'), breakB:'Rompi il design', physLoading:'Carico la fisica…', order:'Riordina', dragToast:'Trascina le scatole.', orderToast:'Ordine. simple.',
+ dsNote:'Misure e token sono reali: letti dal vivo da questa pagina. Tasto G per le guide.',
+ paras:['Mi chiamo Jay Jaramillo~~ e in questa sezione voglio raccontarti un po’ chi sono davvero~~. Vivo a Cuenca, in Ecuador.','Ho studiato telecomunicazioni e design UX/UI al Politecnico di Milano~~, una delle università più prestigiose d’Europa~~. Ho vissuto in Italia quattro o cinque anni. Sono tornato con due domande che faccio sempre: funziona? e si capisce?','Oggi guido progetti di infrastruttura, cloud e cybersicurezza in Coresolutions~~, dove ogni giorno affronto sfide molto interessanti~~. Coordino un team di ingegneri e lavoro con clienti che hanno bisogno che le cose funzionino.','Fuori dall’ufficio continuo a costruire~~ tantissime cose diverse perché creare è la mia passione~~. App, strumenti interni, visual dal vivo con TouchDesigner, un’app per esercitarsi alla batteria e un gioco.','Scrivo e pubblico come @jaywrkr. Non vendo niente. Lo faccio perché, quando mi conosci, tu sappia già come lavoro~~ e che tipo di persona sono davvero~~.','Se parlo di qualcosa, è perché sono così.'],
+ unitWords:'parole', removed:'eliminate', min:'min',
+ board:'cruscotto', kpis:['fronti aperti','operativi','in costruzione','marchi partner di Coresolutions'], thP:'Progetto', thT:'Tipo', thE:'Fase',
+ principles:['Pragmatismo.','Ascolta. Parla meno.','L’unica scorciatoia è non cercare scorciatoie.'],
+ decideT:'Come decido · metti alla prova un’idea', qs:['Funziona?','Si capisce?','È il minimo?'], nos:['Non ancora. Provala prima di mostrarla.','Se non si capisce, non esiste. Togli finché si capisce.','Togli un’altra cosa.'], yes:'Sì', no:'No', doIt:'Fallo. simple.', again:'Un’altra idea',
+ vjSub:'20 scene GLSL', micBtn:'Usa il tuo microfono', micNote:'Parla, batti le mani o metti musica vicino. Ogni colpo forte cambia scena. L’audio si analizza nel tuo browser; non viene registrato né inviato.', demoBtn:'Ascolta la demo', demoNote:'Un loop a 120 BPM fatto con il codice. I visual reagiscono a ogni colpo.', demo120:'Demo 120 BPM', fs:'Schermo intero', bright:'Luminosità', trail:'Scia',
+ seqPlay:'▶ Sequencer', seqStop:'■ Stop', rand:'Casuale', clear:'Svuota', share:'Copia link', tracks:['cassa','hat','basso','blip'], step:(n,c)=>`${n}, passo ${c}`,
+ vjAria:'Visual audio-reattivi in una griglia di 20 scene', src:'Fonte: ', srcs:{mic:'il tuo microfono', synth:'demo 120 BPM', seq:'la tua sequenza', none:'impulso interno'}, scenes20:'20 scene',
+ vjIdle:'Clicca una scena per vederla da sola. Clicca di nuovo o premi Esc per tornare.',
+ vjNote:midi=>`Così lavoro dal vivo: 20 scene in TouchDesigner, una manopola che scurisce tutto, cambio scena e riporto su la luminosità. Qui la luminosità funziona allo stesso modo: schiarisce solo le luci. La scia è il feedback che uso in ogni set.${midi?' Con un controller MIDI, i pad cambiano scena e le prime quattro manopole che muovi controllano luminosità, scia, velocità e intensità.':''} Strobe fa lampi; attivalo solo se ti senti a tuo agio con le luci intermittenti.`,
+ sceneNames:['barre','quadrati concentrici','linea orizzontale','rumore a blocchi','strisce','blocco','linea verticale','cornice','plasma a pixel','reticolo','labirinto','città','onda a gradini','moiré','datamosh','pioggia','onda quadra','quadtree','XOR','vu-meter'], scene:'Scena', focusMsg:n=>`${n}. ← → per cambiare, Esc per tornare.`,
+ audioOff:'Audio spento. Le scene seguono il loro impulso.', micOn:'Microfono attivo. Batti le mani o metti musica: ogni colpo forte cambia scena.', demoOn:'Demo a 120 BPM in riproduzione.', micErr:'Non ho potuto usare il microfono. Controlla il permesso del browser e riprova.', autoOn:'Auto: il sito mixa da solo a ritmo.', autoOff:'Auto spento.', seqOn:'Sequencer in riproduzione. Accendi o spegni i passi: i visual seguono il tuo pattern.', seqErr:'Il sequencer non si è caricato. Controlla la connessione.', linkCopied:'Link copiato. Chi lo apre ascolta il tuo pattern.', yourPat:u=>'Il tuo pattern: '+u, fsErr:'Il tuo browser non permette lo schermo intero qui.', roles:['luminosità','scia','velocità','intensità'], midiNone:'Nessun controller MIDI trovato. Collegane uno e riprova.', midiFound:n=>`MIDI: ${n}. Muovi una manopola o tocca un pad.`, midiDenied:'Il browser non ha dato il permesso per il MIDI.', webglErr:'WebGL non è disponibile nel tuo browser.', engineErr:'Il motore 3D non si è caricato. Controlla la connessione.',
+ creSub:'le mie 7 serie, da giocare', days:['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','Domenica'], series:['Barrato','100 volte','Equazione','Trucco','Sfondo','Settimana','Senza filtro'],
+ tach:['Non è ','disciplina','.','È un sistema.'], tachHint:'Tocca la parola.',
+ cien:'rifallo', cienAria:'La frase rifallo, cento volte', cienHint:'Passa il cursore o il dito sopra.', cienN:n=>`Volta ${n} di 100.`, cien100:'Volta 100 di 100. È quella che conta.',
+ eqT:'risultato = costanza × tempo', eqD:'Giorni a settimana', eqW:'Settimane', eqOut:n=>`${n} giorni fatti. Senza motivazione. Solo ripetizione.`, eqZero:'0 giorni fatti. Zero per qualsiasi numero fa zero.',
+ trucoQ:'Quale quadrato è più chiaro?', reveal:'Rivela', hideB:'Nascondi', trucoOut:'È lo stesso grigio. Lo sfondo cambia quello che vedi.',
+ anyway:'Fallo lo stesso.', fondoT:'Uno sfondo per il tuo schermo.', fondoHint:'Tocca il telefono per invertirlo.', fondoDl:'Scarica sfondo 1080 × 1920', fondoGen:'Genera immagine 1080 × 1920', fondoAlt:'Sfondo generato',
+ weekL:['L','M','M','G','V','S','D'], weekLine:(d,l)=>`Oggi è ${d}. ${l===0?'È l’ultimo giorno della settimana.':`Ti ${l===1?'resta 1 giorno':`restano ${l} giorni`} questa settimana.`}`, weekHint:'Cosa chiuderai prima di domenica?',
+ noOne:'Nessuno ti sta guardando.',
+ mirrorH:'Extra · Specchio', mirrorT:'Tu, in Geist Mono.', mirrorAria:'Immagine convertita in caratteri', camLive:'La fotocamera funziona sul sito pubblicato.', camOn:'Accendi fotocamera', camOff:'Spegni fotocamera', capture:'Cattura', camPriv:'L’immagine viene elaborata nel tuo browser. Non viene registrata né inviata.', camErr:'Non ho potuto usare la fotocamera. Controlla il permesso del browser.',
+ tuH:'Tocca a te', tuT:'Scrivi la tua verità scomoda.', tuL:'La tua frase (max 90 caratteri)', tuWhite:'Sfondo bianco', tuBlack:'Sfondo nero', tuDl:'Scarica 1080 × 1080', tuReady:'Pronto per le tue storie.', tuHold:'Tieni premuta l’immagine o fai clic destro per salvarla.', tuAlt:'Anteprima della tua frase come post', tuEmpty:'Scrivi qualcosa.', postStyle:'stile @jaywrkr',
+ sixHead:'La stessa persona. Sei forme.', close:'Chiudi · Esc', sixAria:'Tutte e sei le facce insieme', fronts:'fronti', sixEsc:'Mi chiamo Jay Jaramillo. Vivo a Cuenca. Sono tornato da Milano con due domande: funziona? si capisce?',
+ guessAria:'Cosa pensi che sia Jay?', guessWordAria:'Tocca per scrivere cosa pensi che sia Jay', guessYes:'Sì. Guarda.', guessFlat:v=>`${v}: no. Barralo. È lavoro.`, guessExact:'Esatto.', guessHuman:'Anche. Per questo sbaglia e ci riprova.', guessMaybe:v=>`"${v}". Può darsi. Continua a guardare.`,
+ flat:['perfetto','genio','fortuna','fortunato','ricco','famoso','talento','dio','milionario'], human:['umano','persona'],
+ srcHead:n=>`Questa pagina, da dentro: ${n} righe. Nessuna di troppo.`, srcAria:'Il codice di questa pagina',
+ saver:'Ancora qui quando torni.', gen:n=>`Generazione ${n}.`,
+ ageMsg:d=>`Jay non pubblica codice da ${d} giorni. Il sito se ne accorge. Puoi pulirlo con il cursore; lui deve pubblicare.`, ageLast:d=>d===0?'Ultimo commit: oggi.':`Ultimo commit: ${d} ${d===1?'giorno':'giorni'} fa.`,
+ wkH:'Extra · La tua vita in settimane', wkT:'La tua vita in settimane.', wkL:'La tua data di nascita', wkEx:'Esempio: qualcuno nato il 1° gennaio 1990.', wkLine:(n,l)=>`Questa è la tua settimana numero ${n}. Se arrivi a 80 anni, te ne restano circa ${l}.`, wkQ:'Cosa chiuderai in questa?', wkAria:'Griglia di 80 anni in settimane',
+ bmH:'Extra · Modalità Jay', bmT:'Modalità Jay per qualsiasi sito.', bmText:'Trascina il pulsante nella barra dei preferiti. Su qualsiasi sito, cliccalo: bianco e nero, Geist Mono, niente rumore. Un altro clic lo toglie.', bmBtn:'Modalità Jay', bmDrag:'Trascinalo nella barra dei preferiti. Qui sei già in modalità Jay.', bmCopy:'Copia il codice', bmCopied:'Codice copiato. Salvalo come nuovo preferito.',
+ lang:'Lingua'
+},
+fr:{
+ locale:'fr-FR', skip:'Aller au contenu', loading:'JAY JARAMILLO — CHARGEMENT', introSkip:'Clic pour passer', lead:'Jay est ', leadT:'Jay est',
+ ecosTitle:'Échos : d’autres versions de Jay qui parcourent le site. Ils sont simulés.', ecosOn:'2 échos', ecosOff:'échos : non',
+ snd:on=>'Son : '+(on?'oui':'non'),
+ hintA:'Même contenu. Six façons de le lire. Choisis-en une, ', sixOpen:'regarde-les toutes', hintB:' ou touche le mot et écris ce que tu crois que Jay est.',
+ facetsAria:'Facettes', fContent:'Contenu', fWork:'Travail', fMusic:'Musique', fCode:'Code',
+ made:'Fait à Cuenca, Équateur. HTML, CSS et JavaScript, sans modèles.', top:'↑ Haut', city:'Cuenca',
+ docTitle:l=>`Jay est ${l} — Jay Jaramillo`, tabAway:'Jay travaille encore.',
+ simpleOn:'simple. Tape simple encore une fois pour revenir.', copied:'Copié avec signature.',
+ night:tm=>`Il est ${tm} à Cuenca. Tu devrais dormir. Moi aussi.`, sunday:'Dimanche. Sans filtre.',
+ console:'Si tu lis ceci, tu connais le code.\nEssaie la facette ingénieur et tape help.\nOu tape "simple" n’importe où sur la page.',
+ stages:['idée','design','construction','en service'], stagesShort:['idée','design','constr.','service'],
+ facets:['ingénieur','designer','écrivain','leader','VJ','créateur'],
+ proj:[['infrastructure · cloud · cybersécurité','Je dirige des projets et une équipe d’ingénieurs. L’entreprise existe en Équateur depuis plus de 20 ans.'],['contenu','Des vérités qui dérangent, pensées simples. Je ne vends rien.'],['studio digital','Design produit, landing pages et textes d’interface.'],['Terraform · Ansible · Prometheus','Plateforme de supervision multi-clients, automatisée.'],['Next.js · Neon · MCP','La plateforme centrale de Coresolutions : elle réunit les apps opérationnelles dans un tableau pour décider et un MCP privé pour interroger l’activité.'],['IA on-premise','Une IA à nous : d’abord un outil interne, puis un produit.'],['TouchDesigner · MIDI','20 scènes audio-réactives pilotées avec un Arturia MiniLab.'],['web · MIDI','S’entraîner à la batterie : les notes tombent et se jouent sur une Roland TD-02.'],['jeu vidéo','Jeu en développement. Web aujourd’hui, iOS, Android et PC ensuite.'],['app d’habitudes','Ce n’est pas de la discipline, c’est un système. Une nouvelle habitude tous les 30 jours.']],
+ log:['wip: ANKLA · CoreAI · J-Drums · WhiteDot','feat: CoreOperaciones','feat: visuels live avec TouchDesigner','feat: @jaywrkr','feat: Coresolutions','feat: télécoms + UX/UI à Milan','init: Équateur'],
+ who1:'Jay Jaramillo — ingénieur en télécommunications, Politecnico di Milano.', who2:'Je dirige des projets d’infrastructure, de cloud et de cybersécurité.',
+ dirP:'projets/', philo:'$PHILOSOPHIE', terminal:'terminal', topoCap:'Tape ping ‹projet› et regarde le chemin.', topoAria:'Topologie : Jay relié à ses projets',
+ help:[['help','cette liste'],['whoami','qui je suis'],['ls','projets'],['cat ‹projet›','détails, ex. cat ankla'],['ping ‹projet›','teste la connexion'],['open ‹projet›','lien'],['stack','technologies'],['git log','histoire'],['cd ‹facette›','ex. cd vj'],['date','heure à Cuenca'],['contact','où me trouver'],['clear','efface l’écran']],
+ helpTail:'Tab complète. ↑ ↓ parcourent l’historique. Il y a d’autres commandes ; elles ne sont pas dans la liste.',
+ whoA:'Jay Jaramillo. Ingénieur, designer, écrivain, leader, VJ et créateur.', whoB:'Cuenca, Équateur. Formé au Politecnico di Milano.',
+ catMiss:a=>`cat: ${a||'quel fichier ?'} : introuvable. Essaie ls.`, stageW:'étape',
+ openWhich:'open : lequel ? Essaie open ankla.', openNo:n=>`${n} : pas encore de lien public.`,
+ pingMiss:a=>`ping: ${a||'qui ?'} : hôte inconnu. Essaie ping coresolutions.`, pingFrom:h=>`PING ${h} depuis jay@cuenca`, pingLine:(h,i,ms)=>`64 octets de ${h} : seq=${i} temps=${ms} ms`, pingSum:'4 envoyés, 4 reçus, 0 % perdus',
+ gitOnly:'git : ici seul git log fonctionne.', dateLine:(d,tm)=>`${d}, ${tm} à Cuenca.`,
+ cContent:'contenu', cCode:'code', cWriting:'écriture',
+ neo:{edu:'Formation', work:'Travail', workV:'infrastructure · cloud · cybersécurité', shellV:'pragmatisme', font:'Police', theme:'Thème', projects:'Projets'},
+ topHead:'PROCESSUS', topSleep:'dormir', topExc:'excuses',
+ hist:['cd ecuador','mv jay ./milano      # télécoms + UX/UI','mv jay ./ecuador','cd coresolutions','echo "simple." > jaywrkr','cd cuenca','./construire --sans-raccourcis'],
+ uptime:(m,s)=>`actif depuis ${m} min ${s} s sur cette page. Sans pause depuis Milan.`,
+ opening:'J’ouvre le code de cette page…', toSix:'→ les six à la fois', toMirror:'→ créateur / miroir', toBm:'→ créateur / mode Jay',
+ ecosT:on=>'Échos '+(on?'activés.':'désactivés.'), ecosMouse:'Les échos n’apparaissent qu’avec une souris.',
+ sudo:'Permission refusée. Le seul raccourci, c’est de ne pas chercher de raccourcis.', rm:'Bien essayé.', exit:'Ici, pas d’exit. Choisis une autre facette en haut ou tape cd vj.', hello:'Salut. Tape help.', jay:'C’est moi. Tape whoami.', coffee:'418 : je suis un terminal, pas une cafetière.',
+ cdMiss:(a,l)=>`cd: ${a||'?'} : introuvable. Facettes : ${l}`, notFound:c=>`${c} : commande introuvable. Tape help.`,
+ termHint:'Ce terminal est réel. Tape help et utilise Tab pour compléter.', cmdAria:'Tape une commande', skipIntro:'Clic ou Entrée pour passer l’intro.',
+ system:'système', specNote:'Geist Mono · 300 · 400 · jamais en gras<br>UX/UI · Politecnico di Milano', swTitle:'L’accent, c’est l’inversion',
+ rules:['Seulement des angles droits','70 % de vide','Le texte ne crie pas','Une seule police','Finit par simple'],
+ tokColor:'Couleur', tokType:'Type', tokSpace:'Espace', tokLabel:'11 · étiquette', tokBody:'15 · corps',
+ guides:on=>'Repères : '+(on?'oui':'non'), breakB:'Casse le design', physLoading:'Chargement de la physique…', order:'Remettre en ordre', dragToast:'Fais glisser les boîtes.', orderToast:'Ordre. simple.',
+ dsNote:'Les mesures et les tokens sont réels : lus en direct sur cette page. Touche G pour les repères.',
+ paras:['Je m’appelle Jay Jaramillo~~ et dans cette section je veux te raconter un peu qui je suis vraiment~~. J’habite à Cuenca, en Équateur.','J’ai étudié les télécommunications et le design UX/UI au Politecnico di Milano~~, l’une des universités les plus réputées d’Europe~~. J’ai vécu en Italie quatre ou cinq ans. Je suis revenu avec deux questions que je pose toujours : est-ce que ça marche ? et est-ce que c’est clair ?','Aujourd’hui je dirige des projets d’infrastructure, de cloud et de cybersécurité chez Coresolutions~~, où chaque jour je relève des défis très intéressants~~. Je coordonne une équipe d’ingénieurs et je travaille avec des clients qui ont besoin que les choses marchent.','En dehors du bureau, je continue à construire~~ énormément de choses différentes parce que créer est ma passion~~. Des apps, des outils internes, des visuels live avec TouchDesigner, une app pour s’entraîner à la batterie et un jeu.','J’écris et je publie sous le nom @jaywrkr. Je ne vends rien. Je le fais pour que, quand tu me rencontres, tu saches déjà comment je travaille~~ et quel genre de personne je suis vraiment~~.','Si je parle de quelque chose, c’est parce que je suis comme ça.'],
+ unitWords:'mots', removed:'supprimés', min:'min',
+ board:'tableau de bord', kpis:['fronts ouverts','en service','en construction','marques partenaires chez Coresolutions'], thP:'Projet', thT:'Type', thE:'Étape',
+ principles:['Pragmatisme.','Écoute. Parle moins.','Le seul raccourci, c’est de ne pas chercher de raccourcis.'],
+ decideT:'Comment je décide · mets une idée à l’épreuve', qs:['Est-ce que ça marche ?','Est-ce que c’est clair ?','Est-ce le minimum ?'], nos:['Pas encore. Teste-la avant de la montrer.','Si ce n’est pas clair, ça n’existe pas. Enlève jusqu’à ce que ce soit clair.','Enlève encore une chose.'], yes:'Oui', no:'Non', doIt:'Fais-le. simple.', again:'Une autre idée',
+ vjSub:'20 scènes GLSL', micBtn:'Utilise ton micro', micNote:'Parle, tape des mains ou mets de la musique à côté. Chaque coup fort change la scène. L’audio est analysé dans ton navigateur ; il n’est ni enregistré ni envoyé.', demoBtn:'Écoute la démo', demoNote:'Une boucle à 120 BPM faite avec du code. Les visuels réagissent à chaque coup.', demo120:'Démo 120 BPM', fs:'Plein écran', bright:'Luminosité', trail:'Traînée',
+ seqPlay:'▶ Séquenceur', seqStop:'■ Stop', rand:'Au hasard', clear:'Effacer', share:'Copier le lien', tracks:['grosse caisse','hat','basse','blip'], step:(n,c)=>`${n}, pas ${c}`,
+ vjAria:'Visuels audio-réactifs dans une grille de 20 scènes', src:'Source : ', srcs:{mic:'ton micro', synth:'démo 120 BPM', seq:'ta séquence', none:'pulsation interne'}, scenes20:'20 scènes',
+ vjIdle:'Clique sur une scène pour la voir seule. Reclique ou appuie sur Échap pour revenir.',
+ vjNote:midi=>`Voilà comment je travaille en live : 20 scènes dans TouchDesigner, un bouton qui assombrit tout, je change de scène et je remonte la luminosité. Ici, la luminosité marche pareil : elle n’éclaire que les clairs. La traînée, c’est le feedback que j’utilise dans chaque set.${midi?' Avec un contrôleur MIDI, les pads changent de scène et les quatre premiers boutons que tu tournes contrôlent luminosité, traînée, vitesse et intensité.':''} Strobe fait des flashs ; active-le seulement si les lumières clignotantes ne te gênent pas.`,
+ sceneNames:['barres','carrés concentriques','ligne horizontale','bruit en blocs','bandes','bloc','ligne verticale','cadre','plasma en pixels','grille','labyrinthe','ville','onde en escalier','moiré','datamosh','pluie','onde carrée','quadtree','XOR','vumètre'], scene:'Scène', focusMsg:n=>`${n}. ← → pour changer, Échap pour revenir.`,
+ audioOff:'Audio coupé. Les scènes suivent leur propre pulsation.', micOn:'Micro actif. Tape des mains ou mets de la musique : chaque coup fort change la scène.', demoOn:'Démo en lecture à 120 BPM.', micErr:'Je n’ai pas pu utiliser le micro. Vérifie l’autorisation du navigateur et réessaie.', autoOn:'Auto : le site mixe tout seul au rythme.', autoOff:'Auto désactivé.', seqOn:'Séquenceur en lecture. Active ou désactive des pas : les visuels suivent ton motif.', seqErr:'Le séquenceur n’a pas pu se charger. Vérifie ta connexion.', linkCopied:'Lien copié. Qui l’ouvre entend ton motif.', yourPat:u=>'Ton motif : '+u, fsErr:'Ton navigateur n’autorise pas le plein écran ici.', roles:['luminosité','traînée','vitesse','intensité'], midiNone:'Aucun contrôleur MIDI trouvé. Branches-en un et réessaie.', midiFound:n=>`MIDI : ${n}. Tourne un bouton ou touche un pad.`, midiDenied:'Le navigateur n’a pas autorisé le MIDI.', webglErr:'WebGL n’est pas disponible dans ton navigateur.', engineErr:'Le moteur 3D n’a pas pu se charger. Vérifie ta connexion.',
+ creSub:'mes 7 séries, à toi de jouer', days:['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'], series:['Barré','100 fois','Équation','Astuce','Fond d’écran','Semaine','Sans filtre'],
+ tach:['Ce n’est pas de la ','discipline','.','C’est un système.'], tachHint:'Touche le mot.',
+ cien:'refais-le', cienAria:'La phrase refais-le, cent fois', cienHint:'Passe le curseur ou le doigt dessus.', cienN:n=>`Fois ${n} sur 100.`, cien100:'Fois 100 sur 100. C’est celle qui compte.',
+ eqT:'résultat = constance × temps', eqD:'Jours par semaine', eqW:'Semaines', eqOut:n=>`${n} jours faits. Sans motivation. Juste de la répétition.`, eqZero:'0 jour fait. Zéro fois n’importe quoi, ça fait zéro.',
+ trucoQ:'Quel carré est le plus clair ?', reveal:'Révéler', hideB:'Cacher', trucoOut:'C’est le même gris. Le fond change ce que tu vois.',
+ anyway:'Fais-le quand même.', fondoT:'Un fond d’écran pour ton téléphone.', fondoHint:'Touche le téléphone pour l’inverser.', fondoDl:'Télécharger le fond 1080 × 1920', fondoGen:'Générer l’image 1080 × 1920', fondoAlt:'Fond d’écran généré',
+ weekL:['L','M','M','J','V','S','D'], weekLine:(d,l)=>`Aujourd’hui, c’est ${d}. ${l===0?'C’est le dernier jour de la semaine.':`Il te reste ${l===1?'1 jour':`${l} jours`} cette semaine.`}`, weekHint:'Qu’est-ce que tu vas boucler avant dimanche ?',
+ noOne:'Personne ne te regarde.',
+ mirrorH:'Extra · Miroir', mirrorT:'Toi, en Geist Mono.', mirrorAria:'Image convertie en caractères', camLive:'La caméra fonctionne sur le site publié.', camOn:'Allumer la caméra', camOff:'Éteindre la caméra', capture:'Capturer', camPriv:'L’image est traitée dans ton navigateur. Elle n’est ni enregistrée ni envoyée.', camErr:'Je n’ai pas pu utiliser la caméra. Vérifie l’autorisation du navigateur.',
+ tuH:'À toi', tuT:'Écris ta vérité qui dérange.', tuL:'Ta phrase (90 caractères max.)', tuWhite:'Fond blanc', tuBlack:'Fond noir', tuDl:'Télécharger 1080 × 1080', tuReady:'Prêt pour tes stories.', tuHold:'Appuie longuement sur l’image ou fais un clic droit pour l’enregistrer.', tuAlt:'Aperçu de ta phrase en post', tuEmpty:'Écris quelque chose.', postStyle:'style @jaywrkr',
+ sixHead:'La même personne. Six formes.', close:'Fermer · Échap', sixAria:'Les six facettes à la fois', fronts:'fronts', sixEsc:'Je m’appelle Jay Jaramillo. J’habite à Cuenca. Je suis revenu de Milan avec deux questions : est-ce que ça marche ? est-ce que c’est clair ?',
+ guessAria:'Selon toi, Jay est quoi ?', guessWordAria:'Touche pour écrire ce que tu crois que Jay est', guessYes:'Oui. Regarde.', guessFlat:v=>`${v} : non. Barre ça. C’est du travail.`, guessExact:'Exact.', guessHuman:'Aussi. C’est pour ça qu’il se trompe et qu’il revient.', guessMaybe:v=>`« ${v} ». Peut-être. Continue à regarder.`,
+ flat:['parfait','génie','chance','chanceux','riche','célèbre','talent','talentueux','dieu','millionnaire'], human:['humain','personne'],
+ srcHead:n=>`Cette page, de l’intérieur : ${n} lignes. Aucune de trop.`, srcAria:'Le code de cette page',
+ saver:'Toujours là quand tu reviens.', gen:n=>`Génération ${n}.`,
+ ageMsg:d=>`Jay n’a pas publié de code depuis ${d} jours. Le site le remarque. Tu peux le nettoyer avec ton curseur ; lui doit publier.`, ageLast:d=>d===0?'Dernier commit : aujourd’hui.':`Dernier commit : il y a ${d} ${d===1?'jour':'jours'}.`,
+ wkH:'Extra · Ta vie en semaines', wkT:'Ta vie en semaines.', wkL:'Ta date de naissance', wkEx:'Exemple : quelqu’un né le 1er janvier 1990.', wkLine:(n,l)=>`Voici ta semaine numéro ${n}. Si tu arrives à 80 ans, il t’en reste environ ${l}.`, wkQ:'Qu’est-ce que tu vas boucler dans celle-ci ?', wkAria:'Grille de 80 ans en semaines',
+ bmH:'Extra · Mode Jay', bmT:'Le mode Jay pour n’importe quel site.', bmText:'Fais glisser le bouton dans ta barre de favoris. Sur n’importe quel site, clique dessus : noir et blanc, Geist Mono, sans bruit. Un autre clic l’enlève.', bmBtn:'Mode Jay', bmDrag:'Fais-le glisser dans ta barre de favoris. Ici, tu es déjà en mode Jay.', bmCopy:'Copier le code', bmCopied:'Code copié. Enregistre-le comme nouveau favori.',
+ lang:'Langue'
+},
+ja:{
+ locale:'ja-JP', skip:'本文へスキップ', loading:'JAY JARAMILLO — 読み込み中', introSkip:'クリックでスキップ', lead:'ジェイは ', leadT:'ジェイは',
+ ecosTitle:'エコー:サイトを歩き回る別バージョンのジェイ。シミュレーションです。', ecosOn:'エコー 2', ecosOff:'エコー:オフ',
+ snd:on=>'サウンド:'+(on?'オン':'オフ'),
+ hintA:'同じ内容を、6つの読み方で。ひとつ選ぶか、', sixOpen:'全部まとめて見る', hintB:'か、単語をタップしてジェイが何者だと思うか書いてください。',
+ facetsAria:'ファセット', fContent:'コンテンツ', fWork:'仕事', fMusic:'音楽', fCode:'コード',
+ made:'エクアドル、クエンカで制作。HTML、CSS、JavaScript。テンプレートなし。', top:'↑ トップへ', city:'クエンカ',
+ docTitle:l=>`ジェイは${l} — Jay Jaramillo`, tabAway:'ジェイはまだ働いている。',
+ simpleOn:'simple. もう一度 simple と入力すると戻ります。', copied:'署名付きでコピーしました。',
+ night:tm=>`クエンカは今${tm}。もう寝る時間だ。私も。`, sunday:'日曜日。フィルターなし。',
+ console:'これを読んでいるなら、コードがわかる人だ。\nエンジニアのファセットで help と入力してみて。\nまたはページのどこでも "simple" と入力。',
+ stages:['アイデア','設計','構築','運用'], stagesShort:['案','設計','構築','運用'],
+ facets:['エンジニア','デザイナー','ライター','リーダー','VJ','クリエイター'],
+ proj:[['インフラ · クラウド · サイバーセキュリティ','プロジェクトとエンジニアチームを率いています。エクアドルで20年以上続く会社です。'],['コンテンツ','居心地の悪い真実を、シンプルにデザインする。何も売っていません。'],['デジタルスタジオ','プロダクトデザイン、ランディングページ、UIコピー。'],['Terraform · Ansible · Prometheus','自動化されたマルチクライアント監視プラットフォーム。'],['Next.js · Neon · MCP','Coresolutionsの中枢プラットフォーム。業務アプリを意思決定用のボードと、ビジネスを照会する非公開のMCPにまとめる。'],['オンプレミスAI','自前のAI。まず社内ツール、次に製品へ。'],['TouchDesigner · MIDI','Arturia MiniLabで操作する20のオーディオリアクティブ・シーン。'],['web · MIDI','ドラム練習アプリ。落ちてくるノートをRoland TD-02で叩く。'],['ビデオゲーム','開発中のゲーム。今はWeb、のちにiOS、Android、PC。'],['習慣アプリ','規律じゃない、仕組みだ。30日ごとに新しい習慣をひとつ。']],
+ log:['wip: ANKLA · CoreAI · J-Drums · WhiteDot','feat: CoreOperaciones','feat: TouchDesignerでライブビジュアル','feat: @jaywrkr','feat: Coresolutions','feat: ミラノで電気通信 + UX/UI','init: エクアドル'],
+ who1:'Jay Jaramillo — 電気通信エンジニア、ミラノ工科大学。', who2:'インフラ、クラウド、サイバーセキュリティのプロジェクトを率いています。',
+ dirP:'projects/', philo:'$PHILOSOPHY', terminal:'ターミナル', topoCap:'ping ‹プロジェクト› と入力して経路を見てください。', topoAria:'トポロジー:プロジェクトとつながるジェイ',
+ help:[['help','この一覧'],['whoami','私について'],['ls','プロジェクト'],['cat ‹プロジェクト›','詳細 例: cat ankla'],['ping ‹プロジェクト›','接続テスト'],['open ‹プロジェクト›','リンク'],['stack','技術'],['git log','歴史'],['cd ‹ファセット›','例: cd vj'],['date','クエンカの時刻'],['contact','連絡先'],['clear','画面をクリア']],
+ helpTail:'Tabで補完。↑ ↓ で履歴。リストにないコマンドもあります。',
+ whoA:'Jay Jaramillo。エンジニア、デザイナー、ライター、リーダー、VJ、クリエイター。', whoB:'エクアドル、クエンカ。ミラノ工科大学で学ぶ。',
+ catMiss:a=>`cat: ${a||'どのファイル?'}: 見つかりません。ls を試して。`, stageW:'段階',
+ openWhich:'open: どれ? open ankla を試して。', openNo:n=>`${n}: 公開リンクはまだありません。`,
+ pingMiss:a=>`ping: ${a||'誰に?'}: 不明なホスト。ping coresolutions を試して。`, pingFrom:h=>`PING ${h} from jay@cuenca`, pingLine:(h,i,ms)=>`64 bytes from ${h}: seq=${i} time=${ms} ms`, pingSum:'送信4、受信4、損失0%',
+ gitOnly:'git: ここでは git log だけ動きます。', dateLine:(d,tm)=>`クエンカ、${d} ${tm}。`,
+ cContent:'コンテンツ', cCode:'コード', cWriting:'文章',
+ neo:{edu:'学歴', work:'仕事', workV:'インフラ · クラウド · サイバーセキュリティ', shellV:'実用主義', font:'フォント', theme:'テーマ', projects:'プロジェクト'},
+ topHead:'PROCESS', topSleep:'睡眠', topExc:'言い訳',
+ hist:['cd ecuador','mv jay ./milano      # 電気通信 + UX/UI','mv jay ./ecuador','cd coresolutions','echo "simple." > jaywrkr','cd cuenca','./build --no-shortcuts'],
+ uptime:(m,s)=>`このページで ${m}分${s}秒稼働中。ミラノから休みなし。`,
+ opening:'このページのコードを開いています…', toSix:'→ 6つまとめて', toMirror:'→ クリエイター / ミラー', toBm:'→ クリエイター / ジェイ・モード',
+ ecosT:on=>'エコー'+(on?'オン。':'オフ。'), ecosMouse:'エコーはマウス使用時のみ表示されます。',
+ sudo:'許可されていません。唯一の近道は、近道を探さないこと。', rm:'いい試みだ。', exit:'ここに exit はない。上で別のファセットを選ぶか cd vj と入力して。', hello:'こんにちは。help と入力して。', jay:'それは私。whoami と入力して。', coffee:'418: 私はターミナル。ティーポットではない。',
+ cdMiss:(a,l)=>`cd: ${a||'?'}: 見つかりません。ファセット: ${l}`, notFound:c=>`${c}: コマンドが見つかりません。help と入力して。`,
+ termHint:'このターミナルは本物です。help と入力し、Tabで補完。', cmdAria:'コマンドを入力', skipIntro:'クリックかEnterでイントロをスキップ。',
+ system:'システム', specNote:'Geist Mono · 300 · 400 · 太字は使わない<br>UX/UI · ミラノ工科大学', swTitle:'アクセントは反転',
+ rules:['直角だけ','70%は余白','文字は叫ばない','書体はひとつ','最後は simple'],
+ tokColor:'色', tokType:'文字', tokSpace:'余白', tokLabel:'11 · ラベル', tokBody:'15 · 本文',
+ guides:on=>'ガイド:'+(on?'オン':'オフ'), breakB:'デザインを壊す', physLoading:'物理エンジンを読み込み中…', order:'整える', dragToast:'箱をドラッグして。', orderToast:'整った。simple.',
+ dsNote:'寸法とトークンは本物。このページからリアルタイムで読み取っています。Gキーでガイド。',
+ paras:['ジェイ・ハラミージョです~~。このセクションでは、本当の自分について少しお話ししたいと思います~~。エクアドルのクエンカに住んでいます。','ミラノ工科大学で電気通信とUX/UIデザインを学びました~~。ヨーロッパでも有数の名門大学です~~。イタリアには4、5年住みました。いつも問う2つの質問を持ち帰りました。動くか? 伝わるか?','今はCoresolutionsでインフラ、クラウド、サイバーセキュリティのプロジェクトを率いています~~。毎日とても興味深い課題に向き合っています~~。エンジニアのチームをまとめ、物事がちゃんと動くことを求めるクライアントと仕事をしています。','オフィスの外でも作り続けています~~。作ることが好きなので、本当にいろいろなものを~~。アプリ、社内ツール、TouchDesignerのライブビジュアル、ドラム練習アプリ、そしてゲーム。','@jaywrkrとして書いて発信しています。何も売っていません。会ったときに、私の働き方をもう知っているように~~。そして私が本当はどんな人間なのかも~~。','何かについて話すなら、それが私だからです。'],
+ unitWords:'文字', removed:'削除', min:'分',
+ board:'ボード', kpis:['進行中の取り組み','運用中','構築中','Coresolutionsのパートナーブランド'], thP:'プロジェクト', thT:'種類', thE:'段階',
+ principles:['実用主義。','聞く。話すのは少なく。','唯一の近道は、近道を探さないこと。'],
+ decideT:'決め方 · アイデアを試す', qs:['動くか?','伝わるか?','最小限か?'], nos:['まだだ。見せる前に試せ。','伝わらないなら、存在しないのと同じ。伝わるまで削れ。','もうひとつ削れ。'], yes:'はい', no:'いいえ', doIt:'やれ。simple.', again:'別のアイデア',
+ vjSub:'20のGLSLシーン', micBtn:'マイクを使う', micNote:'話す、手を叩く、近くで音楽を流す。強い音が鳴るたびにシーンが変わります。音声はブラウザ内で解析され、録音も送信もされません。', demoBtn:'デモを聴く', demoNote:'コードで作った120 BPMのループ。ビジュアルが一打ごとに反応します。', demo120:'デモ 120 BPM', fs:'全画面', bright:'明るさ', trail:'残像',
+ seqPlay:'▶ シーケンサー', seqStop:'■ 停止', rand:'ランダム', clear:'クリア', share:'リンクをコピー', tracks:['キック','ハット','ベース','ブリップ'], step:(n,c)=>`${n}、ステップ${c}`,
+ vjAria:'20シーンのグリッドで表示されるオーディオリアクティブ・ビジュアル', src:'ソース:', srcs:{mic:'あなたのマイク', synth:'デモ 120 BPM', seq:'あなたのシーケンス', none:'内部パルス'}, scenes20:'20シーン',
+ vjIdle:'シーンをクリックすると単独で表示。もう一度クリックかEscで戻る。',
+ vjNote:midi=>`ライブではこうしています:TouchDesignerに20シーン、全体を暗くするノブ、シーンを切り替えてから明るさを戻す。ここの明るさも同じで、明るい部分だけを持ち上げます。残像は毎回のセットで使うフィードバックです。${midi?'MIDIコントローラーをつなぐと、パッドでシーンが変わり、最初に動かした4つのノブが明るさ、残像、速度、強さを操作します。':''}ストロボは点滅します。点滅する光が平気な場合だけオンにしてください。`,
+ sceneNames:['バー','同心の正方形','水平線','ブロックノイズ','ストライプ','ブロック','垂直線','フレーム','ピクセルプラズマ','グリッド','迷路','都市','階段状の波','モアレ','データモッシュ','雨','矩形波','四分木','XOR','VUメーター'], scene:'シーン', focusMsg:n=>`${n}。← → で切り替え、Escで戻る。`,
+ audioOff:'音声オフ。シーンは自分のパルスで動き続けます。', micOn:'マイクオン。手を叩くか音楽を流して。強い音ごとにシーンが変わります。', demoOn:'120 BPMでデモ再生中。', micErr:'マイクを使えませんでした。ブラウザの許可を確認してもう一度試してください。', autoOn:'オート:サイトがビートに合わせて自分でミックスします。', autoOff:'オートをオフにしました。', seqOn:'シーケンサー再生中。ステップをオン/オフすると、ビジュアルがパターンに従います。', seqErr:'シーケンサーを読み込めませんでした。接続を確認してください。', linkCopied:'リンクをコピーしました。開いた人にあなたのパターンが聞こえます。', yourPat:u=>'あなたのパターン:'+u, fsErr:'このブラウザではここで全画面にできません。', roles:['明るさ','残像','速度','強さ'], midiNone:'MIDIコントローラーが見つかりません。接続してもう一度試してください。', midiFound:n=>`MIDI:${n}。ノブを回すかパッドを叩いて。`, midiDenied:'ブラウザがMIDIを許可しませんでした。', webglErr:'このブラウザではWebGLが使えません。', engineErr:'3Dエンジンを読み込めませんでした。接続を確認してください。',
+ creSub:'7つのシリーズを、遊べる形で', days:['月曜','火曜','水曜','木曜','金曜','土曜','日曜'], series:['取り消し線','100回','方程式','トリック','壁紙','週','フィルターなし'],
+ tach:['','規律','じゃない。','仕組みだ。'], tachHint:'単語をタップして。',
+ cien:'もう一回', cienAria:'「もう一回」を100回', cienHint:'カーソルか指でなぞって。', cienN:n=>`${n}回目 / 100。`, cien100:'100回目 / 100。数に入るのはこの1回。',
+ eqT:'結果 = 継続 × 時間', eqD:'週の日数', eqW:'週', eqOut:n=>`${n}日やった。やる気はいらない。繰り返すだけ。`, eqZero:'0日。ゼロに何を掛けてもゼロ。',
+ trucoQ:'どちらの正方形が明るい?', reveal:'答えを見る', hideB:'隠す', trucoOut:'同じグレー。背景が見え方を変えている。',
+ anyway:'それでもやれ。', fondoT:'スマホの壁紙を。', fondoHint:'スマホをタップすると反転します。', fondoDl:'壁紙をダウンロード 1080 × 1920', fondoGen:'画像を生成 1080 × 1920', fondoAlt:'生成された壁紙',
+ weekL:['月','火','水','木','金','土','日'], weekLine:(d,l)=>`今日は${d}。${l===0?'今週の最終日だ。':`今週は残り${l}日。`}`, weekHint:'日曜までに何を終わらせる?',
+ noOne:'誰も見ていない。',
+ mirrorH:'Extra · ミラー', mirrorT:'あなたを、Geist Monoで。', mirrorAria:'文字に変換された画像', camLive:'カメラは公開サイトで動きます。', camOn:'カメラをオン', camOff:'カメラをオフ', capture:'キャプチャ', camPriv:'画像はブラウザ内で処理され、録画も送信もされません。', camErr:'カメラを使えませんでした。ブラウザの許可を確認してください。',
+ tuH:'次はあなた', tuT:'あなたの居心地の悪い真実を書いて。', tuL:'あなたのフレーズ(最大90文字)', tuWhite:'白背景', tuBlack:'黒背景', tuDl:'ダウンロード 1080 × 1080', tuReady:'ストーリーにそのまま使えます。', tuHold:'画像を長押しするか右クリックで保存。', tuAlt:'投稿としてのフレーズのプレビュー', tuEmpty:'何か書いて。', postStyle:'スタイル @jaywrkr',
+ sixHead:'同じ人。6つの形。', close:'閉じる · Esc', sixAria:'6つのファセットを同時に', fronts:'件', sixEsc:'ジェイ・ハラミージョです。クエンカに住んでいます。ミラノから2つの質問を持ち帰りました。動くか? 伝わるか?',
+ guessAria:'ジェイは何者だと思う?', guessWordAria:'タップしてジェイが何者だと思うか書く', guessYes:'そう。見て。', guessFlat:v=>`${v}:違う。消して。仕事だ。`, guessExact:'その通り。', guessHuman:'それも。だから間違えて、また戻ってくる。', guessMaybe:v=>`「${v}」。かもしれない。見続けて。`,
+ flat:['完璧','天才','運','金持ち','有名','才能','神','億万長者'], human:['人間','人'],
+ srcHead:n=>`このページの中身:${n}行。無駄な行はない。`, srcAria:'このページのコード',
+ saver:'戻ってきても、ここにいる。', gen:n=>`第${n}世代。`,
+ ageMsg:d=>`ジェイは${d}日間コードを公開していない。サイトは気づいている。カーソルで掃除できるが、公開するのは彼だ。`, ageLast:d=>d===0?'最終コミット:今日。':`最終コミット:${d}日前。`,
+ wkH:'Extra · 週で見る人生', wkT:'週で見るあなたの人生。', wkL:'生年月日', wkEx:'例:1990年1月1日生まれの人。', wkLine:(n,l)=>`今が${n}週目。80歳まで生きるなら、残りはおよそ${l}週。`, wkQ:'この1週で何を終わらせる?', wkAria:'80年を週で表したグリッド',
+ bmH:'Extra · ジェイ・モード', bmT:'どのサイトでもジェイ・モード。', bmText:'ボタンをブックマークバーにドラッグ。どのサイトでもクリックすると、白黒、Geist Mono、ノイズなし。もう一度クリックで解除。', bmBtn:'ジェイ・モード', bmDrag:'ブックマークバーにドラッグして。ここはもうジェイ・モードです。', bmCopy:'コードをコピー', bmCopied:'コードをコピーしました。新しいブックマークとして保存して。',
+ lang:'言語'
+}
+};
+const LANGS = ['es','en','it','fr','ja'], LANG_LABEL = {es:'ES', en:'EN', it:'IT', fr:'FR', ja:'日本語'};
+const lsx = {get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k, v){ try { localStorage.setItem(k, v); } catch(e){} }};
+let LANG = (() => {
+ const q = new URLSearchParams(location.search).get('lang'); if (LANGS.includes(q)) return q;
+ const s = lsx.get('jay-lang'); if (LANGS.includes(s)) return s;
+ const n = (navigator.language || 'es').slice(0, 2).toLowerCase(); return LANGS.includes(n) ? n : 'es';
+})();
+const tr = (k, ...a) => { const d = I18N[LANG][k] !== undefined ? I18N[LANG][k] : I18N.es[k]; return typeof d === 'function' ? d(...a) : d; };
+const ET = () => tr('stages');
+const FAM = "'Geist Mono', 'M PLUS 1 Code', ui-monospace, Menlo, monospace";
+const countUnits = s => LANG === 'ja' ? (String(s).match(/[\p{L}\p{N}]/gu) || []).length : (String(s).match(/[\p{L}\d]+/gu) || []).length;
+
+
 /* ───────── datos: una sola fuente para las seis formas ───────── */
-const ETAPAS = ['idea','diseño','construcción','operación'];
 const P = [
- {n:'Coresolutions', t:'infraestructura · cloud · ciberseguridad', d:'Dirijo proyectos y un equipo de ingenieros. Más de 20 años de la empresa en Ecuador.', e:3, url:'https://www.instagram.com/coresolutionsec/', dir:'coresolutions/'},
- {n:'@jaywrkr', t:'contenido', d:'Verdades incómodas, diseñadas simple. No vendo nada.', e:3, url:'https://www.instagram.com/jaywrkr/', dir:'jaywrkr/'},
- {n:'Minervo Studio', t:'estudio digital', d:'Diseño de producto, landing pages y copy de interfaz.', e:3, url:'https://www.instagram.com/minervostudio/', dir:'minervo/'},
- {n:'Monitoreo', t:'Terraform · Ansible · Prometheus', d:'Plataforma de monitoreo multicliente, automatizada.', e:2, dir:'monitoreo/'},
- {n:'CoreOperaciones', t:'Next.js · Neon · MCP', d:'Plataforma central de Coresolutions: une las apps operativas en un tablero para decidir y un MCP privado para consultar el negocio.', e:3, dir:'coreoperaciones/'},
- {n:'CoreAI', t:'IA on-premise', d:'IA propia: primero herramienta interna, luego producto.', e:1, dir:'coreai/'},
- {n:'Rig VJ', t:'TouchDesigner · MIDI', d:'20 escenas audio-reactivas controladas con un Arturia MiniLab.', e:2, url:'https://www.instagram.com/naturalnoise/', dir:'vj/'},
- {n:'J-Drums', t:'web · MIDI', d:'Practicar batería: las notas caen y se tocan en una Roland TD-02.', e:2, dir:'j-drums/'},
- {n:'WhiteDot', t:'videojuego', d:'Juego en desarrollo. Web hoy, iOS, Android y PC después.', e:2, dir:'whitedot/'},
- {n:'ANKLA', t:'app de hábitos', d:'No es disciplina, es un sistema. Un hábito nuevo cada 30 días.', e:2, url:'https://ankla.app', dir:'ankla/'}
+ {n:'Coresolutions', e:3, url:'https://www.instagram.com/coresolutionsec/', dir:'coresolutions/'},
+ {n:'@jaywrkr', e:3, url:'https://www.instagram.com/jaywrkr/', dir:'jaywrkr/'},
+ {n:'Minervo Studio', e:3, url:'https://www.instagram.com/minervostudio/', dir:'minervo/'},
+ {n:'Monitoreo', e:2, dir:'monitoreo/'},
+ {n:'CoreOperaciones', e:3, dir:'coreoperaciones/'},
+ {n:'CoreAI', e:1, dir:'coreai/'},
+ {n:'Rig VJ', e:2, url:'https://www.instagram.com/naturalnoise/', dir:'vj/'},
+ {n:'J-Drums', e:2, dir:'j-drums/'},
+ {n:'WhiteDot', e:2, dir:'whitedot/'},
+ {n:'ANKLA', e:2, url:'https://ankla.app', dir:'ankla/'}
 ];
+P.forEach((p, i) => Object.defineProperties(p, {t:{get:() => tr('proj')[i][0]}, d:{get:() => tr('proj')[i][1]}}));
 const STACK = [
  ['infra','IBM · Lenovo · HPE · Synology'],
  ['virt','VMware'],
@@ -447,19 +852,14 @@ const STACK = [
  ['visual','TouchDesigner · GLSL · p5.js'],
  ['no-code','Glide']
 ];
-const LOG = [['9aa3e71','wip: ANKLA · CoreAI · J-Drums · WhiteDot'],['5d02c7e','feat: CoreOperaciones'],['f2c7d05','feat: visuales en vivo con TouchDesigner'],['e98a1b6','feat: @jaywrkr'],['c41d8f3','feat: Coresolutions'],['3b9d417','feat: telecomunicaciones + UX/UI en Milán'],['a1f0e2c','init: Ecuador']];
-const MANTRAS = [
- 'Éxito es tener cada día menos arrepentimientos.',
- 'No es <span class="strike">disciplina</span>. Es un sistema.',
- 'Escucha. Habla menos.',
- 'El único atajo es no buscar atajos.',
- 'Nadie te está viendo. Hazlo igual.',
- 'Pragmatismo.',
- '¿Cómo sería esto más divertido?'
-];
+const LOGH = ['9aa3e71','5d02c7e','f2c7d05','e98a1b6','c41d8f3','3b9d417','a1f0e2c'];
+const LOG = () => LOGH.map((h, i) => [h, tr('log')[i]]);
+
 const link = (p, txt) => p.url ? `<a href="${p.url}" target="_blank" rel="noopener">${txt||p.n} ↗</a>` : (txt||p.n);
 const findP = q => { const k = norm(q); return k ? P.find(p => norm(p.n) === k || norm(p.dir) === k || norm(p.n).replace(/-/g,'') === k.replace(/-/g,'')) : null; };
-const cuencaTime = (o) => new Intl.DateTimeFormat('es-EC', Object.assign({timeZone:'America/Guayaquil'}, o)).format(new Date());
+const cuencaTime = (o) => new Intl.DateTimeFormat(tr('locale'), Object.assign({timeZone:'America/Guayaquil'}, o)).format(new Date());
+const cuencaHour = () => +new Intl.DateTimeFormat('en-GB', {timeZone:'America/Guayaquil', hour:'2-digit', hour12:false}).format(new Date());
+const cuencaDow = () => ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Intl.DateTimeFormat('en-US', {timeZone:'America/Guayaquil', weekday:'short'}).format(new Date()));
 
 let threeP;
 let rapierP, toneP;
@@ -482,41 +882,43 @@ function loadThree(){
 const toastEl = document.createElement('div'); toastEl.className = 'toast'; toastEl.setAttribute('role','status'); document.body.appendChild(toastEl);
 let toastT;
 function toast(msg){ toastEl.textContent = msg; toastEl.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('on'), 2400); }
-function toggleSimple(){ const on = document.documentElement.classList.toggle('inv'); toast(on ? 'simple. Escribe simple otra vez para volver.' : 'simple.'); }
+function toggleSimple(){ const on = document.documentElement.classList.toggle('inv'); toast(on ? tr('simpleOn') : 'simple.'); }
 
 /* ───────── modos ───────── */
 const MODES = [
- {id:'ingeniero', label:'ingeniero', theme:'dark', mount:mountIngeniero},
- {id:'disenador', label:'diseñador', theme:'light', mount:mountDisenador},
- {id:'escritor',  label:'escritor',  theme:'light', mount:mountEscritor},
- {id:'lider',     label:'líder',     theme:'dark', mount:mountLider},
- {id:'vj',        label:'VJ',        theme:'dark', mount:mountVJ},
- {id:'creador',   label:'creador',   theme:'dark', mount:mountCreador}
+ {id:'ingeniero', theme:'dark', mount:mountIngeniero},
+ {id:'disenador', theme:'light', mount:mountDisenador},
+ {id:'escritor',  theme:'light', mount:mountEscritor},
+ {id:'lider',     theme:'dark', mount:mountLider},
+ {id:'vj',        theme:'dark', mount:mountVJ},
+ {id:'creador',   theme:'dark', mount:mountCreador}
 ];
+MODES.forEach((m, i) => Object.defineProperty(m, 'label', {get:() => tr('facets')[i]}));
+const stageLabel = (i, sub) => `${String(i+1).padStart(2,'0')} — ${MODES[i].label} / ${sub}`;
 
 /* 1 · ingeniero: terminal real + topología */
 function mountIngeniero(stage){
  const pr = c => `<span class="p"><b>jay@cuenca</b>:~$ </span>${c}`;
  const kv = (k, v) => `<span class="kv"><span class="mute">${k}</span><span>${v}</span></span>`;
- const row = p => `<span class="row"><span class="mute">${ETAPAS[p.e]}</span><span>${link(p,p.dir)}</span><span class="mute">${p.t}</span></span>`;
+ const row = p => `<span class="row"><span class="mute">${ET()[p.e]}</span><span>${link(p,p.dir)}</span><span class="mute">${p.t}</span></span>`;
  const L = [];
  L.push(pr('whoami'));
- L.push('Jay Jaramillo — ingeniero en telecomunicaciones, Politecnico di Milano.');
- L.push('Dirijo proyectos de infraestructura, cloud y ciberseguridad.');
+ L.push(tr('who1'));
+ L.push(tr('who2'));
  L.push('<div class="gap"></div>');
  L.push(pr('cat stack.txt'));
  STACK.forEach(([k,v]) => L.push(kv(k,v)));
  L.push('<div class="gap"></div>');
- L.push(pr('ls proyectos/'));
+ L.push(pr('ls ' + tr('dirP')));
  P.forEach(p => L.push(row(p)));
  L.push('<div class="gap"></div>');
  L.push(pr('git log --oneline'));
- LOG.forEach(([h,m]) => L.push(`<span class="mute">${h}</span> ${m}`));
+ LOG().forEach(([h,m]) => L.push(`<span class="mute">${h}</span> ${m}`));
  L.push('<div class="gap"></div>');
- L.push(pr('echo $FILOSOFIA'));
+ L.push(pr('echo ' + tr('philo')));
  L.push('simple');
 
- stage.innerHTML = `<p class="stage-label small mute">01 — ingeniero / terminal</p><div class="eng"><div class="term" role="log" aria-label="Terminal"></div><figure class="topo-fig"><canvas class="topo" aria-label="Topología: Jay conectado a sus proyectos"></canvas><figcaption class="small mute">Escribe ping ‹proyecto› y mira la ruta.</figcaption></figure></div>`;
+ stage.innerHTML = `<p class="stage-label small mute">${stageLabel(0, tr('terminal'))}</p><div class="eng"><div class="term" role="log" aria-label="Terminal"></div><figure class="topo-fig"><canvas class="topo" aria-label="${tr('topoAria')}"></canvas><figcaption class="small mute">${tr('topoCap')}</figcaption></figure></div>`;
  const box = stage.querySelector('.term');
  const topo = makeTopo(stage.querySelector('.topo'));
  let cmdLine = null, input = null;
@@ -524,61 +926,58 @@ function mountIngeniero(stage){
  const later = (fn, ms) => timers.push(setTimeout(fn, ms));
  const out = html => { const d = document.createElement('div'); d.className = 'ln'; d.innerHTML = html; box.insertBefore(d, cmdLine); return d; };
 
- const HELP = [
-  ['help','esta lista'],['whoami','quién soy'],['ls','proyectos'],['cat ‹proyecto›','detalle, ej. cat ankla'],
-  ['ping ‹proyecto›','prueba la conexión'],['open ‹proyecto›','enlace'],['stack','tecnologías'],['git log','historia'],
-  ['cd ‹faceta›','ej. cd vj'],['date','hora en Cuenca'],['contacto','dónde encontrarme'],['clear','limpia la pantalla']
- ];
+ const HELP = tr('help');
  function run(v){
   const [c0, ...args] = v.split(/\s+/); const c = c0.toLowerCase(); const a = args.join(' ');
   const facet = MODES.find(m => m.id === norm(a || c) || norm(m.label) === norm(a || c));
   switch (c){
-   case 'help': HELP.forEach(([k,d]) => out(kv(k,d).replace('class="kv"','class="kv w"'))); out('<span class="mute">Tab completa. ↑ ↓ recorren el historial. Hay más comandos; no están en la lista.</span>'); break;
-   case 'whoami': out('Jay Jaramillo. Ingeniero, diseñador, escritor, líder, VJ y creador.'); out('Cuenca, Ecuador. Formado en el Politecnico di Milano.'); break;
+   case 'help': HELP.forEach(([k,d]) => out(kv(k,d).replace('class="kv"','class="kv w"'))); out(`<span class="mute">${tr('helpTail')}</span>`); break;
+   case 'whoami': out(tr('whoA')); out(tr('whoB')); break;
    case 'ls': P.forEach(p => out(row(p))); break;
-   case 'cat': { const p = findP(a); if (!p){ out(`cat: ${esc(a)||'¿qué archivo?'}: no existe. Prueba ls.`); break; }
-    out(`${p.n} <span class="mute">— ${p.t}</span>`); out(p.d); out(`<span class="mute">etapa:</span> ${ETAPAS[p.e]}`); topo.focus(p); break; }
-   case 'open': { const p = findP(a); if (!p){ out('open: ¿cuál? Prueba open ankla.'); break; } out(p.url ? `→ ${link(p)}` : `${p.n}: todavía sin enlace público.`); topo.focus(p); break; }
-   case 'ping': { const p = findP(a); if (!p){ out(`ping: ${esc(a)||'¿a quién?'}: host desconocido. Prueba ping coresolutions.`); break; }
-    const host = p.dir.replace('/',''); out(`PING ${host} desde jay@cuenca`); topo.ping(p);
-    for (let i = 0; i < 4; i++) later(() => out(`64 bytes de ${host}: seq=${i} tiempo=${(6+Math.random()*28).toFixed(1)} ms`), 380*(i+1));
-    later(() => out('<span class="mute">4 enviados, 4 recibidos, 0% perdidos</span>'), 1900); break; }
+   case 'cat': { const p = findP(a); if (!p){ out(esc(tr('catMiss', a))); break; }
+    out(`${p.n} <span class="mute">— ${p.t}</span>`); out(p.d); out(`<span class="mute">${tr('stageW')}:</span> ${ET()[p.e]}`); topo.focus(p); break; }
+   case 'open': { const p = findP(a); if (!p){ out(tr('openWhich')); break; } out(p.url ? `→ ${link(p)}` : tr('openNo', p.n)); topo.focus(p); break; }
+   case 'ping': { const p = findP(a); if (!p){ out(esc(tr('pingMiss', a))); break; }
+    const host = p.dir.replace('/',''); out(tr('pingFrom', host)); topo.ping(p);
+    for (let i = 0; i < 4; i++) later(() => out(tr('pingLine', host, i, (6+Math.random()*28).toFixed(1))), 380*(i+1));
+    later(() => out(`<span class="mute">${tr('pingSum')}</span>`), 1900); break; }
    case 'stack': STACK.forEach(([k,v]) => out(kv(k,v))); break;
-   case 'git': if ((args[0]||'') !== 'log'){ out('git: por aquí solo funciona git log.'); break; } /* falls through */
-   case 'log': LOG.forEach(([h,m]) => out(`<span class="mute">${h}</span> ${m}`)); break;
-   case 'date': out(`${cuencaTime({dateStyle:'full'})}, ${cuencaTime({timeStyle:'short'})} en Cuenca.`); break;
-   case 'contacto': case 'contact':
-    out(`contenido  <a href="https://www.instagram.com/jaywrkr/" target="_blank" rel="noopener">@jaywrkr ↗</a>`);
-    out(`código     <a href="https://github.com/Jaywrkr" target="_blank" rel="noopener">github.com/Jaywrkr ↗</a>`);
-    out(`escritura  <a href="https://jaywrkr.substack.com/" target="_blank" rel="noopener">substack ↗</a>`); break;
+   case 'git': if ((args[0]||'') !== 'log'){ out(tr('gitOnly')); break; } /* falls through */
+   case 'log': LOG().forEach(([h,m]) => out(`<span class="mute">${h}</span> ${m}`)); break;
+   case 'date': out(tr('dateLine', cuencaTime({dateStyle:'full'}), cuencaTime({timeStyle:'short'}))); break;
+   case 'contacto': case 'contact': case 'contatto':
+    out(kv(tr('cContent'), `<a href="https://www.instagram.com/jaywrkr/" target="_blank" rel="noopener">@jaywrkr ↗</a>`).replace('class="kv"','class="kv w"'));
+    out(kv(tr('cCode'), `<a href="https://github.com/Jaywrkr" target="_blank" rel="noopener">github.com/Jaywrkr ↗</a>`).replace('class="kv"','class="kv w"'));
+    out(kv(tr('cWriting'), `<a href="https://jaywrkr.substack.com/" target="_blank" rel="noopener">substack ↗</a>`).replace('class="kv"','class="kv w"')); break;
    case 'clear': box.querySelectorAll('.ln:not(.cmdline)').forEach(n => n.remove()); break;
    case 'neofetch': {
-    const info = [['','jay@cuenca'],['','──────────'],['Host','Cuenca, Ecuador'],['Formación','Politecnico di Milano'],['Trabajo','infraestructura · cloud · ciberseguridad'],['Shell','pragmatismo'],['Fuente','Geist Mono 300'],['Tema','#000000 · #FFFFFF'],['Proyectos', String(P.length)]];
+    const nf = tr('neo'), info = [['','jay@cuenca'],['','──────────'],['Host','Cuenca, Ecuador'],[nf.edu,'Politecnico di Milano'],[nf.work,nf.workV],['Shell',nf.shellV],[nf.font,'Geist Mono 300'],[nf.theme,'#000000 · #FFFFFF'],[nf.projects, String(P.length)]];
     const logo = ['██████████','██      ██','██  ██  ██','██      ██','██████████','','','',''];
     info.forEach(([k,v], i) => out(`<span class="mute">${logo[i].padEnd(12,' ')}</span>${k ? `<span class="mute">${k}:</span> ` : ''}${v}`)); break; }
    case 'top': {
-    out('<span class="mute">PROCESO            CPU</span>');
-    [['coresolutions',46],['jaywrkr',14],['coreoperaciones',12],['vj',9],['ankla',7],['j-drums',5],['dormir',4],['excusas',0]].forEach(([n,c]) => out(`${n.padEnd(18,' ')} ${String(c).padStart(3,' ')}%  ${'■'.repeat(Math.round(c/3))}`));
+    out(`<span class="mute">${tr('topHead').padEnd(18,' ')} CPU</span>`);
+    [['coresolutions',46],['jaywrkr',14],['coreoperaciones',12],['vj',9],['ankla',7],['j-drums',5],[tr('topSleep'),4],[tr('topExc'),0]].forEach(([n,c]) => out(`${esc(n).padEnd(18,' ')} ${String(c).padStart(3,' ')}%  ${'■'.repeat(Math.round(c/3))}`));
     break; }
    case 'history':
-    ['cd ecuador','mv jay ./milano      # telecomunicaciones + UX/UI','mv jay ./ecuador','cd coresolutions','echo "simple." > jaywrkr','cd cuenca','./construir --sin-atajos'].forEach((c,i) => out(`<span class="mute">${String(i+1).padStart(4,' ')}</span>  ${esc(c)}`)); break;
-   case 'uptime': { const sec = Math.round((performance.now())/1000); out(`arriba ${Math.floor(sec/60)} min ${sec%60} s en esta página. Sin pausa desde Milán.`); break; }
-   case 'codigo': case 'código': case 'source': out('Abriendo el código de esta página…'); later(openSrc, 300); break;
-   case 'seis': case 'todas': out('→ las seis a la vez'); later(openSix, 250); break;
-   case 'espejo': out('→ creador / espejo'); later(() => { setMode('creador', true); setTimeout(() => { const e = document.querySelector('[data-s=espejo]'); if (e) e.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); }, 1200); }, 250); break;
-   case 'ecos': if (window.__ecos){ window.__ecos.toggle(); out('Ecos ' + (window.__ecos.on ? 'encendidos.' : 'apagados.')); } else out('Los ecos solo aparecen con mouse.'); break;
-   case 'sudo': out('Permiso denegado. El único atajo es no buscar atajos.'); break;
-   case 'rm': out('Buen intento.'); break;
+    tr('hist').forEach((c,i) => out(`<span class="mute">${String(i+1).padStart(4,' ')}</span>  ${esc(c)}`)); break;
+   case 'uptime': { const sec = Math.round((performance.now())/1000); out(tr('uptime', Math.floor(sec/60), sec%60)); break; }
+   case 'codigo': case 'código': case 'source': case 'code': case 'codice': case 'コード': out(tr('opening')); later(openSrc, 300); break;
+   case 'seis': case 'todas': case 'six': case 'sei': case 'all': out(tr('toSix')); later(openSix, 250); break;
+   case 'modojay': case 'jaymode': case 'modejay': out(tr('toBm')); later(() => { setMode('creador', true); setTimeout(() => { const e = document.querySelector('[data-s=modo]'); if (e) e.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); }, 1200); }, 250); break;
+   case 'espejo': case 'mirror': case 'specchio': case 'miroir': case 'ミラー': out(tr('toMirror')); later(() => { setMode('creador', true); setTimeout(() => { const e = document.querySelector('[data-s=espejo]'); if (e) e.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); }, 1200); }, 250); break;
+   case 'ecos': case 'echoes': case 'echi': case 'échos': case 'echos': if (window.__ecos){ window.__ecos.toggle(); out(tr('ecosT', window.__ecos.on)); } else out(tr('ecosMouse')); break;
+   case 'sudo': out(tr('sudo')); break;
+   case 'rm': out(tr('rm')); break;
    case 'simple': toggleSimple(); out('simple.'); break;
    case 'echo': out(esc(a)); break;
-   case 'exit': case 'quit': out('Aquí no hay exit. Elige otra faceta arriba o escribe cd vj.'); break;
-   case 'hola': case 'hi': case 'hello': out('Hola. Escribe help.'); break;
-   case 'jay': out('Ese soy yo. Escribe whoami.'); break;
-   case 'coffee': case 'cafe': case 'café': out('418: soy una terminal, no una cafetera.'); break;
-   case 'cd': if (facet){ out(`→ ${facet.label}`); later(() => setMode(facet.id, true), 250); } else out(`cd: ${esc(a)||'?'}: no existe. Facetas: ${MODES.map(m=>m.id).join(' · ')}`); break;
+   case 'exit': case 'quit': out(tr('exit')); break;
+   case 'hola': case 'hi': case 'hello': case 'ciao': case 'salut': case 'bonjour': case 'こんにちは': out(tr('hello')); break;
+   case 'jay': out(tr('jay')); break;
+   case 'coffee': case 'cafe': case 'café': case 'caffè': case 'caffe': out(tr('coffee')); break;
+   case 'cd': if (facet){ out(`→ ${facet.label}`); later(() => setMode(facet.id, true), 250); } else out(esc(tr('cdMiss', a, MODES.map(m=>m.id).join(' · ')))); break;
    default:
     if (facet && !a){ out(`→ ${facet.label}`); later(() => setMode(facet.id, true), 250); }
-    else out(`${esc(c0)}: comando no encontrado. Escribe help.`);
+    else out(esc(tr('notFound', c0)));
   }
  }
  const hist = []; let hi = 0;
@@ -591,7 +990,7 @@ function mountIngeniero(stage){
    input.scrollIntoView({block:'nearest'});
   } else if (e.key === 'Tab'){
    e.preventDefault();
-   const v = input.value, parts = v.split(/\s+/), CMDS = ['help','whoami','ls','cat','open','ping','stack','git log','date','contacto','clear','cd','echo'];
+   const v = input.value, parts = v.split(/\s+/), CMDS = ['help','whoami','ls','cat','open','ping','stack','git log','date','contact','clear','cd','echo'];
    const first = parts.length <= 1, pre = (first ? v : parts.slice(1).join(' ')).toLowerCase();
    const pool = first ? CMDS : parts[0] === 'cd' ? MODES.map(m => m.id) : P.map(p => p.dir.replace('/',''));
    const opts = pool.filter(x => x.startsWith(pre));
@@ -607,9 +1006,9 @@ function mountIngeniero(stage){
  function addPrompt(){
   const sk = box.querySelector('[data-skip]'); if (sk) sk.parentNode.remove();
   out('<div class="gap"></div>');
-  out('<span class="hint">Esta terminal es real. Escribe help y usa Tab para completar.</span>');
+  out(`<span class="hint">${tr('termHint')}</span>`);
   cmdLine = document.createElement('label'); cmdLine.className = 'ln cmdline';
-  cmdLine.innerHTML = `${pr('')}<input id="cmd" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Escribe un comando">`;
+  cmdLine.innerHTML = `${pr('')}<input id="cmd" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="${tr('cmdAria')}">`;
   box.appendChild(cmdLine); input = cmdLine.querySelector('input');
   input.addEventListener('keydown', onKey);
  }
@@ -621,7 +1020,7 @@ function mountIngeniero(stage){
  const skipKey = e => { if (typing && (e.target === document.body || box.contains(e.target)) && (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape')){ e.preventDefault(); finish(); } };
  box.addEventListener('click', finish);
  addEventListener('keydown', skipKey);
- if (reduce) finish(); else { step(); out('<span class="mute small" data-skip>Clic o Enter para saltar la intro.</span>'); }
+ if (reduce) finish(); else { step(); out(`<span class="mute small" data-skip>${tr('skipIntro')}</span>`); }
  return () => { timers.forEach(clearTimeout); topo.stop(); removeEventListener('keydown', skipKey); };
 }
 
@@ -678,34 +1077,34 @@ function makeTopo(cv){
 /* 2 · diseñador: el sistema expuesto, con medidas reales */
 function mountDisenador(stage){
  const sizes = ['b6','b6','b4','b4','b4','b3','b3','b3','b3','b12'];
- stage.innerHTML = `<p class="stage-label small mute">02 — diseñador / sistema</p>
+ stage.innerHTML = `<p class="stage-label small mute">${stageLabel(1, tr('system'))}</p>
  <div class="ds grid">
   <div class="ds-top">
    <div class="spec"><div class="aa">Aa</div><div class="aa r" style="font-size:24px;margin-top:8px">Aa</div>
-    <p class="small mute" style="margin-top:16px">Geist Mono · 300 · 400 · nunca bold<br>UX/UI · Politecnico di Milano</p></div>
-   <div class="sw" title="El acento es la inversión"><div class="k">#000000</div><div class="w">#FFFFFF</div></div>
+    <p class="small mute" style="margin-top:16px">${tr('specNote')}</p></div>
+   <div class="sw" title="${tr('swTitle')}"><div class="k">#000000</div><div class="w">#FFFFFF</div></div>
    <ul class="rules small">
-    <li>Solo ángulos rectos</li><li>70% vacío</li><li>El texto no grita</li><li>Una sola fuente</li><li>Cierra con simple</li>
+    ${tr('rules').map(r => `<li>${r}</li>`).join('')}
    </ul>
   </div>
   <div class="tokens small">
-   <div><p class="mute">Color</p>${['--bg','--fg','--mute','--line'].map(v=>`<p><i class="sq" style="background:var(${v})"></i>${v} <span class="mute" data-tok="${v}"></span></p>`).join('')}</div>
-   <div><p class="mute">Tipo</p><p style="font-size:11px">11 · etiqueta</p><p style="font-size:15px;text-transform:none;letter-spacing:0">15 · cuerpo</p><p style="font-size:56px;line-height:1;letter-spacing:-.02em">56</p></div>
-   <div><p class="mute">Espacio</p>${[4,8,16,24,48,96].map(n=>`<p><i class="sp" style="width:${n}px"></i>${n}</p>`).join('')}</div>
+   <div><p class="mute">${tr('tokColor')}</p>${['--bg','--fg','--mute','--line'].map(v=>`<p><i class="sq" style="background:var(${v})"></i>${v} <span class="mute" data-tok="${v}"></span></p>`).join('')}</div>
+   <div><p class="mute">${tr('tokType')}</p><p style="font-size:11px">${tr('tokLabel')}</p><p style="font-size:15px;text-transform:none;letter-spacing:0">${tr('tokBody')}</p><p style="font-size:56px;line-height:1;letter-spacing:-.02em">56</p></div>
+   <div><p class="mute">${tr('tokSpace')}</p>${[4,8,16,24,48,96].map(n=>`<p><i class="sp" style="width:${n}px"></i>${n}</p>`).join('')}</div>
   </div>
   <div class="boxes">${P.map((p,i)=>`<div class="box ${sizes[i]}"><span class="dim">—</span><span class="small mute">${String(i+1).padStart(2,'0')} / ${p.t}</span><div><h3>${link(p)}</h3><p class="mute">${p.d}</p></div></div>`).join('')}</div>
-  <div class="ds-tools small"><button type="button" data-g>Guías: sí</button><button type="button" data-break>Rompe el diseño</button><span class="mute">Las medidas y los tokens son reales: se leen de esta página en vivo. Tecla G para las guías.</span></div>
+  <div class="ds-tools small"><button type="button" data-g>${tr('guides', true)}</button><button type="button" data-break>${tr('breakB')}</button><span class="mute">${tr('dsNote')}</span></div>
  </div>`;
  const ds = stage.querySelector('.ds'), g = stage.querySelector('[data-g]');
  const cs = getComputedStyle(document.body);
  stage.querySelectorAll('[data-tok]').forEach(el => { el.textContent = cs.getPropertyValue(el.dataset.tok).trim().toUpperCase(); });
- const toggle = () => { ds.classList.toggle('grid'); g.textContent = 'Guías: ' + (ds.classList.contains('grid') ? 'sí' : 'no'); };
+ const toggle = () => { ds.classList.toggle('grid'); g.textContent = tr('guides', ds.classList.contains('grid')); };
  g.addEventListener('click', toggle);
  const brk = stage.querySelector('[data-break]'); let breaking = false, phys = null, alive = true;
  const chaos = () => {
   const els = [...stage.querySelectorAll('.box, .spec, .sw, .rules, .tokens > div')];
   ds.classList.add('broken');
-  const fixIt = () => { ds.classList.remove('broken'); breaking = false; toast('Orden. simple.'); };
+  const fixIt = () => { ds.classList.remove('broken'); breaking = false; toast(tr('orderToast')); };
   if (!G || reduce){ setTimeout(fixIt, 700); return; }
   G.timeline({onComplete: fixIt})
    .to(els, {rotation:() => G.utils.random(-14, 14), x:() => G.utils.random(-40, 40), y:() => G.utils.random(-30, 30), duration:.35, ease:'back.out(2)', stagger:.015})
@@ -742,7 +1141,7 @@ function mountDisenador(stage){
   return {
    stop,
    restore(){ stop(); brk.disabled = true;
-    G.to(items.map(i => i.el), {x:0, y:0, rotation:0, duration:.7, ease:'steps(10)', stagger:.03, onComplete(){ items.forEach(i => i.el.classList.remove('phys')); ds.classList.remove('broken'); brk.disabled = false; brk.textContent = 'Rompe el diseño'; phys = null; toast('Orden. simple.'); }});
+    G.to(items.map(i => i.el), {x:0, y:0, rotation:0, duration:.7, ease:'steps(10)', stagger:.03, onComplete(){ items.forEach(i => i.el.classList.remove('phys')); ds.classList.remove('broken'); brk.disabled = false; brk.textContent = tr('breakB'); phys = null; toast(tr('orderToast')); }});
    }
   };
  }
@@ -750,9 +1149,9 @@ function mountDisenador(stage){
   if (phys){ phys.restore(); return; }
   if (breaking) return; breaking = true; ui.sweep();
   if (reduce || !G){ chaos(); return; }
-  ds.classList.add('broken'); brk.textContent = 'Cargando física…';
-  try { const Rp = await loadRapier(); if (!alive) return; phys = startPhysics(Rp); brk.textContent = 'Ordenar'; toast('Arrastra las cajas.'); }
-  catch(e){ ds.classList.remove('broken'); brk.textContent = 'Rompe el diseño'; chaos(); return; }
+  ds.classList.add('broken'); brk.textContent = tr('physLoading');
+  try { const Rp = await loadRapier(); if (!alive) return; phys = startPhysics(Rp); brk.textContent = tr('order'); toast(tr('dragToast')); }
+  catch(e){ ds.classList.remove('broken'); brk.textContent = tr('breakB'); chaos(); return; }
   breaking = false;
  });
  const onKey = e => { if (e.key === 'g' && !e.metaKey && !e.ctrlKey && !e.target.closest('input, textarea')) toggle(); };
@@ -767,19 +1166,12 @@ function mountDisenador(stage){
 
 /* 3 · escritor: solo texto */
 function mountEscritor(stage){
- const paras = [
-  'Me llamo Jay Jaramillo~~ y en esta sección quiero contarte un poco sobre quién soy realmente~~. Vivo en Cuenca, Ecuador.',
-  'Estudié telecomunicaciones y diseño UX/UI en el Politecnico di Milano~~, una de las universidades más reconocidas de Europa~~. Viví en Italia entre cuatro y cinco años. Volví con dos preguntas que hago siempre: ¿funciona? y ¿se entiende?',
-  'Hoy dirijo proyectos de infraestructura, cloud y ciberseguridad en Coresolutions~~, donde cada día enfrento retos muy interesantes~~. Coordino un equipo de ingenieros y trabajo con clientes que necesitan que las cosas funcionen.',
-  'Fuera de la oficina sigo construyendo~~ muchísimas cosas diferentes porque me apasiona crear~~. Apps, herramientas internas, visuales en vivo con TouchDesigner, una app para practicar batería y un juego.',
-  'Escribo y publico como @jaywrkr. No vendo nada. Lo hago para que, cuando me conozcas, ya sepas cómo trabajo~~ y qué tipo de persona soy en realidad~~.',
-  'Si hablo de algo, es porque así soy.'
- ];
+ const paras = tr('paras');
  const clean = paras.map(p => p.replace(/~~[^~]*~~/g, ''));
- const words = clean.join(' ').split(/\s+/).length;
- const cutWords = (paras.join(' ').match(/~~[^~]*~~/g).join(' ').match(/[\p{L}\d]+/gu) || []).length;
+ const words = countUnits(clean.join(' '));
+ const cutWords = countUnits(paras.join(' ').match(/~~[^~]*~~/g).join(' ').replace(/~/g, ''));
  const draft = p => esc(p).replace(/~~([^~]*)~~/g, '<del class="cut">$1</del>');
- stage.innerHTML = `<p class="stage-label small mute">03 — escritor / ${words} palabras · ${Math.max(1,Math.round(words/200))} min · <span class="cutn">0</span> eliminadas</p>
+ stage.innerHTML = `<p class="stage-label small mute">${stageLabel(2, `${words} ${tr('unitWords')} · ${Math.max(1, Math.round(words/(LANG === 'ja' ? 500 : 200)))} ${tr('min')} · <span class="cutn">0</span> ${tr('removed')}`)}</p>
   <div class="prose">${(reduce ? clean.map(esc) : paras.map(draft)).map(p=>`<p>${p}</p>`).join('')}</div>`;
  const cutn = stage.querySelector('.cutn');
  if (reduce) cutn.textContent = cutWords;
@@ -787,7 +1179,7 @@ function mountEscritor(stage){
   if (!e.isIntersecting) return; cio.unobserve(e.target);
   const del = e.target.querySelector('.cut'); if (!del) return;
   setTimeout(() => del.classList.add('on'), 500);
-  setTimeout(() => { del.classList.add('gone'); cutn.textContent = +cutn.textContent + (del.textContent.match(/[\p{L}\d]+/gu) || []).length; setTimeout(() => del.remove(), 400); }, 1400);
+  setTimeout(() => { del.classList.add('gone'); cutn.textContent = +cutn.textContent + countUnits(del.textContent); setTimeout(() => del.remove(), 400); }, 1400);
  }), {threshold:.9});
  if (!reduce) stage.querySelectorAll('.prose p').forEach(p => cio.observe(p));
  const bar = document.createElement('i'); bar.className = 'progress'; bar.setAttribute('aria-hidden','true'); document.body.appendChild(bar);
@@ -800,37 +1192,35 @@ function mountEscritor(stage){
 /* 4 · líder: tablero */
 function mountLider(stage){
  const count = e => P.filter(p => p.e === e).length;
- stage.innerHTML = `<p class="stage-label small mute">04 — líder / tablero</p>
+ const K = tr('kpis');
+ stage.innerHTML = `<p class="stage-label small mute">${stageLabel(3, tr('board'))}</p>
  <div class="kpis small">
-  <div class="kpi"><b>${P.length}</b><span class="mute">frentes abiertos</span></div>
-  <div class="kpi"><b>${count(3)}</b><span class="mute">en operación</span></div>
-  <div class="kpi"><b>${count(2)}</b><span class="mute">en construcción</span></div>
-  <div class="kpi"><b>8</b><span class="mute">marcas socias en Coresolutions</span></div>
+  <div class="kpi"><b>${P.length}</b><span class="mute">${K[0]}</span></div>
+  <div class="kpi"><b>${count(3)}</b><span class="mute">${K[1]}</span></div>
+  <div class="kpi"><b>${count(2)}</b><span class="mute">${K[2]}</span></div>
+  <div class="kpi"><b>8</b><span class="mute">${K[3]}</span></div>
  </div>
  <div class="table">
-  <div class="tr th small mute"><span>Proyecto</span><span>Tipo</span><span class="hide seg-lg"><b>idea</b><b>diseño</b><b>constr.</b><b>oper.</b></span><span class="hide">Etapa</span></div>
-  ${P.map(p=>`<div class="tr"><span>${link(p)}</span><span class="mute small">${p.t}</span><span class="seg" aria-label="Etapa: ${ETAPAS[p.e]}">${ETAPAS.map((_,i)=>`<i class="${i<=p.e?'on':''}"></i>`).join('')}</span><span class="small">${ETAPAS[p.e]}</span></div>`).join('')}
+  <div class="tr th small mute"><span>${tr('thP')}</span><span>${tr('thT')}</span><span class="hide seg-lg">${tr('stagesShort').map(x => `<b>${x}</b>`).join('')}</span><span class="hide">${tr('thE')}</span></div>
+  ${P.map(p=>`<div class="tr"><span>${link(p)}</span><span class="mute small">${p.t}</span><span class="seg" aria-label="${tr('thE')}: ${ET()[p.e]}">${ET().map((_,i)=>`<i class="${i<=p.e?'on':''}"></i>`).join('')}</span><span class="small">${ET()[p.e]}</span></div>`).join('')}
  </div>
  <div class="principles">
-  <div><p class="small mute">01</p><p>Pragmatismo.</p></div>
-  <div><p class="small mute">02</p><p>Escucha. Habla menos.</p></div>
-  <div><p class="small mute">03</p><p>El único atajo es no buscar atajos.</p></div>
+  ${tr('principles').map((x, i) => `<div><p class="small mute">0${i+1}</p><p>${x}</p></div>`).join('')}
  </div>
  <div class="decide">
-  <p class="small mute">Cómo decido · pon una idea a prueba</p>
-  <div class="dq"><span class="dsq"><i></i><i></i><i></i></span><p class="dq-t big">¿Funciona?</p></div>
-  <div class="small dq-b"><button type="button" data-y>Sí</button><button type="button" data-n>No</button></div>
+  <p class="small mute">${tr('decideT')}</p>
+  <div class="dq"><span class="dsq"><i></i><i></i><i></i></span><p class="dq-t big">${tr('qs')[0]}</p></div>
+  <div class="small dq-b"><button type="button" data-y>${tr('yes')}</button><button type="button" data-n>${tr('no')}</button></div>
  </div>`;
- const QS = ['¿Funciona?','¿Se entiende?','¿Es lo mínimo?'];
- const NO = ['Todavía no. Pruébalo antes de mostrarlo.','Si no se entiende, no existe. Quita hasta que se entienda.','Quita una cosa más.'];
+ const QS = tr('qs'), NO = tr('nos');
  let qi = 0; const dq = stage.querySelector('.dq-t'), sq = [...stage.querySelectorAll('.dsq i')], db = stage.querySelector('.dq-b');
- const resetQ = () => { qi = 0; dq.textContent = QS[0]; sq.forEach(i => i.className = ''); db.innerHTML = '<button type="button" data-y>Sí</button><button type="button" data-n>No</button>'; };
+ const resetQ = () => { qi = 0; dq.textContent = QS[0]; sq.forEach(i => i.className = ''); db.innerHTML = `<button type="button" data-y>${tr('yes')}</button><button type="button" data-n>${tr('no')}</button>`; };
  db.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return; ui.tick(1600, .04);
   if (b.hasAttribute('data-again')) return resetQ();
-  if (b.hasAttribute('data-y')){ sq[qi].className = 'on'; qi++; if (qi < 3){ dq.textContent = QS[qi]; return; } dq.textContent = 'Hazlo. simple.'; }
+  if (b.hasAttribute('data-y')){ sq[qi].className = 'on'; qi++; if (qi < 3){ dq.textContent = QS[qi]; return; } dq.textContent = tr('doIt'); }
   else { sq[qi].className = 'no'; dq.textContent = NO[qi]; }
-  db.innerHTML = '<button type="button" data-again>Otra idea</button>';
+  db.innerHTML = `<button type="button" data-again>${tr('again')}</button>`;
  });
  if (G && !reduce){
   const tweens = [];
@@ -901,29 +1291,29 @@ function mountVJ(stage){
  const canMic = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) && !window.__ARTIFACT__;
  const canMidi = !!navigator.requestMIDIAccess && !window.__ARTIFACT__;
  stage.innerHTML = `<div class="vj">
-  <p class="stage-label small mute">05 — VJ / 20 escenas GLSL</p>
+  <p class="stage-label small mute">${stageLabel(4, tr('vjSub'))}</p>
   <div class="vj-cta">
    ${canMic
-    ? `<button type="button" class="vj-big" data-a="mic" aria-pressed="false"><span class="dot" aria-hidden="true"></span>Usa tu micrófono</button><p class="small mute">Habla, aplaude o pon música cerca. Cada golpe fuerte cambia de escena. El audio se analiza en tu navegador; no se graba ni se envía.</p>`
-    : `<button type="button" class="vj-big" data-a="synth" aria-pressed="false"><span class="dot" aria-hidden="true"></span>Escucha la demo</button><p class="small mute">Un loop de 120 BPM hecho con código. Los visuales reaccionan a cada golpe.</p>`}
+    ? `<button type="button" class="vj-big" data-a="mic" aria-pressed="false"><span class="dot" aria-hidden="true"></span>${tr('micBtn')}</button><p class="small mute">${tr('micNote')}</p>`
+    : `<button type="button" class="vj-big" data-a="synth" aria-pressed="false"><span class="dot" aria-hidden="true"></span>${tr('demoBtn')}</button><p class="small mute">${tr('demoNote')}</p>`}
   </div>
   <div class="vj-ctl small">
-   ${canMic ? '<button type="button" data-a="synth" aria-pressed="false">Demo 120 BPM</button>' : ''}
+   ${canMic ? `<button type="button" data-a="synth" aria-pressed="false">${tr('demo120')}</button>` : ''}
    <button type="button" data-auto aria-pressed="false">Auto</button>
    <button type="button" data-strobe aria-pressed="false">Strobe</button>
    ${canMidi ? '<button type="button" data-midi aria-pressed="false">MIDI</button>' : ''}
-   <button type="button" data-fs>Pantalla completa</button>
-   <label class="mute">Brillo <input id="vj-bright" type="range" min="0" max="100" value="100"></label>
-   <label class="mute">Estela <input id="vj-trail" type="range" min="0" max="100" value="80"></label>
+   <button type="button" data-fs>${tr('fs')}</button>
+   <label class="mute">${tr('bright')} <input id="vj-bright" type="range" min="0" max="100" value="100"></label>
+   <label class="mute">${tr('trail')} <input id="vj-trail" type="range" min="0" max="100" value="80"></label>
   </div>
   <div class="seq">
-   <div class="seq-head small"><button type="button" data-seq-play aria-pressed="false">▶ Secuenciador</button><label class="mute">BPM <b class="bpmv">122</b> <input id="seq-bpm" type="range" min="90" max="140" value="122"></label><button type="button" data-seq-rand>Al azar</button><button type="button" data-seq-clear>Limpiar</button><button type="button" data-seq-share>Copiar enlace</button></div>
-   <div class="seq-grid">${['bombo','hat','bajo','blip'].map((n, r) => `<span class="seq-n small mute">${n}</span>${Array.from({length:16}, (_, c) => `<button type="button" class="st${c%4===0?' q':''}" data-r="${r}" data-c="${c}" aria-pressed="false" aria-label="${n}, paso ${c+1}"></button>`).join('')}`).join('')}</div>
+   <div class="seq-head small"><button type="button" data-seq-play aria-pressed="false">${tr('seqPlay')}</button><label class="mute">BPM <b class="bpmv">122</b> <input id="seq-bpm" type="range" min="90" max="140" value="122"></label><button type="button" data-seq-rand>${tr('rand')}</button><button type="button" data-seq-clear>${tr('clear')}</button><button type="button" data-seq-share>${tr('share')}</button></div>
+   <div class="seq-grid">${tr('tracks').map((n, r) => `<span class="seq-n small mute">${n}</span>${Array.from({length:16}, (_, c) => `<button type="button" class="st${c%4===0?' q':''}" data-r="${r}" data-c="${c}" aria-pressed="false" aria-label="${tr('step', n, c+1)}"></button>`).join('')}`).join('')}</div>
   </div>
-  <div class="vj-gl"><canvas aria-label="Visuales audio-reactivos en una cuadrícula de 20 escenas"></canvas></div>
-  <div class="vj-hud small mute"><span data-h="src">Fuente: pulso interno</span><span data-h="bpm">BPM —</span><span data-h="sc">20 escenas</span></div>
-  <p class="vj-status small mute" role="status">Haz clic en una escena para verla sola. Clic otra vez o Esc para volver.</p>
-  <p class="note mute">Así trabajo en vivo: 20 escenas en TouchDesigner, una perilla que oscurece todo, cambio de escena y vuelvo a subir el brillo. El brillo aquí funciona igual: solo aclara los claros. La estela es el feedback que uso en cada set.${canMidi ? ' Con un controlador MIDI, los pads cambian de escena y las cuatro primeras perillas que muevas controlan brillo, estela, velocidad e intensidad.' : ''} Strobe hace destellos; actívalo solo si te sientes cómodo con luces intermitentes.</p>
+  <div class="vj-gl"><canvas aria-label="${tr('vjAria')}"></canvas></div>
+  <div class="vj-hud small mute"><span data-h="src">${tr('src')}${tr('srcs').none}</span><span data-h="bpm">BPM —</span><span data-h="sc">${tr('scenes20')}</span></div>
+  <p class="vj-status small mute" role="status">${tr('vjIdle')}</p>
+  <p class="note mute">${tr('vjNote', canMidi)}</p>
   <p class="small" style="margin-top:16px"><a href="https://www.instagram.com/naturalnoise/" target="_blank" rel="noopener">@naturalnoise ↗</a> &nbsp; <a href="https://www.instagram.com/jay.infinito/" target="_blank" rel="noopener">@jay.infinito ↗</a></p></div>`;
  const wrap = stage.querySelector('.vj-gl'), cv = wrap.querySelector('canvas');
  const bright = stage.querySelector('#vj-bright'), trail = stage.querySelector('#vj-trail'), status = stage.querySelector('.vj-status');
@@ -933,8 +1323,7 @@ function mountVJ(stage){
  const meshes = [], labels = [], tweens = [];
  const ctl = {speed:1, gain:1, auto:false, strobe:false};
  const setStatus = s => { status.textContent = s; };
- const NAMES = ['barras','cuadrados concéntricos','línea horizontal','ruido en bloques','franjas','bloque','línea vertical','marco','plasma en píxeles','retícula','laberinto','ciudad','onda en escalones','moiré','datamosh','lluvia','onda cuadrada','quadtree','XOR','vúmetro'];
- const sceneName = i => `Escena ${String(i+1).padStart(2,'0')} · ${NAMES[i]}`;
+ const sceneName = i => `${tr('scene')} ${String(i+1).padStart(2,'0')} · ${tr('sceneNames')[i]}`;
  const press = (b, on) => b && b.setAttribute('aria-pressed', on ? 'true' : 'false');
 
  /* audio */
@@ -960,15 +1349,15 @@ function mountVJ(stage){
   const a = b.dataset.a, on = b.getAttribute('aria-pressed') !== 'true';
   stage.querySelectorAll('[data-a]').forEach(x => press(x, false));
   stopSynth(); stopMic(); stopSeq();
-  if (!on){ setStatus('Audio apagado. Las escenas siguen con su propio pulso.'); return; }
+  if (!on){ setStatus(tr('audioOff')); return; }
   try {
    if (a === 'synth') startSynth(); else await startMic();
    stage.querySelectorAll(`[data-a="${a}"]`).forEach(x => press(x, true));
-   if (a === 'mic'){ ctl.auto = true; press(autoBtn, true); setStatus('Micrófono activo. Aplaude o pon música: cada golpe fuerte cambia de escena.'); }
-   else setStatus('Demo sonando a 120 BPM.');
-  } catch(e){ setStatus('No pude usar el micrófono. Revisa el permiso del navegador e inténtalo de nuevo.'); }
+   if (a === 'mic'){ ctl.auto = true; press(autoBtn, true); setStatus(tr('micOn')); }
+   else setStatus(tr('demoOn'));
+  } catch(e){ setStatus(tr('micErr')); }
  }));
- autoBtn.addEventListener('click', () => { ctl.auto = !ctl.auto; press(autoBtn, ctl.auto); if (!ctl.auto && focused >= 0) focusScene(-1); setStatus(ctl.auto ? 'Auto: la web mezcla sola al ritmo.' : 'Auto apagado.'); });
+ autoBtn.addEventListener('click', () => { ctl.auto = !ctl.auto; press(autoBtn, ctl.auto); if (!ctl.auto && focused >= 0) focusScene(-1); setStatus(ctl.auto ? tr('autoOn') : tr('autoOff')); });
  strobeBtn.addEventListener('click', () => { ctl.strobe = !ctl.strobe; press(strobeBtn, ctl.strobe); });
 
  /* secuenciador: 4 pistas × 16 pasos, Tone.js */
@@ -1006,23 +1395,23 @@ function mountVJ(stage){
   }
   stopSynth(); stopMic(); stage.querySelectorAll('[data-a]').forEach(x => press(x, false));
   T.Transport.bpm.value = +bpmIn.value; seqObj.start(0); T.Transport.start();
-  an = seqAn; buf = seqBuf; source = 'seq'; press(seqPlay, true); seqPlay.textContent = '■ Detener';
-  setStatus('Secuenciador sonando. Enciende o apaga pasos: los visuales siguen tu patrón.');
+  an = seqAn; buf = seqBuf; source = 'seq'; press(seqPlay, true); seqPlay.textContent = tr('seqStop');
+  setStatus(tr('seqOn'));
  }
  function stopSeq(){
   if (T && seqObj){ T.Transport.stop(); seqObj.stop(); }
   if (source === 'seq') source = null;
-  markCol(-1); press(seqPlay, false); seqPlay.textContent = '▶ Secuenciador';
+  markCol(-1); press(seqPlay, false); seqPlay.textContent = tr('seqPlay');
  }
- seqPlay.addEventListener('click', () => { if (seqPlay.getAttribute('aria-pressed') === 'true') stopSeq(); else startSeq().catch(() => setStatus('No se pudo cargar el secuenciador. Revisa tu conexión.')); });
+ seqPlay.addEventListener('click', () => { if (seqPlay.getAttribute('aria-pressed') === 'true') stopSeq(); else startSeq().catch(() => setStatus(tr('seqErr'))); });
  bpmIn.addEventListener('input', () => { bpmV.textContent = bpmIn.value; if (T) T.Transport.bpm.value = +bpmIn.value; });
  stage.querySelector('[data-seq-rand]').addEventListener('click', () => { const dens = [.3, .45, .3, .12]; pat = pat.map((row, r) => row.map((_, c) => (r === 0 && c%4 === 0) ? 1 : Math.random() < dens[r] ? 1 : 0)); paint(); });
  stage.querySelector('[data-seq-clear]').addEventListener('click', () => { pat = pat.map(row => row.map(() => 0)); paint(); });
  stage.querySelector('[data-seq-share]').addEventListener('click', () => {
   const code = pat.map(row => parseInt(row.join(''), 2).toString(16).padStart(4, '0')).join('');
   const url = location.origin + location.pathname + '?seq=' + code + '#vj';
-  const done = () => setStatus('Enlace copiado. Quien lo abra escucha tu patrón.');
-  if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => setStatus('Tu patrón: ' + url)); else setStatus('Tu patrón: ' + url);
+  const done = () => setStatus(tr('linkCopied'));
+  if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => setStatus(tr('yourPat', url))); else setStatus(tr('yourPat', url));
  });
 
  /* bandas y golpes */
@@ -1075,9 +1464,9 @@ function mountVJ(stage){
   cam.left = 0; cam.right = W; cam.top = H; cam.bottom = 0; cam.updateProjectionMatrix();
   tweens.forEach(t => t.kill()); tweens.length = 0;
   meshes.forEach((m,i) => {
-   const tr = target(i, W, H);
-   if (animate && G && !reduce) tweens.push(G.to(m.userData.r, {...tr, duration: fast ? .28 : .55, ease:'power3.inOut', onUpdate:() => apply(m, H)}));
-   else { Object.assign(m.userData.r, tr); apply(m, H); }
+   const tg = target(i, W, H);
+   if (animate && G && !reduce) tweens.push(G.to(m.userData.r, {...tg, duration: fast ? .28 : .55, ease:'power3.inOut', onUpdate:() => apply(m, H)}));
+   else { Object.assign(m.userData.r, tg); apply(m, H); }
    const g = gridRect(i, W, H); labels[i].style.left = (g.x+6)+'px'; labels[i].style.top = (g.y+g.h-16)+'px';
    labels[i].hidden = focused >= 0;
   });
@@ -1086,7 +1475,7 @@ function mountVJ(stage){
  function focusScene(i, fromBeat){
   focused = (i < 0 || (!fromBeat && focused === i)) ? -1 : i;
   layout(true, fromBeat);
-  if (!fromBeat) setStatus(focused < 0 ? 'Haz clic en una escena para verla sola. Clic otra vez o Esc para volver.' : `${sceneName(focused)}. ← → para cambiar, Esc para volver.`);
+  if (!fromBeat) setStatus(focused < 0 ? tr('vjIdle') : tr('focusMsg', sceneName(focused)));
  }
  wrap.addEventListener('click', e => {
   if (!renderer) return;
@@ -1101,10 +1490,10 @@ function mountVJ(stage){
  };
  const hud = {src:stage.querySelector('[data-h=src]'), bpm:stage.querySelector('[data-h=bpm]'), sc:stage.querySelector('[data-h=sc]')}, beatTimes = [];
  const hudT = setInterval(() => {
-  hud.src.textContent = 'Fuente: ' + (source === 'mic' ? 'tu micrófono' : source === 'synth' ? 'demo 120 BPM' : source === 'seq' ? 'tu secuencia' : 'pulso interno');
+  const S = tr('srcs'); hud.src.textContent = tr('src') + (source === 'mic' ? S.mic : source === 'synth' ? S.synth : source === 'seq' ? S.seq : S.none);
   const iv = beatTimes.slice(1).map((t,k) => t - beatTimes[k]).sort((a,b) => a-b), med = iv[iv.length >> 1];
   hud.bpm.textContent = 'BPM ' + (source === 'seq' ? bpmIn.value : source && med ? Math.round(Math.min(200, Math.max(60, 60000/med))) : source ? '—' : '120');
-  hud.sc.textContent = focused >= 0 ? sceneName(focused) : '20 escenas';
+  hud.sc.textContent = focused >= 0 ? sceneName(focused) : tr('scenes20');
  }, 300);
  let idleT; const wake = () => { wrap.classList.remove('idle'); clearTimeout(idleT); if (document.fullscreenElement === wrap) idleT = setTimeout(() => wrap.classList.add('idle'), 1800); };
  wrap.addEventListener('pointermove', wake);
@@ -1112,8 +1501,8 @@ function mountVJ(stage){
  stage.querySelector('[data-fs]').addEventListener('click', () => {
   if (document.fullscreenElement) return document.exitFullscreen();
   const req = wrap.requestFullscreen || wrap.webkitRequestFullscreen;
-  if (!req) return setStatus('Tu navegador no permite pantalla completa aquí.');
-  Promise.resolve(req.call(wrap)).catch(() => setStatus('Tu navegador no permite pantalla completa aquí.'));
+  if (!req) return setStatus(tr('fsErr'));
+  Promise.resolve(req.call(wrap)).catch(() => setStatus(tr('fsErr')));
  });
  const ro = new ResizeObserver(() => layout(false)); ro.observe(wrap);
 
@@ -1124,7 +1513,7 @@ function mountVJ(stage){
   const [s, d1, d2] = e.data, type = s & 0xf0;
   if (type === 0x90 && d2 > 0){ focusScene(d1 % 20, true); boost = .6; if (ctl.strobe) strobe = 1; }
   if (type === 0xB0){
-   if (!(d1 in ccMap) && Object.keys(ccMap).length < ROLES.length){ ccMap[d1] = ROLES[Object.keys(ccMap).length]; setStatus('MIDI: ' + Object.entries(ccMap).map(([k,r]) => `CC${k} → ${r}`).join(' · ')); }
+   if (!(d1 in ccMap) && Object.keys(ccMap).length < ROLES.length){ ccMap[d1] = ROLES[Object.keys(ccMap).length]; setStatus('MIDI: ' + Object.entries(ccMap).map(([k,r]) => `CC${k} → ${tr('roles')[ROLES.indexOf(r)]}`).join(' · ')); }
    const v = d2/127, role = ccMap[d1];
    if (role === 'brillo') bright.value = Math.round(v*100);
    if (role === 'estela') trail.value = Math.round(v*100);
@@ -1137,11 +1526,11 @@ function mountVJ(stage){
   navigator.requestMIDIAccess().then(acc => {
    if (!alive) return;
    midiIns = [...acc.inputs.values()];
-   if (!midiIns.length) return setStatus('No encontré controladores MIDI. Conecta uno y vuelve a intentar.');
+   if (!midiIns.length) return setStatus(tr('midiNone'));
    midiIns.forEach(inp => inp.onmidimessage = onMidi);
    press(midiBtn, true);
-   setStatus(`MIDI: ${midiIns.map(i => i.name).join(', ')}. Mueve una perilla o toca un pad.`);
-  }).catch(() => setStatus('El navegador no dio permiso para MIDI.'));
+   setStatus(tr('midiFound', midiIns.map(i => i.name).join(', ')));
+  }).catch(() => setStatus(tr('midiDenied')));
  });
 
  /* render: escenas → estela → post */
@@ -1164,7 +1553,7 @@ function mountVJ(stage){
  loadThree().then(T => {
   if (!alive) return;
   try { renderer = new T.WebGLRenderer({canvas:cv, antialias:false, powerPreference:'high-performance'}); }
-  catch(e){ return setStatus('Tu navegador no tiene WebGL disponible.'); }
+  catch(e){ return setStatus(tr('webglErr')); }
   renderer.setPixelRatio(Math.min(devicePixelRatio||1, 2)); renderer.setClearColor(0x000000, 1);
   const rtOpts = {minFilter:T.NearestFilter, magFilter:T.NearestFilter, depthBuffer:false};
   rtScene = new T.WebGLRenderTarget(1, 1, rtOpts); rtA = new T.WebGLRenderTarget(1, 1, rtOpts); rtB = new T.WebGLRenderTarget(1, 1, rtOpts);
@@ -1181,7 +1570,7 @@ function mountVJ(stage){
   quad = new T.Mesh(new T.PlaneGeometry(2, 2), fbMat); quadScene.add(quad);
   layout(false);
   if (reduce) frame(performance.now()); else raf = requestAnimationFrame(loop);
- }).catch(() => setStatus('No se pudo cargar el motor 3D. Revisa tu conexión.'));
+ }).catch(() => setStatus(tr('engineErr')));
 
  return () => {
   stopSeq(); if (inst){ Object.values(inst).forEach(n => n.dispose && n.dispose()); if (seqObj) seqObj.dispose(); }
@@ -1194,85 +1583,98 @@ function mountVJ(stage){
 }
 
 /* 6 · creador: el sistema de contenido, jugable */
-const DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const BOOKMARKLET = "javascript:(()=>{const d=document,id='modo-jay';let s=d.getElementById(id);if(s){s.remove();['-f','-s'].forEach(k=>{const e=d.getElementById(id+k);if(e)e.remove()});return}const l=d.createElement('link');l.id=id+'-f';l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400&display=swap';d.head.appendChild(l);s=d.createElement('style');s.id=id;s.textContent='*{font-family:\"Geist Mono\",ui-monospace,Menlo,monospace!important;font-weight:300!important;color:#000!important;background:#fff!important;background-image:none!important;border-color:#000!important;border-radius:0!important;box-shadow:none!important;text-shadow:none!important}img,video,picture,svg,canvas,iframe{filter:grayscale(1)!important;opacity:.2!important}';d.head.appendChild(s);const f=d.createElement('div');f.id=id+'-s';f.textContent='simple.';f.style.cssText='position:fixed;right:24px;bottom:20px;z-index:2147483647;font-size:28px;padding:4px 8px';d.body.appendChild(f)})()";
 function makePost(text, light, w, h){
  const c = document.createElement('canvas'); c.width = w; c.height = h;
  const x = c.getContext('2d'), bg = light ? '#fff' : '#000', fg = light ? '#000' : '#fff', mute = light ? '#8a8a8a' : '#6b6b6b';
  x.fillStyle = bg; x.fillRect(0, 0, w, h);
- const m = Math.round(w*.11), fam = "'Geist Mono', ui-monospace, Menlo, monospace";
+ const m = Math.round(w*.11), fam = FAM;
  x.strokeStyle = mute; x.lineWidth = 2;
  [[m*.5, m*.5],[w-m*.5, m*.5],[m*.5, h-m*.5],[w-m*.5, h-m*.5]].forEach(([cx,cy]) => { x.beginPath(); x.moveTo(cx-14, cy); x.lineTo(cx+14, cy); x.moveTo(cx, cy-14); x.lineTo(cx, cy+14); x.stroke(); });
  let size = Math.round(w*.05); const maxW = w - m*2;
- const wrapLines = () => { x.font = `300 ${size}px ${fam}`; const words = String(text).trim().split(/\s+/); const lines = []; let line = '';
-  words.forEach(wd => { const t = line ? line + ' ' + wd : wd; if (x.measureText(t).width > maxW && line){ lines.push(line); line = wd; } else line = t; }); if (line) lines.push(line); return lines; };
+ const sep = LANG === 'ja' ? '' : ' ';
+ const wrapLines = () => { x.font = `300 ${size}px ${fam}`; const words = LANG === 'ja' ? [...String(text).trim()] : String(text).trim().split(/\s+/); const lines = []; let line = '';
+  words.forEach(wd => { const t = line ? line + sep + wd : wd; if (x.measureText(t).width > maxW && line){ lines.push(line); line = wd; } else line = t; }); if (line) lines.push(line); return lines; };
  let lines = wrapLines(); while (lines.length > 6 && size > 26){ size -= 4; lines = wrapLines(); }
  const lh = size*1.32, top = h*.5 - (lines.length*lh)/2;
  x.fillStyle = fg; x.textBaseline = 'top'; lines.forEach((l, i) => x.fillText(l, m, top + i*lh));
  x.font = `300 ${Math.round(w*.026)}px ${fam}`; x.fillText('simple.', m, h - m - w*.03);
- x.fillStyle = mute; x.font = `300 ${Math.round(w*.016)}px ${fam}`; x.textAlign = 'right'; x.fillText('estilo @jaywrkr', w - m, h - m - w*.02);
+ x.fillStyle = mute; x.font = `300 ${Math.round(w*.016)}px ${fam}`; x.textAlign = 'right'; x.fillText(tr('postStyle'), w - m, h - m - w*.02);
  return c;
 }
 function mountCreador(stage){
- const dow = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(new Intl.DateTimeFormat('en-US', {timeZone:'America/Guayaquil', weekday:'short'}).format(new Date()));
+ const dow = cuencaDow(), DY = tr('days'), SR = tr('series'), TA = tr('tach');
  const lunesFirst = [1,2,3,4,5,6,0], todayIdx = lunesFirst.indexOf(dow), left = 6 - todayIdx;
  const mark = k => `<i class="mk mk${k}" aria-hidden="true"></i>`;
  const head = (k, dia, serie) => `<header class="s-head small">${mark(k)}<span>${dia} · ${serie}</span></header>`;
  const canDownload = !window.__ARTIFACT__;
- stage.innerHTML = `<p class="stage-label small mute">06 — creador / mis 7 series, para que las juegues</p>
+ stage.innerHTML = `<p class="stage-label small mute">${stageLabel(5, tr('creSub'))}</p>
  <div class="series">
-  <section class="serie" data-s="tachado">${head(1,'Lunes','Tachado')}
-   <p class="big"><span class="nw">No es <button type="button" class="tachable strike">disciplina</button>.</span> <span class="rest">Es un sistema.</span></p>
-   <p class="hint small mute">Toca la palabra.</p></section>
+  <section class="serie" data-s="tachado">${head(1,DY[0],SR[0])}
+   <p class="big"><span class="nw">${TA[0]}<button type="button" class="tachable strike">${TA[1]}</button>${TA[2]}</span> <span class="rest">${TA[3]}</span></p>
+   <p class="hint small mute">${tr('tachHint')}</p></section>
 
-  <section class="serie" data-s="cien">${head(2,'Martes','100 veces')}
-   <div class="cien" aria-label="La frase hazlo otra vez, cien veces">${Array.from({length:100}, (_, i) => `<span data-n="${i+1}">hazlo otra vez</span>`).join('')}</div>
-   <p class="hint small"><span class="cnt mute">Pasa el cursor o el dedo por encima.</span></p></section>
+  <section class="serie" data-s="cien">${head(2,DY[1],SR[1])}
+   <div class="cien" aria-label="${tr('cienAria')}">${Array.from({length:100}, (_, i) => `<span data-n="${i+1}">${tr('cien')}</span>`).join('')}</div>
+   <p class="hint small"><span class="cnt mute">${tr('cienHint')}</span></p></section>
 
-  <section class="serie" data-s="ecuacion">${head(3,'Miércoles','Ecuación')}
-   <p class="big">resultado = constancia × tiempo</p>
+  <section class="serie" data-s="ecuacion">${head(3,DY[2],SR[2])}
+   <p class="big">${tr('eqT')}</p>
    <div class="eq-ctl small">
-    <label>Días por semana <b class="dv">3</b><input id="eq-d" type="range" min="0" max="7" value="3"></label>
-    <label>Semanas <b class="wv">12</b><input id="eq-w" type="range" min="1" max="52" value="12"></label>
+    <label>${tr('eqD')} <b class="dv">3</b><input id="eq-d" type="range" min="0" max="7" value="3"></label>
+    <label>${tr('eqW')} <b class="wv">12</b><input id="eq-w" type="range" min="1" max="52" value="12"></label>
    </div>
    <div class="eq-grid" aria-hidden="true">${Array.from({length:7*52}, () => '<i></i>').join('')}</div>
-   <p class="eq-out">36 días hechos.</p></section>
+   <p class="eq-out"></p></section>
 
-  <section class="serie" data-s="truco">${head(4,'Jueves','Truco')}
-   <p class="big">¿Cuál cuadrado es más claro?</p>
+  <section class="serie" data-s="truco">${head(4,DY[3],SR[3])}
+   <p class="big">${tr('trucoQ')}</p>
    <div class="truco"><div class="tk k"><i></i></div><div class="tk w"><i></i></div><span class="bridge" aria-hidden="true"></span></div>
-   <p class="hint small"><button type="button" class="reveal">Revelar</button> <span class="tr-out mute"></span></p></section>
+   <p class="hint small"><button type="button" class="reveal">${tr('reveal')}</button> <span class="tr-out mute"></span></p></section>
 
-  <section class="serie" data-s="fondo">${head(5,'Viernes','Fondo')}
-   <div class="fondo-wrap"><div class="phone"><p>Hazlo igual.</p><span class="small">simple.</span></div>
-    <div><p class="big">Un fondo para tu pantalla.</p><p class="small mute" style="margin-top:12px">Toca el teléfono para invertirlo.</p>
-     <p style="margin-top:24px" class="small"><button type="button" class="get-fondo">${canDownload ? 'Descargar fondo 1080 × 1920' : 'Generar imagen 1080 × 1920'}</button></p>
-     <img class="fondo-img" alt="Fondo de pantalla generado" hidden></div></div></section>
+  <section class="serie" data-s="fondo">${head(5,DY[4],SR[4])}
+   <div class="fondo-wrap"><div class="phone"><p>${tr('anyway')}</p><span class="small">simple.</span></div>
+    <div><p class="big">${tr('fondoT')}</p><p class="small mute" style="margin-top:12px">${tr('fondoHint')}</p>
+     <p style="margin-top:24px" class="small"><button type="button" class="get-fondo">${canDownload ? tr('fondoDl') : tr('fondoGen')}</button></p>
+     <img class="fondo-img" alt="${tr('fondoAlt')}" hidden></div></div></section>
 
-  <section class="serie" data-s="semana">${head(6,'Sábado','Semana')}
-   <div class="week">${['L','M','M','J','V','S','D'].map((d, i) => `<div class="${i < todayIdx ? 'past' : i === todayIdx ? 'today' : ''}"><span>${d}</span></div>`).join('')}</div>
-   <p class="big">Hoy es ${DIAS[dow]}. ${left === 0 ? 'Es el último día de la semana.' : `Te ${left === 1 ? 'queda 1 día' : `quedan ${left} días`} esta semana.`}</p>
-   <p class="hint small mute">¿Qué vas a cerrar antes del domingo?</p></section>
+  <section class="serie" data-s="semana">${head(6,DY[5],SR[5])}
+   <div class="week">${tr('weekL').map((d, i) => `<div class="${i < todayIdx ? 'past' : i === todayIdx ? 'today' : ''}"><span>${d}</span></div>`).join('')}</div>
+   <p class="big">${tr('weekLine', cuencaTime({weekday:'long'}), left)}</p>
+   <p class="hint small mute">${tr('weekHint')}</p></section>
 
-  <section class="serie" data-s="sinfiltro">${head(7,'Domingo','Sin filtro')}
-   <p class="big">Nadie te está viendo.</p>
-   <p class="big typed" aria-label="Hazlo igual."><span class="tt"></span><span class="caret" aria-hidden="true"></span></p></section>
+  <section class="serie" data-s="vida"><header class="s-head small">${mark(6)}<span>${tr('wkH')}</span></header>
+   <p class="big">${tr('wkT')}</p>
+   <div class="wk-ctl small"><label>${tr('wkL')}<input id="wk-date" type="date" min="1920-01-01" value="1990-01-01"></label><span class="wk-ex mute">${tr('wkEx')}</span></div>
+   <canvas class="wk-cv" role="img" aria-label="${tr('wkAria')}"></canvas>
+   <p class="big wk-line"></p>
+   <p class="hint small mute">${tr('wkQ')}</p></section>
 
-  <section class="serie" data-s="espejo"><header class="s-head small">${mark(5)}<span>Extra · Espejo</span></header>
-   <p class="big">Tú, en Geist Mono.</p>
-   <pre class="ascii" aria-label="Imagen convertida en caracteres"></pre>
-   <p class="small mirror-ctl">${window.__ARTIFACT__ || !(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) ? '<span class="mute">La cámara funciona en la web publicada.</span>' : '<button type="button" class="cam">Encender cámara</button><button type="button" class="cam-shot" hidden>Capturar</button><span class="mute">La imagen se procesa en tu navegador. No se graba ni se envía.</span>'}</p></section>
+  <section class="serie" data-s="sinfiltro">${head(7,DY[6],SR[6])}
+   <p class="big">${tr('noOne')}</p>
+   <p class="big typed" aria-label="${tr('anyway')}"><span class="tt"></span><span class="caret" aria-hidden="true"></span></p></section>
 
-  <section class="serie tu" data-s="tu"><header class="s-head small">${mark(0)}<span>Ahora tú</span></header>
-   <p class="big">Escribe tu verdad incómoda.</p>
+  <section class="serie" data-s="espejo"><header class="s-head small">${mark(5)}<span>${tr('mirrorH')}</span></header>
+   <p class="big">${tr('mirrorT')}</p>
+   <pre class="ascii" aria-label="${tr('mirrorAria')}"></pre>
+   <p class="small mirror-ctl">${window.__ARTIFACT__ || !(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) ? `<span class="mute">${tr('camLive')}</span>` : `<button type="button" class="cam">${tr('camOn')}</button><button type="button" class="cam-shot" hidden>${tr('capture')}</button><span class="mute">${tr('camPriv')}</span>`}</p></section>
+
+  <section class="serie" data-s="modo"><header class="s-head small">${mark(7)}<span>${tr('bmH')}</span></header>
+   <p class="big">${tr('bmT')}</p>
+   <p class="small mute" style="max-width:60ch">${tr('bmText')}</p>
+   <p class="small bm-row"><a class="bm" draggable="true">${tr('bmBtn')}</a><button type="button" class="bm-copy">${tr('bmCopy')}</button></p></section>
+
+  <section class="serie tu" data-s="tu"><header class="s-head small">${mark(0)}<span>${tr('tuH')}</span></header>
+   <p class="big">${tr('tuT')}</p>
    <div class="tu-wrap">
     <div class="tu-form">
-     <label class="small mute" for="tu-txt">Tu frase (máx. 90 caracteres)</label>
-     <textarea id="tu-txt" maxlength="90" rows="3">Nadie te está viendo. Hazlo igual.</textarea>
+     <label class="small mute" for="tu-txt">${tr('tuL')}</label>
+     <textarea id="tu-txt" maxlength="90" rows="3">${tr('noOne')}${LANG === 'ja' ? '' : ' '}${tr('anyway')}</textarea>
      <span class="tu-count small mute" aria-live="polite"></span>
-     <div class="small tu-btns"><button type="button" class="tu-inv">Fondo blanco</button>${canDownload ? '<button type="button" class="tu-dl">Descargar 1080 × 1080</button>' : ''}</div>
-     <p class="small mute">${canDownload ? 'Listo para tus stories.' : 'Mantén presionada la imagen o usa clic derecho para guardarla.'}</p>
+     <div class="small tu-btns"><button type="button" class="tu-inv">${tr('tuWhite')}</button>${canDownload ? `<button type="button" class="tu-dl">${tr('tuDl')}</button>` : ''}</div>
+     <p class="small mute">${canDownload ? tr('tuReady') : tr('tuHold')}</p>
     </div>
-    <img class="tu-img" alt="Vista previa de tu frase como post">
+    <img class="tu-img" alt="${tr('tuAlt')}">
    </div></section>
  </div>`;
  const q = s => stage.querySelector(s), cleanups = [];
@@ -1283,7 +1685,7 @@ function mountCreador(stage){
 
  /* martes */
  const cien = q('.cien'), cnt = q('.cnt');
- const fill = n => { cien.querySelectorAll('span').forEach(s => s.classList.toggle('on', +s.dataset.n <= n)); cnt.textContent = n >= 100 ? 'Vez 100 de 100. Esa es la que cuenta.' : `Vez ${n} de 100.`; cnt.classList.toggle('mute', n < 100); };
+ const fill = n => { cien.querySelectorAll('span').forEach(s => s.classList.toggle('on', +s.dataset.n <= n)); cnt.textContent = n >= 100 ? tr('cien100') : tr('cienN', n); cnt.classList.toggle('mute', n < 100); };
  const pickN = (x, y) => { const el = document.elementFromPoint(x, y); return el && el.dataset && el.dataset.n ? +el.dataset.n : 0; };
  cien.addEventListener('pointermove', e => { const n = pickN(e.clientX, e.clientY); if (n) fill(n); });
  cien.addEventListener('click', e => { const n = pickN(e.clientX, e.clientY); if (n) fill(n); });
@@ -1292,35 +1694,35 @@ function mountCreador(stage){
  const dIn = q('#eq-d'), wIn = q('#eq-w'), cells = [...stage.querySelectorAll('.eq-grid i')];
  const eq = () => { const d = +dIn.value, w = +wIn.value; q('.dv').textContent = d; q('.wv').textContent = w;
   cells.forEach((c, k) => { const day = Math.floor(k/52), week = k%52; c.className = day < d && week < w ? 'on' : ''; });
-  q('.eq-out').textContent = d*w === 0 ? '0 días hechos. Cero por cualquier número es cero.' : `${d*w} días hechos. Sin motivación. Solo repetición.`; };
+  q('.eq-out').textContent = d*w === 0 ? tr('eqZero') : tr('eqOut', d*w); };
  dIn.addEventListener('input', eq); wIn.addEventListener('input', eq); eq();
 
  /* jueves */
- q('.reveal').addEventListener('click', e => { const t = q('.truco'); const on = t.classList.toggle('show'); e.target.textContent = on ? 'Ocultar' : 'Revelar'; q('.tr-out').textContent = on ? 'Es el mismo gris. El fondo cambia lo que ves.' : ''; });
+ q('.reveal').addEventListener('click', e => { const t = q('.truco'); const on = t.classList.toggle('show'); e.target.textContent = on ? tr('hideB') : tr('reveal'); q('.tr-out').textContent = on ? tr('trucoOut') : ''; });
 
  /* viernes */
  const phone = q('.phone'); phone.addEventListener('click', () => phone.classList.toggle('inv'));
  const fondoImg = q('.fondo-img');
  q('.get-fondo').addEventListener('click', async () => {
   try { await document.fonts.load("300 60px 'Geist Mono'"); } catch(e){}
-  const c = makePost('Hazlo igual.', phone.classList.contains('inv'), 1080, 1920);
+  const c = makePost(tr('anyway'), phone.classList.contains('inv'), 1080, 1920);
   if (canDownload){ const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = 'jaywrkr-fondo.png'; a.click(); }
   else { fondoImg.src = c.toDataURL('image/png'); fondoImg.hidden = false; }
  });
 
  /* domingo: se escribe aunque no hagas nada */
- const tt = q('.tt'), FULL = 'Hazlo igual.'; let tTimer;
+ const tt = q('.tt'), FULL = tr('anyway'); let tTimer;
  const type = () => { let i = 0; clearInterval(tTimer); tt.textContent = ''; tTimer = setInterval(() => { tt.textContent = FULL.slice(0, ++i); if (i >= FULL.length){ clearInterval(tTimer); tTimer = setTimeout(type, 2600); } }, 110); };
  if (reduce) tt.textContent = FULL; else type();
  cleanups.push(() => { clearInterval(tTimer); clearTimeout(tTimer); });
 
  /* ahora tú */
  const txt = q('#tu-txt'), img = q('.tu-img'); let light = false, deb;
- const render = async () => { try { await document.fonts.load("300 54px 'Geist Mono'"); } catch(e){} img.src = makePost(txt.value || 'Escribe algo.', light, 1080, 1080).toDataURL('image/png'); };
+ const render = async () => { try { await document.fonts.load("300 54px 'Geist Mono'"); } catch(e){} img.src = makePost(txt.value || tr('tuEmpty'), light, 1080, 1080).toDataURL('image/png'); };
  const cnt2 = q('.tu-count'), count = () => { cnt2.textContent = `${txt.value.length} / 90`; };
  txt.addEventListener('input', () => { count(); clearTimeout(deb); deb = setTimeout(render, 120); }); count();
  txt.addEventListener('keydown', e => e.stopPropagation());
- q('.tu-inv').addEventListener('click', e => { light = !light; e.target.textContent = light ? 'Fondo negro' : 'Fondo blanco'; render(); });
+ q('.tu-inv').addEventListener('click', e => { light = !light; e.target.textContent = light ? tr('tuBlack') : tr('tuWhite'); render(); });
  const dl = q('.tu-dl'); if (dl) dl.addEventListener('click', () => { const a = document.createElement('a'); a.href = img.src; a.download = 'mi-verdad-simple.png'; a.click(); });
  render();
 
@@ -1332,9 +1734,9 @@ function mountCreador(stage){
  const camBtn = q('.cam'), shotBtn = q('.cam-shot');
  let camStream = null, camRaf, vid;
  if (camBtn) camBtn.addEventListener('click', async () => {
-  if (camStream){ camStream.getTracks().forEach(t => t.stop()); camStream = null; cancelAnimationFrame(camRaf); camBtn.textContent = 'Encender cámara'; shotBtn.hidden = true; return; }
+  if (camStream){ camStream.getTracks().forEach(t => t.stop()); camStream = null; cancelAnimationFrame(camRaf); camBtn.textContent = tr('camOn'); shotBtn.hidden = true; return; }
   try { camStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user', width:{ideal:320}, height:{ideal:240}}, audio:false}); }
-  catch(e){ toast('No pude usar la cámara. Revisa el permiso del navegador.'); return; }
+  catch(e){ toast(tr('camErr')); return; }
   vid = document.createElement('video'); vid.muted = true; vid.playsInline = true; vid.srcObject = camStream; await vid.play();
   const c = document.createElement('canvas'); c.width = AC; c.height = AR; const x = c.getContext('2d', {willReadFrequently:true});
   const lum = new Float32Array(AC*AR); let last = 0;
@@ -1349,7 +1751,7 @@ function mountCreador(stage){
    camRaf = requestAnimationFrame(frame);
   };
   camRaf = requestAnimationFrame(frame);
-  camBtn.textContent = 'Apagar cámara'; shotBtn.hidden = false;
+  camBtn.textContent = tr('camOff'); shotBtn.hidden = false;
  });
  if (shotBtn) shotBtn.addEventListener('click', async () => {
   try { await document.fonts.load("300 20px 'Geist Mono'"); } catch(e){}
@@ -1359,10 +1761,47 @@ function mountCreador(stage){
   const lines = asc.textContent.split('\n'), lh = fs*1.1, top = (W - lines.length*lh)/2 - 30, cw = x.measureText('M').width, left = (W - AC*cw)/2;
   lines.forEach((l, i) => x.fillText(l, left, top + i*lh));
   x.font = "300 28px 'Geist Mono', ui-monospace, monospace"; x.fillText('simple.', 118, W - 150);
-  x.fillStyle = '#6b6b6b'; x.font = "300 17px 'Geist Mono', ui-monospace, monospace"; x.textAlign = 'right'; x.fillText('estilo @jaywrkr', W - 118, W - 140);
+  x.fillStyle = '#6b6b6b'; x.font = "300 17px 'Geist Mono', ui-monospace, monospace"; x.textAlign = 'right'; x.fillText(tr('postStyle'), W - 118, W - 140);
   const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = 'yo-en-geist-mono.png'; a.click();
  });
  cleanups.push(() => { if (camStream) camStream.getTracks().forEach(t => t.stop()); cancelAnimationFrame(camRaf); });
+
+ /* vida en semanas */
+ const wkIn = q('#wk-date'), wkCv = q('.wk-cv'), wkLine = q('.wk-line'), wkEx = q('.wk-ex');
+ wkIn.max = new Date().toISOString().slice(0, 10);
+ const WK_TOTAL = 80*52; let wkLived = 0, wkBlink = true;
+ const wkDraw = () => {
+  const cs = getComputedStyle(wkCv), fg = cs.color, d = Math.min(devicePixelRatio||1, 2);
+  const W = Math.min(640, wkCv.parentNode.clientWidth), cell = Math.floor(W/52), H = cell*80;
+  wkCv.style.width = cell*52 + 'px'; wkCv.width = cell*52*d; wkCv.height = H*d;
+  const x = wkCv.getContext('2d'); x.setTransform(d,0,0,d,0,0); x.clearRect(0,0,cell*52,H);
+  for (let k = 0; k < WK_TOTAL; k++){
+   const cx = (k%52)*cell, cy = Math.floor(k/52)*cell, sz = cell - 2;
+   if (k < wkLived){ x.fillStyle = fg; x.globalAlpha = 1; x.fillRect(cx, cy, sz, sz); }
+   else if (k === wkLived){ x.globalAlpha = 1; x.fillStyle = fg; if (wkBlink) x.fillRect(cx, cy, sz, sz); else { x.strokeStyle = fg; x.strokeRect(cx+.5, cy+.5, sz-1, sz-1); } }
+   else { x.globalAlpha = .28; x.strokeStyle = fg; x.strokeRect(cx+.5, cy+.5, sz-1, sz-1); }
+  }
+  x.globalAlpha = 1;
+ };
+ const wkCalc = () => {
+  const b = Date.parse(wkIn.value); if (isNaN(b) || b > Date.now()) return;
+  wkLived = Math.min(WK_TOTAL - 1, Math.floor((Date.now() - b)/(7*864e5)));
+  const loc = tr('locale');
+  wkLine.textContent = tr('wkLine', (wkLived + 1).toLocaleString(loc), Math.max(0, WK_TOTAL - wkLived - 1).toLocaleString(loc));
+  wkDraw();
+ };
+ wkIn.addEventListener('input', () => { wkEx.hidden = true; wkCalc(); });
+ wkIn.addEventListener('keydown', e => e.stopPropagation());
+ const wkRo = new ResizeObserver(wkDraw); wkRo.observe(wkCv.parentNode);
+ const wkT = reduce ? null : setInterval(() => { wkBlink = !wkBlink; wkDraw(); }, 700);
+ wkCalc();
+ cleanups.push(() => { wkRo.disconnect(); clearInterval(wkT); });
+
+ /* modo Jay: marcador que lleva este estilo a cualquier web */
+ const bm = q('.bm');
+ bm.href = BOOKMARKLET;
+ bm.addEventListener('click', e => { e.preventDefault(); toast(tr('bmDrag')); });
+ q('.bm-copy').addEventListener('click', () => { if (navigator.clipboard) navigator.clipboard.writeText(BOOKMARKLET).then(() => toast(tr('bmCopied')), () => {}); });
 
  /* aparecer al entrar en pantalla */
  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('seen'); }), {threshold:.3});
@@ -1371,6 +1810,7 @@ function mountCreador(stage){
 }
 
 /* ───────── título: scramble y física ───────── */
+let current = null, cleanup = null;
 const nav = document.querySelector('.facets'), h1 = document.querySelector('h1'), lead = document.getElementById('lead'), word = document.getElementById('word'), stage = document.getElementById('stage');
 const physics = !reduce && !!G && finePointer;
 let chars = [];
@@ -1447,8 +1887,8 @@ function transition(o, bg, fg, swap){
 }
 
 /* ───────── control ───────── */
-nav.innerHTML = MODES.map((m,i)=>`<button type="button" role="tab" id="t-${m.id}" aria-controls="stage" aria-selected="false" data-id="${m.id}"><span>${String(i+1).padStart(2,'0')}<i class="fi fi-${m.id}" aria-hidden="true"></i></span>${m.label}</button>`).join('');
-let current = null, cleanup = null;
+const buildNav = () => { nav.innerHTML = MODES.map((m,i)=>`<button type="button" role="tab" id="t-${m.id}" aria-controls="stage" aria-selected="${m.id === current}" data-id="${m.id}"><span>${String(i+1).padStart(2,'0')}<i class="fi fi-${m.id}" aria-hidden="true"></i></span>${m.label}</button>`).join(''); };
+buildNav();
 const tabCenter = id => { const b = nav.querySelector(`[data-id="${id}"]`).getBoundingClientRect(); return {x:b.left + b.width/2, y:b.top + b.height/2}; };
 
 function setMode(id, push, origin){
@@ -1457,7 +1897,7 @@ function setMode(id, push, origin){
  const first = !current;
  current = m.id;
  nav.querySelectorAll('button').forEach(b => b.setAttribute('aria-selected', b.dataset.id === m.id));
- scrambleWord(m.label);
+ word.classList.remove('pvw'); scrambleWord(m.label);
  if (push) history.replaceState(null, '', '#' + m.id);
  const swap = () => {
   if (cleanup){ cleanup(); cleanup = null; }
@@ -1465,7 +1905,7 @@ function setMode(id, push, origin){
   const tc = document.querySelector('meta[name=theme-color]'); if (tc) tc.content = m.theme === 'light' ? '#ffffff' : '#000000';
   cleanup = m.mount(stage) || null;
   stage.setAttribute('aria-labelledby', 't-' + m.id);
-  if (!window.__ARTIFACT__) document.title = `Jay es ${m.label} — Jay Jaramillo`;
+  if (!window.__ARTIFACT__) document.title = tr('docTitle', m.label);
  };
  if (!first){ ui.sweep(); if (navigator.vibrate && !finePointer) try { navigator.vibrate(6); } catch(e){} }
  if (first || reduce || !G) swap();
@@ -1510,12 +1950,13 @@ if (!reduce && window.Lenis){ const lenis = new Lenis({lerp:.12}); window.__leni
 
 /* reloj de Cuenca */
 const clock = document.getElementById('clock');
-const tick = () => { clock.textContent = 'Cuenca ' + cuencaTime({hour:'2-digit', minute:'2-digit', hour12:false}); };
+let clockHover = false;
+const tick = () => { clock.textContent = tr('city') + ' ' + cuencaTime({hour:'2-digit', minute:'2-digit', hour12:false}) + (clockHover ? ' · ' + cuencaTime({weekday:'long'}) : ''); };
 tick(); setInterval(tick, 30000);
 document.getElementById('year').textContent = new Date().getFullYear();
 
-console.log('%cJay es ___', 'font:300 18px monospace');
-console.log('Si lees esto, sabes de código.\nPrueba la faceta ingeniero y escribe help.\nO escribe "simple" en cualquier parte de la página.\n→ https://www.instagram.com/jaywrkr/');
+console.log('%c' + tr('leadT') + ' ___', 'font:300 18px monospace');
+console.log(tr('console') + '\n→ https://www.instagram.com/jaywrkr/');
 
 /* sonido de interfaz: opcional, apagado por defecto */
 const ss = {get(k){ try { return sessionStorage.getItem(k); } catch(e){ return null; } }, set(k, v){ try { sessionStorage.setItem(k, v); } catch(e){} }};
@@ -1525,7 +1966,7 @@ ui.tick = (f = 1800, v = .05) => { if (!ui.on) return; const a = uiAC(), t = a.c
 ui.sweep = () => { if (!ui.on) return; const a = uiAC(), t = a.currentTime, n = a.createBuffer(1, a.sampleRate*.6, a.sampleRate), d = n.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random()*2-1;
  const s = a.createBufferSource(), f = a.createBiquadFilter(), g = a.createGain(); s.buffer = n; f.type = 'bandpass'; f.Q.value = 6; f.frequency.setValueAtTime(400, t); f.frequency.exponentialRampToValueAtTime(5000, t + .5); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.12, t + .25); g.gain.exponentialRampToValueAtTime(.0001, t + .58); s.connect(f).connect(g).connect(a.destination); s.start(t); s.stop(t + .6); };
 const sndBtn = document.querySelector('.snd');
-const setSnd = on => { ui.on = on; sndBtn.setAttribute('aria-pressed', on); sndBtn.textContent = 'Sonido: ' + (on ? 'sí' : 'no'); ss.set('jay-snd', on ? '1' : '0'); };
+const setSnd = on => { ui.on = on; sndBtn.setAttribute('aria-pressed', on); sndBtn.textContent = tr('snd', on); ss.set('jay-snd', on ? '1' : '0'); };
 sndBtn.addEventListener('click', () => { setSnd(!ui.on); if (ui.on){ uiAC(); ui.tick(1200, .06); } });
 nav.addEventListener('pointerenter', e => { if (e.target.closest && e.target.closest('button')) ui.tick(2400, .025); }, true);
 
@@ -1582,19 +2023,25 @@ const hasMode = id => MODES.some(m => m.id === id);
 
 /* las seis a la vez */
 const six = document.createElement('div'); six.className = 'six'; six.hidden = true; six.setAttribute('role','dialog'); six.setAttribute('aria-label','Las seis facetas a la vez');
-six.innerHTML = `<div class="six-head small"><span>La misma persona. Seis formas.</span><button type="button" class="six-x">Cerrar · Esc</button></div>
+function buildSix(){
+ six.setAttribute('aria-label', tr('sixAria'));
+ const F = tr('facets');
+ six.innerHTML = `<div class="six-head small"><span>${tr('sixHead')}</span><button type="button" class="six-x">${tr('close')}</button></div>
 <div class="six-cols">
- <button type="button" class="col c-ing" data-id="ingeniero"><span class="small">01 ingeniero</span><pre>$ whoami
+ <button type="button" class="col c-ing" data-id="ingeniero"><span class="small">01 ${F[0]}</span><pre>$ whoami
 Jay Jaramillo
-$ ls proyectos/
-${P.length} frentes
+$ ls ${tr('dirP')}
+${P.length} ${tr('fronts')}
 $ <i class="caret"></i></pre></button>
- <button type="button" class="col c-dis" data-id="disenador"><span class="small">02 diseñador</span><b class="aa">Aa</b><span class="sw2"><i></i><i></i></span></button>
- <button type="button" class="col c-esc" data-id="escritor"><span class="small">03 escritor</span><p>Me llamo Jay Jaramillo. Vivo en Cuenca. Volví de Milán con dos preguntas: ¿funciona? y ¿se entiende?</p></button>
- <button type="button" class="col c-lid" data-id="lider"><span class="small">04 líder</span><b class="n">${P.length}</b><span class="segs">${P.slice(0,5).map(p => `<span class="seg">${ETAPAS.map((_,i) => `<i class="${i<=p.e?'on':''}"></i>`).join('')}</span>`).join('')}</span></button>
- <button type="button" class="col c-vj" data-id="vj"><span class="small">05 VJ</span><canvas width="200" height="200" aria-hidden="true"></canvas></button>
- <button type="button" class="col c-cre" data-id="creador"><span class="small">06 creador</span><p class="big2">Hazlo igual.</p><span class="small">simple.</span></button>
+ <button type="button" class="col c-dis" data-id="disenador"><span class="small">02 ${F[1]}</span><b class="aa">Aa</b><span class="sw2"><i></i><i></i></span></button>
+ <button type="button" class="col c-esc" data-id="escritor"><span class="small">03 ${F[2]}</span><p>${tr('sixEsc')}</p></button>
+ <button type="button" class="col c-lid" data-id="lider"><span class="small">04 ${F[3]}</span><b class="n">${P.length}</b><span class="segs">${P.slice(0,5).map(p => `<span class="seg">${ET().map((_,i) => `<i class="${i<=p.e?'on':''}"></i>`).join('')}</span>`).join('')}</span></button>
+ <button type="button" class="col c-vj" data-id="vj"><span class="small">05 ${F[4]}</span><canvas width="200" height="200" aria-hidden="true"></canvas></button>
+ <button type="button" class="col c-cre" data-id="creador"><span class="small">06 ${F[5]}</span><p class="big2">${tr('anyway')}</p><span class="small">simple.</span></button>
 </div>`;
+ six.querySelector('.six-x').addEventListener('click', closeSix);
+ six.querySelectorAll('.col').forEach(c => c.addEventListener('click', () => { closeSix(); setMode(c.dataset.id, true); scrollTo({top:0}); }));
+}
 document.body.appendChild(six);
 let sixRaf = null;
 function sixVJ(){
@@ -1606,14 +2053,12 @@ function sixVJ(){
 }
 function openSix(){
  if (!six.hidden) return;
- stopTour(); six.hidden = false; ui.sweep();
+ buildSix(); stopTour(); six.hidden = false; ui.sweep();
  if (G && !reduce) G.from(six.querySelectorAll('.col'), {yPercent:100, duration:.6, ease:'steps(12)', stagger:.06});
  if (!reduce) sixVJ();
  six.querySelector('.col').focus({preventScroll:true});
 }
 function closeSix(){ if (six.hidden) return; six.hidden = true; cancelAnimationFrame(sixRaf); }
-six.querySelector('.six-x').addEventListener('click', closeSix);
-six.querySelectorAll('.col').forEach(c => c.addEventListener('click', () => { closeSix(); setMode(c.dataset.id, true); scrollTo({top:0}); }));
 document.querySelector('.six-open').addEventListener('click', openSix);
 
 /* adivina: toca la palabra y escribe qué crees que es Jay */
@@ -1621,20 +2066,20 @@ const guessOut = document.querySelector('.guess-out');
 let guessing = false;
 function startGuess(){
  if (guessing) return; guessing = true; stopTour(); cancelAnimationFrame(scrRaf);
- word.innerHTML = '<input class="guess" maxlength="18" aria-label="¿Qué crees que es Jay?" placeholder="___" autocomplete="off" spellcheck="false">';
+ word.innerHTML = `<input class="guess" maxlength="18" aria-label="${tr('guessAria')}" placeholder="___" autocomplete="off" spellcheck="false">`;
  const inp = word.querySelector('input'); inp.focus({preventScroll:true});
  const finish = val => {
   if (!guessing) return; guessing = false;
   const v = norm(val || '');
   const hit = MODES.find(m => norm(m.label) === v || m.id === v);
-  const flat = ['perfecto','genio','suerte','rico','famoso','talento','talentoso','crack','dios','millonario'];
+  const flat = tr('flat').concat(I18N.es.flat).map(norm);
   let msg;
   if (!v) msg = '';
-  else if (hit) msg = 'Sí. Mira.';
-  else if (flat.includes(v)) msg = `${val}: no. Tacha eso. Es trabajo.`;
-  else if (['simple','simple.'].includes(v)) msg = 'Exacto.';
-  else if (['humano','persona'].includes(v)) msg = 'También. Por eso se equivoca y vuelve.';
-  else msg = `"${val}". Puede ser. Sigue mirando.`;
+  else if (hit) msg = tr('guessYes');
+  else if (flat.includes(v)) msg = tr('guessFlat', val);
+  else if (['simple','simple.'].includes(v)) msg = tr('guessExact');
+  else if (tr('human').map(norm).includes(v)) msg = tr('guessHuman');
+  else msg = tr('guessMaybe', val);
   guessOut.textContent = msg;
   clearTimeout(guessOut._t); guessOut._t = setTimeout(() => guessOut.textContent = '', 4200);
   const m = MODES.find(m => m.id === current);
@@ -1645,17 +2090,17 @@ function startGuess(){
  inp.addEventListener('blur', () => finish(inp.value.trim()));
 }
 word.addEventListener('click', startGuess);
-word.setAttribute('role','button'); word.setAttribute('tabindex','0'); word.setAttribute('aria-label','Toca para escribir qué crees que es Jay');
+word.setAttribute('role','button'); word.setAttribute('tabindex','0'); word.setAttribute('aria-label', tr('guessWordAria'));
 word.addEventListener('keydown', e => { if (!guessing && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); startGuess(); } });
 
 /* el código de esta página, leyéndose a sí mismo */
-const src = document.createElement('div'); src.className = 'src'; src.hidden = true; src.setAttribute('role','dialog'); src.setAttribute('aria-label','El código de esta página');
+const src = document.createElement('div'); src.className = 'src'; src.hidden = true; src.setAttribute('role','dialog'); src.setAttribute('aria-label', tr('srcAria'));
 document.body.appendChild(src);
 let srcRaf;
 function openSrc(){
  const html = '<!doctype html>\n' + document.documentElement.outerHTML.replace(/<div class="src"[\s\S]*?<\/div>\s*$/, '');
  const lines = html.split('\n');
- src.innerHTML = `<div class="src-head small"><span>Esta página, por dentro: ${lines.length} líneas. Ninguna sobra.</span><button type="button" class="src-x">Cerrar · Esc</button></div><pre>${lines.map(l => `<span>${esc(l).replace(/(\/\*[^*]*\*\/)/g, '<b>$1</b>')}</span>`).join('\n')}</pre>`;
+ src.innerHTML = `<div class="src-head small"><span>${tr('srcHead', lines.length)}</span><button type="button" class="src-x">${tr('close')}</button></div><pre>${lines.map(l => `<span>${esc(l).replace(/(\/\*[^*]*\*\/)/g, '<b>$1</b>')}</span>`).join('\n')}</pre>`;
  src.hidden = false; stopTour(); ui.sweep();
  src.querySelector('.src-x').addEventListener('click', closeSrc);
  const pre = src.querySelector('pre'); let y = 0;
@@ -1671,7 +2116,7 @@ document.addEventListener('copy', e => {
  if (t.closest('input, textarea')) return;
  const sel = String(getSelection()); if (sel.trim().length < 8) return;
  e.clipboardData.setData('text/plain', sel.trim() + '\n\n— Jay Jaramillo · @jaywrkr · simple.'); e.preventDefault();
- toast('Copiado con firma.');
+ toast(tr('copied'));
 });
 
 /* "simple." del pie apaga todo lo demás */
@@ -1689,13 +2134,13 @@ if (!reduce){ brand.addEventListener('pointerenter', () => shrink('J')); brand.a
 let realTitle = document.title;
 document.addEventListener('visibilitychange', () => {
  if (window.__ARTIFACT__) return;
- if (document.hidden){ realTitle = document.title; document.title = 'Jay sigue trabajando.'; }
+ if (document.hidden){ realTitle = document.title; document.title = tr('tabAway'); }
  else document.title = realTitle;
 });
 
 /* salvapantallas: el juego de la vida en ángulos rectos */
 const saver = document.createElement('div'); saver.className = 'saver'; saver.hidden = true; saver.setAttribute('aria-hidden','true');
-saver.innerHTML = '<canvas></canvas><p class="small saver-t">Sigue aquí cuando vuelvas. <span class="saver-c"></span></p>';
+saver.innerHTML = '<canvas></canvas><p class="small saver-t"><span class="saver-m"></span> <span class="saver-c"></span></p>';
 document.body.appendChild(saver);
 let idleT, saverRaf;
 function openSaver(){
@@ -1705,10 +2150,10 @@ function openSaver(){
  const W = innerWidth, H = innerHeight, cs = 14, cols = Math.ceil(W/cs), rows = Math.ceil(H/cs);
  cv.width = W*d; cv.height = H*d; x.setTransform(d,0,0,d,0,0);
  let g = new Uint8Array(cols*rows).map(() => Math.random() < .22 ? 1 : 0), last = 0, gen = 0;
- saver.querySelector('.saver-c').textContent = '';
+ saver.querySelector('.saver-c').textContent = ''; saver.querySelector('.saver-m').textContent = tr('saver');
  const step = () => { const n = new Uint8Array(cols*rows); for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++){ let k = 0; for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++){ if (dr || dc) k += g[((r+dr+rows)%rows)*cols + (c+dc+cols)%cols]; } const a = g[r*cols+c]; n[r*cols+c] = (a && (k === 2 || k === 3)) || (!a && k === 3) ? 1 : 0; } g = n; gen++; };
  const draw = t => {
-  if (t - last > 110){ last = t; step(); saver.querySelector('.saver-c').textContent = `Generación ${gen}.`; }
+  if (t - last > 110){ last = t; step(); saver.querySelector('.saver-c').textContent = tr('gen', gen); }
   x.fillStyle = '#000'; x.fillRect(0,0,W,H); x.fillStyle = '#fff';
   for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) if (g[r*cols+c]) x.fillRect(c*cs+2, r*cs+2, cs-4, cs-4);
   saverRaf = requestAnimationFrame(draw);
@@ -1729,17 +2174,16 @@ addEventListener('keydown', e => {
  kseq = kseq.concat(e.key.length === 1 ? e.key.toLowerCase() : e.key).slice(-10);
  if (kseq.join() === KONAMI.join()){ kseq = []; openSrc(); }
  if (e.key === '0' && !e.metaKey && !e.ctrlKey) openSix();
- if (typed.endsWith('codigo')){ typed = ''; openSrc(); }
+ if (typed.endsWith('codigo') || typed.endsWith('codice')){ typed = ''; openSrc(); }
 });
 
 /* ecos: otras versiones de Jay recorriendo la web (simulados, sin servidor) */
 if (finePointer && !reduce && G){
- const NAMES = ['jay · ingeniero', 'jay · vj', 'jay · diseñador', 'jay · escritor'];
  const btn = document.querySelector('.ecos-b'); btn.hidden = false;
- const ghosts = NAMES.sort(() => Math.random() - .5).slice(0, 2).map(n => {
-  const el = document.createElement('div'); el.className = 'ghost'; el.setAttribute('aria-hidden', 'true'); el.innerHTML = `<i></i><span>${n}</span>`;
+ const ghosts = [0, 4, 1, 2].sort(() => Math.random() - .5).slice(0, 2).map(k => {
+  const el = document.createElement('div'); el.className = 'ghost'; el.setAttribute('aria-hidden', 'true'); el.innerHTML = `<i></i><span>jay · ${tr('facets')[k]}</span>`;
   document.body.appendChild(el); G.set(el, {x:Math.random()*innerWidth*.8, y:innerHeight*.3 + Math.random()*innerHeight*.5});
-  return {el, t:null};
+  return {el, t:null, k};
  });
  const eco = {on:true};
  const busy = () => !six.hidden || !src.hidden || !saver.hidden || document.querySelector('.intro') || document.hidden;
@@ -1758,22 +2202,111 @@ if (finePointer && !reduce && G){
  };
  ghosts.forEach((g, i) => { g.t = setTimeout(() => walk(g), 4000 + i*2200); });
  eco.toggle = () => {
-  eco.on = !eco.on; btn.setAttribute('aria-pressed', eco.on); btn.textContent = eco.on ? '2 ecos' : 'ecos: no';
+  eco.on = !eco.on; btn.setAttribute('aria-pressed', eco.on); btn.textContent = eco.on ? tr('ecosOn') : tr('ecosOff');
   ghosts.forEach(g => { g.el.hidden = !eco.on; clearTimeout(g.t); G.killTweensOf(g.el); if (eco.on) g.t = setTimeout(() => walk(g), 600); });
   ss.set('jay-ecos', eco.on ? '1' : '0');
  };
  btn.addEventListener('click', eco.toggle);
  if (ss.get('jay-ecos') === '0') eco.toggle();
+ eco.relabel = () => { ghosts.forEach(g => { g.el.querySelector('span').textContent = 'jay · ' + tr('facets')[g.k]; }); btn.textContent = eco.on ? tr('ecosOn') : tr('ecosOff'); };
  window.__ecos = eco;
 }
 
 /* Cuenca de noche, y los domingos sin filtro */
 function timeNote(){
- const h = +cuencaTime({hour:'2-digit', hour12:false}), dname = cuencaTime({weekday:'long'});
- if (h >= 23 || h < 5) setTimeout(() => toast(`Son las ${cuencaTime({hour:'2-digit', minute:'2-digit', hour12:false})} en Cuenca. Deberías estar durmiendo. Yo también.`), 1500);
- else if (dname === 'domingo') setTimeout(() => toast('Domingo. Sin filtro.'), 1500);
+ const h = cuencaHour();
+ if (h >= 23 || h < 5) setTimeout(() => toast(tr('night', cuencaTime({hour:'2-digit', minute:'2-digit', hour12:false}))), 1500);
+ else if (cuencaDow() === 0) setTimeout(() => toast(tr('sunday')), 1500);
 }
 
+/* textos fijos del HTML */
+function applyStatic(){
+ document.documentElement.lang = LANG;
+ document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = tr(el.dataset.i18n); });
+ document.querySelectorAll('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', tr(el.dataset.i18nAria)));
+ document.querySelectorAll('[data-i18n-title]').forEach(el => el.setAttribute('title', tr(el.dataset.i18nTitle)));
+ if (physics){ lead.textContent = tr('lead'); splitEl(lead); bindChars(); } else lead.textContent = tr('lead');
+ sndBtn.textContent = tr('snd', ui.on);
+ langBox.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === LANG));
+ if (LANG === 'ja' && !document.getElementById('font-ja')){ const l = document.createElement('link'); l.id = 'font-ja'; l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@300;400&display=swap'; document.head.appendChild(l); }
+ tick();
+ if (ageDays !== null) applyAge(ageDays);
+}
+const langBox = document.querySelector('.langs');
+langBox.innerHTML = LANGS.map(l => `<button type="button" data-l="${l}" lang="${l}" aria-pressed="false">${LANG_LABEL[l]}</button>`).join('');
+function setLang(l){
+ if (!LANGS.includes(l) || l === LANG) return;
+ LANG = l; lsx.set('jay-lang', l);
+ applyStatic(); buildNav();
+ const m = MODES.find(x => x.id === current);
+ if (m){
+  scrambleWord(m.label);
+  if (cleanup){ cleanup(); cleanup = null; }
+  cleanup = m.mount(stage) || null;
+  if (!window.__ARTIFACT__) document.title = tr('docTitle', m.label);
+ }
+ if (window.__ecos) window.__ecos.relabel();
+ word.setAttribute('aria-label', tr('guessWordAria'));
+ ui.tick(1600, .04);
+}
+langBox.addEventListener('click', e => { const b = e.target.closest('button'); if (b){ stopTour(); setLang(b.dataset.l); } });
+
+/* la web envejece si Jay no publica código */
+const dust = document.createElement('canvas'); dust.className = 'dust'; dust.hidden = true; dust.setAttribute('aria-hidden', 'true'); document.body.appendChild(dust);
+const ageEl = document.querySelector('.age'), ageLastEl = document.querySelector('.age-last');
+let ageDays = null;
+function drawDust(){
+ if (ageDays === null || ageDays < 2){ dust.hidden = true; return; }
+ const d = Math.min(devicePixelRatio||1, 2), W = innerWidth, H = innerHeight, age = Math.min(1, (ageDays - 1)/20);
+ dust.width = W*d; dust.height = H*d; const x = dust.getContext('2d'); x.setTransform(d,0,0,d,0,0); x.clearRect(0,0,W,H);
+ let seed = ageDays*9301 + 49297; const rnd = () => (seed = (seed*233280 + 49297) % 233280)/233280;
+ x.fillStyle = 'rgba(128,128,128,.7)';
+ for (let i = 0, n = Math.round(120 + age*1400); i < n; i++){ const s = 1 + Math.floor(rnd()*4); x.fillRect(Math.floor(rnd()*W), Math.floor(rnd()*H), s, s); }
+ x.fillStyle = 'rgba(128,128,128,.35)';
+ for (let i = 0, n = Math.round(age*18); i < n; i++) x.fillRect(Math.floor(rnd()*W), Math.floor(rnd()*H), 40 + Math.floor(rnd()*260), 1);
+ dust.hidden = false;
+}
+function applyAge(days){
+ ageDays = days;
+ ageEl.hidden = days < 2; if (days >= 2) ageEl.textContent = tr('ageMsg', days);
+ if (ageLastEl) ageLastEl.textContent = tr('ageLast', days);
+ drawDust();
+}
+addEventListener('resize', () => { if (ageDays !== null) drawDust(); });
+addEventListener('pointermove', e => { if (dust.hidden) return; const x = dust.getContext('2d'); x.clearRect(e.clientX - 34, e.clientY - 34, 68, 68); }, {passive:true});
+(() => {
+ const q = parseInt(new URLSearchParams(location.search).get('age'), 10);
+ if (!isNaN(q)) return applyAge(q);
+ const c = ss.get('jay-age'); if (c !== null) return applyAge(+c);
+ if (window.__ARTIFACT__ || !window.fetch) return;
+ fetch('https://api.github.com/users/Jaywrkr/events/public?per_page=30').then(r => r.ok ? r.json() : null).then(ev => {
+  if (!Array.isArray(ev)) return;
+  const e = ev.find(x => x.type === 'PushEvent' || x.type === 'CreateEvent'); if (!e) return;
+  const days = Math.max(0, Math.floor((Date.now() - Date.parse(e.created_at))/864e5));
+  ss.set('jay-age', days); applyAge(days);
+ }).catch(() => {});
+})();
+
+/* portada: pasar el cursor por las facetas las adelanta */
+const hero = document.querySelector('.hero');
+if (finePointer){
+ nav.addEventListener('pointerover', e => {
+  const b = e.target.closest('button[data-id]'); if (!b || guessing) return;
+  hero.className = 'hero pv pv-' + b.dataset.id;
+  if (b.dataset.id !== current){ word.classList.add('pvw'); scrambleWord(MODES.find(m => m.id === b.dataset.id).label); }
+  else if (word.classList.contains('pvw')){ word.classList.remove('pvw'); scrambleWord(MODES.find(m => m.id === current).label); }
+ });
+ nav.addEventListener('pointerleave', () => {
+  hero.className = 'hero';
+  if (word.classList.contains('pvw') && !guessing){ word.classList.remove('pvw'); scrambleWord(MODES.find(m => m.id === current).label); }
+ });
+ const hl = document.querySelector('.hero-l'), HL = ['jaywrkr / 2026', 'jay + worker / 2026'];
+ const swapTxt = (el, to) => { let n = 0; clearInterval(el._t); el._t = setInterval(() => { n++; el.textContent = to.split('').map((c, i) => i < n*1.5 ? c : GLYPH[(Math.random()*GLYPH.length)|0]).join(''); if (n*1.5 >= to.length){ clearInterval(el._t); el.textContent = to; } }, 26); };
+ hl.addEventListener('pointerenter', () => swapTxt(hl, HL[1])); hl.addEventListener('pointerleave', () => swapTxt(hl, HL[0]));
+ clock.addEventListener('pointerenter', () => { clockHover = true; tick(); }); clock.addEventListener('pointerleave', () => { clockHover = false; tick(); });
+}
+
+applyStatic();
 if (ss.get('jay-snd') === '1') setSnd(true);
 word.textContent = '';
 setMode(location.hash.slice(1) || 'ingeniero');

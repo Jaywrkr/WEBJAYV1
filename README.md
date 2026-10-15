@@ -42,6 +42,10 @@ Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 0
 - Modo Jay (creador o comando `modojay`): un marcador que se arrastra a la barra y pone cualquier web en negro, blanco, Geist Mono y "simple.".
 - Portada: al pasar el cursor por una faceta, la palabra cambia y aparece una sola línea o cuadro en movimiento propio de esa faceta; "jaywrkr" se abre en "jay + worker"; el reloj muestra el día.
 
+## Hallazgos
+Todo lo escondido vive en un solo sistema: 24 hallazgos con contador arriba ("hallazgos 3/24"). El primero se gana al entrar, para que la gente vea que existe. El panel muestra cada hallazgo como ??? con una pista; al encontrarlo se invierte en blanco. Se guarda en el navegador. Botón para compartir "Encontré X de 24". Comando `hallazgos` en la terminal.
+Para agregar uno: id en `FIDS`, texto en `I18N.<lang>.fnd` (mismo orden) y `found('id')` donde ocurre.
+
 ## Idiomas
 Español, inglés, italiano, francés y japonés. Selector arriba a la derecha; se guarda en el navegador. También `?lang=en|it|fr|ja`. Si no hay elección, usa el idioma del navegador.
 Todos los textos están en `I18N` dentro de `index.html`; cada idioma tiene las mismas claves.

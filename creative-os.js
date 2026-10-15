@@ -1,0 +1,14 @@
+(function(){
+const modal=document.getElementById('os-modal'),launcher=document.getElementById('os-launcher'),close=document.getElementById('os-close'),pages=[...document.querySelectorAll('.os-page')],tabs=[...document.querySelectorAll('[data-os-tab]')],output=document.getElementById('os-terminal'),input=document.getElementById('os-input'),form=document.getElementById('os-command');if(!modal)return;
+let previousFocus=null,found=new Set(),commands=0;
+const messages={help:'AVAILABLE: help, whoami, projects, thoughts, now, secret, clear, exit',whoami:'JAYWRKR / PM BY DAY / BUILDER BY NATURE / ALWAYS CURIOUS',projects:'PROJECTS: WHITEDOT / CORECENTRAL / JAYWRKR',thoughts:'THOUGHTS: Lo que piensas, pero casi nunca dices.',now:'NOW: turning this corner of the internet into something alive.',secret:'SECRET: The best way to understand a thing is to play with it.'};
+function write(line){output.textContent+='\n> '+line;output.scrollTop=output.scrollHeight}
+function tab(name){pages.forEach(p=>p.hidden=p.dataset.osPage!==name);tabs.forEach(t=>{let active=t.dataset.osTab===name;t.classList.toggle('active',active);t.setAttribute('aria-selected',String(active))});document.getElementById('os-status').textContent=name.toUpperCase()+' / READY';if(name==='terminal')input.focus()}
+function open(){previousFocus=document.activeElement;modal.hidden=false;document.body.classList.add('os-locked');tab('desktop');close.focus()}
+function shut(){modal.hidden=true;document.body.classList.remove('os-locked');previousFocus?.focus()}
+launcher.addEventListener('click',open);close.addEventListener('click',shut);modal.addEventListener('pointerdown',e=>{if(e.target===modal)shut()});
+tabs.forEach(t=>t.addEventListener('click',()=>tab(t.dataset.osTab)));
+document.querySelectorAll('[data-os-open]').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.osOpen)));
+form.addEventListener('submit',e=>{e.preventDefault();const command=input.value.trim().toLowerCase();input.value='';if(!command)return;if(command==='clear'){output.textContent='JAY OS / TERMINAL READY';return}write(command);commands++;if(command==='exit'){shut();return}write(messages[command]||'UNKNOWN COMMAND. TYPE help');if(command==='secret'){found.add('secret');document.getElementById('os-achievement').textContent='✳ ACHIEVEMENT: HIDDEN IN PLAIN SIGHT'}});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();modal.hidden?open():shut()}if(modal.hidden)return;if(e.key==='Escape')shut();if(e.key==='Tab'){const focusables=[...modal.querySelectorAll('button:not([disabled]),input')].filter(x=>x.offsetParent!==null);if(!focusables.length)return;const first=focusables[0],last=focusables.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+})();

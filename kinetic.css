@@ -1,6 +1,6 @@
 /* JAY / kinetic editorial system */
 :root{--accent:#dfff73}html{scroll-padding-top:22px}
-body{overflow-x:hidden}
+body{overflow-x:hidden}.hero{position:relative}
 .hero{isolation:isolate;min-height:100svh}
 .hero h1{position:relative;z-index:3;text-wrap:balance;mix-blend-mode:screen}
 .hero p,.hero .tag{position:relative;z-index:3}

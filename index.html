@@ -84,7 +84,6 @@ html.inv{filter:invert(1)}
 .hero{padding:14vh var(--pad) 0}
 h1{font-weight:300;font-size:clamp(30px,5.2vw,56px);line-height:1.15;letter-spacing:-.02em}
 #word{display:inline-block;min-width:1ch}
-h1 .ch{display:inline-block;white-space:pre;will-change:transform}
 .caret{display:inline-block;width:.55em;height:.95em;background:var(--fg);vertical-align:-.1em;margin-left:.06em;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .hint{margin-top:20px;max-width:60ch;text-wrap:pretty}
@@ -343,18 +342,22 @@ html[lang=ja] .small{letter-spacing:.03em}
 html[lang=ja] h1{letter-spacing:0}
 /* hover en la portada */
 .hero{position:relative}
-.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s steps(4);z-index:0}
-.hero>*{position:relative;z-index:1}
-body{--pv:rgba(255,255,255,.08)}
-body[data-theme=light]{--pv:rgba(0,0,0,.07)}
-.hero.pv::before{opacity:1}
-.hero.pv-ingeniero::before{background:repeating-linear-gradient(180deg,var(--pv) 0 1px,transparent 1px 24px)}
-.hero.pv-disenador::before{left:var(--pad);right:var(--pad);background:repeating-linear-gradient(90deg,var(--pv) 0 calc((100% - 176px)/12),transparent 0 calc((100% - 176px)/12 + 16px))}
-.hero.pv-escritor::before{left:var(--pad);right:45%;background:repeating-linear-gradient(180deg,transparent 0 31px,var(--pv) 31px 32px)}
-.hero.pv-lider::before{background:linear-gradient(var(--pv),var(--pv)) 8% 100%/5% 30% no-repeat,linear-gradient(var(--pv),var(--pv)) 22% 100%/5% 55% no-repeat,linear-gradient(var(--pv),var(--pv)) 36% 100%/5% 40% no-repeat,linear-gradient(var(--pv),var(--pv)) 50% 100%/5% 75% no-repeat,linear-gradient(var(--pv),var(--pv)) 64% 100%/5% 50% no-repeat,linear-gradient(var(--pv),var(--pv)) 78% 100%/5% 88% no-repeat,linear-gradient(var(--pv),var(--pv)) 92% 100%/5% 62% no-repeat}
-.hero.pv-vj::before{background:repeating-conic-gradient(var(--pv) 0 25%,transparent 0 50%) 0 0/48px 48px;animation:pvj .5s steps(1) infinite}
-@keyframes pvj{50%{background-position:24px 0}}
-.hero.pv-creador::before{background:linear-gradient(90deg,var(--pv) 50%,transparent 50%)}
+.hero::before{content:"";position:absolute;left:0;top:0;width:0;height:0;pointer-events:none;opacity:0;z-index:0;background:var(--fg);transition:opacity .15s}
+.hero.pv::before{opacity:.3}
+.hero.pv-ingeniero::before{width:100%;height:1px;animation:pvY 1.8s linear infinite}
+.hero.pv-disenador::before{width:1px;height:100%;animation:pvX 2.4s steps(12) infinite}
+.hero.pv-escritor::before{top:auto;bottom:120px;left:var(--pad);height:1px;animation:pvW 1.6s steps(32) infinite}
+.hero.pv-lider::before{top:auto;bottom:0;left:auto;right:var(--pad);width:8px;animation:pvH 1.2s steps(6) infinite alternate}
+.hero.pv-vj::before{width:24px;height:24px;animation:pvJ .8s steps(1) infinite}
+.hero.pv-creador::before{width:220px;height:220px;left:72%;top:50%;background:none;border:1px solid var(--fg);animation:pvS 1.6s steps(8) infinite}
+.hero.pv.pv-creador::before{opacity:.5}
+@keyframes pvY{from{top:0}to{top:100%}}
+@keyframes pvX{from{left:var(--pad)}to{left:calc(100% - var(--pad))}}
+@keyframes pvW{from{width:0}to{width:calc(100% - var(--pad)*2)}}
+@keyframes pvH{from{height:0}to{height:80%}}
+@keyframes pvJ{0%{left:62%;top:20%}25%{left:84%;top:58%}50%{left:70%;top:76%}75%{left:90%;top:28%}}
+@keyframes pvS{from{transform:translate(-50%,-50%) scale(.05)}to{transform:translate(-50%,-50%) scale(1)}}
+@media (prefers-reduced-motion:reduce){.hero::before{animation:none!important}}
 #word.pvw{opacity:.45}
 .hero-l{display:inline-block;min-width:20ch}
 /* la web envejece */
@@ -1809,34 +1812,14 @@ function mountCreador(stage){
  return () => { io.disconnect(); cleanups.forEach(f => f()); clearTimeout(deb); };
 }
 
-/* ───────── título: scramble y física ───────── */
+/* ───────── título: scramble ───────── */
 let current = null, cleanup = null;
 const nav = document.querySelector('.facets'), h1 = document.querySelector('h1'), lead = document.getElementById('lead'), word = document.getElementById('word'), stage = document.getElementById('stage');
-const physics = !reduce && !!G && finePointer;
-let chars = [];
-function splitEl(el){ el.innerHTML = [...el.textContent].map(c => `<span class="ch">${c === ' ' ? '&nbsp;' : esc(c)}</span>`).join(''); }
-function bindChars(){ chars = [...h1.querySelectorAll('.ch')].map(el => ({el, x:G.quickTo(el, 'x', {duration:.7, ease:'power3'}), y:G.quickTo(el, 'y', {duration:.7, ease:'power3'})})); }
-if (physics){
- splitEl(lead); bindChars();
- let near = false;
- addEventListener('pointermove', e => {
-  const r = h1.getBoundingClientRect();
-  const inside = e.clientY > r.top - 140 && e.clientY < r.bottom + 140;
-  if (!inside){ if (near){ near = false; chars.forEach(c => { c.x(0); c.y(0); }); } return; }
-  near = true;
-  const R = 130, F = 28;
-  chars.forEach(c => {
-   const b = c.el.getBoundingClientRect(), ox = G.getProperty(c.el, 'x'), oy = G.getProperty(c.el, 'y');
-   const dx = b.left + b.width/2 - ox - e.clientX, dy = b.top + b.height/2 - oy - e.clientY, d = Math.hypot(dx, dy) || 1;
-   if (d < R){ const f = (1 - d/R)**2 * F; c.x(dx/d*f); c.y(dy/d*f); } else { c.x(0); c.y(0); }
-  });
- }, {passive:true});
-}
 const GLYPH = '#$%&_/<>*+=01';
 let scrRaf;
 function scrambleWord(txt){
  cancelAnimationFrame(scrRaf);
- const done = () => { word.textContent = txt; if (physics){ splitEl(word); bindChars(); } };
+ const done = () => { word.textContent = txt; };
  if (reduce) return done();
  const from = word.textContent, len = Math.max(from.length, txt.length), t0 = performance.now(), D = 560;
  const tick = now => {
@@ -2225,7 +2208,7 @@ function applyStatic(){
  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = tr(el.dataset.i18n); });
  document.querySelectorAll('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', tr(el.dataset.i18nAria)));
  document.querySelectorAll('[data-i18n-title]').forEach(el => el.setAttribute('title', tr(el.dataset.i18nTitle)));
- if (physics){ lead.textContent = tr('lead'); splitEl(lead); bindChars(); } else lead.textContent = tr('lead');
+ lead.textContent = tr('lead');
  sndBtn.textContent = tr('snd', ui.on);
  langBox.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === LANG));
  if (LANG === 'ja' && !document.getElementById('font-ja')){ const l = document.createElement('link'); l.id = 'font-ja'; l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@300;400&display=swap'; document.head.appendChild(l); }

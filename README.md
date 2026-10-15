@@ -40,7 +40,7 @@ Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 0
 - La web envejece: lee el último push público de Jaywrkr en GitHub. Desde 2 días sin código aparece polvo sobre la página y un aviso arriba; el cursor lo limpia solo para quien mira. Probar con `?age=15`.
 - Tu vida en semanas (creador): fecha de nacimiento → 4.160 cuadrados, la semana actual parpadea.
 - Modo Jay (creador o comando `modojay`): un marcador que se arrastra a la barra y pone cualquier web en negro, blanco, Geist Mono y "simple.".
-- Portada: al pasar el cursor por una faceta, la palabra y el fondo la adelantan; "jaywrkr" se abre en "jay + worker"; el reloj muestra el día.
+- Portada: al pasar el cursor por una faceta, la palabra cambia y aparece una sola línea o cuadro en movimiento propio de esa faceta; "jaywrkr" se abre en "jay + worker"; el reloj muestra el día.
 
 ## Idiomas
 Español, inglés, italiano, francés y japonés. Selector arriba a la derecha; se guarda en el navegador. También `?lang=en|it|fr|ja`. Si no hay elección, usa el idioma del navegador.

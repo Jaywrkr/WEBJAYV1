@@ -21,6 +21,17 @@ Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 0
 - Diseñador: tokens leídos en vivo de la página. Escritor: barra de lectura. VJ: nombres de escenas, BPM detectado, ← → entre escenas.
 - `og.png` (1200 × 630), `apple-touch-icon.png` y `404.html` propios.
 
+## Sorpresas
+- `0` o "míralas todas": las seis facetas a la vez, en columnas.
+- Tocar la palabra de "Jay es ___" y escribir qué crees que es Jay.
+- Escribir `simple` invierte la web. Escribir `codigo` (o el código Konami) abre el código de la página leyéndose a sí misma.
+- Copiar texto lo firma: "— Jay Jaramillo · @jaywrkr · simple."
+- Pasar el cursor por "simple." del pie apaga todo lo demás. El nombre de arriba se reduce a "J".
+- 75 s sin tocar nada: salvapantallas con el juego de la vida en cuadrados.
+- De noche en Cuenca y los domingos aparece un aviso.
+- Terminal: `neofetch`, `top`, `history`, `uptime`, `codigo`, `seis`.
+- Diseñador: "Rompe el diseño". Escritor: el borrador se tacha solo y cuenta las palabras eliminadas. Líder: "Cómo decido".
+
 ## Brand style
 - Monocromo: negro y blanco puros. El acento es la inversión.
 - Geist Mono en 300 y 400. Nunca bold. Máximo 56px.

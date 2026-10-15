@@ -258,6 +258,57 @@ body[data-mode=creador] .stage-label{padding:10vh var(--pad) 4vh;margin:0}
 .vj-big[aria-pressed=true]{background:var(--fg);color:var(--bg)}
 .vj-big[aria-pressed=true] .dot{background:var(--bg);animation:blink 1s steps(1) infinite}
 .vj>.vj-ctl{margin-bottom:16px}
+
+/* sorpresas */
+.six-open{border-bottom:1px solid var(--mute);color:var(--fg)}
+.guess-out{min-height:1.6em;margin-top:8px;color:var(--fg)}
+#word{cursor:text}
+#word .guess{font:inherit;letter-spacing:inherit;color:inherit;background:none;border:0;border-bottom:1px solid var(--fg);outline:0;width:9ch;padding:0}
+.six{position:fixed;inset:0;z-index:65;background:#000;color:#fff;display:flex;flex-direction:column}
+.six-head{display:flex;justify-content:space-between;gap:16px;padding:20px var(--pad);color:#8a8a8a}
+.six-cols{flex:1;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));min-height:0}
+.six .col{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;text-align:left;padding:24px 20px;border-left:1px solid #262626;overflow:hidden;min-width:0}
+.six .col>.small{opacity:.7}
+.six .col:hover>.small,.six .col:focus-visible>.small{opacity:1}
+.c-ing pre{font:inherit;font-size:13px;white-space:pre-wrap}
+.c-dis{background:#fff;color:#000;background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.06) 0 1px,transparent 1px 24px)}
+.c-dis .aa{font-weight:300;font-size:56px;line-height:1}
+.c-dis .sw2{display:flex;gap:8px}.c-dis .sw2 i{width:40px;height:40px;border:1px solid #000}.c-dis .sw2 i:first-child{background:#000}
+.c-esc{background:#fff;color:#000}.c-esc p{font-size:13px;line-height:1.8}
+.c-lid .n{font-weight:300;font-size:56px;line-height:1}
+.c-lid .segs{display:flex;flex-direction:column;gap:6px;width:100%}
+.c-lid .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;height:6px}
+.c-lid .seg i{border:1px solid #777}.c-lid .seg i.on{background:#fff;border-color:#fff}
+.c-vj canvas{width:100%;height:auto;aspect-ratio:1;max-width:100%}
+.c-cre{background:linear-gradient(180deg,#000 50%,#fff 50%);}
+.c-cre .big2{font-size:22px;mix-blend-mode:difference;color:#fff}
+.c-cre>.small:last-child{color:#000}
+.src{position:fixed;inset:0;z-index:66;background:#000;color:#8a8a8a;display:flex;flex-direction:column}
+.src-head{display:flex;justify-content:space-between;gap:16px;padding:20px var(--pad);color:#fff;border-bottom:1px solid #262626}
+.src pre{flex:1;overflow:auto;margin:0;padding:24px var(--pad);font:300 12px/1.7 'Geist Mono',ui-monospace,monospace;counter-reset:ln}
+.src pre span{display:block;white-space:pre-wrap;word-break:break-all;padding-left:5em;text-indent:-5em}
+.src pre span::before{counter-increment:ln;content:counter(ln);display:inline-block;width:4em;margin-right:1em;text-align:right;color:#444;text-indent:0}
+.src pre b{font-weight:300;color:#fff}
+.saver{position:fixed;inset:0;z-index:75;background:#000}
+.saver canvas{display:block;width:100%;height:100%}
+.saver-t{position:absolute;left:var(--pad);bottom:32px;color:#fff;background:#000;padding:6px 10px}
+body.only-simple>*:not(footer):not(.cur),body.only-simple footer>*:not(.foot-end),body.only-simple .foot-end>*:not(.simple){opacity:.04;transition:opacity .4s}
+body>*,footer>*,.foot-end>*{transition:opacity .4s}
+.cut{text-decoration:none;color:var(--mute);position:relative;transition:opacity .35s}
+.cut::after{content:"";position:absolute;left:0;top:55%;height:1px;width:0;background:var(--fg);transition:width .6s steps(12)}
+.cut.on::after{width:100%}
+.cut.gone{opacity:0}
+.ds.broken .box h3,.ds.broken .rules li,.ds.broken .aa{font-weight:700}
+.decide{margin-top:72px;border-top:1px solid var(--fg);padding-top:16px;display:flex;flex-direction:column;gap:20px}
+.dq{display:flex;align-items:center;gap:20px}
+.dsq{display:flex;gap:6px;flex:none}
+.dsq i{width:14px;height:14px;border:1px solid var(--fg)}
+.dsq i.on{background:var(--fg)}
+.dsq i.no{background:repeating-linear-gradient(180deg,var(--fg) 0 1px,transparent 1px 3px)}
+.dq-b{display:flex;gap:12px}
+.dq-b button,.ds-tools button{border:1px solid var(--line);padding:8px 14px}
+.dq-b button:hover,.ds-tools button:hover{border-color:var(--fg)}
+@media(max-width:860px){.six-cols{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;overflow:auto}.six .col{border-top:1px solid #262626}}
 /* pie */
 footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
 .where{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:72px}
@@ -309,7 +360,8 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
 <section class="hero">
  <p class="small mute">jaywrkr / 2026</p>
  <h1><span id="lead">Jay es </span><span id="word">ingeniero</span><span class="caret" aria-hidden="true"></span></h1>
- <p class="hint mute">Mismo contenido. Seis formas de leerlo. Elige una.</p>
+ <p class="guess-out small" aria-live="polite"></p>
+ <p class="hint mute">Mismo contenido. Seis formas de leerlo. Elige una, <button type="button" class="six-open">míralas todas</button> o toca la palabra y escribe qué crees que es Jay.</p>
  <nav class="facets" role="tablist" aria-label="Facetas"></nav>
 </section>
 
@@ -328,7 +380,7 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
   <div><span class="mute">Código</span><br><a href="https://github.com/Jaywrkr" target="_blank" rel="noopener">GitHub ↗</a></div>
  </div>
  <div class="foot-end">
-  <div class="foot-meta small mute"><span>© <span id="year">2026</span> Jay Jaramillo</span><span>Hecho a mano en Cuenca, Ecuador. HTML, CSS y JavaScript, sin plantillas.</span><a href="#top" data-top>↑ Arriba</a></div>
+  <div class="foot-meta small mute"><span>© <span id="year">2026</span> Jay Jaramillo</span><span>Hecho en Cuenca, Ecuador. HTML, CSS y JavaScript, sin plantillas.</span><a href="#top" data-top>↑ Arriba</a></div>
   <span class="simple">simple.</span>
  </div>
 </footer>
@@ -464,6 +516,19 @@ function mountIngeniero(stage){
     out(`código     <a href="https://github.com/Jaywrkr" target="_blank" rel="noopener">github.com/Jaywrkr ↗</a>`);
     out(`escritura  <a href="https://jaywrkr.substack.com/" target="_blank" rel="noopener">substack ↗</a>`); break;
    case 'clear': box.querySelectorAll('.ln:not(.cmdline)').forEach(n => n.remove()); break;
+   case 'neofetch': {
+    const info = [['','jay@cuenca'],['','──────────'],['Host','Cuenca, Ecuador'],['Formación','Politecnico di Milano'],['Trabajo','infraestructura · cloud · ciberseguridad'],['Shell','pragmatismo'],['Fuente','Geist Mono 300'],['Tema','#000000 · #FFFFFF'],['Proyectos', String(P.length)]];
+    const logo = ['██████████','██      ██','██  ██  ██','██      ██','██████████','','','',''];
+    info.forEach(([k,v], i) => out(`<span class="mute">${logo[i].padEnd(12,' ')}</span>${k ? `<span class="mute">${k}:</span> ` : ''}${v}`)); break; }
+   case 'top': {
+    out('<span class="mute">PROCESO            CPU</span>');
+    [['coresolutions',46],['jaywrkr',14],['coreoperaciones',12],['vj',9],['ankla',7],['j-drums',5],['dormir',4],['excusas',0]].forEach(([n,c]) => out(`${n.padEnd(18,' ')} ${String(c).padStart(3,' ')}%  ${'■'.repeat(Math.round(c/3))}`));
+    break; }
+   case 'history':
+    ['cd ecuador','mv jay ./milano      # telecomunicaciones + UX/UI','mv jay ./ecuador','cd coresolutions','echo "simple." > jaywrkr','cd cuenca','./construir --sin-atajos'].forEach((c,i) => out(`<span class="mute">${String(i+1).padStart(4,' ')}</span>  ${esc(c)}`)); break;
+   case 'uptime': { const sec = Math.round((performance.now())/1000); out(`arriba ${Math.floor(sec/60)} min ${sec%60} s en esta página. Sin pausa desde Milán.`); break; }
+   case 'codigo': case 'código': case 'source': out('Abriendo el código de esta página…'); later(openSrc, 300); break;
+   case 'seis': case 'todas': out('→ las seis a la vez'); later(openSix, 250); break;
    case 'sudo': out('Permiso denegado. El único atajo es no buscar atajos.'); break;
    case 'rm': out('Buen intento.'); break;
    case 'simple': toggleSimple(); out('simple.'); break;
@@ -591,13 +656,24 @@ function mountDisenador(stage){
    <div><p class="mute">Espacio</p>${[4,8,16,24,48,96].map(n=>`<p><i class="sp" style="width:${n}px"></i>${n}</p>`).join('')}</div>
   </div>
   <div class="boxes">${P.map((p,i)=>`<div class="box ${sizes[i]}"><span class="dim">—</span><span class="small mute">${String(i+1).padStart(2,'0')} / ${p.t}</span><div><h3>${link(p)}</h3><p class="mute">${p.d}</p></div></div>`).join('')}</div>
-  <div class="ds-tools small"><button type="button" data-g>Guías: sí</button><span class="mute">Las medidas y los tokens son reales: se leen de esta página en vivo. Tecla G para las guías.</span></div>
+  <div class="ds-tools small"><button type="button" data-g>Guías: sí</button><button type="button" data-break>Rompe el diseño</button><span class="mute">Las medidas y los tokens son reales: se leen de esta página en vivo. Tecla G para las guías.</span></div>
  </div>`;
  const ds = stage.querySelector('.ds'), g = stage.querySelector('[data-g]');
  const cs = getComputedStyle(document.body);
  stage.querySelectorAll('[data-tok]').forEach(el => { el.textContent = cs.getPropertyValue(el.dataset.tok).trim().toUpperCase(); });
  const toggle = () => { ds.classList.toggle('grid'); g.textContent = 'Guías: ' + (ds.classList.contains('grid') ? 'sí' : 'no'); };
  g.addEventListener('click', toggle);
+ const brk = stage.querySelector('[data-break]'); let breaking = false;
+ brk.addEventListener('click', () => {
+  if (breaking) return; breaking = true; ui.sweep();
+  const els = [...stage.querySelectorAll('.box, .spec, .sw, .rules, .tokens > div')];
+  ds.classList.add('broken');
+  const fixIt = () => { ds.classList.remove('broken'); breaking = false; toast('Orden. simple.'); };
+  if (!G || reduce){ setTimeout(fixIt, 700); return; }
+  G.timeline({onComplete: fixIt})
+   .to(els, {rotation:() => G.utils.random(-14, 14), x:() => G.utils.random(-40, 40), y:() => G.utils.random(-30, 30), duration:.35, ease:'back.out(2)', stagger:.015})
+   .to(els, {rotation:0, x:0, y:0, duration:.7, ease:'steps(10)', stagger:.02, delay:.9});
+ });
  const onKey = e => { if (e.key === 'g' && !e.metaKey && !e.ctrlKey && !e.target.closest('input, textarea')) toggle(); };
  addEventListener('keydown', onKey);
  const ro = new ResizeObserver(es => es.forEach(e => {
@@ -611,21 +687,33 @@ function mountDisenador(stage){
 /* 3 · escritor: solo texto */
 function mountEscritor(stage){
  const paras = [
-  'Me llamo Jay Jaramillo. Vivo en Cuenca, Ecuador.',
-  'Estudié telecomunicaciones y diseño UX/UI en el Politecnico di Milano. Viví en Italia entre cuatro y cinco años. Volví con dos preguntas que hago siempre: ¿funciona? y ¿se entiende?',
-  'Hoy dirijo proyectos de infraestructura, cloud y ciberseguridad en Coresolutions. Coordino un equipo de ingenieros y trabajo con clientes que necesitan que las cosas funcionen.',
-  'Fuera de la oficina sigo construyendo. Apps, herramientas internas, visuales en vivo con TouchDesigner, una app para practicar batería y un juego.',
-  'Escribo y publico como @jaywrkr. No vendo nada. Lo hago para que, cuando me conozcas, ya sepas cómo trabajo.',
+  'Me llamo Jay Jaramillo~~ y en esta sección quiero contarte un poco sobre quién soy realmente~~. Vivo en Cuenca, Ecuador.',
+  'Estudié telecomunicaciones y diseño UX/UI en el Politecnico di Milano~~, una de las universidades más reconocidas de Europa~~. Viví en Italia entre cuatro y cinco años. Volví con dos preguntas que hago siempre: ¿funciona? y ¿se entiende?',
+  'Hoy dirijo proyectos de infraestructura, cloud y ciberseguridad en Coresolutions~~, donde cada día enfrento retos muy interesantes~~. Coordino un equipo de ingenieros y trabajo con clientes que necesitan que las cosas funcionen.',
+  'Fuera de la oficina sigo construyendo~~ muchísimas cosas diferentes porque me apasiona crear~~. Apps, herramientas internas, visuales en vivo con TouchDesigner, una app para practicar batería y un juego.',
+  'Escribo y publico como @jaywrkr. No vendo nada. Lo hago para que, cuando me conozcas, ya sepas cómo trabajo~~ y qué tipo de persona soy en realidad~~.',
   'Si hablo de algo, es porque así soy.'
  ];
- const words = paras.join(' ').split(/\s+/).length;
- stage.innerHTML = `<p class="stage-label small mute">03 — escritor / ${words} palabras · ${Math.max(1,Math.round(words/200))} min</p>
-  <div class="prose">${paras.map(p=>`<p>${p}</p>`).join('')}</div>`;
+ const clean = paras.map(p => p.replace(/~~[^~]*~~/g, ''));
+ const words = clean.join(' ').split(/\s+/).length;
+ const cutWords = (paras.join(' ').match(/~~[^~]*~~/g).join(' ').match(/[\p{L}\d]+/gu) || []).length;
+ const draft = p => esc(p).replace(/~~([^~]*)~~/g, '<del class="cut">$1</del>');
+ stage.innerHTML = `<p class="stage-label small mute">03 — escritor / ${words} palabras · ${Math.max(1,Math.round(words/200))} min · <span class="cutn">0</span> eliminadas</p>
+  <div class="prose">${(reduce ? clean.map(esc) : paras.map(draft)).map(p=>`<p>${p}</p>`).join('')}</div>`;
+ const cutn = stage.querySelector('.cutn');
+ if (reduce) cutn.textContent = cutWords;
+ const cio = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return; cio.unobserve(e.target);
+  const del = e.target.querySelector('.cut'); if (!del) return;
+  setTimeout(() => del.classList.add('on'), 500);
+  setTimeout(() => { del.classList.add('gone'); cutn.textContent = +cutn.textContent + (del.textContent.match(/[\p{L}\d]+/gu) || []).length; setTimeout(() => del.remove(), 400); }, 1400);
+ }), {threshold:.9});
+ if (!reduce) stage.querySelectorAll('.prose p').forEach(p => cio.observe(p));
  const bar = document.createElement('i'); bar.className = 'progress'; bar.setAttribute('aria-hidden','true'); document.body.appendChild(bar);
  const prose = stage.querySelector('.prose');
  const upd = () => { const r = prose.getBoundingClientRect(), total = r.height - innerHeight*.5; bar.style.transform = `scaleX(${clamp((innerHeight*.5 - r.top)/(total > 0 ? total : 1))})`; };
  addEventListener('scroll', upd, {passive:true}); upd();
- return () => { removeEventListener('scroll', upd); bar.remove(); };
+ return () => { removeEventListener('scroll', upd); bar.remove(); cio.disconnect(); };
 }
 
 /* 4 · líder: tablero */
@@ -646,7 +734,23 @@ function mountLider(stage){
   <div><p class="small mute">01</p><p>Pragmatismo.</p></div>
   <div><p class="small mute">02</p><p>Escucha. Habla menos.</p></div>
   <div><p class="small mute">03</p><p>El único atajo es no buscar atajos.</p></div>
+ </div>
+ <div class="decide">
+  <p class="small mute">Cómo decido · pon una idea a prueba</p>
+  <div class="dq"><span class="dsq"><i></i><i></i><i></i></span><p class="dq-t big">¿Funciona?</p></div>
+  <div class="small dq-b"><button type="button" data-y>Sí</button><button type="button" data-n>No</button></div>
  </div>`;
+ const QS = ['¿Funciona?','¿Se entiende?','¿Es lo mínimo?'];
+ const NO = ['Todavía no. Pruébalo antes de mostrarlo.','Si no se entiende, no existe. Quita hasta que se entienda.','Quita una cosa más.'];
+ let qi = 0; const dq = stage.querySelector('.dq-t'), sq = [...stage.querySelectorAll('.dsq i')], db = stage.querySelector('.dq-b');
+ const resetQ = () => { qi = 0; dq.textContent = QS[0]; sq.forEach(i => i.className = ''); db.innerHTML = '<button type="button" data-y>Sí</button><button type="button" data-n>No</button>'; };
+ db.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return; ui.tick(1600, .04);
+  if (b.hasAttribute('data-again')) return resetQ();
+  if (b.hasAttribute('data-y')){ sq[qi].className = 'on'; qi++; if (qi < 3){ dq.textContent = QS[qi]; return; } dq.textContent = 'Hazlo. simple.'; }
+  else { sq[qi].className = 'no'; dq.textContent = NO[qi]; }
+  db.innerHTML = '<button type="button" data-again>Otra idea</button>';
+ });
  if (G && !reduce){
   const tweens = [];
   stage.querySelectorAll('.kpi b').forEach(b => { const end = +b.textContent, o = {v:0}; b.textContent = '0'; tweens.push(G.to(o, {v:end, duration:1.1, ease:'power2.out', delay:.15, onUpdate(){ b.textContent = Math.round(o.v); }})); });
@@ -1287,10 +1391,172 @@ function runIntro(done){
  addEventListener('keydown', function k(e){ if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' '){ removeEventListener('keydown', k); end(); } });
 }
 
+/* ───────── sorpresas ───────── */
+const hasMode = id => MODES.some(m => m.id === id);
+
+/* las seis a la vez */
+const six = document.createElement('div'); six.className = 'six'; six.hidden = true; six.setAttribute('role','dialog'); six.setAttribute('aria-label','Las seis facetas a la vez');
+six.innerHTML = `<div class="six-head small"><span>La misma persona. Seis formas.</span><button type="button" class="six-x">Cerrar · Esc</button></div>
+<div class="six-cols">
+ <button type="button" class="col c-ing" data-id="ingeniero"><span class="small">01 ingeniero</span><pre>$ whoami
+Jay Jaramillo
+$ ls proyectos/
+${P.length} frentes
+$ <i class="caret"></i></pre></button>
+ <button type="button" class="col c-dis" data-id="disenador"><span class="small">02 diseñador</span><b class="aa">Aa</b><span class="sw2"><i></i><i></i></span></button>
+ <button type="button" class="col c-esc" data-id="escritor"><span class="small">03 escritor</span><p>Me llamo Jay Jaramillo. Vivo en Cuenca. Volví de Milán con dos preguntas: ¿funciona? y ¿se entiende?</p></button>
+ <button type="button" class="col c-lid" data-id="lider"><span class="small">04 líder</span><b class="n">${P.length}</b><span class="segs">${P.slice(0,5).map(p => `<span class="seg">${ETAPAS.map((_,i) => `<i class="${i<=p.e?'on':''}"></i>`).join('')}</span>`).join('')}</span></button>
+ <button type="button" class="col c-vj" data-id="vj"><span class="small">05 VJ</span><canvas width="200" height="200" aria-hidden="true"></canvas></button>
+ <button type="button" class="col c-cre" data-id="creador"><span class="small">06 creador</span><p class="big2">Hazlo igual.</p><span class="small">simple.</span></button>
+</div>`;
+document.body.appendChild(six);
+let sixRaf = null;
+function sixVJ(){
+ const cv = six.querySelector('canvas'), x = cv.getContext('2d');
+ const loop = t => { x.fillStyle = '#000'; x.fillRect(0,0,200,200); const env = Math.exp(-((t/500)%1)*5);
+  for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++){ const s = 12 + 26*env*(.5+.5*Math.sin(t/400 + i + j*1.7)); x.fillStyle = `rgba(255,255,255,${.25+.6*env})`; x.fillRect(25+i*50-s/2, 25+j*50-s/2, s, s); }
+  sixRaf = requestAnimationFrame(loop); };
+ sixRaf = requestAnimationFrame(loop);
+}
+function openSix(){
+ if (!six.hidden) return;
+ stopTour(); six.hidden = false; ui.sweep();
+ if (G && !reduce) G.from(six.querySelectorAll('.col'), {yPercent:100, duration:.6, ease:'steps(12)', stagger:.06});
+ if (!reduce) sixVJ();
+ six.querySelector('.col').focus({preventScroll:true});
+}
+function closeSix(){ if (six.hidden) return; six.hidden = true; cancelAnimationFrame(sixRaf); }
+six.querySelector('.six-x').addEventListener('click', closeSix);
+six.querySelectorAll('.col').forEach(c => c.addEventListener('click', () => { closeSix(); setMode(c.dataset.id, true); scrollTo({top:0}); }));
+document.querySelector('.six-open').addEventListener('click', openSix);
+
+/* adivina: toca la palabra y escribe qué crees que es Jay */
+const guessOut = document.querySelector('.guess-out');
+let guessing = false;
+function startGuess(){
+ if (guessing) return; guessing = true; stopTour(); cancelAnimationFrame(scrRaf);
+ word.innerHTML = '<input class="guess" maxlength="18" aria-label="¿Qué crees que es Jay?" placeholder="___" autocomplete="off" spellcheck="false">';
+ const inp = word.querySelector('input'); inp.focus({preventScroll:true});
+ const finish = val => {
+  if (!guessing) return; guessing = false;
+  const v = norm(val || '');
+  const hit = MODES.find(m => norm(m.label) === v || m.id === v);
+  const flat = ['perfecto','genio','suerte','rico','famoso','talento','talentoso','crack','dios','millonario'];
+  let msg;
+  if (!v) msg = '';
+  else if (hit) msg = 'Sí. Mira.';
+  else if (flat.includes(v)) msg = `${val}: no. Tacha eso. Es trabajo.`;
+  else if (['simple','simple.'].includes(v)) msg = 'Exacto.';
+  else if (['humano','persona'].includes(v)) msg = 'También. Por eso se equivoca y vuelve.';
+  else msg = `"${val}". Puede ser. Sigue mirando.`;
+  guessOut.textContent = msg;
+  clearTimeout(guessOut._t); guessOut._t = setTimeout(() => guessOut.textContent = '', 4200);
+  const m = MODES.find(m => m.id === current);
+  word.textContent = ''; scrambleWord(hit ? hit.label : m.label);
+  if (hit && hit.id !== current) setTimeout(() => setMode(hit.id, true), 300);
+ };
+ inp.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') finish(inp.value.trim()); if (e.key === 'Escape') finish(''); });
+ inp.addEventListener('blur', () => finish(inp.value.trim()));
+}
+word.addEventListener('click', startGuess);
+word.setAttribute('role','button'); word.setAttribute('tabindex','0'); word.setAttribute('aria-label','Toca para escribir qué crees que es Jay');
+word.addEventListener('keydown', e => { if (!guessing && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); startGuess(); } });
+
+/* el código de esta página, leyéndose a sí mismo */
+const src = document.createElement('div'); src.className = 'src'; src.hidden = true; src.setAttribute('role','dialog'); src.setAttribute('aria-label','El código de esta página');
+document.body.appendChild(src);
+let srcRaf;
+function openSrc(){
+ const html = '<!doctype html>\n' + document.documentElement.outerHTML.replace(/<div class="src"[\s\S]*?<\/div>\s*$/, '');
+ const lines = html.split('\n');
+ src.innerHTML = `<div class="src-head small"><span>Esta página, por dentro: ${lines.length} líneas. Ninguna sobra.</span><button type="button" class="src-x">Cerrar · Esc</button></div><pre>${lines.map(l => `<span>${esc(l).replace(/(\/\*[^*]*\*\/)/g, '<b>$1</b>')}</span>`).join('\n')}</pre>`;
+ src.hidden = false; stopTour(); ui.sweep();
+ src.querySelector('.src-x').addEventListener('click', closeSrc);
+ const pre = src.querySelector('pre'); let y = 0;
+ const auto = () => { y += .6; pre.scrollTop = y; if (y < pre.scrollHeight) srcRaf = requestAnimationFrame(auto); };
+ pre.addEventListener('wheel', () => cancelAnimationFrame(srcRaf), {passive:true}); pre.addEventListener('pointerdown', () => cancelAnimationFrame(srcRaf));
+ if (!reduce) srcRaf = requestAnimationFrame(auto);
+}
+function closeSrc(){ src.hidden = true; cancelAnimationFrame(srcRaf); src.innerHTML = ''; }
+
+/* copiar con firma */
+document.addEventListener('copy', e => {
+ const t = e.target && e.target.closest ? e.target : document.body;
+ if (t.closest('input, textarea')) return;
+ const sel = String(getSelection()); if (sel.trim().length < 8) return;
+ e.clipboardData.setData('text/plain', sel.trim() + '\n\n— Jay Jaramillo · @jaywrkr · simple.'); e.preventDefault();
+ toast('Copiado con firma.');
+});
+
+/* "simple." del pie apaga todo lo demás */
+const simpleEl = document.querySelector('.foot-end .simple');
+simpleEl.addEventListener('pointerenter', () => document.body.classList.add('only-simple'));
+simpleEl.addEventListener('pointerleave', () => document.body.classList.remove('only-simple'));
+
+/* el nombre se reduce a lo mínimo */
+const brand = document.querySelector('.bar a'), FULL_NAME = 'Jay Jaramillo';
+let nameT;
+const shrink = to => { clearInterval(nameT); nameT = setInterval(() => { const cur = brand.textContent; if (cur.length > to.length && FULL_NAME.startsWith(to)) brand.textContent = cur.slice(0, -1); else if (cur.length < to.length) brand.textContent = to.slice(0, cur.length + 1); else clearInterval(nameT); }, 28); };
+if (!reduce){ brand.addEventListener('pointerenter', () => shrink('J')); brand.addEventListener('pointerleave', () => shrink(FULL_NAME)); }
+
+/* la pestaña te extraña */
+let realTitle = document.title;
+document.addEventListener('visibilitychange', () => {
+ if (window.__ARTIFACT__) return;
+ if (document.hidden){ realTitle = document.title; document.title = 'Jay sigue trabajando.'; }
+ else document.title = realTitle;
+});
+
+/* salvapantallas: el juego de la vida en ángulos rectos */
+const saver = document.createElement('div'); saver.className = 'saver'; saver.hidden = true; saver.setAttribute('aria-hidden','true');
+saver.innerHTML = '<canvas></canvas><p class="small saver-t">Sigue aquí cuando vuelvas. <span class="saver-c"></span></p>';
+document.body.appendChild(saver);
+let idleT, saverRaf;
+function openSaver(){
+ if (reduce || document.hidden || current === 'vj' || !six.hidden || !src.hidden || guessing || document.querySelector('.intro')) return armIdle();
+ saver.hidden = false;
+ const cv = saver.querySelector('canvas'), x = cv.getContext('2d'), d = Math.min(devicePixelRatio||1, 2);
+ const W = innerWidth, H = innerHeight, cs = 14, cols = Math.ceil(W/cs), rows = Math.ceil(H/cs);
+ cv.width = W*d; cv.height = H*d; x.setTransform(d,0,0,d,0,0);
+ let g = new Uint8Array(cols*rows).map(() => Math.random() < .22 ? 1 : 0), last = 0, gen = 0;
+ saver.querySelector('.saver-c').textContent = '';
+ const step = () => { const n = new Uint8Array(cols*rows); for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++){ let k = 0; for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++){ if (dr || dc) k += g[((r+dr+rows)%rows)*cols + (c+dc+cols)%cols]; } const a = g[r*cols+c]; n[r*cols+c] = (a && (k === 2 || k === 3)) || (!a && k === 3) ? 1 : 0; } g = n; gen++; };
+ const draw = t => {
+  if (t - last > 110){ last = t; step(); saver.querySelector('.saver-c').textContent = `Generación ${gen}.`; }
+  x.fillStyle = '#000'; x.fillRect(0,0,W,H); x.fillStyle = '#fff';
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) if (g[r*cols+c]) x.fillRect(c*cs+2, r*cs+2, cs-4, cs-4);
+  saverRaf = requestAnimationFrame(draw);
+ };
+ saverRaf = requestAnimationFrame(draw);
+}
+function closeSaver(){ if (!saver.hidden){ saver.hidden = true; cancelAnimationFrame(saverRaf); } }
+function armIdle(){ clearTimeout(idleT); idleT = setTimeout(openSaver, 75000); }
+['pointermove','pointerdown','keydown','wheel','touchstart','scroll'].forEach(ev => addEventListener(ev, () => { closeSaver(); armIdle(); }, {passive:true}));
+armIdle();
+
+/* atajos de las sorpresas */
+const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+let kseq = [];
+addEventListener('keydown', e => {
+ if (e.key === 'Escape'){ closeSix(); closeSrc(); }
+ if (e.target.closest && e.target.closest('input, textarea')) return;
+ kseq = kseq.concat(e.key.length === 1 ? e.key.toLowerCase() : e.key).slice(-10);
+ if (kseq.join() === KONAMI.join()){ kseq = []; openSrc(); }
+ if (e.key === '0' && !e.metaKey && !e.ctrlKey) openSix();
+ if (typed.endsWith('codigo')){ typed = ''; openSrc(); }
+});
+
+/* Cuenca de noche, y los domingos sin filtro */
+function timeNote(){
+ const h = +cuencaTime({hour:'2-digit', hour12:false}), dname = cuencaTime({weekday:'long'});
+ if (h >= 23 || h < 5) setTimeout(() => toast(`Son las ${cuencaTime({hour:'2-digit', minute:'2-digit', hour12:false})} en Cuenca. Deberías estar durmiendo. Yo también.`), 1500);
+ else if (dname === 'domingo') setTimeout(() => toast('Domingo. Sin filtro.'), 1500);
+}
+
 if (ss.get('jay-snd') === '1') setSnd(true);
 word.textContent = '';
 setMode(location.hash.slice(1) || 'ingeniero');
-runIntro(() => { if (tourOn){ tourT0 = 0; tourRaf = requestAnimationFrame(tour); } });
+runIntro(() => { timeNote(); if (tourOn){ tourT0 = 0; tourRaf = requestAnimationFrame(tour); } });
 })();
 </script>
 </body>

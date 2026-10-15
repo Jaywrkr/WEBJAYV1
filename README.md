@@ -1,27 +1,33 @@
-# JAYWRKR® — Digital Existence
+# Jay es ___
 
-Personal website for Jay. Editorial minimalism with quiet, experimental interaction.
+Web personal de Jay Jaramillo (jaywrkr). Una persona, seis formas de leerla: el mismo contenido se reescribe según la faceta elegida.
+
+| # | Faceta | Forma |
+|---|---|---|
+| 01 | ingeniero | terminal: whoami, stack, `ls proyectos/`, `git log` |
+| 02 | diseñador | el sistema expuesto: tipografía, color, reglas, cuadrícula con medidas reales |
+| 03 | escritor | solo texto |
+| 04 | líder | tablero: frentes, etapas, principios |
+| 05 | VJ | 20 escenas audio-reactivas (sintetizador propio o micrófono) |
+| 06 | creador | una frase por pantalla, negro y blanco alternado |
+
+Al entrar, la web recorre las facetas sola hasta que la persona interactúa. Atajos: teclas `1`–`6`, flechas sobre las facetas, `g` para las guías en diseñador. Cada faceta tiene URL propia (`#ingeniero`, `#disenador`, `#escritor`, `#lider`, `#vj`, `#creador`).
+
+## Brand style
+- Monocromo: negro y blanco puros. El acento es la inversión.
+- Geist Mono en 300 y 400. Nunca bold. Máximo 56px.
+- Solo ángulos rectos. Mucho vacío.
+- Cierra con "simple."
+
+## Editar contenido
+Todo vive en el bloque `datos` del script de `index.html`:
+- `P`: proyectos (nombre, tipo, descripción, etapa 0–3, url).
+- `STACK`: tecnologías del modo ingeniero.
+- `MANTRAS`: frases del modo creador.
+- Párrafos del modo escritor en `mountEscritor`.
 
 ## Stack
-Static HTML, CSS and vanilla JavaScript. No build step or runtime dependencies.
-
-## Run locally
-Open `index.html` in a browser, or serve the repository with any local static web server.
+HTML, CSS y JavaScript sin dependencias ni build. Web Audio y Canvas para el modo VJ.
 
 ## Deploy
-Import `Jaywrkr/WEBJAYV1` into Vercel as an **Other** framework project, with no build command and `.` as the output directory. Alternatively enable GitHub Pages from the main branch.
-
-## Sections
-- **Thoughts:** editorial entries (currently link to Substack homepage, not individual posts).
-- **Lab:** experiments and technology (currently link to GitHub profile).
-- **About:** introduction.
-- **Now:** current interests (editable directly in the HTML).
-
-## Before production
-- Replace example Thoughts entries with verified URLs to the corresponding published articles.
-- Replace general Lab cards with real projects and case studies.
-- Confirm the contact email `hola@jaywrkr.com` is active or update it.
-- Connect a custom domain, add a favicon, social preview image and analytics if needed.
-
-## Design
-Black-and-white palette, generous negative space, understated motion, typographic hierarchy. Motion honors the reduced-motion preference.
+Vercel como proyecto **Other**, sin comando de build, salida `.`.

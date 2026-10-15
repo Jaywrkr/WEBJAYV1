@@ -309,6 +309,32 @@ body>*,footer>*,.foot-end>*{transition:opacity .4s}
 .dq-b button,.ds-tools button{border:1px solid var(--line);padding:8px 14px}
 .dq-b button:hover,.ds-tools button:hover{border-color:var(--fg)}
 @media(max-width:860px){.six-cols{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;overflow:auto}.six .col{border-top:1px solid #262626}}
+/* ecos */
+.ecos-b{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.ecos-b[aria-pressed=true]{color:var(--fg)}
+.ghost{position:fixed;left:0;top:0;z-index:44;pointer-events:none;mix-blend-mode:difference;color:#fff}
+.ghost>i:first-child{display:block;width:9px;height:9px;border:1px solid #fff}
+.ghost span{position:absolute;left:14px;top:-3px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;opacity:.75}
+.ghost-pulse{position:absolute;left:0;top:0;width:9px;height:9px;border:1px solid #fff}
+/* física */
+.box.phys{touch-action:none;cursor:grab;background:var(--bg);z-index:2}
+/* secuenciador */
+.seq{margin-bottom:16px;border-top:1px solid var(--line);padding-top:16px}
+.seq-head{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;margin-bottom:12px}
+.seq-head button{border:1px solid var(--line);padding:8px 12px}
+.seq-head button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.seq-head input{accent-color:#fff;width:110px;vertical-align:middle}
+.seq-head b{font-weight:400;font-variant-numeric:tabular-nums}
+.seq-grid{display:grid;grid-template-columns:56px repeat(16,minmax(0,1fr));gap:4px;align-items:center}
+.seq-n{font-size:9px}
+.st{aspect-ratio:1;border:1px solid #333;max-height:34px}
+.st.q{border-color:#666}
+.st[aria-pressed=true]{background:#fff;border-color:#fff}
+.st.now{outline:1px solid #fff;outline-offset:1px}
+.st[aria-pressed=true].now{background:#bbb}
+/* espejo */
+.ascii{font:300 clamp(5px,1.02vw,11px)/1.05 'Geist Mono',ui-monospace,monospace;letter-spacing:0;white-space:pre;overflow:hidden;max-width:100%;margin:0}
+.mirror-ctl{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 /* pie */
 footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
 .where{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:72px}
@@ -354,7 +380,7 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
 
 <header class="bar small mute" id="top">
  <a href="#" aria-label="Jay Jaramillo, inicio">Jay Jaramillo</a>
- <span class="bar-r"><button type="button" class="snd" aria-pressed="false">Sonido: no</button><span id="clock">Cuenca, Ecuador</span></span>
+ <span class="bar-r"><button type="button" class="ecos-b" aria-pressed="true" hidden title="Ecos: otras versiones de Jay recorriendo la web. Son simulados.">2 ecos</button><button type="button" class="snd" aria-pressed="false">Sonido: no</button><span id="clock">Cuenca, Ecuador</span></span>
 </header>
 
 <section class="hero">
@@ -436,6 +462,16 @@ const findP = q => { const k = norm(q); return k ? P.find(p => norm(p.n) === k |
 const cuencaTime = (o) => new Intl.DateTimeFormat('es-EC', Object.assign({timeZone:'America/Guayaquil'}, o)).format(new Date());
 
 let threeP;
+let rapierP, toneP;
+function loadRapier(){
+ if (!rapierP) rapierP = import('https://cdn.jsdelivr.net/npm/@dimforge/rapier2d-compat@0.14.0/rapier.es.js').then(async m => { const R = m.default || m; await R.init(); return R; });
+ return rapierP;
+}
+function loadTone(){
+ if (window.Tone) return Promise.resolve(window.Tone);
+ if (!toneP) toneP = new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js'; s.onload = () => res(window.Tone); s.onerror = rej; document.head.appendChild(s); });
+ return toneP;
+}
 function loadThree(){
  if (window.THREE) return Promise.resolve(window.THREE);
  if (!threeP) threeP = new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js'; s.onload = () => res(window.THREE); s.onerror = rej; document.head.appendChild(s); });
@@ -529,6 +565,8 @@ function mountIngeniero(stage){
    case 'uptime': { const sec = Math.round((performance.now())/1000); out(`arriba ${Math.floor(sec/60)} min ${sec%60} s en esta página. Sin pausa desde Milán.`); break; }
    case 'codigo': case 'código': case 'source': out('Abriendo el código de esta página…'); later(openSrc, 300); break;
    case 'seis': case 'todas': out('→ las seis a la vez'); later(openSix, 250); break;
+   case 'espejo': out('→ creador / espejo'); later(() => { setMode('creador', true); setTimeout(() => { const e = document.querySelector('[data-s=espejo]'); if (e) e.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); }, 1200); }, 250); break;
+   case 'ecos': if (window.__ecos){ window.__ecos.toggle(); out('Ecos ' + (window.__ecos.on ? 'encendidos.' : 'apagados.')); } else out('Los ecos solo aparecen con mouse.'); break;
    case 'sudo': out('Permiso denegado. El único atajo es no buscar atajos.'); break;
    case 'rm': out('Buen intento.'); break;
    case 'simple': toggleSimple(); out('simple.'); break;
@@ -663,9 +701,8 @@ function mountDisenador(stage){
  stage.querySelectorAll('[data-tok]').forEach(el => { el.textContent = cs.getPropertyValue(el.dataset.tok).trim().toUpperCase(); });
  const toggle = () => { ds.classList.toggle('grid'); g.textContent = 'Guías: ' + (ds.classList.contains('grid') ? 'sí' : 'no'); };
  g.addEventListener('click', toggle);
- const brk = stage.querySelector('[data-break]'); let breaking = false;
- brk.addEventListener('click', () => {
-  if (breaking) return; breaking = true; ui.sweep();
+ const brk = stage.querySelector('[data-break]'); let breaking = false, phys = null, alive = true;
+ const chaos = () => {
   const els = [...stage.querySelectorAll('.box, .spec, .sw, .rules, .tokens > div')];
   ds.classList.add('broken');
   const fixIt = () => { ds.classList.remove('broken'); breaking = false; toast('Orden. simple.'); };
@@ -673,6 +710,50 @@ function mountDisenador(stage){
   G.timeline({onComplete: fixIt})
    .to(els, {rotation:() => G.utils.random(-14, 14), x:() => G.utils.random(-40, 40), y:() => G.utils.random(-30, 30), duration:.35, ease:'back.out(2)', stagger:.015})
    .to(els, {rotation:0, x:0, y:0, duration:.7, ease:'steps(10)', stagger:.02, delay:.9});
+ };
+ function startPhysics(Rp){
+  const boxes = [...stage.querySelectorAll('.box')], area = ds.getBoundingClientRect(), tools = stage.querySelector('.ds-tools').getBoundingClientRect();
+  const S = 50, W = area.width, floor = tools.top - area.top - 12;
+  const world = new Rp.World({x:0, y:28});
+  const wall = (x, y, hw, hh) => world.createCollider(Rp.ColliderDesc.cuboid(hw/S, hh/S).setTranslation(x/S, y/S));
+  wall(W/2, floor + 50, W, 50); wall(-50, floor/2, 50, floor*2); wall(W + 50, floor/2, 50, floor*2);
+  const items = boxes.map(el => {
+   const r = el.getBoundingClientRect(), cx = r.left - area.left + r.width/2, cy = r.top - area.top + r.height/2;
+   const body = world.createRigidBody(Rp.RigidBodyDesc.dynamic().setTranslation(cx/S, cy/S).setLinvel((Math.random()-.5)*10, -2 - Math.random()*8).setAngvel((Math.random()-.5)*5));
+   world.createCollider(Rp.ColliderDesc.cuboid(r.width/2/S, r.height/2/S).setRestitution(.25).setFriction(.7), body);
+   el.classList.add('phys');
+   return {el, body, cx, cy};
+  });
+  let grab = null, pt = null, raf;
+  const toLocal = e => { const a = ds.getBoundingClientRect(); return {x:(e.clientX - a.left)/S, y:(e.clientY - a.top)/S}; };
+  const down = e => { const it = items.find(i => i.el.contains(e.target)); if (!it || e.target.closest('a')) return; e.preventDefault(); grab = it; pt = toLocal(e); };
+  const move = e => { if (grab) pt = toLocal(e); };
+  const up = () => { grab = null; };
+  stage.addEventListener('pointerdown', down); addEventListener('pointermove', move); addEventListener('pointerup', up);
+  const loop = () => {
+   if (grab){ const p = grab.body.translation(); grab.body.setLinvel({x:(pt.x - p.x)*12, y:(pt.y - p.y)*12}, true); grab.body.setAngvel(grab.body.angvel()*.9, true); }
+   world.step();
+   items.forEach(i => { const p = i.body.translation(); G.set(i.el, {x:p.x*S - i.cx, y:p.y*S - i.cy, rotation:i.body.rotation()*57.2958}); });
+   raf = requestAnimationFrame(loop);
+  };
+  raf = requestAnimationFrame(loop);
+  let freed = false;
+  const stop = () => { cancelAnimationFrame(raf); stage.removeEventListener('pointerdown', down); removeEventListener('pointermove', move); removeEventListener('pointerup', up); if (!freed){ freed = true; world.free(); } };
+  return {
+   stop,
+   restore(){ stop(); brk.disabled = true;
+    G.to(items.map(i => i.el), {x:0, y:0, rotation:0, duration:.7, ease:'steps(10)', stagger:.03, onComplete(){ items.forEach(i => i.el.classList.remove('phys')); ds.classList.remove('broken'); brk.disabled = false; brk.textContent = 'Rompe el diseño'; phys = null; toast('Orden. simple.'); }});
+   }
+  };
+ }
+ brk.addEventListener('click', async () => {
+  if (phys){ phys.restore(); return; }
+  if (breaking) return; breaking = true; ui.sweep();
+  if (reduce || !G){ chaos(); return; }
+  ds.classList.add('broken'); brk.textContent = 'Cargando física…';
+  try { const Rp = await loadRapier(); if (!alive) return; phys = startPhysics(Rp); brk.textContent = 'Ordenar'; toast('Arrastra las cajas.'); }
+  catch(e){ ds.classList.remove('broken'); brk.textContent = 'Rompe el diseño'; chaos(); return; }
+  breaking = false;
  });
  const onKey = e => { if (e.key === 'g' && !e.metaKey && !e.ctrlKey && !e.target.closest('input, textarea')) toggle(); };
  addEventListener('keydown', onKey);
@@ -681,7 +762,7 @@ function mountDisenador(stage){
   e.target.querySelector('.dim').textContent = `${Math.round(r.width)} × ${Math.round(r.height)}`;
  }));
  stage.querySelectorAll('.box').forEach(b => ro.observe(b));
- return () => { ro.disconnect(); removeEventListener('keydown', onKey); };
+ return () => { alive = false; if (phys) phys.stop(); ro.disconnect(); removeEventListener('keydown', onKey); };
 }
 
 /* 3 · escritor: solo texto */
@@ -835,6 +916,10 @@ function mountVJ(stage){
    <label class="mute">Brillo <input id="vj-bright" type="range" min="0" max="100" value="100"></label>
    <label class="mute">Estela <input id="vj-trail" type="range" min="0" max="100" value="80"></label>
   </div>
+  <div class="seq">
+   <div class="seq-head small"><button type="button" data-seq-play aria-pressed="false">▶ Secuenciador</button><label class="mute">BPM <b class="bpmv">122</b> <input id="seq-bpm" type="range" min="90" max="140" value="122"></label><button type="button" data-seq-rand>Al azar</button><button type="button" data-seq-clear>Limpiar</button><button type="button" data-seq-share>Copiar enlace</button></div>
+   <div class="seq-grid">${['bombo','hat','bajo','blip'].map((n, r) => `<span class="seq-n small mute">${n}</span>${Array.from({length:16}, (_, c) => `<button type="button" class="st${c%4===0?' q':''}" data-r="${r}" data-c="${c}" aria-pressed="false" aria-label="${n}, paso ${c+1}"></button>`).join('')}`).join('')}</div>
+  </div>
   <div class="vj-gl"><canvas aria-label="Visuales audio-reactivos en una cuadrícula de 20 escenas"></canvas></div>
   <div class="vj-hud small mute"><span data-h="src">Fuente: pulso interno</span><span data-h="bpm">BPM —</span><span data-h="sc">20 escenas</span></div>
   <p class="vj-status small mute" role="status">Haz clic en una escena para verla sola. Clic otra vez o Esc para volver.</p>
@@ -854,7 +939,8 @@ function mountVJ(stage){
 
  /* audio */
  let ac = null, an = null, buf = null, mic = null, seqTimer = null, synthOut = null, noise = null, source = null;
- function ensureAC(){ if (!ac){ ac = new (window.AudioContext||window.webkitAudioContext)(); an = ac.createAnalyser(); an.fftSize = 512; an.smoothingTimeConstant = .6; buf = new Uint8Array(an.frequencyBinCount); } return ac; }
+ let acAn = null, acBuf = null;
+ function ensureAC(){ if (!ac){ ac = new (window.AudioContext||window.webkitAudioContext)(); acAn = ac.createAnalyser(); acAn.fftSize = 512; acAn.smoothingTimeConstant = .6; acBuf = new Uint8Array(acAn.frequencyBinCount); } an = acAn; buf = acBuf; return ac; }
  function startSynth(){
   ensureAC(); ac.resume();
   if (!noise){ noise = ac.createBuffer(1, ac.sampleRate*.2, ac.sampleRate); const ch = noise.getChannelData(0); for (let i = 0; i < ch.length; i++) ch[i] = Math.random()*2-1; }
@@ -873,7 +959,7 @@ function mountVJ(stage){
  stage.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', async () => {
   const a = b.dataset.a, on = b.getAttribute('aria-pressed') !== 'true';
   stage.querySelectorAll('[data-a]').forEach(x => press(x, false));
-  stopSynth(); stopMic();
+  stopSynth(); stopMic(); stopSeq();
   if (!on){ setStatus('Audio apagado. Las escenas siguen con su propio pulso.'); return; }
   try {
    if (a === 'synth') startSynth(); else await startMic();
@@ -884,6 +970,60 @@ function mountVJ(stage){
  }));
  autoBtn.addEventListener('click', () => { ctl.auto = !ctl.auto; press(autoBtn, ctl.auto); if (!ctl.auto && focused >= 0) focusScene(-1); setStatus(ctl.auto ? 'Auto: la web mezcla sola al ritmo.' : 'Auto apagado.'); });
  strobeBtn.addEventListener('click', () => { ctl.strobe = !ctl.strobe; press(strobeBtn, ctl.strobe); });
+
+ /* secuenciador: 4 pistas × 16 pasos, Tone.js */
+ const PAT_DEF = ['1000100010001000','0010001000100010','0001000100010001','0000000000100000'];
+ let pat = PAT_DEF.map(r => r.split('').map(Number));
+ const q0 = new URLSearchParams(location.search).get('seq');
+ if (q0 && /^[0-9a-f]{16}$/i.test(q0)) pat = [0,1,2,3].map(r => parseInt(q0.slice(r*4, r*4+4), 16).toString(2).padStart(16, '0').split('').map(Number));
+ const stepBtns = [...stage.querySelectorAll('.st')];
+ const paint = () => stepBtns.forEach(b => b.setAttribute('aria-pressed', pat[b.dataset.r][b.dataset.c] ? 'true' : 'false'));
+ paint();
+ stage.querySelector('.seq-grid').addEventListener('click', e => { const b = e.target.closest('.st'); if (!b) return; const r = +b.dataset.r, c = +b.dataset.c; pat[r][c] = pat[r][c] ? 0 : 1; paint(); ui.tick(1400 + r*300, .03); });
+ const seqPlay = stage.querySelector('[data-seq-play]'), bpmIn = stage.querySelector('#seq-bpm'), bpmV = stage.querySelector('.bpmv');
+ let T = null, seqObj = null, inst = null, seqAn = null, seqBuf = null, nowCol = -1;
+ const markCol = c => { if (nowCol === c) return; stepBtns.forEach(b => b.classList.toggle('now', +b.dataset.c === c)); nowCol = c; };
+ async function startSeq(){
+  T = await loadTone(); if (!alive) return; await T.start();
+  if (!inst){
+   const raw = T.getContext().rawContext;
+   seqAn = raw.createAnalyser(); seqAn.fftSize = 512; seqAn.smoothingTimeConstant = .6; seqBuf = new Uint8Array(seqAn.frequencyBinCount);
+   T.getDestination().connect(seqAn);
+   const hp = new T.Filter(7000, 'highpass').toDestination();
+   inst = {
+    kick: new T.MembraneSynth({octaves:6, pitchDecay:.04, envelope:{attack:.001, decay:.32, sustain:0}}).toDestination(),
+    hat: new T.NoiseSynth({noise:{type:'white'}, envelope:{attack:.001, decay:.05, sustain:0}, volume:-14}).connect(hp),
+    bass: new T.MonoSynth({oscillator:{type:'sawtooth'}, envelope:{attack:.005, decay:.2, sustain:0}, filterEnvelope:{attack:.001, decay:.15, sustain:0, baseFrequency:110, octaves:3}, volume:-8}).toDestination(),
+    blip: new T.Synth({oscillator:{type:'square'}, envelope:{attack:.001, decay:.07, sustain:0}, volume:-18}).toDestination(), hp
+   };
+   seqObj = new T.Sequence((time, c) => {
+    if (pat[0][c]) inst.kick.triggerAttackRelease('C1', '8n', time);
+    if (pat[1][c]) inst.hat.triggerAttackRelease('32n', time);
+    if (pat[2][c]) inst.bass.triggerAttackRelease(['A1','A1','C2','G1'][Math.floor(c/4)], '16n', time);
+    if (pat[3][c]) inst.blip.triggerAttackRelease(['A5','E5','C6','G5'][c%4], '32n', time);
+    T.Draw.schedule(() => { markCol(c); if (pat[0][c]) onBeat(performance.now()); if (pat[3][c]) boost = Math.max(boost, .55); }, time);
+   }, [...Array(16).keys()], '16n');
+  }
+  stopSynth(); stopMic(); stage.querySelectorAll('[data-a]').forEach(x => press(x, false));
+  T.Transport.bpm.value = +bpmIn.value; seqObj.start(0); T.Transport.start();
+  an = seqAn; buf = seqBuf; source = 'seq'; press(seqPlay, true); seqPlay.textContent = '■ Detener';
+  setStatus('Secuenciador sonando. Enciende o apaga pasos: los visuales siguen tu patrón.');
+ }
+ function stopSeq(){
+  if (T && seqObj){ T.Transport.stop(); seqObj.stop(); }
+  if (source === 'seq') source = null;
+  markCol(-1); press(seqPlay, false); seqPlay.textContent = '▶ Secuenciador';
+ }
+ seqPlay.addEventListener('click', () => { if (seqPlay.getAttribute('aria-pressed') === 'true') stopSeq(); else startSeq().catch(() => setStatus('No se pudo cargar el secuenciador. Revisa tu conexión.')); });
+ bpmIn.addEventListener('input', () => { bpmV.textContent = bpmIn.value; if (T) T.Transport.bpm.value = +bpmIn.value; });
+ stage.querySelector('[data-seq-rand]').addEventListener('click', () => { const dens = [.3, .45, .3, .12]; pat = pat.map((row, r) => row.map((_, c) => (r === 0 && c%4 === 0) ? 1 : Math.random() < dens[r] ? 1 : 0)); paint(); });
+ stage.querySelector('[data-seq-clear]').addEventListener('click', () => { pat = pat.map(row => row.map(() => 0)); paint(); });
+ stage.querySelector('[data-seq-share]').addEventListener('click', () => {
+  const code = pat.map(row => parseInt(row.join(''), 2).toString(16).padStart(4, '0')).join('');
+  const url = location.origin + location.pathname + '?seq=' + code + '#vj';
+  const done = () => setStatus('Enlace copiado. Quien lo abra escucha tu patrón.');
+  if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => setStatus('Tu patrón: ' + url)); else setStatus('Tu patrón: ' + url);
+ });
 
  /* bandas y golpes */
  const bands = new Float32Array(5);
@@ -902,7 +1042,7 @@ function mountVJ(stage){
    for (let b = 0; b < 5; b++){ let s = 0; for (let i = edges[b]; i < edges[b+1]; i++) s += buf[i]; bands[b] = Math.min(1, s/((edges[b+1]-edges[b])*255)*1.5); }
    const e = (bands[0]*2 + bands[1] + bands[3]) / 4;
    avgLow = avgLow*.94 + e*.06;
-   if (e > avgLow*1.45 && e > .18 && now - lastBeat > (source === 'mic' ? 380 : 200)) onBeat(now);
+   if (source !== 'seq' && e > avgLow*1.45 && e > .18 && now - lastBeat > (source === 'mic' ? 380 : 200)) onBeat(now);
   } else {
    const ph = (t*2)%1, env = Math.exp(-ph*5);
    for (let b = 0; b < 5; b++) bands[b] = .15 + .75*env*(.6+.4*Math.sin(t*(1.3+b*.7)+b));
@@ -961,9 +1101,9 @@ function mountVJ(stage){
  };
  const hud = {src:stage.querySelector('[data-h=src]'), bpm:stage.querySelector('[data-h=bpm]'), sc:stage.querySelector('[data-h=sc]')}, beatTimes = [];
  const hudT = setInterval(() => {
-  hud.src.textContent = 'Fuente: ' + (source === 'mic' ? 'tu micrófono' : source === 'synth' ? 'demo 120 BPM' : 'pulso interno');
+  hud.src.textContent = 'Fuente: ' + (source === 'mic' ? 'tu micrófono' : source === 'synth' ? 'demo 120 BPM' : source === 'seq' ? 'tu secuencia' : 'pulso interno');
   const iv = beatTimes.slice(1).map((t,k) => t - beatTimes[k]).sort((a,b) => a-b), med = iv[iv.length >> 1];
-  hud.bpm.textContent = 'BPM ' + (source && med ? Math.round(Math.min(200, Math.max(60, 60000/med))) : source ? '—' : '120');
+  hud.bpm.textContent = 'BPM ' + (source === 'seq' ? bpmIn.value : source && med ? Math.round(Math.min(200, Math.max(60, 60000/med))) : source ? '—' : '120');
   hud.sc.textContent = focused >= 0 ? sceneName(focused) : '20 escenas';
  }, 300);
  let idleT; const wake = () => { wrap.classList.remove('idle'); clearTimeout(idleT); if (document.fullscreenElement === wrap) idleT = setTimeout(() => wrap.classList.add('idle'), 1800); };
@@ -1044,6 +1184,7 @@ function mountVJ(stage){
  }).catch(() => setStatus('No se pudo cargar el motor 3D. Revisa tu conexión.'));
 
  return () => {
+  stopSeq(); if (inst){ Object.values(inst).forEach(n => n.dispose && n.dispose()); if (seqObj) seqObj.dispose(); }
   alive = false; cancelAnimationFrame(raf); ro.disconnect(); removeEventListener('keydown', onKey); clearInterval(hudT); clearTimeout(idleT);
   tweens.forEach(t => t.kill()); stopSynth(); stopMic(); if (ac) ac.close();
   midiIns.forEach(i => i.onmidimessage = null);
@@ -1116,6 +1257,11 @@ function mountCreador(stage){
    <p class="big">Nadie te está viendo.</p>
    <p class="big typed" aria-label="Hazlo igual."><span class="tt"></span><span class="caret" aria-hidden="true"></span></p></section>
 
+  <section class="serie" data-s="espejo"><header class="s-head small">${mark(5)}<span>Extra · Espejo</span></header>
+   <p class="big">Tú, en Geist Mono.</p>
+   <pre class="ascii" aria-label="Imagen convertida en caracteres"></pre>
+   <p class="small mirror-ctl">${window.__ARTIFACT__ || !(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) ? '<span class="mute">La cámara funciona en la web publicada.</span>' : '<button type="button" class="cam">Encender cámara</button><button type="button" class="cam-shot" hidden>Capturar</button><span class="mute">La imagen se procesa en tu navegador. No se graba ni se envía.</span>'}</p></section>
+
   <section class="serie tu" data-s="tu"><header class="s-head small">${mark(0)}<span>Ahora tú</span></header>
    <p class="big">Escribe tu verdad incómoda.</p>
    <div class="tu-wrap">
@@ -1177,6 +1323,46 @@ function mountCreador(stage){
  q('.tu-inv').addEventListener('click', e => { light = !light; e.target.textContent = light ? 'Fondo negro' : 'Fondo blanco'; render(); });
  const dl = q('.tu-dl'); if (dl) dl.addEventListener('click', () => { const a = document.createElement('a'); a.href = img.src; a.download = 'mi-verdad-simple.png'; a.click(); });
  render();
+
+ /* espejo: cámara → caracteres */
+ const asc = q('.ascii'), RAMP = ' .:-=+*#%@', AC = 88, AR = 40;
+ const inkDark = () => { const c = getComputedStyle(asc).color.match(/\d+/g); return c && +c[0] < 128; };
+ const toText = lum => { const inv = inkDark(); let o = ''; for (let y = 0; y < AR; y++){ for (let x = 0; x < AC; x++){ const v = inv ? 1 - lum[y*AC + x] : lum[y*AC + x]; o += RAMP[Math.min(RAMP.length - 1, (v * RAMP.length) | 0)]; } o += '\n'; } return o; };
+ { const lum = new Float32Array(AC*AR); for (let y = 0; y < AR; y++) for (let x = 0; x < AC; x++){ const d = Math.max(Math.abs(x/AC - .5), Math.abs(y/AR - .5)); lum[y*AC + x] = (Math.floor(d*14) % 2) ? .15 : .75 - d; } asc.textContent = toText(lum); }
+ const camBtn = q('.cam'), shotBtn = q('.cam-shot');
+ let camStream = null, camRaf, vid;
+ if (camBtn) camBtn.addEventListener('click', async () => {
+  if (camStream){ camStream.getTracks().forEach(t => t.stop()); camStream = null; cancelAnimationFrame(camRaf); camBtn.textContent = 'Encender cámara'; shotBtn.hidden = true; return; }
+  try { camStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user', width:{ideal:320}, height:{ideal:240}}, audio:false}); }
+  catch(e){ toast('No pude usar la cámara. Revisa el permiso del navegador.'); return; }
+  vid = document.createElement('video'); vid.muted = true; vid.playsInline = true; vid.srcObject = camStream; await vid.play();
+  const c = document.createElement('canvas'); c.width = AC; c.height = AR; const x = c.getContext('2d', {willReadFrequently:true});
+  const lum = new Float32Array(AC*AR); let last = 0;
+  const frame = t => {
+   if (t - last > 50){ last = t;
+    x.save(); x.scale(-1, 1); x.drawImage(vid, -AC, 0, AC, AR); x.restore();
+    const d = x.getImageData(0, 0, AC, AR).data; let mn = 1, mx = 0;
+    for (let i = 0; i < AC*AR; i++){ const v = (d[i*4]*.3 + d[i*4+1]*.59 + d[i*4+2]*.11)/255; lum[i] = v; if (v < mn) mn = v; if (v > mx) mx = v; }
+    const k = mx - mn || 1; for (let i = 0; i < AC*AR; i++) lum[i] = (lum[i] - mn)/k;
+    asc.textContent = toText(lum);
+   }
+   camRaf = requestAnimationFrame(frame);
+  };
+  camRaf = requestAnimationFrame(frame);
+  camBtn.textContent = 'Apagar cámara'; shotBtn.hidden = false;
+ });
+ if (shotBtn) shotBtn.addEventListener('click', async () => {
+  try { await document.fonts.load("300 20px 'Geist Mono'"); } catch(e){}
+  const W = 1080, c = document.createElement('canvas'); c.width = W; c.height = W; const x = c.getContext('2d');
+  x.fillStyle = '#000'; x.fillRect(0, 0, W, W); x.fillStyle = '#fff';
+  const fs = 17; x.font = `300 ${fs}px 'Geist Mono', ui-monospace, monospace`; x.textBaseline = 'top';
+  const lines = asc.textContent.split('\n'), lh = fs*1.1, top = (W - lines.length*lh)/2 - 30, cw = x.measureText('M').width, left = (W - AC*cw)/2;
+  lines.forEach((l, i) => x.fillText(l, left, top + i*lh));
+  x.font = "300 28px 'Geist Mono', ui-monospace, monospace"; x.fillText('simple.', 118, W - 150);
+  x.fillStyle = '#6b6b6b'; x.font = "300 17px 'Geist Mono', ui-monospace, monospace"; x.textAlign = 'right'; x.fillText('estilo @jaywrkr', W - 118, W - 140);
+  const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = 'yo-en-geist-mono.png'; a.click();
+ });
+ cleanups.push(() => { if (camStream) camStream.getTracks().forEach(t => t.stop()); cancelAnimationFrame(camRaf); });
 
  /* aparecer al entrar en pantalla */
  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('seen'); }), {threshold:.3});
@@ -1545,6 +1731,41 @@ addEventListener('keydown', e => {
  if (e.key === '0' && !e.metaKey && !e.ctrlKey) openSix();
  if (typed.endsWith('codigo')){ typed = ''; openSrc(); }
 });
+
+/* ecos: otras versiones de Jay recorriendo la web (simulados, sin servidor) */
+if (finePointer && !reduce && G){
+ const NAMES = ['jay · ingeniero', 'jay · vj', 'jay · diseñador', 'jay · escritor'];
+ const btn = document.querySelector('.ecos-b'); btn.hidden = false;
+ const ghosts = NAMES.sort(() => Math.random() - .5).slice(0, 2).map(n => {
+  const el = document.createElement('div'); el.className = 'ghost'; el.setAttribute('aria-hidden', 'true'); el.innerHTML = `<i></i><span>${n}</span>`;
+  document.body.appendChild(el); G.set(el, {x:Math.random()*innerWidth*.8, y:innerHeight*.3 + Math.random()*innerHeight*.5});
+  return {el, t:null};
+ });
+ const eco = {on:true};
+ const busy = () => !six.hidden || !src.hidden || !saver.hidden || document.querySelector('.intro') || document.hidden;
+ const pickTarget = () => {
+  const els = [...document.querySelectorAll('a, button:not(.ecos-b), [role=tab], .box, .week div, .st, .cien span')].filter(e => { const r = e.getBoundingClientRect(); return r.width > 4 && r.top > 40 && r.bottom < innerHeight - 20 && r.left > 0 && r.right < innerWidth; });
+  return els[(Math.random()*els.length)|0];
+ };
+ const walk = g => {
+  if (!eco.on) return;
+  if (busy()){ g.t = setTimeout(() => walk(g), 2000); return; }
+  const t = pickTarget(); if (!t){ g.t = setTimeout(() => walk(g), 2000); return; }
+  const r = t.getBoundingClientRect(), tx = r.left + Math.min(r.width/2, 40) + (Math.random()*10 - 5), ty = r.top + r.height/2;
+  G.timeline({onComplete(){ const p = document.createElement('i'); p.className = 'ghost-pulse'; g.el.appendChild(p); G.fromTo(p, {scale:.2, opacity:.9}, {scale:2.6, opacity:0, duration:.5, ease:'steps(6)', onComplete: () => p.remove()}); g.t = setTimeout(() => walk(g), 1800 + Math.random()*3800); }})
+   .to(g.el, {x:tx, duration:.9 + Math.random()*.6, ease:'power2.inOut'})
+   .to(g.el, {y:ty, duration:.7 + Math.random()*.5, ease:'power2.inOut'});
+ };
+ ghosts.forEach((g, i) => { g.t = setTimeout(() => walk(g), 4000 + i*2200); });
+ eco.toggle = () => {
+  eco.on = !eco.on; btn.setAttribute('aria-pressed', eco.on); btn.textContent = eco.on ? '2 ecos' : 'ecos: no';
+  ghosts.forEach(g => { g.el.hidden = !eco.on; clearTimeout(g.t); G.killTweensOf(g.el); if (eco.on) g.t = setTimeout(() => walk(g), 600); });
+  ss.set('jay-ecos', eco.on ? '1' : '0');
+ };
+ btn.addEventListener('click', eco.toggle);
+ if (ss.get('jay-ecos') === '0') eco.toggle();
+ window.__ecos = eco;
+}
 
 /* Cuenca de noche, y los domingos sin filtro */
 function timeNote(){

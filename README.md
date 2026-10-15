@@ -32,6 +32,12 @@ Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 0
 - Terminal: `neofetch`, `top`, `history`, `uptime`, `codigo`, `seis`.
 - Diseñador: "Rompe el diseño". Escritor: el borrador se tacha solo y cuenta las palabras eliminadas. Líder: "Cómo decido".
 
+## Locuras
+- Ecos: dos cursores simulados ("jay · ingeniero", "jay · vj"…) recorren la web en rutas de ángulo recto. No hay servidor; están marcados como simulados y se apagan desde la barra o con `ecos`.
+- Física real (Rapier) en "Rompe el diseño": las cajas caen, chocan y se arrastran; "Ordenar" las devuelve a la cuadrícula.
+- Secuenciador de 16 pasos (Tone.js) en VJ: bombo, hat, bajo y blip; los visuales siguen el patrón; el enlace guarda el patrón en `?seq=`.
+- Espejo en creador: la cámara convierte tu cara en Geist Mono en vivo y la puedes capturar. Todo local. Comando `espejo`.
+
 ## Brand style
 - Monocromo: negro y blanco puros. El acento es la inversión.
 - Geist Mono en 300 y 400. Nunca bold. Máximo 56px.

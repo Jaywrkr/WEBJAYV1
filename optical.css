@@ -1,0 +1,18 @@
+/* Optical interventions: original composition inspired by kinetic/op art */
+.optic-intro{position:relative;min-height:250px;overflow:hidden;background:#f4f4f2;color:#111;display:grid;grid-template-columns:1fr 1fr;align-items:center;border-block:1px solid #555;margin:0}
+.optic-intro .optic-copy{padding:clamp(25px,5vw,90px);z-index:2;mix-blend-mode:multiply}.optic-intro h2{font:300 clamp(38px,6vw,95px)/.95 'DM Sans',sans-serif;letter-spacing:-.085em;margin:14px 0}.optic-intro p{font:12px/1.7 'Space Mono',monospace;max-width:300px}
+.optic-art{position:absolute;right:-5%;width:57%;height:125%;top:-12%;overflow:hidden;transform:skewX(-12deg);background:repeating-linear-gradient(90deg,#111 0 4px,#f8f8f6 4px 10px);cursor:crosshair}
+.optic-art:before{content:"";position:absolute;inset:12% 8%;background:repeating-radial-gradient(circle at var(--ox,50%) var(--oy,50%),#111 0 3px,#fafafa 3px 8px);transform:rotate(var(--rotate,0deg));clip-path:polygon(0 0,100% 0,80% 100%,0 100%);transition:transform .2s}
+.optic-art:after{content:"";position:absolute;inset:35% 0 25%;background:linear-gradient(90deg,#2058ff,#00e0e0,#fff,#ffec00,#ff005c);mix-blend-mode:normal;transform:translateX(var(--slide,0%)) skewY(-14deg);opacity:var(--chromatic,0);transition:opacity .4s,transform .1s}
+.optic-button{border:1px solid #111;background:#fff;color:#111;padding:10px 15px;font:10px 'Space Mono',monospace;cursor:pointer}.optic-button:hover{background:#111;color:#fff}
+.optic-intro.chromatic .optic-art:after{--chromatic:1}
+#optic-reactor{margin:0;padding:80px 5vw;background:#f0f0ee;color:#0a0a0a}
+.reactor-head{display:flex;justify-content:space-between;gap:22px;align-items:end;margin-bottom:24px}.reactor-head h2{font-size:clamp(42px,8vw,100px);letter-spacing:-.09em;line-height:.94;font-weight:300;margin:0}.reactor-head p{font:11px/1.8 'Space Mono',monospace;max-width:255px}
+.reactor-stage{position:relative;height:clamp(280px,43vw,510px);border:1px solid #111;background:#eee;overflow:hidden;cursor:crosshair;touch-action:none}
+#optic-canvas{display:block;width:100%;height:100%;touch-action:none}
+.reactor-label{pointer-events:none;position:absolute;bottom:15px;left:18px;font:10px 'Space Mono',monospace;background:#eee;padding:7px}
+.reactor-actions{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.reactor-actions button{background:#f3f3f1;border:1px solid #111;padding:12px 18px;color:#111;cursor:pointer;font:11px 'Space Mono',monospace}.reactor-actions button[aria-pressed=true]{background:#111;color:#fff}
+.optic-phrase{font-size:clamp(25px,4vw,54px);line-height:1.15;letter-spacing:-.065em;font-weight:300;margin:25px 0;max-width:920px}
+@media(max-width:700px){.optic-intro{grid-template-columns:1fr;min-height:360px;align-items:end}.optic-intro .optic-copy{padding:28px;max-width:75%}.optic-art{right:-30%;width:90%;opacity:.75}.reactor-head{display:block}.reactor-stage{height:350px}}
+@media(prefers-reduced-motion:reduce){.optic-art:before,.optic-art:after{transition:none}}

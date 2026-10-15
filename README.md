@@ -8,8 +8,8 @@ Web personal de Jay Jaramillo (jaywrkr). Una persona, seis formas de leerla: el 
 | 02 | diseñador | el sistema expuesto: tipografía, color, reglas, cuadrícula con medidas reales |
 | 03 | escritor | solo texto |
 | 04 | líder | tablero: frentes, etapas, principios |
-| 05 | VJ | 20 escenas audio-reactivas (sintetizador propio o micrófono) |
-| 06 | creador | una frase por pantalla, negro y blanco alternado |
+| 05 | VJ | 20 escenas GLSL con estela, micrófono del visitante, auto-VJ y MIDI |
+| 06 | creador | las 7 series semanales, jugables, y "Ahora tú": tu frase como post |
 
 Al entrar, la web recorre las facetas sola hasta que la persona interactúa. Atajos: teclas `1`–`6`, flechas sobre las facetas, `g` para las guías en diseñador. Cada faceta tiene URL propia (`#ingeniero`, `#disenador`, `#escritor`, `#lider`, `#vj`, `#creador`).
 

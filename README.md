@@ -39,11 +39,11 @@ Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 0
 - La web envejece: lee el último push público de Jaywrkr en GitHub. Desde 2 días sin código aparece polvo sobre la página y un aviso arriba; el cursor lo limpia solo para quien mira. Probar con `?age=15`.
 - Tu vida en semanas (creador): fecha de nacimiento → 4.160 cuadrados, la semana actual parpadea.
 - Modo Jay (creador o comando `modojay`): un marcador que se arrastra a la barra y pone cualquier web en negro, blanco, Geist Mono y "simple.".
-- Fondo de la portada: retícula de puntos cada 24px. El cursor ilumina un cuadrado; un clic en el fondo manda un pulso cuadrado. A veces cruza un paquete por las líneas girando en ángulo recto: si lo atrapas con un clic o toque, enciende una letra de "simple." en la retícula. A los 7 se lee la palabra completa (se guarda en el navegador).
+- Portada en capas: debajo de cada faceta está la siguiente. El cursor (o el dedo) abre una ventana cuadrada que la muestra; si nadie la mueve, la ventana se pasea sola en ángulo recto. Clic o toque baja una capa: la ventana crece hasta cubrir todo y esa faceta queda arriba. Al pasar por el índice 01–06, la ventana muestra esa faceta.
 - Portada: al pasar el cursor por una faceta, la palabra cambia y aparece una sola línea o cuadro en movimiento propio de esa faceta; "jaywrkr" se abre en "jay + worker"; el reloj muestra el día.
 
 ## Hallazgos
-Todo lo escondido vive en un solo sistema: 26 hallazgos con contador arriba ("hallazgos 3/26"). El primero se gana al entrar, para que la gente vea que existe. El panel muestra cada hallazgo como ??? con una pista; al encontrarlo se invierte en blanco. Se guarda en el navegador. Botón para compartir "Encontré X de 24". Comando `hallazgos` en la terminal.
+Todo lo escondido vive en un solo sistema: 25 hallazgos con contador arriba ("hallazgos 3/25"). El primero se gana al entrar, para que la gente vea que existe. El panel muestra cada hallazgo como ??? con una pista; al encontrarlo se invierte en blanco. Se guarda en el navegador. Botón para compartir "Encontré X de 24". Comando `hallazgos` en la terminal.
 Para agregar uno: id en `FIDS`, texto en `I18N.<lang>.fnd` (mismo orden) y `found('id')` donde ocurre.
 
 ## Idiomas

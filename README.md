@@ -40,7 +40,7 @@ Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 0
 - La web envejece: lee el último push público de Jaywrkr en GitHub. Desde 2 días sin código aparece polvo sobre la página y un aviso arriba; el cursor lo limpia solo para quien mira. Probar con `?age=15`.
 - Tu vida en semanas (creador): fecha de nacimiento → 4.160 cuadrados, la semana actual parpadea.
 - Modo Jay (creador o comando `modojay`): un marcador que se arrastra a la barra y pone cualquier web en negro, blanco, Geist Mono y "simple.".
-- Señal (portada): panel LED de puntos. Al entrar mide la ida y vuelta real del visitante hasta el servidor de la web y la dibuja como ruta; luego rota datos (hora en Cuenca, días sin código, hallazgos, proyecto en curso, simple.). Clic o toque: ping. Mantener y arrastrar: rayos X con las cajas y medidas reales de la portada. Pasa a espera solo y vuelve a encenderse más tarde.
+- Fondo de la portada: retícula de puntos cada 24px. El cursor ilumina un cuadrado alrededor; un clic en el fondo manda un pulso cuadrado; a veces cruza un paquete por las líneas, girando en ángulo recto.
 - Portada: al pasar el cursor por una faceta, la palabra cambia y aparece una sola línea o cuadro en movimiento propio de esa faceta; "jaywrkr" se abre en "jay + worker"; el reloj muestra el día.
 
 ## Hallazgos

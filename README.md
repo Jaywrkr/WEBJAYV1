@@ -33,18 +33,17 @@ Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 0
 - Diseñador: "Rompe el diseño". Escritor: el borrador se tacha solo y cuenta las palabras eliminadas. Líder: "Cómo decido".
 
 ## Locuras
-- Ecos: dos cursores simulados ("jay · ingeniero", "jay · vj"…) recorren la web en rutas de ángulo recto. No hay servidor; están marcados como simulados y se apagan desde la barra o con `ecos`.
 - Física real (Rapier) en "Rompe el diseño": las cajas caen, chocan y se arrastran; "Ordenar" las devuelve a la cuadrícula.
 - Secuenciador de 16 pasos (Tone.js) en VJ: bombo, hat, bajo y blip; los visuales siguen el patrón; el enlace guarda el patrón en `?seq=`.
 - Espejo en creador: la cámara convierte tu cara en Geist Mono en vivo y la puedes capturar. Todo local. Comando `espejo`.
 - La web envejece: lee el último push público de Jaywrkr en GitHub. Desde 2 días sin código aparece polvo sobre la página y un aviso arriba; el cursor lo limpia solo para quien mira. Probar con `?age=15`.
 - Tu vida en semanas (creador): fecha de nacimiento → 4.160 cuadrados, la semana actual parpadea.
 - Modo Jay (creador o comando `modojay`): un marcador que se arrastra a la barra y pone cualquier web en negro, blanco, Geist Mono y "simple.".
-- Fondo de la portada: retícula de puntos cada 24px. El cursor ilumina un cuadrado alrededor; un clic en el fondo manda un pulso cuadrado; a veces cruza un paquete por las líneas, girando en ángulo recto.
+- Fondo de la portada: retícula de puntos cada 24px. El cursor ilumina un cuadrado; un clic en el fondo manda un pulso cuadrado. A veces cruza un paquete por las líneas girando en ángulo recto: si lo atrapas con un clic o toque, enciende una letra de "simple." en la retícula. A los 7 se lee la palabra completa (se guarda en el navegador).
 - Portada: al pasar el cursor por una faceta, la palabra cambia y aparece una sola línea o cuadro en movimiento propio de esa faceta; "jaywrkr" se abre en "jay + worker"; el reloj muestra el día.
 
 ## Hallazgos
-Todo lo escondido vive en un solo sistema: 25 hallazgos con contador arriba ("hallazgos 3/25"). El primero se gana al entrar, para que la gente vea que existe. El panel muestra cada hallazgo como ??? con una pista; al encontrarlo se invierte en blanco. Se guarda en el navegador. Botón para compartir "Encontré X de 24". Comando `hallazgos` en la terminal.
+Todo lo escondido vive en un solo sistema: 26 hallazgos con contador arriba ("hallazgos 3/26"). El primero se gana al entrar, para que la gente vea que existe. El panel muestra cada hallazgo como ??? con una pista; al encontrarlo se invierte en blanco. Se guarda en el navegador. Botón para compartir "Encontré X de 24". Comando `hallazgos` en la terminal.
 Para agregar uno: id en `FIDS`, texto en `I18N.<lang>.fnd` (mismo orden) y `found('id')` donde ocurre.
 
 ## Idiomas

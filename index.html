@@ -340,17 +340,17 @@ html[lang=ja] h1{letter-spacing:0}
 .hero::before{content:"";position:absolute;left:0;top:0;width:0;height:0;pointer-events:none;opacity:0;z-index:0;background:var(--fg);transition:opacity .15s}
 .hero.pv::before{opacity:.3}
 .hero.pv-ingeniero::before{width:100%;height:1px;animation:pvY 1.8s linear infinite}
-.hero.pv-disenador::before{width:1px;height:100%;animation:pvX 2.4s steps(12) infinite}
-.hero.pv-escritor::before{top:auto;bottom:120px;left:var(--pad);height:1px;animation:pvW 1.6s steps(32) infinite}
-.hero.pv-lider::before{top:auto;bottom:0;left:auto;right:var(--pad);width:8px;animation:pvH 1.2s steps(6) infinite alternate}
+.hero.pv-disenador::before{width:1px;height:var(--nt,100%);animation:pvX 2.4s steps(12) infinite}
+.hero.pv-escritor::before{top:calc(var(--nt,100%) - 48px);left:var(--pad);height:1px;animation:pvW 1.6s steps(32) infinite}
+.hero.pv-lider::before{top:auto;bottom:calc(100% - var(--nt,100%));left:auto;right:var(--pad);width:8px;animation:pvH 1.2s steps(6) infinite alternate}
 .hero.pv-vj::before{width:24px;height:24px;animation:pvJ .8s steps(1) infinite}
-.hero.pv-creador::before{width:220px;height:220px;left:72%;top:50%;background:none;border:1px solid var(--fg);animation:pvS 1.6s steps(8) infinite}
+.hero.pv-creador::before{width:220px;height:220px;left:72%;top:calc(var(--nt,100%)/2);background:none;border:1px solid var(--fg);animation:pvS 1.6s steps(8) infinite}
 .hero.pv.pv-creador::before{opacity:.5}
-@keyframes pvY{from{top:0}to{top:100%}}
+@keyframes pvY{from{top:0}to{top:calc(var(--nt,100%) - 1px)}}
 @keyframes pvX{from{left:var(--pad)}to{left:calc(100% - var(--pad))}}
 @keyframes pvW{from{width:0}to{width:calc(100% - var(--pad)*2)}}
-@keyframes pvH{from{height:0}to{height:80%}}
-@keyframes pvJ{0%{left:62%;top:20%}25%{left:84%;top:58%}50%{left:70%;top:76%}75%{left:90%;top:28%}}
+@keyframes pvH{from{height:0}to{height:calc(var(--nt,100%)*.8)}}
+@keyframes pvJ{0%{left:62%;top:calc(var(--nt,100%)*.2)}25%{left:84%;top:calc(var(--nt,100%)*.55)}50%{left:70%;top:calc(var(--nt,100%)*.75)}75%{left:90%;top:calc(var(--nt,100%)*.3)}}
 @keyframes pvS{from{transform:translate(-50%,-50%) scale(.05)}to{transform:translate(-50%,-50%) scale(1)}}
 @media (prefers-reduced-motion:reduce){.hero::before{animation:none!important}}
 #word.pvw{opacity:.45}
@@ -2412,8 +2412,9 @@ if (finePointer){
  let caught = pkGet(), letters = new Map(), flash = 0, wordP = 24;
  let step = 0, W = 0, H = 0, cols = 0, rows = 0, dpr = 1, lit, mx = -1e4, my = -1e4, pulses = [], packets = [], fg = '#fff', visible = true, last = 0, colT = 0, nextPk = performance.now() + 3000;
  function size(){
-  W = hero.clientWidth; H = hero.clientHeight; dpr = Math.min(devicePixelRatio || 1, 2);
-  cv.width = W*dpr; cv.height = H*dpr; x.setTransform(dpr,0,0,dpr,0,0);
+  const nav = hero.querySelector('.facets');
+  W = hero.clientWidth; H = Math.max(0, nav.offsetTop - 12); dpr = Math.min(devicePixelRatio || 1, 2);
+  cv.style.height = H + 'px'; hero.style.setProperty('--nt', H + 'px'); cv.width = W*dpr; cv.height = H*dpr; x.setTransform(dpr,0,0,dpr,0,0);
   cols = Math.ceil(W/G8) + 1; rows = Math.ceil(H/G8) + 1; lit = new Float32Array(cols*rows);
   placeWord();
  }
@@ -2433,7 +2434,7 @@ if (finePointer){
  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; }, {passive:true});
  hero.addEventListener('pointerleave', () => { mx = my = -1e4; });
  hero.addEventListener('pointerdown', e => {
-  if (!onEmpty(e.target) || reduce) return;
+  if (!onEmpty(e.target) || reduce || e.target.closest('.facets')) return;
   const r = hero.getBoundingClientRect(), pc = (e.clientX - r.left)/G8, pr = (e.clientY - r.top)/G8, R = finePointer ? 1.6 : 2.4;
   const hit = packets.findIndex(p => p.trail.slice(0, 3).some(([c, rr]) => Math.max(Math.abs(c - pc), Math.abs(rr - pr)) <= R));
   pulses.push({c: Math.round(pc), r: Math.round(pr), t: performance.now(), big: hit >= 0});

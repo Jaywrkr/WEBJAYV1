@@ -27,7 +27,7 @@ Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 0
 - Escribir `simple` invierte la web. Escribir `codigo` (o el código Konami) abre el código de la página leyéndose a sí misma.
 - Copiar texto lo firma: "— Jay Jaramillo · @jaywrkr · simple."
 - Pasar el cursor por "simple." del pie apaga todo lo demás. El nombre de arriba se reduce a "J".
-- 75 s sin tocar nada: salvapantallas con el juego de la vida en cuadrados.
+- 75 s sin tocar nada: salvapantallas con el juego de la vida. Al volver se rebobina hasta la generación 0, que era la frase "Nadie te está viendo. Hazlo igual." escrita en celdas. Probar con `?idle=3`.
 - De noche en Cuenca y los domingos aparece un aviso.
 - Terminal: `neofetch`, `top`, `history`, `uptime`, `codigo`, `seis`.
 - Diseñador: "Rompe el diseño". Escritor: el borrador se tacha solo y cuenta las palabras eliminadas. Líder: "Cómo decido".

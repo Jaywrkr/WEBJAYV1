@@ -27,7 +27,7 @@ Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 0
 - Escribir `simple` invierte la web. Escribir `codigo` (o el código Konami) abre el código de la página leyéndose a sí misma.
 - Copiar texto lo firma: "— Jay Jaramillo · @jaywrkr · simple."
 - Pasar el cursor por "simple." del pie apaga todo lo demás. El nombre de arriba se reduce a "J".
-- 75 s sin tocar nada: salvapantallas con el juego de la vida en cuadrados.
+- 75 s sin tocar nada: salvapantallas con el juego de la vida. Al volver se rebobina hasta la generación 0, que era la frase "Nadie te está viendo. Hazlo igual." escrita en celdas. Probar con `?idle=3`.
 - De noche en Cuenca y los domingos aparece un aviso.
 - Terminal: `neofetch`, `top`, `history`, `uptime`, `codigo`, `seis`.
 - Diseñador: "Rompe el diseño". Escritor: el borrador se tacha solo y cuenta las palabras eliminadas. Líder: "Cómo decido".
@@ -40,10 +40,11 @@ Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 0
 - La web envejece: lee el último push público de Jaywrkr en GitHub. Desde 2 días sin código aparece polvo sobre la página y un aviso arriba; el cursor lo limpia solo para quien mira. Probar con `?age=15`.
 - Tu vida en semanas (creador): fecha de nacimiento → 4.160 cuadrados, la semana actual parpadea.
 - Modo Jay (creador o comando `modojay`): un marcador que se arrastra a la barra y pone cualquier web en negro, blanco, Geist Mono y "simple.".
+- Señal (portada): panel LED de puntos. Al entrar mide la ida y vuelta real del visitante hasta el servidor de la web y la dibuja como ruta; luego rota datos (hora en Cuenca, días sin código, hallazgos, proyecto en curso, simple.). Clic o toque: ping. Mantener y arrastrar: rayos X con las cajas y medidas reales de la portada. Pasa a espera solo y vuelve a encenderse más tarde.
 - Portada: al pasar el cursor por una faceta, la palabra cambia y aparece una sola línea o cuadro en movimiento propio de esa faceta; "jaywrkr" se abre en "jay + worker"; el reloj muestra el día.
 
 ## Hallazgos
-Todo lo escondido vive en un solo sistema: 24 hallazgos con contador arriba ("hallazgos 3/24"). El primero se gana al entrar, para que la gente vea que existe. El panel muestra cada hallazgo como ??? con una pista; al encontrarlo se invierte en blanco. Se guarda en el navegador. Botón para compartir "Encontré X de 24". Comando `hallazgos` en la terminal.
+Todo lo escondido vive en un solo sistema: 25 hallazgos con contador arriba ("hallazgos 3/25"). El primero se gana al entrar, para que la gente vea que existe. El panel muestra cada hallazgo como ??? con una pista; al encontrarlo se invierte en blanco. Se guarda en el navegador. Botón para compartir "Encontré X de 24". Comando `hallazgos` en la terminal.
 Para agregar uno: id en `FIDS`, texto en `I18N.<lang>.fnd` (mismo orden) y `found('id')` donde ocurre.
 
 ## Idiomas

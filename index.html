@@ -113,6 +113,7 @@ h1{font-weight:300;font-size:clamp(30px,5.2vw,56px);line-height:1.15;letter-spac
 .term .row{display:grid;grid-template-columns:120px 200px 1fr;gap:12px}
 .term .kv{display:grid;grid-template-columns:90px 1fr;gap:12px}
 .term .kv.w{grid-template-columns:150px 1fr}
+.term .kv.k3{grid-template-columns:90px 1fr 180px}
 .term .gap{height:1.2em}
 
 /* diseñador */
@@ -375,6 +376,14 @@ html[lang=ja] h1{letter-spacing:0}
 .hall-all{padding:0 var(--pad) 48px;font-size:22px}
 @media(max-width:860px){.hall-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.bar{flex-wrap:wrap;row-gap:10px}.bar-r{flex-wrap:wrap;gap:10px 14px}.hall-g li{min-height:0}}
+/* borrador en la portada */
+.hero>.draft{position:absolute;z-index:3;display:block;text-align:left;width:min(400px,32vw);padding:18px 20px 20px;border:1px solid var(--fg);background:var(--bg);color:var(--fg);clip-path:inset(0 100% 100% 0);transition:clip-path .5s steps(8),background .15s,color .15s}
+.hero>.draft.in{clip-path:inset(0 0 0 0)}
+.hero>.draft .small{display:block;color:var(--mute);margin-bottom:12px}
+.hero>.draft p{font-size:20px;line-height:1.4;min-height:2.8em}
+.hero>.draft .end{margin:12px 0 0;color:var(--fg)}
+.hero>.draft:hover{background:var(--fg);color:var(--bg)}.hero>.draft:hover .small{color:var(--bg)}
+.hero>.draft:hover .cut{color:var(--bg);opacity:.5}.hero>.draft:hover .cut::after{background:var(--bg)}
 /* la web envejece */
 .age{margin:0 var(--pad);padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--fg)}
 .dust{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:38}
@@ -405,6 +414,7 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
  .th .hide{display:none}
  .principles,.where{grid-template-columns:1fr 1fr}
  .term .row{grid-template-columns:1fr;gap:0;margin-bottom:8px}
+ .term .kv.k3{grid-template-columns:90px 1fr}.term .kv.k3>:last-child{grid-column:2}
  .eng{grid-template-columns:1fr;gap:24px}
  .fondo-wrap,.tu-wrap{grid-template-columns:1fr}
  .topo-fig{position:static;order:-1}
@@ -479,7 +489,11 @@ const norm = s => String(s).toLowerCase().replace(/[@\/\s]/g, '').replace('ñ','
 const I18N = {
 es:{
  locale:'es-EC',
- fnd:[['Llegaste','Entra a la web.'],['Las seis','Visita las seis facetas.'],['A la vez','Hay una tecla que muestra todo junto.'],['Tu versión','La palabra grande se puede tocar.'],['simple.','Escribe la palabra que cierra todo.'],['Por dentro','Hay dos formas de ver el código. Una viene de los videojuegos.'],['Firmado','Copia una frase.'],['Lo mínimo','Al final de todo hay una palabra. Ponte encima.'],['Te extrañó','Vete a otra pestaña y vuelve.'],['Generaciones','No toques nada por un rato.'],['Otra lengua','Cambia el idioma.'],['Sin atajos','La terminal tiene comandos que no están en help.'],['Ruta','Haz ping a un proyecto.'],['Caos','Rompe el diseño.'],['Hasta el final','Lee al escritor completo.'],['Decidido','Pon una idea a prueba en líder.'],['Sonó','Dale sonido a los visuales.'],['Tu patrón','Programa un ritmo.'],['Cien','Repite cien veces.'],['Espejo','Mírate en Geist Mono.'],['Tu tiempo','Cuenta tus semanas.'],['Para llevar','Lleva el estilo a otra web.'],['Tu frase','Escribe tu verdad incómoda.'],['Insomnio','Vuelve cuando Jay debería estar durmiendo.']],
+ whoL:['Jay Jaramillo — líder de tecnología y operaciones.','Ingeniero en telecomunicaciones y diseñador UX/UI. Politecnico di Milano.','Dirijo proyectos de infraestructura, cloud y ciberseguridad en Coresolutions.','Construyo productos con código e IA: CoreOperaciones, CoreAI, ANKLA, J-Drums, WhiteDot.','Escribo como @jaywrkr. Hago visuales en vivo. Toco batería.','Junto negocio, infraestructura y producto.'],
+ lvl:['sólido','práctico','práctico · con IA'], stackNote:'sólido: años con clientes reales. práctico: proyectos propios en producción.',
+ drafts:[['Creo que tal vez mañana debería empezar a hacer algo de ejercicio.','Mañana debería empezar a hacer ejercicio.','Debería hacer ejercicio.','Haz ejercicio.'],['La verdad es que no tengo suficiente tiempo para poder escribir todos los días.','No tengo tiempo para escribir todos los días.','No tengo tiempo para escribir.','Escribe.'],['Estoy esperando el momento perfecto para lanzar mi proyecto.','Espero el momento perfecto.','Lánzalo.'],['Cuando tenga más motivación voy a empezar a construir mi propia app.','Cuando tenga motivación voy a construir mi app.','Voy a construir mi app.','Constrúyela.']], dLab:'Borrador · clic para quitar',
+
+ fnd:[['Llegaste','Entra a la web.'],['Las seis','Visita las seis facetas.'],['A la vez','Hay una tecla que muestra todo junto.'],['Tu versión','La palabra grande se puede tocar.'],['simple.','Escribe la palabra que cierra todo.'],['Por dentro','Hay dos formas de ver el código. Una viene de los videojuegos.'],['Firmado','Copia una frase.'],['Lo mínimo','Al final de todo hay una palabra. Ponte encima.'],['Te extrañó','Vete a otra pestaña y vuelve.'],['Generaciones','No toques nada por un rato.'],['Otra lengua','Cambia el idioma.'],['Sin atajos','La terminal tiene comandos que no están en help.'],['Ruta','Haz ping a un proyecto.'],['Caos','Rompe el diseño.'],['Hasta el final','Lee al escritor completo.'],['Decidido','Pon una idea a prueba en líder.'],['Sonó','Dale sonido a los visuales.'],['Tu patrón','Programa un ritmo.'],['Cien','Repite cien veces.'],['Espejo','Mírate en Geist Mono.'],['Tu tiempo','Cuenta tus semanas.'],['Para llevar','Lleva el estilo a otra web.'],['Tu frase','Escribe tu verdad incómoda.'],['Insomnio','Vuelve cuando Jay debería estar durmiendo.'],['Menos','A veces aparece un borrador en la portada. Recórtalo.']],
  fLab:'hallazgos', fHead:(n,t)=>`Hallazgos · ${n} de ${t}. Esta web tiene más de lo que muestra.`, fToast:(n,t,x)=>`Hallazgo ${n}/${t} · ${x}`, fAll:'Lo encontraste todo. Ahora ve a hacer lo tuyo. simple.', fShare:'Compartir', fShareTxt:(n,t)=>`Encontré ${n} de ${t} cosas escondidas en la web de Jay. ¿Cuántas encuentras tú?`, fShared:'Copiado. Pégalo donde quieras.',
  skip:'Saltar al contenido', loading:'JAY JARAMILLO — CARGANDO', introSkip:'Clic para saltar', lead:'Jay es ', leadT:'Jay es',
  ecosTitle:'Ecos: otras versiones de Jay recorriendo la web. Son simulados.', ecosOn:'2 ecos', ecosOff:'ecos: no',
@@ -553,7 +567,11 @@ es:{
 },
 en:{
  locale:'en-US',
- fnd:[['You arrived','Open the site.'],['All six','Visit the six facets.'],['At once','One key shows everything together.'],['Your version','The big word can be touched.'],['simple.','Type the word that ends everything.'],['Inside','There are two ways to see the code. One comes from video games.'],['Signed','Copy a sentence.'],['The minimum','At the very end there is one word. Hover it.'],['It missed you','Go to another tab and come back.'],['Generations','Don’t touch anything for a while.'],['Another language','Change the language.'],['No shortcuts','The terminal has commands that are not in help.'],['Route','Ping a project.'],['Chaos','Break the design.'],['To the end','Read the writer all the way.'],['Decided','Test an idea in leader.'],['Sound on','Give the visuals sound.'],['Your pattern','Program a beat.'],['One hundred','Repeat it a hundred times.'],['Mirror','See yourself in Geist Mono.'],['Your time','Count your weeks.'],['To go','Take the style to another site.'],['Your line','Write your uncomfortable truth.'],['Insomnia','Come back when Jay should be asleep.']],
+ whoL:['Jay Jaramillo — technology & operations leader.','Telecommunications engineer and UX/UI designer. Politecnico di Milano.','I lead infrastructure, cloud and cybersecurity projects at Coresolutions.','I build products with code and AI: CoreOperaciones, CoreAI, ANKLA, J-Drums, WhiteDot.','I write as @jaywrkr. I make live visuals. I play drums.','I connect business, infrastructure and product.'],
+ lvl:['solid','hands-on','hands-on · AI-assisted'], stackNote:'solid: years with real clients. hands-on: my own projects in production.',
+ drafts:[['I think maybe tomorrow I should start doing some exercise.','Tomorrow I should start exercising.','I should exercise.','Exercise.'],['The truth is I don’t have enough time to be able to write every day.','I don’t have time to write every day.','I don’t have time to write.','Write.'],['I am waiting for the perfect moment to launch my project.','I am waiting for the perfect moment.','Launch it.'],['When I have more motivation I am going to start building my own app.','When I am motivated I will build my app.','I will build my app.','Build it.']], dLab:'Draft · click to cut',
+
+ fnd:[['You arrived','Open the site.'],['All six','Visit the six facets.'],['At once','One key shows everything together.'],['Your version','The big word can be touched.'],['simple.','Type the word that ends everything.'],['Inside','There are two ways to see the code. One comes from video games.'],['Signed','Copy a sentence.'],['The minimum','At the very end there is one word. Hover it.'],['It missed you','Go to another tab and come back.'],['Generations','Don’t touch anything for a while.'],['Another language','Change the language.'],['No shortcuts','The terminal has commands that are not in help.'],['Route','Ping a project.'],['Chaos','Break the design.'],['To the end','Read the writer all the way.'],['Decided','Test an idea in leader.'],['Sound on','Give the visuals sound.'],['Your pattern','Program a beat.'],['One hundred','Repeat it a hundred times.'],['Mirror','See yourself in Geist Mono.'],['Your time','Count your weeks.'],['To go','Take the style to another site.'],['Your line','Write your uncomfortable truth.'],['Insomnia','Come back when Jay should be asleep.'],['Less','Sometimes a draft appears on the home screen. Cut it down.']],
  fLab:'found', fHead:(n,t)=>`Found · ${n} of ${t}. This site has more than it shows.`, fToast:(n,t,x)=>`Found ${n}/${t} · ${x}`, fAll:'You found everything. Now go make your own thing. simple.', fShare:'Share', fShareTxt:(n,t)=>`I found ${n} of ${t} hidden things on Jay’s site. How many can you find?`, fShared:'Copied. Paste it anywhere.',
  skip:'Skip to content', loading:'JAY JARAMILLO — LOADING', introSkip:'Click to skip', lead:'Jay is ', leadT:'Jay is',
  ecosTitle:'Echoes: other versions of Jay moving through the site. They are simulated.', ecosOn:'2 echoes', ecosOff:'echoes: off',
@@ -627,7 +645,11 @@ en:{
 },
 it:{
  locale:'it-IT',
- fnd:[['Sei arrivato','Apri il sito.'],['Tutte e sei','Visita le sei facce.'],['Insieme','Un tasto mostra tutto insieme.'],['La tua versione','La parola grande si può toccare.'],['simple.','Scrivi la parola che chiude tutto.'],['Dentro','Ci sono due modi per vedere il codice. Uno viene dai videogiochi.'],['Firmato','Copia una frase.'],['Il minimo','Alla fine di tutto c’è una parola. Passaci sopra.'],['Ti ha cercato','Vai su un’altra scheda e torna.'],['Generazioni','Non toccare niente per un po’.'],['Un’altra lingua','Cambia la lingua.'],['Niente scorciatoie','Il terminale ha comandi che non sono in help.'],['Percorso','Fai ping a un progetto.'],['Caos','Rompi il design.'],['Fino alla fine','Leggi tutto lo scrittore.'],['Deciso','Metti alla prova un’idea in leader.'],['Suona','Dai suono ai visual.'],['Il tuo pattern','Programma un ritmo.'],['Cento','Ripeti cento volte.'],['Specchio','Guardati in Geist Mono.'],['Il tuo tempo','Conta le tue settimane.'],['Da asporto','Porta lo stile su un altro sito.'],['La tua frase','Scrivi la tua verità scomoda.'],['Insonnia','Torna quando Jay dovrebbe dormire.']],
+ whoL:['Jay Jaramillo — leader di tecnologia e operazioni.','Ingegnere delle telecomunicazioni e designer UX/UI. Politecnico di Milano.','Guido progetti di infrastruttura, cloud e cybersicurezza in Coresolutions.','Costruisco prodotti con codice e IA: CoreOperaciones, CoreAI, ANKLA, J-Drums, WhiteDot.','Scrivo come @jaywrkr. Faccio visual dal vivo. Suono la batteria.','Unisco business, infrastruttura e prodotto.'],
+ lvl:['solido','pratico','pratico · con IA'], stackNote:'solido: anni con clienti reali. pratico: progetti miei in produzione.',
+ drafts:[['Penso che forse domani dovrei iniziare a fare un po’ di esercizio.','Domani dovrei iniziare a fare esercizio.','Dovrei fare esercizio.','Fai esercizio.'],['La verità è che non ho abbastanza tempo per riuscire a scrivere ogni giorno.','Non ho tempo per scrivere ogni giorno.','Non ho tempo per scrivere.','Scrivi.'],['Sto aspettando il momento perfetto per lanciare il mio progetto.','Aspetto il momento perfetto.','Lancialo.'],['Quando avrò più motivazione inizierò a costruire la mia app.','Quando avrò motivazione costruirò la mia app.','Costruirò la mia app.','Costruiscila.']], dLab:'Bozza · clic per tagliare',
+
+ fnd:[['Sei arrivato','Apri il sito.'],['Tutte e sei','Visita le sei facce.'],['Insieme','Un tasto mostra tutto insieme.'],['La tua versione','La parola grande si può toccare.'],['simple.','Scrivi la parola che chiude tutto.'],['Dentro','Ci sono due modi per vedere il codice. Uno viene dai videogiochi.'],['Firmato','Copia una frase.'],['Il minimo','Alla fine di tutto c’è una parola. Passaci sopra.'],['Ti ha cercato','Vai su un’altra scheda e torna.'],['Generazioni','Non toccare niente per un po’.'],['Un’altra lingua','Cambia la lingua.'],['Niente scorciatoie','Il terminale ha comandi che non sono in help.'],['Percorso','Fai ping a un progetto.'],['Caos','Rompi il design.'],['Fino alla fine','Leggi tutto lo scrittore.'],['Deciso','Metti alla prova un’idea in leader.'],['Suona','Dai suono ai visual.'],['Il tuo pattern','Programma un ritmo.'],['Cento','Ripeti cento volte.'],['Specchio','Guardati in Geist Mono.'],['Il tuo tempo','Conta le tue settimane.'],['Da asporto','Porta lo stile su un altro sito.'],['La tua frase','Scrivi la tua verità scomoda.'],['Insonnia','Torna quando Jay dovrebbe dormire.'],['Meno','A volte in home appare una bozza. Tagliala.']],
  fLab:'scoperte', fHead:(n,t)=>`Scoperte · ${n} su ${t}. Questo sito ha più di quello che mostra.`, fToast:(n,t,x)=>`Scoperta ${n}/${t} · ${x}`, fAll:'Hai trovato tutto. Ora vai a fare il tuo. simple.', fShare:'Condividi', fShareTxt:(n,t)=>`Ho trovato ${n} su ${t} cose nascoste nel sito di Jay. Quante ne trovi tu?`, fShared:'Copiato. Incollalo dove vuoi.',
  skip:'Vai al contenuto', loading:'JAY JARAMILLO — CARICAMENTO', introSkip:'Clic per saltare', lead:'Jay è ', leadT:'Jay è',
  ecosTitle:'Echi: altre versioni di Jay che girano per il sito. Sono simulati.', ecosOn:'2 echi', ecosOff:'echi: no',
@@ -701,7 +723,11 @@ it:{
 },
 fr:{
  locale:'fr-FR',
- fnd:[['Tu es arrivé','Ouvre le site.'],['Les six','Visite les six facettes.'],['D’un coup','Une touche montre tout ensemble.'],['Ta version','Le grand mot se touche.'],['simple.','Tape le mot qui termine tout.'],['De l’intérieur','Il y a deux façons de voir le code. L’une vient des jeux vidéo.'],['Signé','Copie une phrase.'],['Le minimum','Tout en bas, il y a un mot. Passe dessus.'],['Tu lui as manqué','Va sur un autre onglet et reviens.'],['Générations','Ne touche à rien pendant un moment.'],['Une autre langue','Change de langue.'],['Sans raccourcis','Le terminal a des commandes qui ne sont pas dans help.'],['Route','Fais un ping vers un projet.'],['Chaos','Casse le design.'],['Jusqu’au bout','Lis l’écrivain en entier.'],['Décidé','Mets une idée à l’épreuve dans leader.'],['Ça sonne','Donne du son aux visuels.'],['Ton motif','Programme un rythme.'],['Cent','Répète cent fois.'],['Miroir','Regarde-toi en Geist Mono.'],['Ton temps','Compte tes semaines.'],['À emporter','Emmène le style sur un autre site.'],['Ta phrase','Écris ta vérité qui dérange.'],['Insomnie','Reviens quand Jay devrait dormir.']],
+ whoL:['Jay Jaramillo — leader technologie et opérations.','Ingénieur en télécommunications et designer UX/UI. Politecnico di Milano.','Je dirige des projets d’infrastructure, de cloud et de cybersécurité chez Coresolutions.','Je construis des produits avec du code et de l’IA : CoreOperaciones, CoreAI, ANKLA, J-Drums, WhiteDot.','J’écris en tant que @jaywrkr. Je fais des visuels en live. Je joue de la batterie.','Je relie business, infrastructure et produit.'],
+ lvl:['solide','pratique','pratique · avec IA'], stackNote:'solide : des années avec de vrais clients. pratique : mes propres projets en production.',
+ drafts:[['Je pense que peut-être demain je devrais commencer à faire un peu de sport.','Demain je devrais commencer le sport.','Je devrais faire du sport.','Fais du sport.'],['La vérité, c’est que je n’ai pas assez de temps pour pouvoir écrire tous les jours.','Je n’ai pas le temps d’écrire tous les jours.','Je n’ai pas le temps d’écrire.','Écris.'],['J’attends le moment parfait pour lancer mon projet.','J’attends le moment parfait.','Lance-le.'],['Quand j’aurai plus de motivation, je vais commencer à construire ma propre app.','Quand je serai motivé, je construirai mon app.','Je construirai mon app.','Construis-la.']], dLab:'Brouillon · clic pour couper',
+
+ fnd:[['Tu es arrivé','Ouvre le site.'],['Les six','Visite les six facettes.'],['D’un coup','Une touche montre tout ensemble.'],['Ta version','Le grand mot se touche.'],['simple.','Tape le mot qui termine tout.'],['De l’intérieur','Il y a deux façons de voir le code. L’une vient des jeux vidéo.'],['Signé','Copie une phrase.'],['Le minimum','Tout en bas, il y a un mot. Passe dessus.'],['Tu lui as manqué','Va sur un autre onglet et reviens.'],['Générations','Ne touche à rien pendant un moment.'],['Une autre langue','Change de langue.'],['Sans raccourcis','Le terminal a des commandes qui ne sont pas dans help.'],['Route','Fais un ping vers un projet.'],['Chaos','Casse le design.'],['Jusqu’au bout','Lis l’écrivain en entier.'],['Décidé','Mets une idée à l’épreuve dans leader.'],['Ça sonne','Donne du son aux visuels.'],['Ton motif','Programme un rythme.'],['Cent','Répète cent fois.'],['Miroir','Regarde-toi en Geist Mono.'],['Ton temps','Compte tes semaines.'],['À emporter','Emmène le style sur un autre site.'],['Ta phrase','Écris ta vérité qui dérange.'],['Insomnie','Reviens quand Jay devrait dormir.'],['Moins','Parfois un brouillon apparaît sur l’accueil. Coupe-le.']],
  fLab:'trouvailles', fHead:(n,t)=>`Trouvailles · ${n} sur ${t}. Ce site a plus que ce qu’il montre.`, fToast:(n,t,x)=>`Trouvaille ${n}/${t} · ${x}`, fAll:'Tu as tout trouvé. Maintenant, va faire ton truc. simple.', fShare:'Partager', fShareTxt:(n,t)=>`J’ai trouvé ${n} sur ${t} choses cachées sur le site de Jay. Et toi, combien ?`, fShared:'Copié. Colle-le où tu veux.',
  skip:'Aller au contenu', loading:'JAY JARAMILLO — CHARGEMENT', introSkip:'Clic pour passer', lead:'Jay est ', leadT:'Jay est',
  ecosTitle:'Échos : d’autres versions de Jay qui parcourent le site. Ils sont simulés.', ecosOn:'2 échos', ecosOff:'échos : non',
@@ -775,7 +801,11 @@ fr:{
 },
 ja:{
  locale:'ja-JP',
- fnd:[['到着','サイトを開く。'],['6つ全部','6つの面をすべて見る。'],['一度に','全部を並べて見せるキーがある。'],['あなたの答え','大きな単語はタップできる。'],['simple.','すべてを締めくくる単語を打つ。'],['中身','コードを見る方法は2つ。1つはゲームから来た。'],['署名入り','文をコピーする。'],['最小限','いちばん下に単語がある。カーソルを乗せて。'],['さみしかった','別のタブに行って戻る。'],['世代','しばらく何も触らない。'],['別の言語','言語を変える。'],['近道なし','ターミナルには help にないコマンドがある。'],['経路','プロジェクトに ping する。'],['カオス','デザインを壊す。'],['最後まで','ライターを最後まで読む。'],['決定','リーダーでアイデアを試す。'],['音が出た','ビジュアルに音を入れる。'],['あなたのパターン','リズムを打ち込む。'],['百','百回くり返す。'],['鏡','Geist Mono の自分を見る。'],['あなたの時間','自分の週を数える。'],['持ち帰り','このスタイルを別のサイトへ。'],['あなたの一文','不都合な真実を書く。'],['不眠','ジェイが寝ているはずの時間に戻る。']],
+ whoL:['Jay Jaramillo — テクノロジー&オペレーションのリーダー。','電気通信エンジニア、UX/UIデザイナー。ミラノ工科大学。','Coresolutionsでインフラ、クラウド、サイバーセキュリティのプロジェクトを率いる。','コードとAIでプロダクトを作る:CoreOperaciones、CoreAI、ANKLA、J-Drums、WhiteDot。','@jaywrkr として書く。ライブ映像を作る。ドラムを叩く。','ビジネス、インフラ、プロダクトをつなぐ。'],
+ lvl:['実務豊富','実践','実践 · AI併用'], stackNote:'実務豊富:実際の顧客と長年。実践:本番稼働中の自作プロジェクト。',
+ drafts:[['たぶん明日あたりから少し運動を始めたほうがいいと思う。','明日から運動を始めたほうがいい。','運動したほうがいい。','運動する。'],['正直、毎日書けるだけの時間が足りない。','毎日書く時間がない。','書く時間がない。','書く。'],['プロジェクトを出すのに完璧なタイミングを待っている。','完璧なタイミングを待っている。','出す。'],['もっとやる気が出たら、自分のアプリを作り始める。','やる気が出たらアプリを作る。','アプリを作る。','作る。']], dLab:'下書き · クリックで削る',
+
+ fnd:[['到着','サイトを開く。'],['6つ全部','6つの面をすべて見る。'],['一度に','全部を並べて見せるキーがある。'],['あなたの答え','大きな単語はタップできる。'],['simple.','すべてを締めくくる単語を打つ。'],['中身','コードを見る方法は2つ。1つはゲームから来た。'],['署名入り','文をコピーする。'],['最小限','いちばん下に単語がある。カーソルを乗せて。'],['さみしかった','別のタブに行って戻る。'],['世代','しばらく何も触らない。'],['別の言語','言語を変える。'],['近道なし','ターミナルには help にないコマンドがある。'],['経路','プロジェクトに ping する。'],['カオス','デザインを壊す。'],['最後まで','ライターを最後まで読む。'],['決定','リーダーでアイデアを試す。'],['音が出た','ビジュアルに音を入れる。'],['あなたのパターン','リズムを打ち込む。'],['百','百回くり返す。'],['鏡','Geist Mono の自分を見る。'],['あなたの時間','自分の週を数える。'],['持ち帰り','このスタイルを別のサイトへ。'],['あなたの一文','不都合な真実を書く。'],['不眠','ジェイが寝ているはずの時間に戻る。'],['より少なく','ときどきトップに下書きが出る。削ってみて。']],
  fLab:'発見', fHead:(n,t)=>`発見 · ${t}個中${n}個。このサイトは見た目以上のものがある。`, fToast:(n,t,x)=>`発見 ${n}/${t} · ${x}`, fAll:'全部見つけた。次は自分のものを作ろう。simple.', fShare:'共有', fShareTxt:(n,t)=>`ジェイのサイトで隠されたもの${t}個中${n}個を見つけた。あなたはいくつ?`, fShared:'コピーしました。好きな所に貼って。',
  skip:'本文へスキップ', loading:'JAY JARAMILLO — 読み込み中', introSkip:'クリックでスキップ', lead:'ジェイは ', leadT:'ジェイは',
  ecosTitle:'エコー:サイトを歩き回る別バージョンのジェイ。シミュレーションです。', ecosOn:'エコー 2', ecosOff:'エコー:オフ',
@@ -876,14 +906,19 @@ const P = [
 ];
 P.forEach((p, i) => Object.defineProperties(p, {t:{get:() => tr('proj')[i][0]}, d:{get:() => tr('proj')[i][1]}}));
 const STACK = [
- ['infra','IBM · Lenovo · HPE · Synology'],
- ['virt','VMware'],
- ['backup','Veeam'],
- ['red/sec','Check Point · Aruba'],
- ['web','Next.js · Tailwind · Vercel · Node'],
- ['ops','Docker · Terraform · Ansible · Grafana'],
- ['visual','TouchDesigner · GLSL · p5.js'],
- ['no-code','Glide']
+ ['frontend','HTML · CSS · JavaScript · TypeScript · React · Next.js · Tailwind', 2],
+ ['backend','Node.js · Supabase · PostgreSQL · APIs REST', 2],
+ ['ia','Claude · Claude Code · ChatGPT · Codex · MCP · RAG · LLMs', 1],
+ ['motion','Figma · GSAP · Motion · Three.js · WebGL · GLSL · Lenis · Lottie', 1],
+ ['visual','TouchDesigner · p5.js · MIDI', 1],
+ ['dev','Git · GitHub · GitHub Actions · VS Code · Vercel', 1],
+ ['virt','VMware vSphere · VCF · vSAN · NSX · Proxmox VE · Hyper-V', 0],
+ ['infra','IBM Power · IBM Storage · Lenovo ThinkSystem · HPE · Synology', 0],
+ ['red','HPE Aruba · VLANs · switching · routing · HA', 0],
+ ['sec','Check Point · firewall · endpoint · ISO 27001', 0],
+ ['backup','Veeam · DR · BaaS · DRaaS', 0],
+ ['ops','Grafana · Prometheus · Terraform · Ansible · Docker', 0],
+ ['no-code','Glide', 1]
 ];
 const LOGH = ['9aa3e71','5d02c7e','f2c7d05','e98a1b6','c41d8f3','3b9d417','a1f0e2c'];
 const LOG = () => LOGH.map((h, i) => [h, tr('log')[i]]);
@@ -936,8 +971,7 @@ function mountIngeniero(stage){
  const row = p => `<span class="row"><span class="mute">${ET()[p.e]}</span><span>${link(p,p.dir)}</span><span class="mute">${p.t}</span></span>`;
  const L = [];
  L.push(pr('whoami'));
- L.push(tr('who1'));
- L.push(tr('who2'));
+ tr('whoL').forEach(x => L.push(x));
  L.push('<div class="gap"></div>');
  L.push(pr('cat stack.txt'));
  STACK.forEach(([k,v]) => L.push(kv(k,v)));
@@ -968,7 +1002,7 @@ function mountIngeniero(stage){
   const facet = MODES.find(m => m.id === norm(a || c) || norm(m.label) === norm(a || c));
   switch (c){
    case 'help': HELP.forEach(([k,d]) => out(kv(k,d).replace('class="kv"','class="kv w"'))); out(`<span class="mute">${tr('helpTail')}</span>`); break;
-   case 'whoami': out(tr('whoA')); out(tr('whoB')); break;
+   case 'whoami': tr('whoL').forEach(x => out(x)); out(tr('whoB').split(/[.。]/)[0] + (LANG === 'ja' ? '。' : '.')); break;
    case 'ls': P.forEach(p => out(row(p))); break;
    case 'cat': { const p = findP(a); if (!p){ out(esc(tr('catMiss', a))); break; }
     out(`${p.n} <span class="mute">— ${p.t}</span>`); out(p.d); out(`<span class="mute">${tr('stageW')}:</span> ${ET()[p.e]}`); topo.focus(p); break; }
@@ -977,7 +1011,7 @@ function mountIngeniero(stage){
     const host = p.dir.replace('/',''); out(tr('pingFrom', host)); topo.ping(p);
     for (let i = 0; i < 4; i++) later(() => out(tr('pingLine', host, i, (6+Math.random()*28).toFixed(1))), 380*(i+1));
     later(() => out(`<span class="mute">${tr('pingSum')}</span>`), 1900); break; }
-   case 'stack': STACK.forEach(([k,v]) => out(kv(k,v))); break;
+   case 'stack': STACK.forEach(([k,v,l]) => out(`<span class="kv k3"><span class="mute">${k}</span><span>${v}</span><span class="mute">${tr('lvl')[l]}</span></span>`)); out(`<span class="mute">${tr('stackNote')}</span>`); break;
    case 'git': if ((args[0]||'') !== 'log'){ out(tr('gitOnly')); break; } /* falls through */
    case 'log': LOG().forEach(([h,m]) => out(`<span class="mute">${h}</span> ${m}`)); break;
    case 'date': out(tr('dateLine', cuencaTime({dateStyle:'full'}), cuencaTime({timeStyle:'short'}))); break;
@@ -2245,7 +2279,7 @@ function timeNote(){
 }
 
 /* hallazgos: todo lo escondido, en un solo sistema */
-const FIDS = ['llegaste','seis','vista','adivina','simple','codigo','firma','pie','pestana','vida','idioma','comando','ping','romper','leer','decidir','audio','secuencia','cien','espejo','semanas','modojay','tu','noche'];
+const FIDS = ['llegaste','seis','vista','adivina','simple','codigo','firma','pie','pestana','vida','idioma','comando','ping','romper','leer','decidir','audio','secuencia','cien','espejo','semanas','modojay','tu','noche','menos'];
 const fGet = k => { try { const v = JSON.parse(lsx.get(k) || '[]'); return Array.isArray(v) ? v : []; } catch(e){ return []; } };
 let FOUND = fGet('jay-found').filter(id => FIDS.includes(id));
 const seenF = new Set(fGet('jay-seen'));
@@ -2317,6 +2351,7 @@ function setLang(l){
   if (!window.__ARTIFACT__) document.title = tr('docTitle', m.label);
  }
  if (window.__ecos) window.__ecos.relabel();
+ draft.reset();
  word.setAttribute('aria-label', tr('guessWordAria'));
  ui.tick(1600, .04);
 }
@@ -2376,6 +2411,66 @@ if (finePointer){
  hl.addEventListener('pointerenter', () => swapTxt(hl, HL[1])); hl.addEventListener('pointerleave', () => swapTxt(hl, HL[0]));
  clock.addEventListener('pointerenter', () => { clockHover = true; tick(); }); clock.addEventListener('pointerleave', () => { clockHover = false; tick(); });
 }
+
+/* borrador: a veces aparece en el vacío de la portada; cada clic quita palabras hasta lo mínimo */
+const draft = (() => {
+ const hero = document.querySelector('.hero');
+ let el = null, idx = (Math.random()*4)|0, st = 0, hideT, nextT, busy = false, touched = false;
+ const tok = x => LANG === 'ja' ? [...x] : x.split(' ');
+ const nrm = w => w.toLowerCase().replace(/[.,;:!?¿¡、。…]/g, '');
+ const keepOf = (a, b) => {
+  const A = a.map(nrm), B = b.map(nrm), n = A.length, m = B.length, d = Array.from({length:n+1}, () => new Array(m+1).fill(0));
+  for (let i = n-1; i >= 0; i--) for (let j = m-1; j >= 0; j--) d[i][j] = A[i] === B[j] ? d[i+1][j+1] + 1 : Math.max(d[i+1][j], d[i][j+1]);
+  const k = new Array(n).fill(false); let i = 0, j = 0;
+  while (i < n && j < m){ if (A[i] === B[j]){ k[i] = true; i++; j++; } else if (d[i+1][j] >= d[i][j+1]) i++; else j++; }
+  return k;
+ };
+ const can = () => innerWidth >= 1000 && scrollY < 120 && !guessing && !document.hidden && six.hidden && src.hidden && hall.hidden && saver.hidden && !document.querySelector('.intro') && !hero.classList.contains('pv');
+ const schedule = ms => { clearTimeout(nextT); nextT = setTimeout(show, ms); };
+ const S = () => { const D = tr('drafts'); return D[idx % D.length]; };
+ function show(){
+  if (el) return;
+  if (!can()) return schedule(5000);
+  st = 0; touched = false; busy = false;
+  el = document.createElement('button'); el.type = 'button'; el.className = 'draft';
+  el.innerHTML = `<span class="small">${tr('dLab')}</span><p></p>`;
+  el.querySelector('p').textContent = S()[0];
+  hero.appendChild(el);
+  const nav = hero.querySelector('.facets'), W = hero.clientWidth, w = el.offsetWidth, h = el.offsetHeight;
+  const maxY = Math.max(24, nav.offsetTop - h - 40);
+  let x = Math.round(W*(.55 + Math.random()*.15)/8)*8; if (x + w > W - 24) x = W - w - 24;
+  el.style.left = x + 'px'; el.style.top = Math.round((24 + Math.random()*(maxY - 24))/8)*8 + 'px';
+  requestAnimationFrame(() => requestAnimationFrame(() => el && el.classList.add('in')));
+  ui.tick(900, .03);
+  el.addEventListener('click', cut);
+  hideT = setTimeout(() => { if (!touched) hide(false); }, 11000);
+ }
+ function hide(done){
+  if (!el) return; const e = el; el = null; clearTimeout(hideT);
+  e.classList.remove('in'); setTimeout(() => e.remove(), 600);
+  idx++; schedule(done ? 35000 + Math.random()*25000 : 20000 + Math.random()*20000);
+ }
+ function typeTo(p, to, cb){
+  const t0 = performance.now(), D = 420;
+  const f = now => { const k = Math.min(1, (now - t0)/D), n = Math.floor(k*to.length); p.textContent = to.slice(0, n) + (k < 1 ? [...Array(Math.min(3, to.length - n))].map(() => GLYPH[(Math.random()*GLYPH.length)|0]).join('') : ''); if (k < 1) requestAnimationFrame(f); else cb(); };
+  requestAnimationFrame(f);
+ }
+ function cut(){
+  if (busy || !el) return; const seq = S(); if (st >= seq.length - 1) return;
+  touched = true; busy = true; clearTimeout(hideT); stopTour(); ui.tick(1400, .05);
+  const p = el.querySelector('p'), a = tok(seq[st]), keep = keepOf(a, tok(seq[st+1])), sep = LANG === 'ja' ? '' : ' ';
+  p.innerHTML = a.map((w, i) => keep[i] ? esc(w) : `<del class="cut">${esc(w)}</del>`).join(sep);
+  requestAnimationFrame(() => p.querySelectorAll('del').forEach(d => d.classList.add('on')));
+  setTimeout(() => p.querySelectorAll('del').forEach(d => d.classList.add('gone')), 700);
+  setTimeout(() => { if (!el) return; st++; typeTo(p, seq[st], () => {
+   busy = false;
+   if (st === seq.length - 1 && el){ el.insertAdjacentHTML('beforeend', '<span class="small end">simple.</span>'); found('menos'); hideT = setTimeout(() => hide(true), 3200); }
+   else hideT = setTimeout(() => hide(false), 9000);
+  }); }, 1050);
+ }
+ schedule(9000);
+ return {reset(){ if (el){ el.remove(); el = null; clearTimeout(hideT); schedule(12000); } }, show};
+})();
 
 applyStatic();
 if (ss.get('jay-snd') === '1') setSnd(true);

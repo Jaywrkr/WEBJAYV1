@@ -58,7 +58,8 @@ html{scrollbar-width:thin;scrollbar-color:var(--line) var(--bg)}
 .intro-w{font-size:clamp(30px,5.2vw,56px);line-height:1.15;letter-spacing:-.02em;min-height:1.15em}
 .intro-bar{height:1px;background:#262626;position:relative;margin-top:24px}
 .intro-bar i{position:absolute;left:0;top:0;height:1px;width:100%;background:#fff;transform:scaleX(0);transform-origin:left}
-.bar-r{display:flex;gap:16px;align-items:center}
+.bar-l,.bar-r{display:flex;gap:24px;align-items:center}
+.bar-l a{min-width:13ch}
 .snd{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
 .snd[aria-pressed=true]{color:var(--fg)}
 html.has-cur,html.has-cur a,html.has-cur button,html.has-cur label,html.has-cur canvas,html.has-cur .vj-gl,html.has-cur .phone,html.has-cur .cien{cursor:none}
@@ -77,7 +78,7 @@ html.inv{filter:invert(1)}
 :focus-visible{outline:1px solid var(--fg);outline-offset:3px}
 
 /* barra */
-.bar{display:flex;justify-content:space-between;gap:16px;padding:20px var(--pad)}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px 24px;padding:20px var(--pad)}
 .bar a{border:0}
 
 /* hero */
@@ -309,13 +310,6 @@ body>*,footer>*,.foot-end>*{transition:opacity .4s}
 .dq-b button,.ds-tools button{border:1px solid var(--line);padding:8px 14px}
 .dq-b button:hover,.ds-tools button:hover{border-color:var(--fg)}
 @media(max-width:860px){.six-cols{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;overflow:auto}.six .col{border-top:1px solid #262626}}
-/* ecos */
-.ecos-b{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
-.ecos-b[aria-pressed=true]{color:var(--fg)}
-.ghost{position:fixed;left:0;top:0;z-index:44;pointer-events:none;mix-blend-mode:difference;color:#fff}
-.ghost>i:first-child{display:block;width:9px;height:9px;border:1px solid #fff}
-.ghost span{position:absolute;left:14px;top:-3px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;opacity:.75}
-.ghost-pulse{position:absolute;left:0;top:0;width:9px;height:9px;border:1px solid #fff}
 /* física */
 .box.phys{touch-action:none;cursor:grab;background:var(--bg);z-index:2}
 /* secuenciador */
@@ -336,7 +330,7 @@ body>*,footer>*,.foot-end>*{transition:opacity .4s}
 .ascii{font:300 clamp(5px,1.02vw,11px)/1.05 'Geist Mono',ui-monospace,monospace;letter-spacing:0;white-space:pre;overflow:hidden;max-width:100%;margin:0}
 .mirror-ctl{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 /* idiomas */
-.langs{display:flex;gap:2px;align-items:center;margin-right:8px}
+.langs{display:flex;gap:2px;align-items:center}
 .langs button{font-size:11px;letter-spacing:.06em;color:var(--mute);padding:2px 5px}
 .langs button[aria-pressed=true]{background:var(--fg);color:var(--bg)}
 html[lang=ja] .small{letter-spacing:.03em}
@@ -375,7 +369,7 @@ html[lang=ja] h1{letter-spacing:0}
 .hall-g li.on{background:#fff;color:#000;border-color:#fff}.hall-g li.on b{color:#000}
 .hall-all{padding:0 var(--pad) 48px;font-size:22px}
 @media(max-width:860px){.hall-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:520px){.bar{flex-wrap:wrap;row-gap:10px}.bar-r{flex-wrap:wrap;gap:10px 14px}.hall-g li{min-height:0}}
+@media(max-width:520px){.bar-r{width:100%;justify-content:space-between;gap:12px}.bar .snd{display:none}.hall-g li{min-height:0}}
 /* fondo de la portada: retícula viva */
 .hero>.grid-bg{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0}
 /* la web envejece */
@@ -434,8 +428,8 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
 <noscript><style>.facets,.hint,.caret{display:none}</style></noscript>
 
 <header class="bar small mute" id="top">
- <a href="#" aria-label="Jay Jaramillo, inicio">Jay Jaramillo</a>
- <span class="bar-r"><span class="langs" role="group" data-i18n-aria="lang"></span><button type="button" class="found-b"></button><button type="button" class="ecos-b" aria-pressed="true" hidden data-i18n-title="ecosTitle">2 ecos</button><button type="button" class="snd" aria-pressed="false">Sonido: no</button><span id="clock">Cuenca, Ecuador</span></span>
+ <span class="bar-l"><a href="#" aria-label="Jay Jaramillo, inicio">Jay Jaramillo</a><span id="clock">Cuenca, Ecuador</span></span>
+ <span class="bar-r"><button type="button" class="found-b"></button><button type="button" class="snd" aria-pressed="false">Sonido: no</button><span class="langs" role="group" data-i18n-aria="lang"></span></span>
 </header>
 <p class="age small" hidden></p>
 
@@ -486,10 +480,10 @@ es:{
  whoL:['Jay Jaramillo — líder de tecnología y operaciones.','Ingeniero en telecomunicaciones y diseñador UX/UI. Politecnico di Milano.','Dirijo proyectos de infraestructura, cloud y ciberseguridad en Coresolutions.','Construyo productos con código e IA: CoreOperaciones, CoreAI, ANKLA, J-Drums, WhiteDot.','Escribo como @jaywrkr. Hago visuales en vivo. Toco batería.','Junto negocio, infraestructura y producto.'],
  lvl:['sólido','práctico','práctico · con IA'], stackNote:'sólido: años con clientes reales. práctico: proyectos propios en producción.',
 
- fnd:[['Llegaste','Entra a la web.'],['Las seis','Visita las seis facetas.'],['A la vez','Hay una tecla que muestra todo junto.'],['Tu versión','La palabra grande se puede tocar.'],['simple.','Escribe la palabra que cierra todo.'],['Por dentro','Hay dos formas de ver el código. Una viene de los videojuegos.'],['Firmado','Copia una frase.'],['Lo mínimo','Al final de todo hay una palabra. Ponte encima.'],['Te extrañó','Vete a otra pestaña y vuelve.'],['Rebobinado','No toques nada por un rato. Luego vuelve.'],['Otra lengua','Cambia el idioma.'],['Sin atajos','La terminal tiene comandos que no están en help.'],['Ruta','Haz ping a un proyecto.'],['Caos','Rompe el diseño.'],['Hasta el final','Lee al escritor completo.'],['Decidido','Pon una idea a prueba en líder.'],['Sonó','Dale sonido a los visuales.'],['Tu patrón','Programa un ritmo.'],['Cien','Repite cien veces.'],['Espejo','Mírate en Geist Mono.'],['Tu tiempo','Cuenta tus semanas.'],['Para llevar','Lleva el estilo a otra web.'],['Tu frase','Escribe tu verdad incómoda.'],['Insomnio','Vuelve cuando Jay debería estar durmiendo.'],['Pulso','Haz clic en el fondo de la portada.']],
+ fnd:[['Llegaste','Entra a la web.'],['Las seis','Visita las seis facetas.'],['A la vez','Hay una tecla que muestra todo junto.'],['Tu versión','La palabra grande se puede tocar.'],['simple.','Escribe la palabra que cierra todo.'],['Por dentro','Hay dos formas de ver el código. Una viene de los videojuegos.'],['Firmado','Copia una frase.'],['Lo mínimo','Al final de todo hay una palabra. Ponte encima.'],['Te extrañó','Vete a otra pestaña y vuelve.'],['Rebobinado','No toques nada por un rato. Luego vuelve.'],['Otra lengua','Cambia el idioma.'],['Sin atajos','La terminal tiene comandos que no están en help.'],['Ruta','Haz ping a un proyecto.'],['Caos','Rompe el diseño.'],['Hasta el final','Lee al escritor completo.'],['Decidido','Pon una idea a prueba en líder.'],['Sonó','Dale sonido a los visuales.'],['Tu patrón','Programa un ritmo.'],['Cien','Repite cien veces.'],['Espejo','Mírate en Geist Mono.'],['Tu tiempo','Cuenta tus semanas.'],['Para llevar','Lleva el estilo a otra web.'],['Tu frase','Escribe tu verdad incómoda.'],['Insomnio','Vuelve cuando Jay debería estar durmiendo.'],['Pulso','Haz clic en el fondo de la portada.'],['Paquetes','Algo cruza el fondo de la portada. Atrápalo siete veces.']],
  fLab:'hallazgos', fHead:(n,t)=>`Hallazgos · ${n} de ${t}. Esta web tiene más de lo que muestra.`, fToast:(n,t,x)=>`Hallazgo ${n}/${t} · ${x}`, fAll:'Lo encontraste todo. Ahora ve a hacer lo tuyo. simple.', fShare:'Compartir', fShareTxt:(n,t)=>`Encontré ${n} de ${t} cosas escondidas en la web de Jay. ¿Cuántas encuentras tú?`, fShared:'Copiado. Pégalo donde quieras.',
  skip:'Saltar al contenido', loading:'JAY JARAMILLO — CARGANDO', introSkip:'Clic para saltar', lead:'Jay es ', leadT:'Jay es',
- ecosTitle:'Ecos: otras versiones de Jay recorriendo la web. Son simulados.', ecosOn:'2 ecos', ecosOff:'ecos: no',
+
  snd:on=>'Sonido: '+(on?'sí':'no'),
  hintA:'Mismo contenido. Seis formas de leerlo. Elige una, ', sixOpen:'míralas todas', hintB:' o toca la palabra y escribe qué crees que es Jay.',
  facetsAria:'Facetas', fContent:'Contenido', fWork:'Trabajo', fMusic:'Música', fCode:'Código',
@@ -517,7 +511,7 @@ es:{
  hist:['cd ecuador','mv jay ./milano      # telecomunicaciones + UX/UI','mv jay ./ecuador','cd coresolutions','echo "simple." > jaywrkr','cd cuenca','./construir --sin-atajos'],
  uptime:(m,s)=>`arriba ${m} min ${s} s en esta página. Sin pausa desde Milán.`,
  opening:'Abriendo el código de esta página…', toSix:'→ las seis a la vez', toMirror:'→ creador / espejo', toBm:'→ creador / modo Jay',
- ecosT:on=>'Ecos '+(on?'encendidos.':'apagados.'), ecosMouse:'Los ecos solo aparecen con mouse.',
+
  sudo:'Permiso denegado. El único atajo es no buscar atajos.', rm:'Buen intento.', exit:'Aquí no hay exit. Elige otra faceta arriba o escribe cd vj.', hello:'Hola. Escribe help.', jay:'Ese soy yo. Escribe whoami.', coffee:'418: soy una terminal, no una cafetera.',
  cdMiss:(a,l)=>`cd: ${a||'?'}: no existe. Facetas: ${l}`, notFound:c=>`${c}: comando no encontrado. Escribe help.`,
  termHint:'Esta terminal es real. Escribe help y usa Tab para completar.', cmdAria:'Escribe un comando', skipIntro:'Clic o Enter para saltar la intro.',
@@ -563,10 +557,10 @@ en:{
  whoL:['Jay Jaramillo — technology & operations leader.','Telecommunications engineer and UX/UI designer. Politecnico di Milano.','I lead infrastructure, cloud and cybersecurity projects at Coresolutions.','I build products with code and AI: CoreOperaciones, CoreAI, ANKLA, J-Drums, WhiteDot.','I write as @jaywrkr. I make live visuals. I play drums.','I connect business, infrastructure and product.'],
  lvl:['solid','hands-on','hands-on · AI-assisted'], stackNote:'solid: years with real clients. hands-on: my own projects in production.',
 
- fnd:[['You arrived','Open the site.'],['All six','Visit the six facets.'],['At once','One key shows everything together.'],['Your version','The big word can be touched.'],['simple.','Type the word that ends everything.'],['Inside','There are two ways to see the code. One comes from video games.'],['Signed','Copy a sentence.'],['The minimum','At the very end there is one word. Hover it.'],['It missed you','Go to another tab and come back.'],['Rewound','Don’t touch anything for a while. Then come back.'],['Another language','Change the language.'],['No shortcuts','The terminal has commands that are not in help.'],['Route','Ping a project.'],['Chaos','Break the design.'],['To the end','Read the writer all the way.'],['Decided','Test an idea in leader.'],['Sound on','Give the visuals sound.'],['Your pattern','Program a beat.'],['One hundred','Repeat it a hundred times.'],['Mirror','See yourself in Geist Mono.'],['Your time','Count your weeks.'],['To go','Take the style to another site.'],['Your line','Write your uncomfortable truth.'],['Insomnia','Come back when Jay should be asleep.'],['Pulse','Click the background of the home screen.']],
+ fnd:[['You arrived','Open the site.'],['All six','Visit the six facets.'],['At once','One key shows everything together.'],['Your version','The big word can be touched.'],['simple.','Type the word that ends everything.'],['Inside','There are two ways to see the code. One comes from video games.'],['Signed','Copy a sentence.'],['The minimum','At the very end there is one word. Hover it.'],['It missed you','Go to another tab and come back.'],['Rewound','Don’t touch anything for a while. Then come back.'],['Another language','Change the language.'],['No shortcuts','The terminal has commands that are not in help.'],['Route','Ping a project.'],['Chaos','Break the design.'],['To the end','Read the writer all the way.'],['Decided','Test an idea in leader.'],['Sound on','Give the visuals sound.'],['Your pattern','Program a beat.'],['One hundred','Repeat it a hundred times.'],['Mirror','See yourself in Geist Mono.'],['Your time','Count your weeks.'],['To go','Take the style to another site.'],['Your line','Write your uncomfortable truth.'],['Insomnia','Come back when Jay should be asleep.'],['Pulse','Click the background of the home screen.'],['Packets','Something crosses the home background. Catch it seven times.']],
  fLab:'found', fHead:(n,t)=>`Found · ${n} of ${t}. This site has more than it shows.`, fToast:(n,t,x)=>`Found ${n}/${t} · ${x}`, fAll:'You found everything. Now go make your own thing. simple.', fShare:'Share', fShareTxt:(n,t)=>`I found ${n} of ${t} hidden things on Jay’s site. How many can you find?`, fShared:'Copied. Paste it anywhere.',
  skip:'Skip to content', loading:'JAY JARAMILLO — LOADING', introSkip:'Click to skip', lead:'Jay is ', leadT:'Jay is',
- ecosTitle:'Echoes: other versions of Jay moving through the site. They are simulated.', ecosOn:'2 echoes', ecosOff:'echoes: off',
+
  snd:on=>'Sound: '+(on?'on':'off'),
  hintA:'Same content. Six ways to read it. Pick one, ', sixOpen:'see them all', hintB:' or tap the word and type what you think Jay is.',
  facetsAria:'Facets', fContent:'Content', fWork:'Work', fMusic:'Music', fCode:'Code',
@@ -594,7 +588,7 @@ en:{
  hist:['cd ecuador','mv jay ./milano      # telecom + UX/UI','mv jay ./ecuador','cd coresolutions','echo "simple." > jaywrkr','cd cuenca','./build --no-shortcuts'],
  uptime:(m,s)=>`up ${m} min ${s} s on this page. No pause since Milan.`,
  opening:'Opening this page’s code…', toSix:'→ all six at once', toMirror:'→ creator / mirror', toBm:'→ creator / Jay mode',
- ecosT:on=>'Echoes '+(on?'on.':'off.'), ecosMouse:'Echoes only appear with a mouse.',
+
  sudo:'Permission denied. The only shortcut is not looking for shortcuts.', rm:'Nice try.', exit:'There is no exit here. Pick another facet above or type cd vj.', hello:'Hi. Type help.', jay:'That’s me. Type whoami.', coffee:'418: I’m a terminal, not a teapot.',
  cdMiss:(a,l)=>`cd: ${a||'?'}: not found. Facets: ${l}`, notFound:c=>`${c}: command not found. Type help.`,
  termHint:'This terminal is real. Type help and use Tab to complete.', cmdAria:'Type a command', skipIntro:'Click or press Enter to skip the intro.',
@@ -640,10 +634,10 @@ it:{
  whoL:['Jay Jaramillo — leader di tecnologia e operazioni.','Ingegnere delle telecomunicazioni e designer UX/UI. Politecnico di Milano.','Guido progetti di infrastruttura, cloud e cybersicurezza in Coresolutions.','Costruisco prodotti con codice e IA: CoreOperaciones, CoreAI, ANKLA, J-Drums, WhiteDot.','Scrivo come @jaywrkr. Faccio visual dal vivo. Suono la batteria.','Unisco business, infrastruttura e prodotto.'],
  lvl:['solido','pratico','pratico · con IA'], stackNote:'solido: anni con clienti reali. pratico: progetti miei in produzione.',
 
- fnd:[['Sei arrivato','Apri il sito.'],['Tutte e sei','Visita le sei facce.'],['Insieme','Un tasto mostra tutto insieme.'],['La tua versione','La parola grande si può toccare.'],['simple.','Scrivi la parola che chiude tutto.'],['Dentro','Ci sono due modi per vedere il codice. Uno viene dai videogiochi.'],['Firmato','Copia una frase.'],['Il minimo','Alla fine di tutto c’è una parola. Passaci sopra.'],['Ti ha cercato','Vai su un’altra scheda e torna.'],['Riavvolto','Non toccare niente per un po’. Poi torna.'],['Un’altra lingua','Cambia la lingua.'],['Niente scorciatoie','Il terminale ha comandi che non sono in help.'],['Percorso','Fai ping a un progetto.'],['Caos','Rompi il design.'],['Fino alla fine','Leggi tutto lo scrittore.'],['Deciso','Metti alla prova un’idea in leader.'],['Suona','Dai suono ai visual.'],['Il tuo pattern','Programma un ritmo.'],['Cento','Ripeti cento volte.'],['Specchio','Guardati in Geist Mono.'],['Il tuo tempo','Conta le tue settimane.'],['Da asporto','Porta lo stile su un altro sito.'],['La tua frase','Scrivi la tua verità scomoda.'],['Insonnia','Torna quando Jay dovrebbe dormire.'],['Impulso','Clicca lo sfondo della home.']],
+ fnd:[['Sei arrivato','Apri il sito.'],['Tutte e sei','Visita le sei facce.'],['Insieme','Un tasto mostra tutto insieme.'],['La tua versione','La parola grande si può toccare.'],['simple.','Scrivi la parola che chiude tutto.'],['Dentro','Ci sono due modi per vedere il codice. Uno viene dai videogiochi.'],['Firmato','Copia una frase.'],['Il minimo','Alla fine di tutto c’è una parola. Passaci sopra.'],['Ti ha cercato','Vai su un’altra scheda e torna.'],['Riavvolto','Non toccare niente per un po’. Poi torna.'],['Un’altra lingua','Cambia la lingua.'],['Niente scorciatoie','Il terminale ha comandi che non sono in help.'],['Percorso','Fai ping a un progetto.'],['Caos','Rompi il design.'],['Fino alla fine','Leggi tutto lo scrittore.'],['Deciso','Metti alla prova un’idea in leader.'],['Suona','Dai suono ai visual.'],['Il tuo pattern','Programma un ritmo.'],['Cento','Ripeti cento volte.'],['Specchio','Guardati in Geist Mono.'],['Il tuo tempo','Conta le tue settimane.'],['Da asporto','Porta lo stile su un altro sito.'],['La tua frase','Scrivi la tua verità scomoda.'],['Insonnia','Torna quando Jay dovrebbe dormire.'],['Impulso','Clicca lo sfondo della home.'],['Pacchetti','Qualcosa attraversa lo sfondo della home. Prendilo sette volte.']],
  fLab:'scoperte', fHead:(n,t)=>`Scoperte · ${n} su ${t}. Questo sito ha più di quello che mostra.`, fToast:(n,t,x)=>`Scoperta ${n}/${t} · ${x}`, fAll:'Hai trovato tutto. Ora vai a fare il tuo. simple.', fShare:'Condividi', fShareTxt:(n,t)=>`Ho trovato ${n} su ${t} cose nascoste nel sito di Jay. Quante ne trovi tu?`, fShared:'Copiato. Incollalo dove vuoi.',
  skip:'Vai al contenuto', loading:'JAY JARAMILLO — CARICAMENTO', introSkip:'Clic per saltare', lead:'Jay è ', leadT:'Jay è',
- ecosTitle:'Echi: altre versioni di Jay che girano per il sito. Sono simulati.', ecosOn:'2 echi', ecosOff:'echi: no',
+
  snd:on=>'Suono: '+(on?'sì':'no'),
  hintA:'Stesso contenuto. Sei modi di leggerlo. Scegline uno, ', sixOpen:'guardali tutti', hintB:' oppure tocca la parola e scrivi cosa pensi che sia Jay.',
  facetsAria:'Sfaccettature', fContent:'Contenuti', fWork:'Lavoro', fMusic:'Musica', fCode:'Codice',
@@ -671,7 +665,7 @@ it:{
  hist:['cd ecuador','mv jay ./milano      # telecomunicazioni + UX/UI','mv jay ./ecuador','cd coresolutions','echo "simple." > jaywrkr','cd cuenca','./costruire --senza-scorciatoie'],
  uptime:(m,s)=>`attivo da ${m} min ${s} s su questa pagina. Senza pause da Milano.`,
  opening:'Apro il codice di questa pagina…', toSix:'→ tutte e sei insieme', toMirror:'→ creatore / specchio', toBm:'→ creatore / modalità Jay',
- ecosT:on=>'Echi '+(on?'accesi.':'spenti.'), ecosMouse:'Gli echi appaiono solo con il mouse.',
+
  sudo:'Permesso negato. L’unica scorciatoia è non cercare scorciatoie.', rm:'Bel tentativo.', exit:'Qui non c’è exit. Scegli un’altra faccia sopra o scrivi cd vj.', hello:'Ciao. Scrivi help.', jay:'Sono io. Scrivi whoami.', coffee:'418: sono un terminale, non una caffettiera.',
  cdMiss:(a,l)=>`cd: ${a||'?'}: non esiste. Facce: ${l}`, notFound:c=>`${c}: comando non trovato. Scrivi help.`,
  termHint:'Questo terminale è vero. Scrivi help e usa Tab per completare.', cmdAria:'Scrivi un comando', skipIntro:'Clic o Invio per saltare l’intro.',
@@ -717,10 +711,10 @@ fr:{
  whoL:['Jay Jaramillo — leader technologie et opérations.','Ingénieur en télécommunications et designer UX/UI. Politecnico di Milano.','Je dirige des projets d’infrastructure, de cloud et de cybersécurité chez Coresolutions.','Je construis des produits avec du code et de l’IA : CoreOperaciones, CoreAI, ANKLA, J-Drums, WhiteDot.','J’écris en tant que @jaywrkr. Je fais des visuels en live. Je joue de la batterie.','Je relie business, infrastructure et produit.'],
  lvl:['solide','pratique','pratique · avec IA'], stackNote:'solide : des années avec de vrais clients. pratique : mes propres projets en production.',
 
- fnd:[['Tu es arrivé','Ouvre le site.'],['Les six','Visite les six facettes.'],['D’un coup','Une touche montre tout ensemble.'],['Ta version','Le grand mot se touche.'],['simple.','Tape le mot qui termine tout.'],['De l’intérieur','Il y a deux façons de voir le code. L’une vient des jeux vidéo.'],['Signé','Copie une phrase.'],['Le minimum','Tout en bas, il y a un mot. Passe dessus.'],['Tu lui as manqué','Va sur un autre onglet et reviens.'],['Rembobiné','Ne touche à rien pendant un moment. Puis reviens.'],['Une autre langue','Change de langue.'],['Sans raccourcis','Le terminal a des commandes qui ne sont pas dans help.'],['Route','Fais un ping vers un projet.'],['Chaos','Casse le design.'],['Jusqu’au bout','Lis l’écrivain en entier.'],['Décidé','Mets une idée à l’épreuve dans leader.'],['Ça sonne','Donne du son aux visuels.'],['Ton motif','Programme un rythme.'],['Cent','Répète cent fois.'],['Miroir','Regarde-toi en Geist Mono.'],['Ton temps','Compte tes semaines.'],['À emporter','Emmène le style sur un autre site.'],['Ta phrase','Écris ta vérité qui dérange.'],['Insomnie','Reviens quand Jay devrait dormir.'],['Impulsion','Clique sur le fond de l’accueil.']],
+ fnd:[['Tu es arrivé','Ouvre le site.'],['Les six','Visite les six facettes.'],['D’un coup','Une touche montre tout ensemble.'],['Ta version','Le grand mot se touche.'],['simple.','Tape le mot qui termine tout.'],['De l’intérieur','Il y a deux façons de voir le code. L’une vient des jeux vidéo.'],['Signé','Copie une phrase.'],['Le minimum','Tout en bas, il y a un mot. Passe dessus.'],['Tu lui as manqué','Va sur un autre onglet et reviens.'],['Rembobiné','Ne touche à rien pendant un moment. Puis reviens.'],['Une autre langue','Change de langue.'],['Sans raccourcis','Le terminal a des commandes qui ne sont pas dans help.'],['Route','Fais un ping vers un projet.'],['Chaos','Casse le design.'],['Jusqu’au bout','Lis l’écrivain en entier.'],['Décidé','Mets une idée à l’épreuve dans leader.'],['Ça sonne','Donne du son aux visuels.'],['Ton motif','Programme un rythme.'],['Cent','Répète cent fois.'],['Miroir','Regarde-toi en Geist Mono.'],['Ton temps','Compte tes semaines.'],['À emporter','Emmène le style sur un autre site.'],['Ta phrase','Écris ta vérité qui dérange.'],['Insomnie','Reviens quand Jay devrait dormir.'],['Impulsion','Clique sur le fond de l’accueil.'],['Paquets','Quelque chose traverse le fond de l’accueil. Attrape-le sept fois.']],
  fLab:'trouvailles', fHead:(n,t)=>`Trouvailles · ${n} sur ${t}. Ce site a plus que ce qu’il montre.`, fToast:(n,t,x)=>`Trouvaille ${n}/${t} · ${x}`, fAll:'Tu as tout trouvé. Maintenant, va faire ton truc. simple.', fShare:'Partager', fShareTxt:(n,t)=>`J’ai trouvé ${n} sur ${t} choses cachées sur le site de Jay. Et toi, combien ?`, fShared:'Copié. Colle-le où tu veux.',
  skip:'Aller au contenu', loading:'JAY JARAMILLO — CHARGEMENT', introSkip:'Clic pour passer', lead:'Jay est ', leadT:'Jay est',
- ecosTitle:'Échos : d’autres versions de Jay qui parcourent le site. Ils sont simulés.', ecosOn:'2 échos', ecosOff:'échos : non',
+
  snd:on=>'Son : '+(on?'oui':'non'),
  hintA:'Même contenu. Six façons de le lire. Choisis-en une, ', sixOpen:'regarde-les toutes', hintB:' ou touche le mot et écris ce que tu crois que Jay est.',
  facetsAria:'Facettes', fContent:'Contenu', fWork:'Travail', fMusic:'Musique', fCode:'Code',
@@ -748,7 +742,7 @@ fr:{
  hist:['cd ecuador','mv jay ./milano      # télécoms + UX/UI','mv jay ./ecuador','cd coresolutions','echo "simple." > jaywrkr','cd cuenca','./construire --sans-raccourcis'],
  uptime:(m,s)=>`actif depuis ${m} min ${s} s sur cette page. Sans pause depuis Milan.`,
  opening:'J’ouvre le code de cette page…', toSix:'→ les six à la fois', toMirror:'→ créateur / miroir', toBm:'→ créateur / mode Jay',
- ecosT:on=>'Échos '+(on?'activés.':'désactivés.'), ecosMouse:'Les échos n’apparaissent qu’avec une souris.',
+
  sudo:'Permission refusée. Le seul raccourci, c’est de ne pas chercher de raccourcis.', rm:'Bien essayé.', exit:'Ici, pas d’exit. Choisis une autre facette en haut ou tape cd vj.', hello:'Salut. Tape help.', jay:'C’est moi. Tape whoami.', coffee:'418 : je suis un terminal, pas une cafetière.',
  cdMiss:(a,l)=>`cd: ${a||'?'} : introuvable. Facettes : ${l}`, notFound:c=>`${c} : commande introuvable. Tape help.`,
  termHint:'Ce terminal est réel. Tape help et utilise Tab pour compléter.', cmdAria:'Tape une commande', skipIntro:'Clic ou Entrée pour passer l’intro.',
@@ -794,10 +788,10 @@ ja:{
  whoL:['Jay Jaramillo — テクノロジー&オペレーションのリーダー。','電気通信エンジニア、UX/UIデザイナー。ミラノ工科大学。','Coresolutionsでインフラ、クラウド、サイバーセキュリティのプロジェクトを率いる。','コードとAIでプロダクトを作る:CoreOperaciones、CoreAI、ANKLA、J-Drums、WhiteDot。','@jaywrkr として書く。ライブ映像を作る。ドラムを叩く。','ビジネス、インフラ、プロダクトをつなぐ。'],
  lvl:['実務豊富','実践','実践 · AI併用'], stackNote:'実務豊富:実際の顧客と長年。実践:本番稼働中の自作プロジェクト。',
 
- fnd:[['到着','サイトを開く。'],['6つ全部','6つの面をすべて見る。'],['一度に','全部を並べて見せるキーがある。'],['あなたの答え','大きな単語はタップできる。'],['simple.','すべてを締めくくる単語を打つ。'],['中身','コードを見る方法は2つ。1つはゲームから来た。'],['署名入り','文をコピーする。'],['最小限','いちばん下に単語がある。カーソルを乗せて。'],['さみしかった','別のタブに行って戻る。'],['巻き戻し','しばらく何も触らない。それから戻る。'],['別の言語','言語を変える。'],['近道なし','ターミナルには help にないコマンドがある。'],['経路','プロジェクトに ping する。'],['カオス','デザインを壊す。'],['最後まで','ライターを最後まで読む。'],['決定','リーダーでアイデアを試す。'],['音が出た','ビジュアルに音を入れる。'],['あなたのパターン','リズムを打ち込む。'],['百','百回くり返す。'],['鏡','Geist Mono の自分を見る。'],['あなたの時間','自分の週を数える。'],['持ち帰り','このスタイルを別のサイトへ。'],['あなたの一文','不都合な真実を書く。'],['不眠','ジェイが寝ているはずの時間に戻る。'],['パルス','トップの背景をクリック。']],
+ fnd:[['到着','サイトを開く。'],['6つ全部','6つの面をすべて見る。'],['一度に','全部を並べて見せるキーがある。'],['あなたの答え','大きな単語はタップできる。'],['simple.','すべてを締めくくる単語を打つ。'],['中身','コードを見る方法は2つ。1つはゲームから来た。'],['署名入り','文をコピーする。'],['最小限','いちばん下に単語がある。カーソルを乗せて。'],['さみしかった','別のタブに行って戻る。'],['巻き戻し','しばらく何も触らない。それから戻る。'],['別の言語','言語を変える。'],['近道なし','ターミナルには help にないコマンドがある。'],['経路','プロジェクトに ping する。'],['カオス','デザインを壊す。'],['最後まで','ライターを最後まで読む。'],['決定','リーダーでアイデアを試す。'],['音が出た','ビジュアルに音を入れる。'],['あなたのパターン','リズムを打ち込む。'],['百','百回くり返す。'],['鏡','Geist Mono の自分を見る。'],['あなたの時間','自分の週を数える。'],['持ち帰り','このスタイルを別のサイトへ。'],['あなたの一文','不都合な真実を書く。'],['不眠','ジェイが寝ているはずの時間に戻る。'],['パルス','トップの背景をクリック。'],['パケット','トップの背景を何かが横切る。7回捕まえて。']],
  fLab:'発見', fHead:(n,t)=>`発見 · ${t}個中${n}個。このサイトは見た目以上のものがある。`, fToast:(n,t,x)=>`発見 ${n}/${t} · ${x}`, fAll:'全部見つけた。次は自分のものを作ろう。simple.', fShare:'共有', fShareTxt:(n,t)=>`ジェイのサイトで隠されたもの${t}個中${n}個を見つけた。あなたはいくつ?`, fShared:'コピーしました。好きな所に貼って。',
  skip:'本文へスキップ', loading:'JAY JARAMILLO — 読み込み中', introSkip:'クリックでスキップ', lead:'ジェイは ', leadT:'ジェイは',
- ecosTitle:'エコー:サイトを歩き回る別バージョンのジェイ。シミュレーションです。', ecosOn:'エコー 2', ecosOff:'エコー:オフ',
+
  snd:on=>'サウンド:'+(on?'オン':'オフ'),
  hintA:'同じ内容を、6つの読み方で。ひとつ選ぶか、', sixOpen:'全部まとめて見る', hintB:'か、単語をタップしてジェイが何者だと思うか書いてください。',
  facetsAria:'ファセット', fContent:'コンテンツ', fWork:'仕事', fMusic:'音楽', fCode:'コード',
@@ -825,7 +819,7 @@ ja:{
  hist:['cd ecuador','mv jay ./milano      # 電気通信 + UX/UI','mv jay ./ecuador','cd coresolutions','echo "simple." > jaywrkr','cd cuenca','./build --no-shortcuts'],
  uptime:(m,s)=>`このページで ${m}分${s}秒稼働中。ミラノから休みなし。`,
  opening:'このページのコードを開いています…', toSix:'→ 6つまとめて', toMirror:'→ クリエイター / ミラー', toBm:'→ クリエイター / ジェイ・モード',
- ecosT:on=>'エコー'+(on?'オン。':'オフ。'), ecosMouse:'エコーはマウス使用時のみ表示されます。',
+
  sudo:'許可されていません。唯一の近道は、近道を探さないこと。', rm:'いい試みだ。', exit:'ここに exit はない。上で別のファセットを選ぶか cd vj と入力して。', hello:'こんにちは。help と入力して。', jay:'それは私。whoami と入力して。', coffee:'418: 私はターミナル。ティーポットではない。',
  cdMiss:(a,l)=>`cd: ${a||'?'}: 見つかりません。ファセット: ${l}`, notFound:c=>`${c}: コマンドが見つかりません。help と入力して。`,
  termHint:'このターミナルは本物です。help と入力し、Tabで補完。', cmdAria:'コマンドを入力', skipIntro:'クリックかEnterでイントロをスキップ。',
@@ -983,7 +977,7 @@ function mountIngeniero(stage){
  const out = html => { const d = document.createElement('div'); d.className = 'ln'; d.innerHTML = html; box.insertBefore(d, cmdLine); return d; };
 
  const HELP = tr('help');
- const SECRET = ['neofetch','top','history','uptime','codigo','código','source','code','codice','コード','seis','todas','six','sei','all','modojay','jaymode','modejay','espejo','mirror','specchio','miroir','ミラー','ecos','echoes','echi','échos','echos','sudo','rm','simple','exit','quit','hola','hi','hello','ciao','salut','bonjour','こんにちは','jay','coffee','cafe','café','caffè','caffe','hallazgos','found','logros','scoperte','trouvailles','発見'];
+ const SECRET = ['neofetch','top','history','uptime','codigo','código','source','code','codice','コード','seis','todas','six','sei','all','modojay','jaymode','modejay','espejo','mirror','specchio','miroir','ミラー','sudo','rm','simple','exit','quit','hola','hi','hello','ciao','salut','bonjour','こんにちは','jay','coffee','cafe','café','caffè','caffe','hallazgos','found','logros','scoperte','trouvailles','発見'];
  function run(v){
   const [c0, ...args] = v.split(/\s+/); const c = c0.toLowerCase(); const a = args.join(' ');
   if (SECRET.includes(c)) found('comando');
@@ -1024,7 +1018,6 @@ function mountIngeniero(stage){
    case 'seis': case 'todas': case 'six': case 'sei': case 'all': out(tr('toSix')); later(openSix, 250); break;
    case 'modojay': case 'jaymode': case 'modejay': out(tr('toBm')); later(() => { setMode('creador', true); setTimeout(() => { const e = document.querySelector('[data-s=modo]'); if (e) e.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); }, 1200); }, 250); break;
    case 'espejo': case 'mirror': case 'specchio': case 'miroir': case 'ミラー': out(tr('toMirror')); later(() => { setMode('creador', true); setTimeout(() => { const e = document.querySelector('[data-s=espejo]'); if (e) e.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); }, 1200); }, 250); break;
-   case 'ecos': case 'echoes': case 'echi': case 'échos': case 'echos': if (window.__ecos){ window.__ecos.toggle(); out(tr('ecosT', window.__ecos.on)); } else out(tr('ecosMouse')); break;
    case 'sudo': out(tr('sudo')); break;
    case 'rm': out(tr('rm')); break;
    case 'simple': toggleSimple(); out('simple.'); break;
@@ -2259,41 +2252,6 @@ addEventListener('keydown', e => {
  if (typed.endsWith('codigo') || typed.endsWith('codice')){ typed = ''; openSrc(); }
 });
 
-/* ecos: otras versiones de Jay recorriendo la web (simulados, sin servidor) */
-if (finePointer && !reduce && G){
- const btn = document.querySelector('.ecos-b'); btn.hidden = false;
- const ghosts = [0, 4, 1, 2].sort(() => Math.random() - .5).slice(0, 2).map(k => {
-  const el = document.createElement('div'); el.className = 'ghost'; el.setAttribute('aria-hidden', 'true'); el.innerHTML = `<i></i><span>jay · ${tr('facets')[k]}</span>`;
-  document.body.appendChild(el); G.set(el, {x:Math.random()*innerWidth*.8, y:innerHeight*.3 + Math.random()*innerHeight*.5});
-  return {el, t:null, k};
- });
- const eco = {on:true};
- const busy = () => !six.hidden || !src.hidden || !hall.hidden || !saver.hidden || document.querySelector('.intro') || document.hidden;
- const pickTarget = () => {
-  const els = [...document.querySelectorAll('a, button:not(.ecos-b), [role=tab], .box, .week div, .st, .cien span')].filter(e => { const r = e.getBoundingClientRect(); return r.width > 4 && r.top > 40 && r.bottom < innerHeight - 20 && r.left > 0 && r.right < innerWidth; });
-  return els[(Math.random()*els.length)|0];
- };
- const walk = g => {
-  if (!eco.on) return;
-  if (busy()){ g.t = setTimeout(() => walk(g), 2000); return; }
-  const t = pickTarget(); if (!t){ g.t = setTimeout(() => walk(g), 2000); return; }
-  const r = t.getBoundingClientRect(), tx = r.left + Math.min(r.width/2, 40) + (Math.random()*10 - 5), ty = r.top + r.height/2;
-  G.timeline({onComplete(){ const p = document.createElement('i'); p.className = 'ghost-pulse'; g.el.appendChild(p); G.fromTo(p, {scale:.2, opacity:.9}, {scale:2.6, opacity:0, duration:.5, ease:'steps(6)', onComplete: () => p.remove()}); g.t = setTimeout(() => walk(g), 1800 + Math.random()*3800); }})
-   .to(g.el, {x:tx, duration:.9 + Math.random()*.6, ease:'power2.inOut'})
-   .to(g.el, {y:ty, duration:.7 + Math.random()*.5, ease:'power2.inOut'});
- };
- ghosts.forEach((g, i) => { g.t = setTimeout(() => walk(g), 4000 + i*2200); });
- eco.toggle = () => {
-  eco.on = !eco.on; btn.setAttribute('aria-pressed', eco.on); btn.textContent = eco.on ? tr('ecosOn') : tr('ecosOff');
-  ghosts.forEach(g => { g.el.hidden = !eco.on; clearTimeout(g.t); G.killTweensOf(g.el); if (eco.on) g.t = setTimeout(() => walk(g), 600); });
-  ss.set('jay-ecos', eco.on ? '1' : '0');
- };
- btn.addEventListener('click', eco.toggle);
- if (ss.get('jay-ecos') === '0') eco.toggle();
- eco.relabel = () => { ghosts.forEach(g => { g.el.querySelector('span').textContent = 'jay · ' + tr('facets')[g.k]; }); btn.textContent = eco.on ? tr('ecosOn') : tr('ecosOff'); };
- window.__ecos = eco;
-}
-
 /* Cuenca de noche, y los domingos sin filtro */
 function timeNote(){
  const h = cuencaHour();
@@ -2303,7 +2261,7 @@ function timeNote(){
 }
 
 /* hallazgos: todo lo escondido, en un solo sistema */
-const FIDS = ['llegaste','seis','vista','adivina','simple','codigo','firma','pie','pestana','vida','idioma','comando','ping','romper','leer','decidir','audio','secuencia','cien','espejo','semanas','modojay','tu','noche','pulso'];
+const FIDS = ['llegaste','seis','vista','adivina','simple','codigo','firma','pie','pestana','vida','idioma','comando','ping','romper','leer','decidir','audio','secuencia','cien','espejo','semanas','modojay','tu','noche','pulso','paquetes'];
 const fGet = k => { try { const v = JSON.parse(lsx.get(k) || '[]'); return Array.isArray(v) ? v : []; } catch(e){ return []; } };
 let FOUND = fGet('jay-found').filter(id => FIDS.includes(id));
 const seenF = new Set(fGet('jay-seen'));
@@ -2374,7 +2332,6 @@ function setLang(l){
   cleanup = m.mount(stage) || null;
   if (!window.__ARTIFACT__) document.title = tr('docTitle', m.label);
  }
- if (window.__ecos) window.__ecos.relabel();
  word.setAttribute('aria-label', tr('guessWordAria'));
  ui.tick(1600, .04);
 }
@@ -2440,20 +2397,52 @@ if (finePointer){
  const hero = document.querySelector('.hero'), cv = document.createElement('canvas'); cv.className = 'grid-bg'; cv.setAttribute('aria-hidden', 'true');
  hero.insertBefore(cv, hero.firstChild);
  const x = cv.getContext('2d'), G8 = 24;
- let W = 0, H = 0, cols = 0, rows = 0, dpr = 1, lit, mx = -1e4, my = -1e4, pulses = [], packets = [], fg = '#fff', visible = true, last = 0, colT = 0, nextPk = performance.now() + 3000;
+ /* "simple." en 7 glifos de puntos; cada paquete atrapado enciende uno */
+ const GLY = {
+  s:[[1,'.##'],[2,'#..'],[3,'..#'],[4,'##.']],
+  i:[[0,'#'],[2,'#'],[3,'#'],[4,'#']],
+  m:[[1,'####.'],[2,'#.#.#'],[3,'#.#.#'],[4,'#.#.#']],
+  p:[[1,'##.'],[2,'#.#'],[3,'##.'],[4,'#..'],[5,'#..']],
+  l:[[0,'#.'],[1,'#.'],[2,'#.'],[3,'#.'],[4,'.#']],
+  e:[[1,'.#.'],[2,'###'],[3,'#..'],[4,'.##']],
+  '.':[[4,'#']]
+ };
+ const WORD = ['s','i','m','p','l','e','.'], gw = ch => GLY[ch][0][1].length;
+ const pkGet = () => { const v = parseInt(lsx.get('jay-pk'), 10); return isNaN(v) ? 0 : Math.max(0, Math.min(7, v)); };
+ let caught = pkGet(), letters = new Map(), flash = 0, wordP = 24;
+ let step = 0, W = 0, H = 0, cols = 0, rows = 0, dpr = 1, lit, mx = -1e4, my = -1e4, pulses = [], packets = [], fg = '#fff', visible = true, last = 0, colT = 0, nextPk = performance.now() + 3000;
  function size(){
   W = hero.clientWidth; H = hero.clientHeight; dpr = Math.min(devicePixelRatio || 1, 2);
   cv.width = W*dpr; cv.height = H*dpr; x.setTransform(dpr,0,0,dpr,0,0);
   cols = Math.ceil(W/G8) + 1; rows = Math.ceil(H/G8) + 1; lit = new Float32Array(cols*rows);
+  placeWord();
  }
+ function placeWord(){
+  /* ancho: en la retícula de 24 a la derecha; angosto: media retícula (12) arriba a la derecha */
+  letters = new Map();
+  const pad = parseFloat(getComputedStyle(hero).paddingLeft) || 24, h1 = hero.querySelector('h1'), label = hero.querySelector('.small');
+  const one = WORD.reduce((a, ch) => a + gw(ch) + 1, -1), freeL = Math.ceil((pad + 680)/G8), freeR = Math.floor((W - pad)/G8);
+  let P, x0, y0;
+  if (freeR - freeL >= one){ P = G8; x0 = (freeR - one)*G8; y0 = (Math.round((h1.offsetTop + h1.offsetHeight/2)/G8) - 2)*G8; }
+  else { P = 12; x0 = Math.floor((W - pad - one*P)/P)*P; y0 = Math.max(P, Math.floor((label.offsetTop - 7*P)/P)*P); }
+  wordP = P; let c = 0;
+  WORD.forEach((ch, k) => { const pts = []; GLY[ch].forEach(([dr, row]) => [...row].forEach((v, dc) => { if (v === '#') pts.push([x0 + (c + dc)*P, y0 + dr*P]); })); letters.set(k, pts); c += gw(ch) + 1; });
+ }
+
  const onEmpty = t => !(t.closest && t.closest('a, button, input, textarea, h1, [role=tab]'));
  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; }, {passive:true});
  hero.addEventListener('pointerleave', () => { mx = my = -1e4; });
  hero.addEventListener('pointerdown', e => {
   if (!onEmpty(e.target) || reduce) return;
-  const r = hero.getBoundingClientRect();
-  pulses.push({c: Math.round((e.clientX - r.left)/G8), r: Math.round((e.clientY - r.top)/G8), t: performance.now()});
-  ui.tick(600, .03); found('pulso');
+  const r = hero.getBoundingClientRect(), pc = (e.clientX - r.left)/G8, pr = (e.clientY - r.top)/G8, R = finePointer ? 1.6 : 2.4;
+  const hit = packets.findIndex(p => p.trail.slice(0, 3).some(([c, rr]) => Math.max(Math.abs(c - pc), Math.abs(rr - pr)) <= R));
+  pulses.push({c: Math.round(pc), r: Math.round(pr), t: performance.now(), big: hit >= 0});
+  if (hit >= 0){
+   packets.splice(hit, 1);
+   if (caught < 7){ caught++; lsx.set('jay-pk', caught); flash = performance.now(); ui.tick(2400, .06); if (caught === 7) found('paquetes'); }
+   else ui.tick(2000, .05);
+  } else ui.tick(600, .03);
+  found('pulso');
  });
  function spawnPacket(){
   const horiz = Math.random() < .5, dir = Math.random() < .5 ? 1 : -1;
@@ -2466,7 +2455,9 @@ if (finePointer){
   if (t - colT > 600){ colT = t; fg = getComputedStyle(document.body).color; }
   if (!reduce && t > nextPk){ if (packets.length < 2) spawnPacket(); nextPk = t + 2500 + Math.random()*5000; }
   for (let i = 0; i < lit.length; i++) lit[i] *= .86;
+  const moveNow = (step = (step + 1) % 2) === 0;
   packets = packets.filter(p => {
+   if (!moveNow){ p.trail.forEach(([c, r], k) => { if (c >= 0 && r >= 0 && c < cols && r < rows) lit[r*cols + c] = Math.max(lit[r*cols + c], 1 - k/7); }); return true; }
    p.trail.unshift([p.c, p.r]); p.trail.length = Math.min(p.trail.length, 7);
    if (Math.random() < .08){ const h = p.dc !== 0; const s = Math.random() < .5 ? 1 : -1; p.dc = h ? 0 : s; p.dr = h ? s : 0; }
    p.c += p.dc; p.r += p.dr; p.life--;
@@ -2474,19 +2465,22 @@ if (finePointer){
    return p.life > 0 && p.c >= -1 && p.r >= -1 && p.c <= cols && p.r <= rows;
   });
   pulses = pulses.filter(p => {
-   const k = Math.floor((t - p.t)/45), R = 14; if (k > R) return false;
+   const k = Math.floor((t - p.t)/45), R = p.big ? 22 : 14; if (k > R) return false;
    const a = 1 - k/R;
    for (let d = -k; d <= k; d++) [[p.c + d, p.r - k], [p.c + d, p.r + k], [p.c - k, p.r + d], [p.c + k, p.r + d]].forEach(([c, r]) => { if (c >= 0 && r >= 0 && c < cols && r < rows) lit[r*cols + c] = Math.max(lit[r*cols + c], a); });
    return true;
   });
   x.clearRect(0, 0, W, H); x.fillStyle = fg;
-  const mc = mx/G8, mr = my/G8, RAD = 4.5;
+  const mc = mx/G8, mr = my/G8, RAD = 4.5, fl = Math.max(0, 1 - (t - flash)/900);
+
   for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++){
    const d = Math.max(Math.abs(c - mc), Math.abs(r - mr)), near = d < RAD ? (1 - d/RAD) : 0;
    const v = Math.max(lit[r*cols + c], near*.7), s = v > .5 ? 3 : v > .2 ? 2 : 1;
-   x.globalAlpha = .1 + v*.6;
+   x.globalAlpha = .1 + v*.62;
    x.fillRect(c*G8 - (s >> 1), r*G8 - (s >> 1), s, s);
   }
+  const ds = wordP === G8 ? 4 : 3;
+  for (let k = 0; k < caught; k++){ const pts = letters.get(k); if (!pts) continue; x.globalAlpha = k === caught - 1 ? Math.max(.62, fl) : .62; pts.forEach(([px, py]) => x.fillRect(px - (ds >> 1), py - (ds >> 1), ds, ds)); }
   x.globalAlpha = 1;
  }
  size(); new ResizeObserver(size).observe(hero);

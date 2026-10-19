@@ -13,6 +13,11 @@ Web personal de Jay Jaramillo (jaywrkr). Una persona, seis formas de leerla: el 
 
 Al entrar hay una intro (una vez por sesión, se puede saltar): un contador de 000 a 100 mientras la palabra recorre las seis facetas. Después, la web recorre las facetas sola hasta que la persona interactúa. Atajos: teclas `1`–`6`, flechas sobre las facetas, `g` para las guías en diseñador. Cada faceta tiene URL propia (`#ingeniero`, `#disenador`, `#escritor`, `#lider`, `#vj`, `#creador`).
 
+## Portada
+- "Jay es ___": la palabra es una rueda. Scroll o arrastre sobre la frase, o flechas ↑ ↓, la giran. Al cambiar, las letras que se repiten viajan a su nueva posición; las que sobran salen y las que faltan entran.
+- Índice a la derecha (01–06). Al pasar el cursor, el fondo adelanta esa faceta.
+- Fondo: un shader WebGL por faceta en la retícula de 24px (terminal, retícula suiza, renglones, barras, damero VJ, mitad y mitad). Cambia con disolución por celdas; el mouse desplaza celdas en ángulo recto.
+
 ## Detalles
 - Cursor propio: un cuadrado que invierte lo que tiene debajo y enmarca lo que se puede tocar.
 - Sonido de interfaz opcional (apagado por defecto), en la barra superior.

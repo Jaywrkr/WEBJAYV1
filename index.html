@@ -82,18 +82,23 @@ html.inv{filter:invert(1)}
 .bar a{border:0}
 
 /* hero */
-.hero{padding:14vh var(--pad) 0}
+.hero{padding:10vh var(--pad);min-height:min(78vh,820px);display:flex;flex-direction:column;justify-content:center}
 h1{font-weight:300;font-size:clamp(30px,5.2vw,56px);line-height:1.15;letter-spacing:-.02em}
-#word{display:inline-block;min-width:1ch}
+#word{display:inline-block;min-width:1ch;position:relative}
+#word .lt{display:inline-block;white-space:pre}
+h1{touch-action:pan-y;user-select:none;-webkit-user-select:none}
+@media(pointer:fine){h1{cursor:ns-resize}}
 .caret{display:inline-block;width:.55em;height:.95em;background:var(--fg);vertical-align:-.1em;margin-left:.06em;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .hint{margin-top:20px;max-width:60ch;text-wrap:pretty}
-.facets{display:grid;grid-template-columns:repeat(6,1fr);margin-top:12vh;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.facets button{position:relative;text-align:left;padding:16px 14px 18px 0;color:var(--mute);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
-.facets button>span{display:flex;align-items:center;gap:12px;color:var(--mute);margin-bottom:6px}
+.facets{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:flex-end;gap:2px;z-index:3}
+.facets button{position:relative;display:flex;flex-direction:row-reverse;align-items:center;gap:14px;padding:7px 0 7px 24px;color:var(--mute);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.facets button>span{display:flex;align-items:center;gap:12px;color:var(--mute)}
 .facets button:hover,.facets button[aria-selected=true]{color:var(--fg)}
-.facets button[aria-selected=true]::before{content:"";position:absolute;left:0;right:14px;top:-1px;height:1px;background:var(--fg)}
-.tour{position:absolute;left:0;top:-1px;height:1px;background:var(--fg);width:0}
+.facets button[aria-selected=true]::before{content:"";position:absolute;left:0;top:50%;width:12px;height:1px;background:var(--fg)}
+.facets button[aria-selected=true]>span{color:var(--fg)}
+.hero::after{content:"";position:absolute;left:var(--pad);right:var(--pad);bottom:0;height:1px;background:var(--line)}
+.tour{position:absolute;left:24px;bottom:2px;height:1px;background:var(--fg);width:0}
 
 /* escenario */
 #stage{padding:12vh var(--pad);min-height:70vh}
@@ -337,22 +342,6 @@ html[lang=ja] .small{letter-spacing:.03em}
 html[lang=ja] h1{letter-spacing:0}
 /* hover en la portada */
 .hero{position:relative}
-.hero::before{content:"";position:absolute;left:0;top:0;width:0;height:0;pointer-events:none;opacity:0;z-index:0;background:var(--fg);transition:opacity .15s}
-.hero.pv::before{opacity:.3}
-.hero.pv-ingeniero::before{width:100%;height:1px;animation:pvY 1.8s linear infinite}
-.hero.pv-disenador::before{width:1px;height:var(--nt,100%);animation:pvX 2.4s steps(12) infinite}
-.hero.pv-escritor::before{top:calc(var(--nt,100%) - 48px);left:var(--pad);height:1px;animation:pvW 1.6s steps(32) infinite}
-.hero.pv-lider::before{top:auto;bottom:calc(100% - var(--nt,100%));left:auto;right:var(--pad);width:8px;animation:pvH 1.2s steps(6) infinite alternate}
-.hero.pv-vj::before{width:24px;height:24px;animation:pvJ .8s steps(1) infinite}
-.hero.pv-creador::before{width:220px;height:220px;left:72%;top:calc(var(--nt,100%)/2);background:none;border:1px solid var(--fg);animation:pvS 1.6s steps(8) infinite}
-.hero.pv.pv-creador::before{opacity:.5}
-@keyframes pvY{from{top:0}to{top:calc(var(--nt,100%) - 1px)}}
-@keyframes pvX{from{left:var(--pad)}to{left:calc(100% - var(--pad))}}
-@keyframes pvW{from{width:0}to{width:calc(100% - var(--pad)*2)}}
-@keyframes pvH{from{height:0}to{height:calc(var(--nt,100%)*.8)}}
-@keyframes pvJ{0%{left:62%;top:calc(var(--nt,100%)*.2)}25%{left:84%;top:calc(var(--nt,100%)*.55)}50%{left:70%;top:calc(var(--nt,100%)*.75)}75%{left:90%;top:calc(var(--nt,100%)*.3)}}
-@keyframes pvS{from{transform:translate(-50%,-50%) scale(.05)}to{transform:translate(-50%,-50%) scale(1)}}
-@media (prefers-reduced-motion:reduce){.hero::before{animation:none!important}}
 #word.pvw{opacity:.45}
 .hero-l{display:inline-block;min-width:20ch}
 /* hallazgos */
@@ -371,7 +360,11 @@ html[lang=ja] h1{letter-spacing:0}
 @media(max-width:860px){.hall-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.bar-r{width:100%;justify-content:space-between;gap:12px}.bar .snd{display:none}.hall-g li{min-height:0}}
 /* fondo de la portada: retícula viva */
-.hero>.grid-bg{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.hero{position:relative}
+.hero>*{position:relative;z-index:1}
+.hero>.grid-bg,.hero>.shader-bg{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.hero>.shader-bg{z-index:0;opacity:0;transition:opacity .8s}
+.hero>.shader-bg.on{opacity:1}
 /* la web envejece */
 .age{margin:0 var(--pad);padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--fg)}
 .dust{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:38}
@@ -392,7 +385,12 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
 .foot-end .simple{font-size:56px;line-height:1;letter-spacing:-.02em}
 
 @media(max-width:860px){
- .facets{grid-template-columns:repeat(3,1fr)}
+ .facets{position:static;transform:none;flex-direction:row;justify-content:space-between;align-items:center;margin-top:48px;gap:0;border-top:1px solid var(--line)}
+ .facets button{font-size:0;padding:16px 0 4px;flex-direction:row}
+ .facets button>span{font-size:11px}
+ .facets button[aria-selected=true]::before{left:0;top:-1px;width:100%}
+ .tour{left:0;top:-1px;bottom:auto}
+ .hero{min-height:0;padding:9vh var(--pad) 6vh}
  .ds-top{grid-template-columns:1fr;gap:40px}
  .spec,.sw,.rules{grid-column:auto}
  .b6,.b4,.b3,.b8,.b12{grid-column:span 12}
@@ -410,7 +408,6 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
 }
 @media(max-width:520px){
  .hero{padding-top:9vh}
- .facets{grid-template-columns:repeat(2,1fr)}
  .principles,.where{grid-template-columns:1fr}
  .kpi b{font-size:40px}
  .vj-gl{aspect-ratio:4/5}
@@ -435,7 +432,7 @@ footer{border-top:1px solid var(--line);padding:72px var(--pad) 40px}
 
 <section class="hero">
  <p class="small mute"><span class="hero-l">jaywrkr / 2026</span></p>
- <h1><span id="lead">Jay es </span><span id="word">ingeniero</span><span class="caret" aria-hidden="true"></span></h1>
+ <h1 data-lenis-prevent><span id="lead">Jay es </span><span id="word">ingeniero</span><span class="caret" aria-hidden="true"></span></h1>
  <p class="guess-out small" aria-live="polite"></p>
  <p class="hint mute"><span data-i18n="hintA">Mismo contenido. Seis formas de leerlo. Elige una, </span><button type="button" class="six-open" data-i18n="sixOpen">míralas todas</button><span data-i18n="hintB"> o toca la palabra y escribe qué crees que es Jay.</span></p>
  <nav class="facets" role="tablist" aria-label="Facetas" data-i18n-aria="facetsAria"></nav>
@@ -485,7 +482,7 @@ es:{
  skip:'Saltar al contenido', loading:'JAY JARAMILLO — CARGANDO', introSkip:'Clic para saltar', lead:'Jay es ', leadT:'Jay es',
 
  snd:on=>'Sonido: '+(on?'sí':'no'),
- hintA:'Mismo contenido. Seis formas de leerlo. Elige una, ', sixOpen:'míralas todas', hintB:' o toca la palabra y escribe qué crees que es Jay.',
+ hintA:'Mismo contenido. Seis formas de leerlo. Gira la palabra con scroll o arrastrando, ', sixOpen:'míralas todas', hintB:' o tócala y escribe qué crees que es Jay.',
  facetsAria:'Facetas', fContent:'Contenido', fWork:'Trabajo', fMusic:'Música', fCode:'Código',
  made:'Hecho en Cuenca, Ecuador. HTML, CSS y JavaScript, sin plantillas.', top:'↑ Arriba', city:'Cuenca',
  docTitle:l=>`Jay es ${l} — Jay Jaramillo`, tabAway:'Jay sigue trabajando.',
@@ -562,7 +559,7 @@ en:{
  skip:'Skip to content', loading:'JAY JARAMILLO — LOADING', introSkip:'Click to skip', lead:'Jay is ', leadT:'Jay is',
 
  snd:on=>'Sound: '+(on?'on':'off'),
- hintA:'Same content. Six ways to read it. Pick one, ', sixOpen:'see them all', hintB:' or tap the word and type what you think Jay is.',
+ hintA:'Same content. Six ways to read it. Turn the word by scrolling or dragging, ', sixOpen:'see them all', hintB:' or tap it and type what you think Jay is.',
  facetsAria:'Facets', fContent:'Content', fWork:'Work', fMusic:'Music', fCode:'Code',
  made:'Made in Cuenca, Ecuador. HTML, CSS and JavaScript, no templates.', top:'↑ Top', city:'Cuenca',
  docTitle:l=>`Jay is ${l} — Jay Jaramillo`, tabAway:'Jay is still working.',
@@ -639,7 +636,7 @@ it:{
  skip:'Vai al contenuto', loading:'JAY JARAMILLO — CARICAMENTO', introSkip:'Clic per saltare', lead:'Jay è ', leadT:'Jay è',
 
  snd:on=>'Suono: '+(on?'sì':'no'),
- hintA:'Stesso contenuto. Sei modi di leggerlo. Scegline uno, ', sixOpen:'guardali tutti', hintB:' oppure tocca la parola e scrivi cosa pensi che sia Jay.',
+ hintA:'Stesso contenuto. Sei modi di leggerlo. Gira la parola con lo scroll o trascinando, ', sixOpen:'guardali tutti', hintB:' oppure toccala e scrivi cosa pensi che sia Jay.',
  facetsAria:'Sfaccettature', fContent:'Contenuti', fWork:'Lavoro', fMusic:'Musica', fCode:'Codice',
  made:'Fatto a Cuenca, Ecuador. HTML, CSS e JavaScript, senza template.', top:'↑ Su', city:'Cuenca',
  docTitle:l=>`Jay è ${l} — Jay Jaramillo`, tabAway:'Jay sta ancora lavorando.',
@@ -716,7 +713,7 @@ fr:{
  skip:'Aller au contenu', loading:'JAY JARAMILLO — CHARGEMENT', introSkip:'Clic pour passer', lead:'Jay est ', leadT:'Jay est',
 
  snd:on=>'Son : '+(on?'oui':'non'),
- hintA:'Même contenu. Six façons de le lire. Choisis-en une, ', sixOpen:'regarde-les toutes', hintB:' ou touche le mot et écris ce que tu crois que Jay est.',
+ hintA:'Même contenu. Six façons de le lire. Fais tourner le mot au scroll ou en glissant, ', sixOpen:'regarde-les toutes', hintB:' ou touche-le et écris ce que tu crois que Jay est.',
  facetsAria:'Facettes', fContent:'Contenu', fWork:'Travail', fMusic:'Musique', fCode:'Code',
  made:'Fait à Cuenca, Équateur. HTML, CSS et JavaScript, sans modèles.', top:'↑ Haut', city:'Cuenca',
  docTitle:l=>`Jay est ${l} — Jay Jaramillo`, tabAway:'Jay travaille encore.',
@@ -793,7 +790,7 @@ ja:{
  skip:'本文へスキップ', loading:'JAY JARAMILLO — 読み込み中', introSkip:'クリックでスキップ', lead:'ジェイは ', leadT:'ジェイは',
 
  snd:on=>'サウンド:'+(on?'オン':'オフ'),
- hintA:'同じ内容を、6つの読み方で。ひとつ選ぶか、', sixOpen:'全部まとめて見る', hintB:'か、単語をタップしてジェイが何者だと思うか書いてください。',
+ hintA:'同じ内容を、6つの読み方で。スクロールかドラッグで単語を回すか、', sixOpen:'全部まとめて見る', hintB:'か、単語をタップしてジェイが何者だと思うか書いてください。',
  facetsAria:'ファセット', fContent:'コンテンツ', fWork:'仕事', fMusic:'音楽', fCode:'コード',
  made:'エクアドル、クエンカで制作。HTML、CSS、JavaScript。テンプレートなし。', top:'↑ トップへ', city:'クエンカ',
  docTitle:l=>`ジェイは${l} — Jay Jaramillo`, tabAway:'ジェイはまだ働いている。',
@@ -1868,22 +1865,31 @@ let current = null, cleanup = null;
 const nav = document.querySelector('.facets'), h1 = document.querySelector('h1'), lead = document.getElementById('lead'), word = document.getElementById('word'), stage = document.getElementById('stage');
 const GLYPH = '#$%&_/<>*+=01';
 let scrRaf;
+const baseCh = c => c.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const spell = t => [...t].map(c => `<span class="lt">${esc(c)}</span>`).join('');
 function scrambleWord(txt){
  cancelAnimationFrame(scrRaf);
- const done = () => { word.textContent = txt; };
- if (reduce) return done();
- const from = word.textContent, len = Math.max(from.length, txt.length), t0 = performance.now(), D = 560;
- const tick = now => {
-  const p = Math.min(1, (now - t0)/D); let s = '';
-  const visible = Math.round(from.length + (txt.length - from.length)*p);
-  for (let i = 0; i < len; i++){
-   if (p > .3 + .7*i/len) s += txt[i] || '';
-   else if (i < visible) s += GLYPH[(Math.random()*GLYPH.length)|0];
-  }
-  word.textContent = s;
-  if (p < 1) scrRaf = requestAnimationFrame(tick); else done();
- };
- scrRaf = requestAnimationFrame(tick);
+ if (guessing) return;
+ word.querySelectorAll('.lt-out').forEach(e => e.remove());
+ const old = [...word.querySelectorAll('.lt')];
+ if (G) G.killTweensOf(old);
+ if (reduce || !G || !old.length){ word.innerHTML = spell(txt); return; }
+ const wr = word.getBoundingClientRect();
+ const olds = old.map(e => ({c: e.textContent, r: e.getBoundingClientRect(), used: false}));
+ word.innerHTML = spell(txt);
+ const neu = [...word.querySelectorAll('.lt')];
+ neu.forEach((el, i) => {
+  const r = el.getBoundingClientRect(); let best = null, bd = 1e9;
+  olds.forEach(o => { if (!o.used && baseCh(o.c) === baseCh(el.textContent)){ const d = Math.abs(o.r.left - r.left); if (d < bd){ bd = d; best = o; } } });
+  if (best){ best.used = true; G.fromTo(el, {x: best.r.left - r.left, y: 0}, {x: 0, duration: .75, ease: 'power4.inOut', delay: i*.015}); if (best.c !== el.textContent) G.fromTo(el, {opacity: .4}, {opacity: 1, duration: .4, delay: .5}); }
+  else G.fromTo(el, {yPercent: i % 2 ? 110 : -110, opacity: 0}, {yPercent: 0, opacity: 1, duration: .5, delay: .35 + i*.03, ease: 'steps(6)'});
+ });
+ olds.filter(o => !o.used).forEach((o, k) => {
+  const g = document.createElement('span'); g.className = 'lt lt-out'; g.textContent = o.c; g.setAttribute('aria-hidden', 'true');
+  g.style.cssText = `position:absolute;left:${o.r.left - wr.left}px;top:${o.r.top - wr.top}px`;
+  word.appendChild(g);
+  G.to(g, {yPercent: k % 2 ? -110 : 110, opacity: 0, duration: .45, delay: k*.03, ease: 'steps(6)', onComplete: () => g.remove()});
+ });
 }
 
 /* ───────── transición: cuadrados que cubren y revelan ───────── */
@@ -2120,13 +2126,33 @@ function startGuess(){
   guessOut.textContent = msg;
   clearTimeout(guessOut._t); guessOut._t = setTimeout(() => guessOut.textContent = '', 4200);
   const m = MODES.find(m => m.id === current);
-  word.textContent = ''; scrambleWord(hit ? hit.label : m.label);
+  word.innerHTML = ''; scrambleWord(hit ? hit.label : m.label);
   if (hit && hit.id !== current) setTimeout(() => setMode(hit.id, true), 300);
  };
  inp.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') finish(inp.value.trim()); if (e.key === 'Escape') finish(''); });
  inp.addEventListener('blur', () => finish(inp.value.trim()));
 }
-word.addEventListener('click', startGuess);
+word.addEventListener('click', () => { if (!h1._dragged) startGuess(); });
+/* rueda: scroll, arrastre o flechas giran la palabra */
+const turn = d => { if (guessing) return; stopTour(); const i = MODES.findIndex(m => m.id === current); const n = MODES[(i + d + MODES.length) % MODES.length]; const r = word.getBoundingClientRect(); setMode(n.id, true, {x: r.left + r.width/2, y: r.top + r.height/2}); ui.tick(d > 0 ? 1500 : 1100, .05); };
+let wAcc = 0, wT = 0;
+h1.addEventListener('wheel', e => {
+ if (guessing) return; e.preventDefault(); e.stopPropagation();
+ const now = performance.now(); if (now - wT > 260) wAcc = 0;
+ wAcc += Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+ if (Math.abs(wAcc) > 70 && now - wT > 700){ turn(Math.sign(wAcc)); wAcc = 0; wT = now; }
+}, {passive:false});
+let dragO = null;
+h1.addEventListener('pointerdown', e => { if (guessing) return; dragO = {x: e.clientX, y: e.clientY}; h1._dragged = false; });
+addEventListener('pointerup', e => {
+ if (!dragO) return; const dx = e.clientX - dragO.x, dy = e.clientY - dragO.y; dragO = null;
+ const d = Math.abs(dx) > Math.abs(dy) ? -dx : dy;
+ if (Math.abs(d) > 36){ h1._dragged = true; turn(d > 0 ? 1 : -1); setTimeout(() => { h1._dragged = false; }, 60); }
+});
+addEventListener('keydown', e => {
+ if (e.target.closest && e.target.closest('input, textarea') || guessing || scrollY > innerHeight*.4) return;
+ if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){ e.preventDefault(); turn(e.key === 'ArrowDown' ? 1 : -1); }
+});
 word.setAttribute('role','button'); word.setAttribute('tabindex','0'); word.setAttribute('aria-label', tr('guessWordAria'));
 word.addEventListener('keydown', e => { if (!guessing && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); startGuess(); } });
 
@@ -2378,12 +2404,12 @@ const hero = document.querySelector('.hero');
 if (finePointer){
  nav.addEventListener('pointerover', e => {
   const b = e.target.closest('button[data-id]'); if (!b || guessing) return;
-  hero.className = 'hero pv pv-' + b.dataset.id;
+  if (window.__shader) window.__shader.preview(MODES.findIndex(m => m.id === b.dataset.id));
   if (b.dataset.id !== current){ word.classList.add('pvw'); scrambleWord(MODES.find(m => m.id === b.dataset.id).label); }
   else if (word.classList.contains('pvw')){ word.classList.remove('pvw'); scrambleWord(MODES.find(m => m.id === current).label); }
  });
  nav.addEventListener('pointerleave', () => {
-  hero.className = 'hero';
+  if (window.__shader) window.__shader.preview(-1);
   if (word.classList.contains('pvw') && !guessing){ word.classList.remove('pvw'); scrambleWord(MODES.find(m => m.id === current).label); }
  });
  const hl = document.querySelector('.hero-l'), HL = ['jaywrkr / 2026', 'jay + worker / 2026'];
@@ -2412,8 +2438,8 @@ if (finePointer){
  let caught = pkGet(), letters = new Map(), flash = 0, wordP = 24;
  let step = 0, W = 0, H = 0, cols = 0, rows = 0, dpr = 1, lit, mx = -1e4, my = -1e4, pulses = [], packets = [], fg = '#fff', visible = true, last = 0, colT = 0, nextPk = performance.now() + 3000;
  function size(){
-  const nav = hero.querySelector('.facets');
-  W = hero.clientWidth; H = Math.max(0, nav.offsetTop - 12); dpr = Math.min(devicePixelRatio || 1, 2);
+  const nav = hero.querySelector('.facets'), side = getComputedStyle(nav).position === 'absolute';
+  W = hero.clientWidth; H = side ? hero.clientHeight - 1 : Math.max(0, nav.offsetTop - 12); dpr = Math.min(devicePixelRatio || 1, 2);
   cv.style.height = H + 'px'; hero.style.setProperty('--nt', H + 'px'); cv.width = W*dpr; cv.height = H*dpr; x.setTransform(dpr,0,0,dpr,0,0);
   cols = Math.ceil(W/G8) + 1; rows = Math.ceil(H/G8) + 1; lit = new Float32Array(cols*rows);
   placeWord();
@@ -2422,7 +2448,7 @@ if (finePointer){
   /* ancho: en la retícula de 24 a la derecha; angosto: media retícula (12) arriba a la derecha */
   letters = new Map();
   const pad = parseFloat(getComputedStyle(hero).paddingLeft) || 24, h1 = hero.querySelector('h1'), label = hero.querySelector('.small');
-  const one = WORD.reduce((a, ch) => a + gw(ch) + 1, -1), freeL = Math.ceil((pad + 680)/G8), freeR = Math.floor((W - pad)/G8);
+  const one = WORD.reduce((a, ch) => a + gw(ch) + 1, -1), freeL = Math.ceil((pad + 680)/G8), freeR = Math.floor((W - pad - (getComputedStyle(hero.querySelector('.facets')).position === 'absolute' ? hero.querySelector('.facets').offsetWidth + 48 : 0))/G8);
   let P, x0, y0;
   if (freeR - freeL >= one){ P = G8; x0 = (freeR - one)*G8; y0 = (Math.round((h1.offsetTop + h1.offsetHeight/2)/G8) - 2)*G8; }
   else { P = 12; x0 = Math.floor((W - pad - one*P)/P)*P; y0 = Math.max(P, Math.floor((label.offsetTop - 7*P)/P)*P); }
@@ -2477,7 +2503,7 @@ if (finePointer){
   for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++){
    const d = Math.max(Math.abs(c - mc), Math.abs(r - mr)), near = d < RAD ? (1 - d/RAD) : 0;
    const v = Math.max(lit[r*cols + c], near*.7), s = v > .5 ? 3 : v > .2 ? 2 : 1;
-   x.globalAlpha = .1 + v*.62;
+   x.globalAlpha = .07 + v*.62;
    x.fillRect(c*G8 - (s >> 1), r*G8 - (s >> 1), s, s);
   }
   const ds = wordP === G8 ? 4 : 3;
@@ -2489,9 +2515,65 @@ if (finePointer){
  requestAnimationFrame(frame);
 })();
 
+/* fondo de la portada: un shader por faceta, en la misma retícula de 24px. Cambia con dissolve por celdas; el mouse desplaza celdas en ángulo recto. */
+(() => {
+ const hero = document.querySelector('.hero'), cv = document.createElement('canvas'); cv.className = 'shader-bg'; cv.setAttribute('aria-hidden', 'true');
+ hero.insertBefore(cv, hero.firstChild);
+ const gl = cv.getContext('webgl', {antialias:false, premultipliedAlpha:false}); if (!gl) return;
+ const VS = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+ const FS = `precision mediump float;
+uniform vec2 R;uniform float T,A,B,X,K;uniform vec2 M;uniform vec3 FG,BG;
+float h(vec2 v){return fract(sin(dot(v,vec2(127.1,311.7)))*43758.5453);}
+float pat(float m,vec2 q){
+ vec2 c=floor(q/24.),f=fract(q/24.);
+ if(m<.5){ float rw=c.y+floor(T*1.5); float len=floor(h(vec2(rw,3.))*R.x/24.*.8); return (c.x<len&&h(vec2(c.x,rw))>.35&&f.y>.38&&f.y<.62&&f.x<.78)?.9:0.; }
+ if(m<1.5){ float g=(f.x<.042||f.y<.042)?.35:0.; float mod12=mod(c.x,12.); float blk=(h(c+floor(T*.25))>.93)?.7:0.; return max(g,blk); }
+ if(m<2.5){ float y=mod(q.y,32.); return (y<1.)?.6:((abs(q.x-R.x*.08)<.6)?.4:0.); }
+ if(m<3.5){ float bc=floor(q.x/48.); float hh=(.25+.6*fract(sin(bc*12.9+floor(T*.8)*.37)*437.5))*R.y; return (mod(q.x,48.)<24.&&q.y<floor(hh/24.)*24.)?.6:0.; }
+ if(m<4.5){ float on=mod(c.x+c.y+floor(T*4.),2.); return on*step(.55,h(c+floor(T*3.)))*.55; }
+ return (q.x>M.x)?.55:((abs(q.x-M.x)<12.)?.9:0.);
+}
+void main(){
+ vec2 q=gl_FragCoord.xy; vec2 c=floor(q/24.),mc=floor(M/24.);
+ float d=max(abs(c.x-mc.x),abs(c.y-mc.y));
+ if(d<4.&&K>0.){ q.x+=24.*(4.-d)*sign(c.y-mc.y+.5); }
+ float a=pat(A,q),b=pat(B,q);
+ float v=(h(floor(q/24.)+7.)<X)?b:a;
+ gl_FragColor=vec4(mix(BG,FG,v*.13),1.);
+}`;
+ const sh = (t, src) => { const o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+ const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr);
+ if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+ gl.useProgram(pr);
+ const bf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, bf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+ const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+ const U = {}; ['R','T','A','B','X','K','M','FG','BG'].forEach(k => U[k] = gl.getUniformLocation(pr, k));
+ let W = 0, H = 0, a = 0, b = 0, mix = 1, mixT = 0, mx = -9999, my = -9999, k = 0, visible = true, last = 0, fg = [1,1,1], bg = [0,0,0], colT = 0, prevIdx = -1;
+ const rgb = s => { const m = s.match(/\d+(\.\d+)?/g) || [0,0,0]; return [m[0]/255, m[1]/255, m[2]/255]; };
+ function size(){ W = hero.clientWidth; H = hero.clientHeight; cv.width = W; cv.height = H; gl.viewport(0, 0, W, H); }
+ const idx = () => Math.max(0, MODES.findIndex(m => m.id === current));
+ function go(i){ if (i === b && mix >= 1) return; a = mix < .5 ? a : b; b = i; mix = 0; mixT = performance.now(); }
+ hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mx = e.clientX - r.left; my = r.bottom - e.clientY; k = 1; }, {passive:true});
+ hero.addEventListener('pointerleave', () => { k = 0; mx = W*.5; });
+ function frame(t){
+  requestAnimationFrame(frame);
+  if (!visible || t - last < 33) return; last = t;
+  if (t - colT > 500){ colT = t; const c = getComputedStyle(document.body); fg = rgb(c.color); bg = rgb(c.backgroundColor); }
+  const want = prevIdx >= 0 ? prevIdx : idx(); if (want !== b) go(want);
+  mix = Math.min(1, (t - mixT)/700);
+  gl.uniform2f(U.R, W, H); gl.uniform1f(U.T, reduce ? 0 : t/1000); gl.uniform1f(U.A, a); gl.uniform1f(U.B, b); gl.uniform1f(U.X, mix);
+  gl.uniform1f(U.K, reduce ? 0 : k); gl.uniform2f(U.M, mx < -999 ? W*.5 : mx, my); gl.uniform3fv(U.FG, fg); gl.uniform3fv(U.BG, bg);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+ }
+ size(); new ResizeObserver(size).observe(hero);
+ new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(hero);
+ b = a = idx(); requestAnimationFrame(t => { cv.classList.add('on'); frame(t); });
+ window.__shader = {preview(i){ prevIdx = i; }};
+})();
+
 applyStatic();
 if (ss.get('jay-snd') === '1') setSnd(true);
-word.textContent = '';
+word.innerHTML = '';
 setMode(location.hash.slice(1) || 'ingeniero');
 runIntro(() => { setTimeout(() => found('llegaste'), 900); timeNote(); if (tourOn){ tourT0 = 0; tourRaf = requestAnimationFrame(tour); } });
 })();

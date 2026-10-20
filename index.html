@@ -132,7 +132,10 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 .feat .ph.vid,.case .imgs>.ph.vid{aspect-ratio:9/16;width:min(360px,100%);background:#000;outline:1px solid var(--line);outline-offset:-1px}
 
 /* Jay */
-.jay .grid{display:grid;grid-template-columns:120px 1fr;gap:40px;align-items:start}
+.jay .grid{display:grid;grid-template-columns:minmax(0,360px) 1fr;gap:48px;align-items:start}
+.photo canvas{display:block;width:100%;height:auto;aspect-ratio:4/5;background:#000;image-rendering:pixelated;touch-action:pan-y;cursor:crosshair}
+.photo canvas img{width:100%;height:auto}
+.photo figcaption{margin-top:10px}
 .jay .ph{aspect-ratio:4/5}
 .bio{font-size:20px;line-height:1.5;max-width:44ch}
 .time{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);margin:24px 0 96px;border-top:1px solid var(--line)}
@@ -227,7 +230,8 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
  .more button .d{display:none}
  .posts{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
  .post{font-size:11px;padding:10px;overflow-wrap:anywhere;hyphens:auto}
- .jay .grid{grid-template-columns:88px 1fr;gap:20px}
+ .jay .grid{grid-template-columns:1fr;gap:28px}
+ .photo{max-width:360px}
  .bio{font-size:17px}
  .jay .ph{max-width:320px}
  .time{grid-template-columns:1fr;border-top:0;border-left:1px solid var(--line);gap:28px;padding-left:24px;margin-left:4px}
@@ -280,7 +284,7 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
  <p class="tag small mute">Jay</p>
  <ol class="time"></ol>
  <div class="grid">
-  <div class="cov port" aria-hidden="true"><span class="small mute">Jay Jaramillo · Cuenca</span><span class="cv">J.</span></div>
+  <figure class="photo"><canvas width="800" height="1000" role="img" aria-label="Jay Jaramillo"><img src="assets/jay-1.jpg" alt="Jay Jaramillo" width="800" height="1000" loading="lazy"></canvas><figcaption class="small mute" data-t="photoCap">Pasa el cursor o toca para ver la foto</figcaption></figure>
   <div>
    <p class="bio" data-t="bio">Jay Jaramillo. Ingeniero en telecomunicaciones y diseñador UX/UI, formado en el Politecnico di Milano. Lidero proyectos de infraestructura, cloud y ciberseguridad en Coresolutions, en Cuenca. Construyo productos con código e IA, escribo como @jaywrkr, hago visuales en vivo y toco batería.</p>
    <p class="small mute" style="margin-top:28px" data-t="oneLine">Junto negocio, infraestructura y producto.</p>
@@ -326,12 +330,12 @@ const T = {
   bio:'Jay Jaramillo. Ingeniero en telecomunicaciones y diseñador UX/UI, formado en el Politecnico di Milano. Lidero proyectos de infraestructura, cloud y ciberseguridad en Coresolutions, en Cuenca. Construyo productos con código e IA, escribo como @jaywrkr, hago visuales en vivo y toco batería.',
   oneLine:'Junto negocio, infraestructura y producto.', contactLine:'Escríbeme por donde ya estoy.', credits1:'Diseño y código: Jay Jaramillo, con IA.', credits2:'Tipografía: Geist Mono.', credits3:'Hecho en Cuenca, Ecuador.', close:'Cerrar · Esc',
   problem:'Problema', did:'Qué hice', context:'Contexto', decision:'Decisión', learned:'Qué aprendí', result:'Resultado', seeCase:'Ver caso →', see:'Ver →', next:'Siguiente', open:'Abrir ↗', img:'Imagen', postsNote:'Marcadores: aquí van 4 posts reales.', videoPh:'Video · clip en vivo de 10 s', chapters:'Capítulos', go:'Ir a',
-  time:[['1990','Ecuador. Empieza todo.'],['2011','Entra a Coresolutions.'],['2016','Milán. Telecomunicaciones y UX/UI en el Politecnico.'],['2020','Vuelve a Ecuador.'],['2026','Monitoreo automático, @jaywrkr en series, CoreOperaciones en operación.']], tileNum:'proyectos al año', mGraph:'Horas por informe mensual de monitoreo', mFrom:'2025 · 4 días', mTo:'mayo 2026 · 10 min', gridBtn:'Ver la guía', gridOff:'Ocultar la guía', gridNote:'Una guía de 12 columnas sobre la página, para ver cómo se alinea.', sqNote:'Un cuadrado por proyecto. Setenta al año.', mic:'Activar micrófono', micOff:'Apagar micrófono', micNote:'Las barras escuchan en tu navegador. No se graba nada.', micErr:'Sin acceso al micrófono.', wdHint:'Flechas, WASD o toca para moverte.', wdScore:'Constancia', termBtn:'~ terminal', title:'Jay es ___ — Jay Jaramillo', locale:'es-EC'},
+  time:[['1990','Ecuador. Empieza todo.'],['2011','Entra a Coresolutions.'],['2016','Milán. Telecomunicaciones y UX/UI en el Politecnico.'],['2020','Vuelve a Ecuador.'],['2026','Monitoreo automático, @jaywrkr en series, CoreOperaciones en operación.']], tileNum:'proyectos al año', photoCap:'Pasa el cursor o toca para ver la foto', mGraph:'Horas por informe mensual de monitoreo', mFrom:'2025 · 4 días', mTo:'mayo 2026 · 10 min', gridBtn:'Ver la guía', gridOff:'Ocultar la guía', gridNote:'Una guía de 12 columnas sobre la página, para ver cómo se alinea.', sqNote:'Un cuadrado por proyecto. Setenta al año.', mic:'Activar micrófono', micOff:'Apagar micrófono', micNote:'Las barras escuchan en tu navegador. No se graba nada.', micErr:'Sin acceso al micrófono.', wdHint:'Flechas, WASD o toca para moverte.', wdScore:'Constancia', termBtn:'~ terminal', title:'Jay es ___ — Jay Jaramillo', locale:'es-EC'},
  en:{skip:'Skip to content', navJay:'Jay', navContact:'Contact', lead:'Jay is ', leadSr:'an engineer, designer, writer, leader, VJ and creator', sub:'Six ways to see the same person', down:'Scroll ↓', photoPh:'Photo of Jay · black and white · 4:5',
   bio:'Jay Jaramillo. Telecommunications engineer and UX/UI designer, trained at Politecnico di Milano. I lead infrastructure, cloud and cybersecurity projects at Coresolutions, in Cuenca. I build products with code and AI, write as @jaywrkr, make live visuals and play drums.',
   oneLine:'I connect business, infrastructure and product.', contactLine:'Write to me where I already am.', credits1:'Design and code: Jay Jaramillo, with AI.', credits2:'Typeface: Geist Mono.', credits3:'Made in Cuenca, Ecuador.', close:'Close · Esc',
   problem:'Problem', did:'What I did', context:'Context', decision:'Decision', learned:'What I learned', result:'Result', seeCase:'See case →', see:'See →', next:'Next', open:'Open ↗', img:'Image', postsNote:'Placeholders: 4 real posts go here.', videoPh:'Video · 10 s live clip', chapters:'Chapters', go:'Go to',
-  time:[['1990','Ecuador. It all starts.'],['2011','Joins Coresolutions.'],['2016','Milan. Telecommunications and UX/UI at Politecnico.'],['2020','Back to Ecuador.'],['2026','Automated monitoring, @jaywrkr series, CoreOperaciones live.']], tileNum:'projects a year', mGraph:'Hours per monthly monitoring report', mFrom:'2025 · 4 days', mTo:'May 2026 · 10 min', gridBtn:'Show the guide', gridOff:'Hide the guide', gridNote:'A 12-column guide over the page, to see how it aligns.', sqNote:'One square per project. Seventy a year.', mic:'Turn on microphone', micOff:'Turn off microphone', micNote:'The bars listen in your browser. Nothing is recorded.', micErr:'No microphone access.', wdHint:'Arrows, WASD or tap to move.', wdScore:'Consistency', termBtn:'~ terminal', title:'Jay is ___ — Jay Jaramillo', locale:'en-US'}
+  time:[['1990','Ecuador. It all starts.'],['2011','Joins Coresolutions.'],['2016','Milan. Telecommunications and UX/UI at Politecnico.'],['2020','Back to Ecuador.'],['2026','Automated monitoring, @jaywrkr series, CoreOperaciones live.']], tileNum:'projects a year', photoCap:'Hover or touch to see the photo', mGraph:'Hours per monthly monitoring report', mFrom:'2025 · 4 days', mTo:'May 2026 · 10 min', gridBtn:'Show the guide', gridOff:'Hide the guide', gridNote:'A 12-column guide over the page, to see how it aligns.', sqNote:'One square per project. Seventy a year.', mic:'Turn on microphone', micOff:'Turn off microphone', micNote:'The bars listen in your browser. Nothing is recorded.', micErr:'No microphone access.', wdHint:'Arrows, WASD or tap to move.', wdScore:'Consistency', termBtn:'~ terminal', title:'Jay is ___ — Jay Jaramillo', locale:'en-US'}
 };
 const t = k => T[LANG][k];
 
@@ -498,12 +502,46 @@ function momentsScroll(){
  if (ln){ if (full) ln.style.strokeDashoffset = 0; else G.fromTo(ln, {strokeDashoffset:1}, {strokeDashoffset:0, ease:'none', scrollTrigger:{trigger:'.graph', start:'top 85%', end:'top 30%', scrub:true}}); }
  const ty = document.querySelector('.typer .tx');
  if (ty){ const q = ty.parentNode.getAttribute('aria-label'); if (full) ty.textContent = q; else ST.create({trigger:'.typer', start:'top 90%', end:'top 40%', scrub:true, onUpdate: s => { ty.textContent = q.slice(0, Math.round(q.length * s.progress)); }}); }
+ if (photo){ if (full) photo.set(photo.n - 1); else ST.create({trigger:'.photo', start:'top 85%', end:'top 30%', scrub:true, onUpdate: s => photo.set(Math.round((photo.n - 1) * s.progress))}); }
  const tl = [...document.querySelectorAll('.time li')];
  const tlSet = n => tl.forEach((x, k) => { x.classList.toggle('on', k < n); x.classList.toggle('cur', k === n); });
  if (tl.length){ if (full) tlSet(tl.length - 1); else { tlSet(0); ST.create({trigger:'.time', start:'top 85%', end: () => '+=' + Math.round(innerHeight * .45), scrub:true, onUpdate: s => tlSet(Math.round((tl.length - 1) * s.progress))}); } }
  const sq = [...document.querySelectorAll('.sq70 i')];
  if (sq.length){ if (full) sq.forEach(x => x.classList.add('on')); else ST.create({trigger:'.sq70', start:'top 85%', end:'top 30%', scrub:true, onUpdate: s => { const n = Math.round(70 * s.progress); sq.forEach((x, k) => x.classList.toggle('on', k < n)); }}); }
 }
+
+/* foto de Jay: bloques que se afinan hasta un dither 1-bit; un cuadrado muestra la foto real */
+const photo = (() => {
+ const cv = document.querySelector('.photo canvas'); if (!cv || !cv.getContext) return null;
+ const ctx = cv.getContext('2d'), W = 800, H = 1000, img = new Image(), STG = [80, 40, 20, 10, 0];
+ const off = document.createElement('canvas'); off.width = W; off.height = H; const oc = off.getContext('2d');
+ const BY = [0,32,8,40,2,34,10,42,48,16,56,24,50,18,58,26,12,44,4,36,14,46,6,38,60,28,52,20,62,30,54,22,3,35,11,43,1,33,9,41,51,19,59,27,49,17,57,25,15,47,7,39,13,45,5,37,63,31,55,23,61,29,53,21];
+ let ready = false, want = 0, st = -1, lens = null, lensT = 0;
+ const sample = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d'); x.drawImage(img, 0, 0, w, h); return x.getImageData(0, 0, w, h).data; };
+ function build(b){
+  oc.fillStyle = '#000'; oc.fillRect(0, 0, W, H);
+  if (b){ const w = W / b, h = H / b, d = sample(w, h);
+   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++){ const q = Math.round(d[(y * w + x) * 4] / 255 * 4) / 4; if (!q) continue; const g = Math.round(q * 255); oc.fillStyle = `rgb(${g},${g},${g})`; oc.fillRect(x * b, y * b, b - 1, b - 1); } }
+  else { const S = 4, w = W / S, h = H / S, d = sample(w, h); oc.fillStyle = '#fff';
+   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (d[(y * w + x) * 4] / 255 > BY[(y % 8) * 8 + x % 8] / 64 * .94 + .03) oc.fillRect(x * S, y * S, S, S); }
+ }
+ function draw(){
+  ctx.drawImage(off, 0, 0);
+  if (!lens) return;
+  const L = 220, x = Math.max(0, Math.min(W - L, Math.round((lens[0] - L / 2) / 4) * 4)), y = Math.max(0, Math.min(H - L, Math.round((lens[1] - L / 2) / 4) * 4));
+  ctx.save(); ctx.beginPath(); ctx.rect(x, y, L, L); ctx.clip(); ctx.drawImage(img, 0, 0, W, H); ctx.restore();
+  ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.strokeRect(x + 1, y + 1, L - 2, L - 2);
+ }
+ function apply(){ if (!ready || want === st) return; st = want; try { build(STG[st]); } catch (e){ oc.drawImage(img, 0, 0, W, H); } draw(); }
+ const at = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * W, (e.clientY - r.top) / r.height * H]; };
+ cv.addEventListener('pointermove', e => { if (!ready) return; lens = at(e); clearTimeout(lensT); draw(); });
+ cv.addEventListener('pointerdown', e => { if (!ready) return; lens = at(e); clearTimeout(lensT); draw(); });
+ cv.addEventListener('pointerleave', () => { lens = null; if (ready) draw(); });
+ cv.addEventListener('pointerup', e => { if (e.pointerType !== 'mouse'){ clearTimeout(lensT); lensT = setTimeout(() => { lens = null; draw(); }, 1400); } });
+ img.onload = () => { ready = true; apply(); };
+ img.src = 'assets/jay-1.jpg';
+ return {n: STG.length, set(i){ want = Math.max(0, Math.min(STG.length - 1, i)); apply(); }};
+})();
 
 /* retícula */
 let gridOn = false;

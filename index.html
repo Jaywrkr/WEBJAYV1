@@ -67,7 +67,7 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 .tile img,.tile video{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1)}
 .tile .lab{position:absolute;left:8px;bottom:8px;background:#000;color:#fff;padding:3px 6px;z-index:2}
 .tile>*{transition:opacity .3s steps(3)}
-.tiles.hov .tile:not(.act)>*{opacity:.25}
+.tiles.hov .tile:not(.act)>*:not(.lab):not(.small){opacity:.25}
 .tiles.hov .tile.act{border-color:#fff}
 .tile.num{display:flex;flex-direction:column;justify-content:center;padding:14px}
 .tile.num b{font-weight:300;font-size:clamp(34px,4vw,56px);line-height:1}
@@ -158,9 +158,51 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 .case .imgs .row .ph{aspect-ratio:4/3}
 .case .nextp{margin-top:72px;width:100%;text-align:left;border-top:1px solid #000;padding-top:20px}
 
+/* portadas tipográficas */
+.cov{position:relative;width:100%;aspect-ratio:16/9;border:1px solid var(--line);background:var(--bg);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(14px,2vw,24px);overflow:hidden}
+.cov .cv{font-size:clamp(34px,5.2vw,56px);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.cov.vjg{display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(4,1fr);gap:6px}
+.cov.vjg i{background:var(--line);animation:flash 2.4s steps(1) infinite}
+.cov.vjg i:nth-child(3n){animation-delay:-.6s}.cov.vjg i:nth-child(4n+1){animation-delay:-1.3s}.cov.vjg i:nth-child(7n+2){animation-delay:-1.9s}.cov.vjg i:nth-child(5n+3){animation-delay:-.9s}
+@keyframes flash{0%,100%{background:var(--line)}6%{background:var(--fg)}12%{background:var(--line)}}
+.cov.vjg .cap{position:absolute;left:clamp(14px,2vw,24px);bottom:clamp(14px,2vw,24px);background:var(--bg);padding:4px 8px}
+.jay .cov{aspect-ratio:4/5}
+.btn{padding:2px 6px;border:1px solid currentColor}
+.btn:hover,.btn:focus-visible,.btn[aria-pressed=true]{background:var(--fg);color:var(--bg)}
+
+/* momentos por capítulo */
+.mo{margin-top:72px}
+.graph svg{display:block;width:100%;height:clamp(120px,16vw,200px);margin-top:16px;overflow:visible}
+.graph .ax{stroke:var(--line);stroke-width:1;fill:none;vector-effect:non-scaling-stroke}
+.graph .ln{stroke:var(--fg);stroke-width:2;fill:none;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1}
+.graph .lbl{display:flex;justify-content:space-between;gap:16px;margin-top:10px}
+.typer{min-height:2.4em;max-width:16ch}
+.sq70{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;max-width:560px}
+.sq70 i{aspect-ratio:1;border:1px solid var(--line)}
+.sq70 i.on{background:var(--fg);border-color:var(--fg)}
+.eq .bars{display:flex;align-items:flex-end;gap:4px;height:180px;border-bottom:1px solid var(--line)}
+.eq .bars i{flex:1;background:var(--fg);height:10%;animation:bar 1.4s steps(6) infinite alternate}
+.eq .bars i:nth-child(3n){animation-delay:-.4s}.eq .bars i:nth-child(4n+1){animation-delay:-.9s}.eq .bars i:nth-child(5n+2){animation-delay:-1.2s}.eq .bars i:nth-child(2n){animation-duration:1.1s}
+.eq.live .bars i{animation:none}
+.wd canvas{display:block;width:100%;aspect-ratio:16/9;background:#000;outline:1px solid var(--line);outline-offset:-1px;image-rendering:pixelated;touch-action:manipulation}
+.wd .sc{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:10px}
+.wd b{font-weight:400}
+.grid-ov{position:fixed;inset:0;z-index:85;pointer-events:none;display:none;padding:0 var(--pad);gap:24px;mix-blend-mode:difference}
+.grid-ov.on{display:grid;grid-template-columns:repeat(12,1fr)}
+.grid-ov i{background:rgba(255,255,255,.07);border-left:1px solid rgba(255,255,255,.35);border-right:1px solid rgba(255,255,255,.35)}
+
+/* terminal */
+.term{position:fixed;right:var(--pad);bottom:24px;z-index:80;width:min(600px,calc(100vw - 32px));height:min(380px,60vh);background:#000;color:#fff;border:1px solid #fff;display:flex;flex-direction:column;font-size:13px;--fg:#fff;--bg:#000;--mute:#8a8a8a}
+.term[hidden]{display:none}
+.term .out{flex:1;overflow:auto;padding:16px;white-space:pre-wrap;overscroll-behavior:contain}
+.term .mute{color:var(--mute)}
+.term .ln{display:flex;gap:10px;padding:12px 16px;border-top:1px solid #262626}
+.term input{flex:1;min-width:0;background:none;border:0;color:#fff;font:inherit;outline:none;caret-color:#fff}
+
 @media(max-width:900px){
  :root{--rail:0px;--t:calc((100vw - var(--pad)*2 - 24px)/3)}
  .hero{justify-content:flex-start;padding-top:22svh;height:auto;min-height:100svh}
+ .hero h1{min-height:2.24em}
  .tiles{position:static;margin:48px 0 0}
  .tile:nth-child(2),.tile:nth-child(5){transform:none}
  .tile.num .small{display:none}
@@ -182,10 +224,18 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
  .case .imgs .row{grid-template-columns:1fr}
  .bar .hide-m{display:none}
  .big{font-size:44px}
+ .jay .cov{max-width:320px}
+ .term{right:16px;bottom:16px}
+ .term input{font-size:16px}
+ .grid-ov.on{grid-template-columns:repeat(4,1fr)}
+ .grid-ov i:nth-child(n+5){display:none}
+ .eq .bars{height:120px}
 }
 @media(prefers-reduced-motion:reduce){
  .caret,.ph::after,.tile.vj i,.tile.dot::before{animation:none}
  .ch .bg{clip-path:none}
+ .graph .ln{stroke-dashoffset:0}
+ .cov.vjg i,.eq .bars i{animation:none}
 }
 </style>
 </head>
@@ -218,7 +268,7 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
  <div class="bg"></div>
  <p class="tag small mute">Jay</p>
  <div class="grid">
-  <div class="ph"><span class="small" data-t="photoPh">Foto de Jay · blanco y negro · 4:5</span></div>
+  <div class="cov port" aria-hidden="true"><span class="small mute">Jay Jaramillo · Cuenca</span><span class="cv">J.</span></div>
   <div>
    <p class="bio" data-t="bio">Jay Jaramillo. Ingeniero en telecomunicaciones y diseñador UX/UI, formado en el Politecnico di Milano. Lidero proyectos de infraestructura, cloud y ciberseguridad en Coresolutions, en Cuenca. Construyo productos con código e IA, escribo como @jaywrkr, hago visuales en vivo y toco batería.</p>
    <p class="small mute" style="margin-top:28px" data-t="oneLine">Junto negocio, infraestructura y producto.</p>
@@ -232,8 +282,14 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
  <p class="word" style="margin-top:20px" data-t="contactLine">Escríbeme por donde ya estoy.</p>
  <p class="links small"><a href="https://www.instagram.com/jaywrkr/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://github.com/Jaywrkr" target="_blank" rel="noopener">GitHub ↗</a><a href="https://jaywrkr.substack.com/" target="_blank" rel="noopener">Substack ↗</a><a href="https://www.instagram.com/coresolutionsec/" target="_blank" rel="noopener">Coresolutions ↗</a></p>
  <p class="simple">simple.</p>
- <p class="credits small mute"><span data-t="credits1">Diseño y código: Jay Jaramillo, con IA.</span><span data-t="credits2">Tipografía: Geist Mono.</span><span data-t="credits3">Hecho en Cuenca, Ecuador.</span></p>
+ <p class="credits small mute"><span data-t="credits1">Diseño y código: Jay Jaramillo, con IA.</span><span data-t="credits2">Tipografía: Geist Mono.</span><span data-t="credits3">Hecho en Cuenca, Ecuador.</span><button class="termb btn" type="button" data-t="termBtn">~ terminal</button></p>
 </footer>
+
+<div class="term" role="dialog" aria-label="Terminal" hidden>
+ <div class="out" aria-live="polite" data-lenis-prevent></div>
+ <label class="ln"><span aria-hidden="true">jay@cuenca:~$</span><input type="text" autocomplete="off" spellcheck="false" autocapitalize="off" aria-label="Comando"></label>
+</div>
+<div class="grid-ov" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
 <div class="case" role="dialog" aria-modal="true" aria-label="Proyecto" hidden>
  <button class="x small" type="button" data-t="close">Cerrar · Esc</button>
@@ -259,12 +315,12 @@ const T = {
   bio:'Jay Jaramillo. Ingeniero en telecomunicaciones y diseñador UX/UI, formado en el Politecnico di Milano. Lidero proyectos de infraestructura, cloud y ciberseguridad en Coresolutions, en Cuenca. Construyo productos con código e IA, escribo como @jaywrkr, hago visuales en vivo y toco batería.',
   oneLine:'Junto negocio, infraestructura y producto.', contactLine:'Escríbeme por donde ya estoy.', credits1:'Diseño y código: Jay Jaramillo, con IA.', credits2:'Tipografía: Geist Mono.', credits3:'Hecho en Cuenca, Ecuador.', close:'Cerrar · Esc',
   problem:'Problema', did:'Qué hice', result:'Resultado', seeCase:'Ver caso →', see:'Ver →', next:'Siguiente', open:'Abrir ↗', img:'Imagen', postsNote:'Marcadores: aquí van 4 posts reales.', videoPh:'Video · clip en vivo de 10 s', chapters:'Capítulos', go:'Ir a',
-  time:[['1990','Ecuador. Empieza todo.'],['2011','Entra a Coresolutions.'],['2016','Milán. Telecomunicaciones y UX/UI en el Politecnico.'],['2020','Vuelve a Ecuador.'],['2026','Monitoreo automático, @jaywrkr en series, CoreOperaciones en operación.']], tileNum:'proyectos al año', title:'Jay es ___ — Jay Jaramillo', locale:'es-EC'},
+  time:[['1990','Ecuador. Empieza todo.'],['2011','Entra a Coresolutions.'],['2016','Milán. Telecomunicaciones y UX/UI en el Politecnico.'],['2020','Vuelve a Ecuador.'],['2026','Monitoreo automático, @jaywrkr en series, CoreOperaciones en operación.']], tileNum:'proyectos al año', mGraph:'Horas por informe mensual de monitoreo', mFrom:'2025 · 4 días', mTo:'mayo 2026 · 10 min', gridBtn:'Ver la retícula · G', gridOff:'Ocultar la retícula · G', gridNote:'Esta es la retícula de la página: margen, riel y 12 columnas.', sqNote:'Un cuadrado por proyecto. Setenta al año.', mic:'Activar micrófono', micOff:'Apagar micrófono', micNote:'Las barras escuchan en tu navegador. No se graba nada.', micErr:'Sin acceso al micrófono.', wdHint:'Flechas, WASD o toca para moverte.', wdScore:'Constancia', termBtn:'~ terminal', title:'Jay es ___ — Jay Jaramillo', locale:'es-EC'},
  en:{skip:'Skip to content', navJay:'Jay', navContact:'Contact', lead:'Jay is ', leadSr:'an engineer, designer, writer, leader, VJ and creator', sub:'Six ways to see the same person', down:'Scroll ↓', photoPh:'Photo of Jay · black and white · 4:5',
   bio:'Jay Jaramillo. Telecommunications engineer and UX/UI designer, trained at Politecnico di Milano. I lead infrastructure, cloud and cybersecurity projects at Coresolutions, in Cuenca. I build products with code and AI, write as @jaywrkr, make live visuals and play drums.',
   oneLine:'I connect business, infrastructure and product.', contactLine:'Write to me where I already am.', credits1:'Design and code: Jay Jaramillo, with AI.', credits2:'Typeface: Geist Mono.', credits3:'Made in Cuenca, Ecuador.', close:'Close · Esc',
   problem:'Problem', did:'What I did', result:'Result', seeCase:'See case →', see:'See →', next:'Next', open:'Open ↗', img:'Image', postsNote:'Placeholders: 4 real posts go here.', videoPh:'Video · 10 s live clip', chapters:'Chapters', go:'Go to',
-  time:[['1990','Ecuador. It all starts.'],['2011','Joins Coresolutions.'],['2016','Milan. Telecommunications and UX/UI at Politecnico.'],['2020','Back to Ecuador.'],['2026','Automated monitoring, @jaywrkr series, CoreOperaciones live.']], tileNum:'projects a year', title:'Jay is ___ — Jay Jaramillo', locale:'en-US'}
+  time:[['1990','Ecuador. It all starts.'],['2011','Joins Coresolutions.'],['2016','Milan. Telecommunications and UX/UI at Politecnico.'],['2020','Back to Ecuador.'],['2026','Automated monitoring, @jaywrkr series, CoreOperaciones live.']], tileNum:'projects a year', mGraph:'Hours per monthly monitoring report', mFrom:'2025 · 4 days', mTo:'May 2026 · 10 min', gridBtn:'Show the grid · G', gridOff:'Hide the grid · G', gridNote:'This is the page grid: margin, rail and 12 columns.', sqNote:'One square per project. Seventy a year.', mic:'Turn on microphone', micOff:'Turn off microphone', micNote:'The bars listen in your browser. Nothing is recorded.', micErr:'No microphone access.', wdHint:'Arrows, WASD or tap to move.', wdScore:'Consistency', termBtn:'~ terminal', title:'Jay is ___ — Jay Jaramillo', locale:'en-US'}
 };
 const t = k => T[LANG][k];
 
@@ -304,12 +360,12 @@ const PJ = {
 const CH = [
  {id:'ingeniero', w:{es:'ingeniero', en:'an engineer'}, theme:'dark', line:{es:'Infraestructura, cloud y ciberseguridad. Que funcione.', en:'Infrastructure, cloud and cybersecurity. That works.'}, feat:'coresolutions', more:['monitoreo','coreoperaciones'], tile:{type:'img', src:'assets/coresolutions-1'}},
  {id:'disenador', w:{es:'diseñador', en:'a designer'}, theme:'light', line:{es:'Si no se entiende, no existe.', en:'If it is not clear, it does not exist.'}, feat:'minervo', more:['sistema'], tile:{type:'img', src:'assets/minervo-1'}},
- {id:'escritor', w:{es:'escritor', en:'a writer'}, theme:'dark', line:{es:'Verdades incómodas, escritas simple.', en:'Uncomfortable truths, written simple.'}, feat:'jaywrkr', more:[], posts:{es:['No es disciplina. Es un sistema.','Hazlo otra vez.','Nadie te está viendo. Hazlo igual.','El único atajo es no buscar atajos.'], en:['It is not discipline. It is a system.','Do it again.','Nobody is watching. Do it anyway.','The only shortcut is not looking for one.']}, tile:{type:'video', src:'assets/jaywrkr-24'}},
+ {id:'escritor', w:{es:'escritor', en:'a writer'}, theme:'dark', line:{es:'Verdades incómodas, escritas simple.', en:'Uncomfortable truths, written simple.'}, feat:'jaywrkr', more:[], quote:{es:'Optimizar no es avanzar.', en:'Optimizing is not moving forward.'}, posts:{es:['No es disciplina. Es un sistema.','Hazlo otra vez.','Nadie te está viendo. Hazlo igual.','El único atajo es no buscar atajos.'], en:['It is not discipline. It is a system.','Do it again.','Nobody is watching. Do it anyway.','The only shortcut is not looking for one.']}, tile:{type:'video', src:'assets/jaywrkr-24'}},
  {id:'lider', w:{es:'líder', en:'a leader'}, theme:'light', line:{es:'Pragmatismo. Escucha, habla menos.', en:'Pragmatism. Listen, talk less.'}, feat:null, more:['coreai'], prin:{es:['Pragmatismo.','Escucha, habla menos.','El único atajo es no buscar atajos.'], en:['Pragmatism.','Listen, talk less.','The only shortcut is not looking for one.']}, stats:{es:[['15','años en Coresolutions'],['70','proyectos al año']], en:[['15','years at Coresolutions'],['70','projects a year']]}, tile:{type:'num'}},
- {id:'vj', w:{es:'VJ', en:'a VJ'}, theme:'dark', line:{es:'Visuales en vivo que responden a la música.', en:'Live visuals that respond to the music.'}, feat:'vj', more:[], video:true, tile:{type:'vj'}},
+ {id:'vj', w:{es:'VJ', en:'a VJ'}, theme:'dark', line:{es:'Visuales en vivo que responden a la música.', en:'Live visuals that respond to the music.'}, feat:'vj', more:[], tile:{type:'vj'}},
  {id:'creador', w:{es:'creador', en:'a creator'}, theme:'light', line:{es:'Constancia, no suerte.', en:'Consistency, not luck.'}, feat:'whitedot', more:['jdrums'], tile:{type:'dot'}}
 ];
-const P = k => Object.assign({n: PJ[k].n, big: PJ[k].big, src: PJ[k].src, video: PJ[k].video, color: PJ[k].color, url: PJ[k].url}, PJ[k][LANG]);
+const P = k => Object.assign({k, n: PJ[k].n, big: PJ[k].big, src: PJ[k].src, video: PJ[k].video, color: PJ[k].color, url: PJ[k].url}, PJ[k][LANG]);
 
 /* ───────── render ───────── */
 const pic = (src, alt, sizes) => `<picture><source type="image/webp" srcset="${src}-800.webp 800w, ${src}.webp 1600w" sizes="${sizes}"><img src="${src}.jpg" srcset="${src}-800.jpg 800w, ${src}.jpg 1600w" sizes="${sizes}" alt="${esc(alt)}" loading="lazy" decoding="async" width="1600" height="900"></picture>`;
@@ -318,10 +374,25 @@ const ph = (label, cls = '', src = '', alt = '') => src
  : `<div class="ph ${cls}"><span class="small">${esc(label)}</span></div>`;
 const srcOf = (p, i) => (p.src && p.src[i]) || '';
 const vid = (src, label) => `<div class="ph img vid"><video poster="${src}.jpg" muted loop playsinline preload="none" aria-label="${esc(label)}"><source src="${src}.webm" type="video/webm"><source src="${src}.mp4" type="video/mp4"></video></div>`;
-const media = (p, i, label, inCase) => p.video && i === 0 ? vid(p.video, p.img[0]) : ph(label, p.color && !inCase ? 'col' : '', srcOf(p, i), p.img[i]);
+const COV = {monitoreo:'4d → 10m', coreoperaciones:'6 → 1', sistema:'simple.', coreai:'IA on-prem', jdrums:'TD-02', whitedot:'■'};
+const cover = p => p.k === 'vj'
+ ? `<div class="cov vjg" aria-hidden="true">${'<i></i>'.repeat(20)}<span class="cap small">${esc(p.n)} · 5 × 4</span></div>`
+ : `<div class="cov" aria-hidden="true"><span class="small mute">${esc(p.n)}</span><span class="cv">${esc(COV[p.k] || p.big || p.n)}</span></div>`;
+const media = (p, i, label, inCase) => p.video && i === 0 ? vid(p.video, p.img[0]) : srcOf(p, i) ? ph(label, p.color && !inCase ? 'col' : '', srcOf(p, i), p.img[i]) : cover(p);
+const gameHTML = () => `<div class="wd"><canvas width="640" height="360" tabindex="0" aria-label="WhiteDot. ${esc(t('wdHint'))}"></canvas><p class="sc small"><span>${t('wdScore')} <b class="n">0</b></span><span class="mute">${t('wdHint')}</span></p></div>`;
+function momentHTML(c){
+ switch (c.id){
+  case 'ingeniero': return `<figure class="mo graph"><figcaption class="small mute">${t('mGraph')}</figcaption><svg viewBox="0 0 600 180" preserveAspectRatio="none" aria-hidden="true"><path class="ax" d="M0 179H600"/><path class="ln" pathLength="1" d="M0 16H420V176H600"/></svg><p class="lbl small mute"><span>${t('mFrom')}</span><span>${t('mTo')}</span></p></figure>`;
+  case 'disenador': return `<div class="mo"><button class="gridb btn small" type="button" aria-pressed="${gridOn}">${t(gridOn ? 'gridOff' : 'gridBtn')}</button><p class="small mute" style="margin-top:12px">${t('gridNote')}</p></div>`;
+  case 'escritor': return `<p class="mo typer word" role="img" aria-label="${esc(c.quote[LANG])}"><span class="tx" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span></p>`;
+  case 'lider': return `<div class="mo"><div class="sq70" aria-hidden="true">${'<i></i>'.repeat(70)}</div><p class="small mute" style="margin-top:12px">${t('sqNote')}</p></div>`;
+  case 'vj': return `<div class="mo eq"><div class="bars" aria-hidden="true">${'<i></i>'.repeat(20)}</div><p style="margin-top:16px;display:flex;gap:16px;flex-wrap:wrap;align-items:baseline"><button class="mic btn small" type="button" aria-pressed="false">${t('mic')}</button><span class="small mute micn">${t('micNote')}</span></p></div>`;
+ }
+ return '';
+}
 const resultHTML = p => p.big ? `<p class="small mute" style="margin-top:28px">${t('result')}</p><p class="big">${esc(p.big)}</p><p class="mute">${esc(p.bigL)}</p>` : '';
 const featHTML = k => { const p = P(k); return `<div class="feat">
- ${media(p, 0, `${t('img')} · ${p.n} · ${p.img[0]}`)}
+ ${k === 'whitedot' ? gameHTML() : media(p, 0, `${t('img')} · ${p.n} · ${p.img[0]}`)}
  <h2>${esc(p.n)}</h2><p class="role small mute">${esc(p.role)}</p>
  <div class="cols">
   <div><p class="small mute">${t('problem')}</p><p style="margin-top:8px">${esc(p.prob)}</p>${resultHTML(p)}</div>
@@ -338,7 +409,7 @@ function tileHTML(c, i){
  else if (tl.type === 'video') inner = `<video poster="${tl.src}.jpg" muted loop playsinline preload="none"><source src="${tl.src}.webm" type="video/webm"><source src="${tl.src}.mp4" type="video/mp4"></video>`;
  else if (tl.type === 'num') inner = `<b>70</b><span class="small mute" style="margin-top:6px">${t('tileNum')}</span>`;
  else if (tl.type === 'vj') inner = '<i></i><i></i><i></i><i></i><i></i><i></i>';
- return `<button type="button" class="tile ${tl.type === 'num' || tl.type === 'vj' || tl.type === 'dot' ? tl.type : ''}" data-i="${i}" aria-label="${t('go')} ${esc(c.w[LANG])}">${inner}${lab}</button>`;
+ return `<button type="button" class="tile ${tl.type === 'num' || tl.type === 'vj' || tl.type === 'dot' ? tl.type : ''}" data-i="${i}">${inner}${lab}</button>`;
 }
 function render(){
  document.documentElement.lang = LANG; document.title = t('title');
@@ -349,10 +420,10 @@ function render(){
   <div class="bg"></div>
   <p class="tag small mute">${num(i)} / 06 — ${esc(c.w[LANG])}</p>
   ${c.feat ? featHTML(c.feat) : ''}
-  ${c.posts ? `<div class="posts">${c.posts[LANG].map(x => `<div class="post"><span>${esc(x)}</span><span class="s">simple.</span></div>`).join('')}</div><p class="small mute" style="margin-top:12px">${t('postsNote')}</p>` : ''}
+  ${momentHTML(c)}
+  ${c.posts ? `<div class="posts">${c.posts[LANG].map(x => `<div class="post"><span>${esc(x)}</span><span class="s">simple.</span></div>`).join('')}</div>` : ''}
   ${c.stats ? `<div class="cols" style="margin-top:0">${c.stats[LANG].map(([b, l]) => `<div><p class="big">${b}</p><p class="mute">${l}</p></div>`).join('')}</div>` : ''}
   ${c.prin ? `<div class="prin">${c.prin[LANG].map((x, k) => `<p><span class="small mute">0${k + 1}</span>${esc(x)}</p>`).join('')}</div>` : ''}
-  ${c.video ? `<div style="margin-top:56px">${ph(t('videoPh'), 'v')}</div>` : ''}
   ${moreHTML(c.more)}
  </section>`).join('');
  tilesEl.innerHTML = CH.map(tileHTML).join('');
@@ -379,8 +450,9 @@ function setCh(i){
  document.querySelector('meta[name=theme-color]').content = c.theme === 'light' ? '#ffffff' : '#000000';
 }
 function heroWord(i){
- if (i < 0){ hw.classList.remove('on'); scramble(hw, '', 300); tilesEl.classList.remove('hov'); tilesEl.querySelectorAll('.tile').forEach(x => x.classList.remove('act')); return; }
+ if (i < 0){ tilesEl.querySelectorAll('.tile video').forEach(v => v.pause()); hw.classList.remove('on'); scramble(hw, '', 300); tilesEl.classList.remove('hov'); tilesEl.querySelectorAll('.tile').forEach(x => x.classList.remove('act')); return; }
  hw.classList.add('on'); scramble(hw, CH[i].w[LANG], 420);
+ tilesEl.querySelectorAll('.tile video').forEach(v => { if (+v.closest('.tile').dataset.i === i && !reduce) v.play().catch(() => {}); else v.pause(); });
  tilesEl.classList.add('hov'); tilesEl.querySelectorAll('.tile').forEach((x, k) => x.classList.toggle('act', k === i));
 }
 
@@ -388,17 +460,18 @@ function heroWord(i){
 let lenis = null;
 const scrollTo = (el, done) => { if (lenis) lenis.scrollTo(el, {offset:0, duration:1.4, onComplete: done}); else { el.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); if (done) setTimeout(done, reduce ? 0 : 900); } };
 function setupScroll(){
- if (!(G && ST)){ rail.style.opacity = 1; rail.style.visibility = 'visible'; setCh(0); document.querySelectorAll('.ch .bg').forEach(b => b.style.clipPath = 'none'); return; }
+ if (!(G && ST)){ rail.style.opacity = 1; rail.style.visibility = 'visible'; setCh(0); document.querySelectorAll('.ch .bg').forEach(b => b.style.clipPath = 'none'); momentsScroll(); return; }
  ST.getAll().forEach(s => s.kill());
  document.querySelectorAll('.ch').forEach(sec => {
   const bg = sec.querySelector('.bg');
   if (reduce){ bg.style.clipPath = 'none'; return; }
   G.fromTo(bg, {clipPath:'inset(46% 46% 46% 46%)'}, {clipPath:'inset(0% 0% 0% 0%)', ease:'steps(10)', scrollTrigger:{trigger:sec, start:'top 95%', end:'top 15%', scrub:true}});
-  const kids = sec.querySelectorAll('.tag, .feat .ph, .feat h2, .feat .role, .cols > div, .more, .posts, .prin p, .grid > *, .time li');
+  const kids = sec.querySelectorAll('.tag, .feat .ph, .feat h2, .feat .role, .cols > div, .more, .posts, .prin p, .grid > *, .time li, .mo');
   G.from(kids, {opacity:0, y:24, duration:.6, ease:'steps(6)', stagger:.06, scrollTrigger:{trigger:sec, start:'top 55%', once:true}});
  });
  ST.create({trigger:'#historia', start:'top 60%', endTrigger:'#jay', end:'top 60%', onToggle: s => G.to(rail, {autoAlpha: s.isActive ? 1 : 0, duration:.3, ease:'steps(3)'})});
  CH.forEach((c, i) => ST.create({trigger:'#' + c.id, start:'top 50%', end:'bottom 50%', onToggle: s => { if (s.isActive) setCh(i); }}));
+ momentsScroll();
  if (!reduce) tilesEl.querySelectorAll('.tile').forEach((x, i) => G.to(x, {y: -(60 + (i % 3)*70), opacity: 0, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom 20%', scrub:true}}));
  ST.create({start:0, end:'max', onUpdate: s => { prog.style.transform = `scaleX(${s.progress})`; }});
  ST.refresh();
@@ -408,29 +481,156 @@ if (G && ST){
  G.registerPlugin(ST);
  if (!reduce && window.Lenis){ lenis = new Lenis({lerp:.11}); lenis.on('scroll', ST.update); G.ticker.add(x => lenis.raf(x*1000)); G.ticker.lagSmoothing(0); }
 }
-render(); setupScroll();
+function momentsScroll(){
+ const full = reduce || !(G && ST);
+ const ln = document.querySelector('.graph .ln');
+ if (ln){ if (full) ln.style.strokeDashoffset = 0; else G.fromTo(ln, {strokeDashoffset:1}, {strokeDashoffset:0, ease:'none', scrollTrigger:{trigger:'.graph', start:'top 85%', end:'top 30%', scrub:true}}); }
+ const ty = document.querySelector('.typer .tx');
+ if (ty){ const q = ty.parentNode.getAttribute('aria-label'); if (full) ty.textContent = q; else ST.create({trigger:'.typer', start:'top 90%', end:'top 40%', scrub:true, onUpdate: s => { ty.textContent = q.slice(0, Math.round(q.length * s.progress)); }}); }
+ const sq = [...document.querySelectorAll('.sq70 i')];
+ if (sq.length){ if (full) sq.forEach(x => x.classList.add('on')); else ST.create({trigger:'.sq70', start:'top 85%', end:'top 30%', scrub:true, onUpdate: s => { const n = Math.round(70 * s.progress); sq.forEach((x, k) => x.classList.toggle('on', k < n)); }}); }
+}
+
+/* retícula */
+let gridOn = false;
+const gridOv = document.querySelector('.grid-ov');
+function syncGrid(){ gridOv.classList.toggle('on', gridOn); document.querySelectorAll('.gridb').forEach(b => { b.setAttribute('aria-pressed', gridOn); b.textContent = t(gridOn ? 'gridOff' : 'gridBtn'); }); }
+function toggleGrid(){ gridOn = !gridOn; syncGrid(); }
+
+/* WhiteDot: un pixel blanco en un mundo negro que crece */
+let game = null;
+function initGame(){
+ if (game){ game.stop(); game = null; }
+ const cv = document.querySelector('.wd canvas'); if (!cv) return;
+ const ctx = cv.getContext('2d'), C = 32, Rr = 18, S = 20, nEl = cv.parentNode.querySelector('.n');
+ let px = 4, py = 9, goal = null, tx = 0, ty = 0, score = 0, timer = 0, tk = 0, ac = null;
+ const vis = new Uint8Array(C * Rr);
+ const place = () => { do { tx = (Math.random() * C) | 0; ty = (Math.random() * Rr) | 0; } while (tx === px && ty === py); };
+ const notes = [220, 261.6, 293.7, 329.6, 392, 440, 523.3];
+ const beep = () => { try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); const o = ac.createOscillator(), g = ac.createGain(); o.type = 'square'; o.frequency.value = notes[score % 7] * (score >= 7 ? 2 : 1); g.gain.setValueAtTime(.04, ac.currentTime); g.gain.exponentialRampToValueAtTime(.0001, ac.currentTime + .25); o.connect(g).connect(ac.destination); o.start(); o.stop(ac.currentTime + .26); } catch (e) {} };
+ const draw = () => {
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 0, 640, 360);
+  ctx.fillStyle = '#1d1d1d'; for (let i = 0; i < C * Rr; i++) if (vis[i]) ctx.fillRect((i % C) * S, ((i / C) | 0) * S, S, S);
+  if ((tk >> 2) % 2 === 0){ ctx.fillStyle = '#fff'; ctx.fillRect(tx * S + 6, ty * S + 6, 8, 8); }
+  ctx.fillStyle = '#fff'; ctx.fillRect(px * S, py * S, S, S);
+ };
+ const move = (dx, dy) => { px = Math.max(0, Math.min(C - 1, px + dx)); py = Math.max(0, Math.min(Rr - 1, py + dy)); vis[py * C + px] = 1; if (px === tx && py === ty){ score++; nEl.textContent = score; beep(); place(); } };
+ const step = () => { tk++; if (goal){ const dx = Math.sign(goal[0] - px), dy = Math.sign(goal[1] - py); if (dx) move(dx, 0); else if (dy) move(0, dy); else goal = null; } draw(); };
+ const keys = {ArrowLeft:[-1,0], ArrowRight:[1,0], ArrowUp:[0,-1], ArrowDown:[0,1], a:[-1,0], d:[1,0], w:[0,-1], s:[0,1]};
+ const onKey = e => { const m = keys[e.key]; if (m){ e.preventDefault(); goal = null; move(m[0], m[1]); draw(); } };
+ const onDown = e => { const r = cv.getBoundingClientRect(); goal = [Math.floor((e.clientX - r.left) / r.width * C), Math.floor((e.clientY - r.top) / r.height * Rr)]; cv.focus({preventScroll:true}); };
+ cv.addEventListener('keydown', onKey); cv.addEventListener('pointerdown', onDown);
+ place(); vis[py * C + px] = 1; draw();
+ const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => { const v = es[0].isIntersecting; if (v && !timer) timer = setInterval(step, 90); if (!v && timer){ clearInterval(timer); timer = 0; } }) : null;
+ if (io) io.observe(cv);
+ game = {stop(){ clearInterval(timer); if (io) io.disconnect(); }};
+}
+
+/* VJ: barras que escuchan el micrófono, solo si la persona lo activa */
+let mic = null;
+function stopMic(){
+ if (!mic) return;
+ mic.stream.getTracks().forEach(x => x.stop()); cancelAnimationFrame(mic.raf); mic.ac.close(); mic = null;
+ const eq = document.querySelector('.eq'); if (!eq) return;
+ eq.classList.remove('live'); eq.querySelectorAll('.bars i').forEach(i => i.style.height = '');
+ const b = eq.querySelector('.mic'); b.textContent = t('mic'); b.setAttribute('aria-pressed', 'false');
+}
+async function startMic(b){
+ try {
+  const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+  const ac = new (window.AudioContext || window.webkitAudioContext)(), an = ac.createAnalyser(); an.fftSize = 64;
+  ac.createMediaStreamSource(stream).connect(an);
+  const d = new Uint8Array(an.frequencyBinCount), eq = document.querySelector('.eq'), bars = [...eq.querySelectorAll('.bars i')];
+  eq.classList.add('live'); b.textContent = t('micOff'); b.setAttribute('aria-pressed', 'true');
+  mic = {stream, ac, raf:0};
+  const f = () => { an.getByteFrequencyData(d); bars.forEach((x, k) => { x.style.height = (4 + Math.round(d[Math.min(d.length - 1, k + 1)] / 255 * 16) * 6) + '%'; }); mic.raf = requestAnimationFrame(f); };
+  f();
+ } catch (e){ const n = document.querySelector('.eq .micn'); if (n) n.textContent = t('micErr'); }
+}
+
+/* terminal oculta: ~, o escribir "jay" */
+const term = document.querySelector('.term'), tout = term.querySelector('.out'), tin = term.querySelector('input');
+const TT = {
+ es:{hello:['jay@cuenca — terminal', 'Escribe help.'],
+  help:['whoami        quién es Jay', 'stack         con qué trabaja', 'proyectos     lista de proyectos', 'abrir <id>    abre un proyecto', 'ir <faceta>   va a un capítulo', 'idioma es|en  cambia el idioma', 'reticula      muestra la retícula', 'clear · salir'],
+  whoami:['Jay Jaramillo · Cuenca, Ecuador', 'Ingeniero en telecomunicaciones y diseñador UX/UI (Politecnico di Milano).', 'Líder de proyectos en Coresolutions desde 2011.', 'Director creativo en Minervo Studio.', 'Escribe como @jaywrkr. Hace visuales en vivo. Toca batería.'],
+  stack:['infra       VMware · IBM · Lenovo · HPE · Aruba · Synology', 'seguridad   Check Point · Veeam', 'devops      Terraform · Ansible · Docker · GitLab CI/CD', 'monitoreo   Prometheus · Grafana', 'producto    Next.js · Neon · MCP · GSAP', 'ia          ChatGPT Enterprise · IA on-premise', 'visuales    TouchDesigner · Arturia MiniLab MkII', 'batería     Roland TD-02 · MIDI'],
+  openHint:'abrir <id> para ver uno.', noProj:'Ese proyecto no existe. Escribe proyectos.', facets:'Facetas: ingeniero, disenador, escritor, lider, vj, creador.', langOk:'Idioma: español.', sudo:'No hace falta. simple.', unknown:'No existe: %. Escribe help.'},
+ en:{hello:['jay@cuenca — terminal', 'Type help.'],
+  help:['whoami        who Jay is', 'stack         what he works with', 'projects      list of projects', 'open <id>     opens a project', 'go <facet>    jumps to a chapter', 'lang es|en    changes language', 'grid          shows the grid', 'clear · exit'],
+  whoami:['Jay Jaramillo · Cuenca, Ecuador', 'Telecommunications engineer and UX/UI designer (Politecnico di Milano).', 'Project lead at Coresolutions since 2011.', 'Creative director at Minervo Studio.', 'Writes as @jaywrkr. Makes live visuals. Plays drums.'],
+  stack:['infra       VMware · IBM · Lenovo · HPE · Aruba · Synology', 'security    Check Point · Veeam', 'devops      Terraform · Ansible · Docker · GitLab CI/CD', 'monitoring  Prometheus · Grafana', 'product     Next.js · Neon · MCP · GSAP', 'ai          ChatGPT Enterprise · on-premise AI', 'visuals     TouchDesigner · Arturia MiniLab MkII', 'drums       Roland TD-02 · MIDI'],
+  openHint:'open <id> to see one.', noProj:'That project does not exist. Type projects.', facets:'Facets: engineer, designer, writer, leader, vj, creator.', langOk:'Language: English.', sudo:'Not needed. simple.', unknown:'Not found: %. Type help.'}
+};
+function say(lines, cls){ [].concat(lines).forEach(l => { const p = document.createElement('p'); if (cls) p.className = cls; p.textContent = l; tout.appendChild(p); }); tout.scrollTop = tout.scrollHeight; }
+function openTerm(){ if (!term.hidden) return; term.hidden = false; if (!tout.childElementCount) say(TT[LANG].hello); tin.focus({preventScroll:true}); if (G && !reduce) G.fromTo(term, {clipPath:'inset(100% 0 0 0)'}, {clipPath:'inset(0% 0 0 0)', duration:.35, ease:'steps(6)'}); }
+function closeTerm(){ if (term.hidden) return; term.hidden = true; }
+const plain = x => x.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/^an? /, '');
+const facet = s => CH.findIndex(c => [c.id, plain(c.w.es), plain(c.w.en)].includes(plain(s)));
+function runCmd(raw){
+ const [cmd, ...a] = plain(raw.trim()).split(/\s+/), L = TT[LANG];
+ say('$ ' + raw, 'mute'); if (!cmd) return;
+ switch (cmd){
+  case 'help': case 'ayuda': say(L.help); break;
+  case 'whoami': say(L.whoami); break;
+  case 'stack': say(L.stack); break;
+  case 'proyectos': case 'projects': case 'ls': say(allKeys().map(k => k.padEnd(16) + PJ[k].n)); say(L.openHint, 'mute'); break;
+  case 'abrir': case 'open': if (PJ[a[0]]){ closeTerm(); openCase(a[0]); } else say(L.noProj); break;
+  case 'ir': case 'go': case 'cd': { const i = facet(a.join(' ') || '-'); if (i >= 0){ closeTerm(); scrollTo(document.getElementById(CH[i].id)); } else say(L.facets); break; }
+  case 'facetas': case 'facets': say(CH.map((c, i) => num(i) + ' ' + plain(c.w[LANG]))); break;
+  case 'idioma': case 'lang': if (a[0] === 'es' || a[0] === 'en'){ setLang(a[0]); say(TT[LANG].langOk); } else say('es | en'); break;
+  case 'reticula': case 'grid': toggleGrid(); break;
+  case 'clear': case 'limpiar': tout.innerHTML = ''; break;
+  case 'exit': case 'salir': closeTerm(); break;
+  case 'sudo': say(L.sudo); break;
+  case 'simple': case 'simple.': say('simple.'); break;
+  default: say(L.unknown.replace('%', cmd));
+ }
+}
+tin.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); const v = tin.value; tin.value = ''; setTimeout(() => runCmd(v), 0); } });
+let kb = '';
+addEventListener('keydown', e => {
+ const tg = e.target;
+ if (e.metaKey || e.ctrlKey || e.altKey || (tg.closest && tg.closest('input, textarea, canvas, [contenteditable]'))) return;
+ if (e.key === '~' || e.key === '`' || e.key === 'º'){ e.preventDefault(); if (term.hidden) openTerm(); else closeTerm(); return; }
+ if (e.key === 'g' || e.key === 'G') toggleGrid();
+ kb = (kb + e.key.toLowerCase()).slice(-3); if (kb === 'jay'){ kb = ''; openTerm(); }
+});
+
+render(); setupScroll(); initGame();
 
 /* portada: entrada de los cuadrados */
 if (G && !reduce) G.from('.tile', {clipPath:'inset(50% 50% 50% 50%)', duration:.6, ease:'steps(8)', stagger:.09, delay:.25});
 
 /* portada: pasar por un cuadrado adelanta la faceta; tocarlo vuela a su capítulo */
-tilesEl.addEventListener('pointerover', e => { const b = e.target.closest('.tile'); if (b && fine) heroWord(+b.dataset.i); });
+let cyc = 0, userHov = false;
+function cycle(loop){
+ let k = 0;
+ const step = () => { if (userHov) return; if (k < CH.length){ heroWord(k++); cyc = setTimeout(step, 560); } else { heroWord(-1); if (loop){ k = 0; cyc = setTimeout(step, 2600); } } };
+ cyc = setTimeout(step, reduce ? 400 : 1300);
+}
+cycle(!fine && !reduce);
+const stopCycle = () => { if (!userHov){ userHov = true; clearTimeout(cyc); } };
+tilesEl.addEventListener('pointerover', e => { const b = e.target.closest('.tile'); if (b && fine){ stopCycle(); heroWord(+b.dataset.i); } });
 tilesEl.addEventListener('pointerleave', () => { if (fine) heroWord(-1); });
-tilesEl.addEventListener('focusin', e => { const b = e.target.closest('.tile'); if (b) heroWord(+b.dataset.i); });
+tilesEl.addEventListener('focusin', e => { const b = e.target.closest('.tile'); if (b){ stopCycle(); heroWord(+b.dataset.i); } });
 tilesEl.addEventListener('focusout', () => heroWord(-1));
 function fly(i, from){
- const c = CH[i], sec = document.getElementById(c.id), target = sec.querySelector('.feat .ph') || sec;
+ const c = CH[i], sec = document.getElementById(c.id), target = sec.querySelector('.feat > :first-child') || sec.querySelector('.mo') || sec;
  if (!G || reduce || !from){ scrollTo(sec); return; }
  const r = from.getBoundingClientRect(), clone = document.createElement('div');
- clone.className = 'fly'; clone.innerHTML = from.querySelector('img, video') ? from.querySelector('img, video').outerHTML : '';
- if (!clone.innerHTML){ clone.style.background = c.theme === 'light' ? '#fff' : '#000'; }
- Object.assign(clone.style, {left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px'});
+ clone.className = 'fly ' + from.className.replace(/\bact\b/, ''); clone.innerHTML = from.innerHTML; clone.querySelector('.lab')?.remove();
+ clone.style.background = c.theme === 'light' ? '#fff' : '#000'; clone.style.transform = 'none';
+ Object.assign(clone.style, {left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px', margin: 0});
  document.body.appendChild(clone);
- G.to(clone, {top: 72, left: innerWidth - r.width - 24, duration:.5, ease:'steps(8)'});
- scrollTo(target === sec ? sec : target, () => {
+ const w = Math.min(innerWidth * .72, 960), h = Math.min(w * 9 / 16, innerHeight * .6);
+ G.to(clone, {left: (innerWidth - w) / 2, top: (innerHeight - h) / 2, width: w, height: h, duration:.55, ease:'power4.inOut', onComplete: () => {
+  if (lenis) lenis.scrollTo(target, {offset: -96, duration: 1.2, onComplete: land}); else { target.scrollIntoView(); land(); }
+ }});
+ function land(){
   const tr = target.getBoundingClientRect();
-  G.to(clone, {left: tr.left, top: tr.top, width: tr.width, height: Math.min(tr.height, innerHeight), duration:.6, ease:'power4.inOut', onComplete: () => G.to(clone, {opacity:0, duration:.3, ease:'steps(3)', onComplete: () => clone.remove()})});
- });
+  G.to(clone, {left: tr.left, top: tr.top, width: tr.width, height: Math.min(tr.height, innerHeight - tr.top), duration:.6, ease:'power4.inOut', onComplete: () => G.to(clone, {opacity:0, duration:.3, ease:'steps(3)', onComplete: () => clone.remove()})});
+ }
 }
 tilesEl.addEventListener('click', e => { const b = e.target.closest('.tile'); if (!b) return; heroWord(+b.dataset.i); fly(+b.dataset.i, b); });
 
@@ -438,12 +638,14 @@ tilesEl.addEventListener('click', e => { const b = e.target.closest('.tile'); if
 ticksEl.addEventListener('click', e => { const b = e.target.closest('button'); if (b) scrollTo(document.getElementById(CH[+b.dataset.i].id)); });
 
 /* idioma */
-document.querySelector('.lang').addEventListener('click', e => {
- const b = e.target.closest('button'); if (!b || b.dataset.l === LANG) return;
- LANG = b.dataset.l; store.set('jay-lang', LANG);
- const y = scrollY; render(); setupScroll(); watchVideos(document); if (lenis) lenis.scrollTo(y, {immediate:true}); else window.scrollTo(0, y);
+function setLang(l){
+ if (l === LANG) return;
+ LANG = l; store.set('jay-lang', LANG);
+ const y = scrollY; stopMic(); render(); setupScroll(); initGame(); watchVideos(document); syncGrid();
+ if (lenis) lenis.scrollTo(y, {immediate:true}); else window.scrollTo(0, y);
  tick();
-});
+}
+document.querySelector('.lang').addEventListener('click', e => { const b = e.target.closest('button'); if (b) setLang(b.dataset.l); });
 
 /* ───────── caso abierto: crece desde lo que tocaste ───────── */
 const caseEl = document.querySelector('.case'), caseIn = caseEl.querySelector('.in');
@@ -454,7 +656,7 @@ function caseHTML(k){
  return `<p class="small mute">${esc(p.role)}</p><h2>${esc(p.n)}</h2>
  <div class="cols"><div><p class="small mute">${t('problem')}</p><p style="margin-top:8px">${esc(p.prob)}</p>${resultHTML(p)}${p.url ? `<p style="margin-top:28px"><a href="${p.url}" target="_blank" rel="noopener">${t('open')}</a></p>` : ''}</div>
  <div><p class="small mute">${t('did')}</p><ul style="margin-top:8px">${p.did.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div></div>
- <div class="imgs">${media(p, 0, `${t('img')} 1 · ${p.img[0]}`, true)}<div class="row">${media(p, 1, `${t('img')} 2 · ${p.img[1]}`, true)}${media(p, 2, `${t('img')} 3 · ${p.img[2]}`, true)}</div></div>
+ <div class="imgs">${media(p, 0, `${t('img')} 1 · ${p.img[0]}`, true)}${[1, 2].some(i => srcOf(p, i)) ? `<div class="row">${[1, 2].filter(i => srcOf(p, i)).map(i => media(p, i, p.img[i], true)).join('')}</div>` : ''}</div>
  <button class="nextp" type="button" data-k="${nx}"><span class="small mute">${t('next')}</span><br><span class="word">${esc(PJ[nx].n)} →</span></button>`;
 }
 const rectInset = r => `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px)`;
@@ -477,15 +679,18 @@ function closeCase(){
 }
 document.addEventListener('click', e => {
  const b = e.target.closest('.open'); if (b){ openCase(b.dataset.k, b); return; }
+ const m = e.target.closest('.mic'); if (m){ if (mic) stopMic(); else startMic(m); return; }
+ if (e.target.closest('.gridb')){ toggleGrid(); return; }
+ if (e.target.closest('.termb')){ openTerm(); return; }
  const n = e.target.closest('.nextp'); if (n){ caseIn.innerHTML = caseHTML(n.dataset.k); caseEl.scrollTop = 0; if (G && !reduce) G.from(caseIn.children, {opacity:0, y:20, duration:.4, ease:'steps(5)', stagger:.04}); history.replaceState(null, '', '#caso-' + n.dataset.k); }
 });
 caseEl.querySelector('.x').addEventListener('click', closeCase);
-addEventListener('keydown', e => { if (e.key === 'Escape') closeCase(); });
+addEventListener('keydown', e => { if (e.key === 'Escape'){ closeTerm(); closeCase(); } });
 if (location.hash.startsWith('#caso-') && PJ[location.hash.slice(6)]) setTimeout(() => openCase(location.hash.slice(6)), 300);
 
 /* videos: solo se reproducen en pantalla */
 const vio = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting && !reduce){ v.preload = 'auto'; v.play().catch(() => {}); } else v.pause(); }), {threshold:.35}) : null;
-function watchVideos(root){ root.querySelectorAll('video').forEach(v => { if (reduce && !v.closest('.tile')) v.controls = true; if (vio) vio.observe(v); }); }
+function watchVideos(root){ root.querySelectorAll('video').forEach(v => { if (v.closest('.tile')) return; if (reduce && !v.closest('.tile')) v.controls = true; if (vio) vio.observe(v); }); }
 watchVideos(document);
 new MutationObserver(() => watchVideos(caseIn)).observe(caseIn, {childList:true});
 

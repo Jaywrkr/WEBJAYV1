@@ -90,6 +90,12 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 @keyframes scan{from{transform:translateX(-100%)}to{transform:translateX(340%)}}
 .ph span{position:absolute;left:14px;bottom:12px;background:var(--bg);padding:6px 8px;max-width:calc(100% - 28px)}
 .ph.v{aspect-ratio:16/9}
+.ph.img{border:0;background:#111}.ph.img::after{display:none}
+.ph img,.ph video{display:block;width:100%;height:100%;object-fit:cover}
+.feat .ph.img:not(.vid){aspect-ratio:16/9}
+.ph.col img{filter:grayscale(1);transition:filter .6s steps(6)}
+.ph.col:hover img{filter:none}
+.feat .ph.vid,.case .imgs>.ph.vid{aspect-ratio:9/16;width:min(360px,100%);background:#000;outline:1px solid var(--line);outline-offset:-1px}
 
 /* Jay */
 .jay .grid{display:grid;grid-template-columns:minmax(0,320px) 1fr;gap:48px;align-items:start}
@@ -208,15 +214,14 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':
 
 /* ───────── contenido: una sola fuente ───────── */
 const PJ = {
- coresolutions:{n:'Coresolutions', role:'Líder de proyectos · desde 2011', prob:'Empresas y entidades en Ecuador necesitan infraestructura que no falle.', did:['Dirijo proyectos de infraestructura, cloud y ciberseguridad con IBM, Lenovo, VMware, Veeam, Check Point, HPE, Aruba y Synology.','Coordino un equipo de ingenieros.','Llevo clientes y ventas.'], big:'70', bigL:'proyectos al año', img:['Foto del equipo o de un datacenter','Diagrama de un proyecto real','Instalación en sitio'], url:'https://www.instagram.com/coresolutionsec/'},
+ coresolutions:{n:'Coresolutions', role:'Líder de proyectos · desde 2011', prob:'Empresas y entidades en Ecuador necesitan infraestructura que no falle.', did:['Dirijo proyectos de infraestructura, cloud y ciberseguridad con IBM, Lenovo, VMware, Veeam, Check Point, HPE, Aruba y Synology.','Coordino un equipo de ingenieros.','Llevo clientes y ventas.'], big:'70', bigL:'proyectos al año', img:['Datacenter con racks Lenovo ThinkSystem e IBM','Diagrama de un proyecto real','Instalación en sitio'], src:['assets/coresolutions-1'], url:'https://www.instagram.com/coresolutionsec/'},
  monitoreo:{n:'Monitoreo', role:'Plataforma automática multicliente', prob:'Cada cliente nuevo obligaba a armar el monitoreo a mano.', did:['Terraform, Ansible, Docker, Prometheus, Grafana y GitLab CI/CD.','Informes mensuales automáticos hechos con IA.','Empaquetado para escalar a más clientes.'], big:'4 días → 10 min', bigL:'por informe mensual, en producción desde mayo de 2026', img:['Captura de Grafana sin datos sensibles','Página de un informe','Flujo de despliegue']},
  coreoperaciones:{n:'CoreOperaciones', role:'En operación desde octubre de 2026', prob:'Las apps operativas de Coresolutions estaban separadas.', did:['Une CorePlanificación, CoreGestión, CoreOportunidades, CoreClientes, CoreTICS y CoreTrack en un solo tablero.','Next.js y Neon, con un MCP privado para consultar el negocio con IA.','Construido con IA.'], big:'6 → 1', bigL:'apps en un solo tablero', img:['Tablero principal con datos anonimizados','Vista de decisión','Consulta por MCP']},
- minervo:{n:'Minervo Studio', role:'Director creativo', prob:'Marcas que necesitan un producto digital claro.', did:['Diseño de producto.','Landing pages.','Textos de interfaz.'], big:'', bigL:'', img:['Trabajo destacado','Detalle de interfaz','Landing'], url:'https://www.instagram.com/minervostudio/'},
+ minervo:{n:'Minervo Studio', role:'Director creativo', prob:'Marcas que necesitan un producto digital claro.', did:['Diseño de producto.','Landing pages.','Textos de interfaz.'], big:'', bigL:'', img:['Informe de Creatividad con IA 2026 (IACC)','Detalle de interfaz','Landing'], src:['assets/minervo-1'], color:true, url:'https://www.instagram.com/minervostudio/'},
  sistema:{n:'Sistema @jaywrkr', role:'Sistema visual propio', prob:'Publicar todos los días sin que cada post sea un diseño nuevo.', did:['Negro y blanco. Geist Mono 300 y 400, nunca bold.','Solo ángulos rectos y 70% de vacío.','Siempre cierra con "simple.".'], big:'', bigL:'', img:['Plantillas de la serie','Marca de cada serie','Post en contexto']},
- jaywrkr:{n:'@jaywrkr', role:'Escritura y contenido', prob:'El contenido de crecimiento personal suele ser cliché.', did:['Escribo verdades incómodas en blanco y negro.','Series semanales de lunes a domingo.','No vendo nada: es reputación.'], big:'7', bigL:'series, una por día, desde el 5 de octubre de 2026', img:['Post de la serie del lunes','Post de la serie del miércoles','Reel'], url:'https://www.instagram.com/jaywrkr/'},
+ jaywrkr:{n:'@jaywrkr', role:'Escritura y contenido', prob:'El contenido de crecimiento personal suele ser cliché.', did:['Escribo verdades incómodas en blanco y negro.','Series semanales de lunes a domingo.','No vendo nada: es reputación.'], big:'7', bigL:'series, una por día, desde el 5 de octubre de 2026', img:['Reel: Optimizar no es avanzar.','Post de la serie del miércoles','Post de la serie del viernes'], video:'assets/jaywrkr-24', url:'https://www.instagram.com/jaywrkr/'},
  coreai:{n:'CoreAI', role:'Lidero la práctica', prob:'Empresas que quieren usar IA sin exponer sus datos o sin saber por dónde empezar.', did:['IA propia on-premise: primero herramienta interna, después producto.','Oferta ChatGPT Enterprise: Discovery, Launch, Adoption y Go.','Formación del equipo.'], big:'', bigL:'', img:['Diagrama de la oferta','Arquitectura on-premise','Taller con un cliente']},
  vj:{n:'Rig VJ', role:'TouchDesigner · @naturalnoise · @jay.infinito', prob:'Quería visuales en vivo que respondan a la música en el momento.', did:['20 escenas audio-reactivas en TouchDesigner.','Control con Arturia MiniLab MkII.','Tablero de 20 escenas en 5 × 4.'], big:'20', bigL:'escenas audio-reactivas', img:['Clip en vivo de 10 s','Tablero de escenas','Foto del set'], url:'https://www.instagram.com/naturalnoise/'},
- ankla:{n:'ANKLA', role:'ankla.app', prob:'La gente empieza hábitos y los deja a la semana.', did:['Máximo 5 hábitos; cada uno se desbloquea tras 30 días seguidos del anterior.','Radar de vida del 1 al 10 cada 30 días.','Next.js y Vercel.'], big:'3 → 9', bigL:'mi radar de vida en 8 meses', img:['Pantalla de hábitos','Radar de vida','Desbloqueo del siguiente hábito'], url:'https://ankla.app'},
  jdrums:{n:'J-Drums', role:'Web · MIDI', prob:'Practicar batería solo es aburrido y sin guía.', did:['Las notas caen como en Guitar Hero y se tocan en una Roland TD-02.','Modo lecciones y modo grooves.','Calibración MIDI en la misma página.'], big:'', bigL:'', img:['Video de pantalla con la batería','Modo lecciones','Calibración MIDI']},
  whitedot:{n:'WhiteDot', role:'Videojuego en desarrollo', prob:'Un juego que premie la constancia, no la suerte.', did:['Eres un pixel blanco en un mundo negro que crece.','La música electrónica se genera al jugar.','Web primero; después iOS, Android y PC.'], big:'', bigL:'', img:['Captura del juego','Bioma','Logros']}
 };
@@ -226,13 +231,18 @@ const CH = [
  {id:'escritor', w:'escritor', theme:'dark', line:'Verdades incómodas, escritas simple.', feat:'jaywrkr', more:[], posts:['No es disciplina. Es un sistema.','Hazlo otra vez.','Nadie te está viendo. Hazlo igual.','El único atajo es no buscar atajos.']},
  {id:'lider', w:'líder', theme:'light', line:'Pragmatismo. Escucha, habla menos.', feat:null, more:['coreai'], prin:['Pragmatismo.','Escucha, habla menos.','El único atajo es no buscar atajos.'], stats:[['15','años en Coresolutions'],['70','proyectos al año']]},
  {id:'vj', w:'VJ', theme:'dark', line:'Visuales en vivo que responden a la música.', feat:'vj', more:[], video:true},
- {id:'creador', w:'creador', theme:'light', line:'No es disciplina. Es un sistema.', feat:'ankla', more:['jdrums','whitedot']}
+ {id:'creador', w:'creador', theme:'light', line:'Constancia, no suerte.', feat:'whitedot', more:['jdrums']}
 ];
 
 /* ───────── render ───────── */
-const ph = (label, cls = '') => `<div class="ph ${cls}"><span class="small">${esc(label)}</span></div>`;
+const ph = (label, cls = '', src = '', alt = '') => src
+ ? `<div class="ph img ${cls}"><picture><source srcset="${src}.webp" type="image/webp"><img src="${src}.jpg" alt="${esc(alt)}" loading="lazy" decoding="async" width="1600" height="900"></picture></div>`
+ : `<div class="ph ${cls}"><span class="small">${esc(label)}</span></div>`;
+const srcOf = (p, i) => (p.src && p.src[i]) || '';
+const vid = (src, label) => `<div class="ph img vid"><video poster="${src}.jpg" muted loop playsinline preload="metadata" aria-label="${esc(label)}"><source src="${src}.webm" type="video/webm"><source src="${src}.mp4" type="video/mp4"></video></div>`;
+const media = (p, i, label, inCase) => p.video && i === 0 ? vid(p.video, p.img[0]) : ph(label, p.color && !inCase ? 'col' : '', srcOf(p, i), p.img[i]);
 const featHTML = k => { const p = PJ[k]; return `<div class="feat">
- ${ph(`Imagen · ${p.n} · ${p.img[0]}`)}
+ ${media(p, 0, `Imagen · ${p.n} · ${p.img[0]}`)}
  <h2>${esc(p.n)}</h2><p class="role small mute">${esc(p.role)}</p>
  <div class="cols">
   <div><p class="small mute">Problema</p><p style="margin-top:8px">${esc(p.prob)}</p>
@@ -304,7 +314,7 @@ function caseHTML(k){
  return `<p class="small mute">${esc(p.role)}</p><h2>${esc(p.n)}</h2>
  <div class="cols"><div><p class="small mute">Problema</p><p style="margin-top:8px">${esc(p.prob)}</p>${p.big ? `<p class="small mute" style="margin-top:28px">Resultado</p><p class="big">${esc(p.big)}</p><p class="mute">${esc(p.bigL)}</p>` : ''}${p.url ? `<p style="margin-top:28px"><a href="${p.url}" target="_blank" rel="noopener">Abrir ↗</a></p>` : ''}</div>
  <div><p class="small mute">Qué hice</p><ul style="margin-top:8px">${p.did.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div></div>
- <div class="imgs">${ph(`Imagen 1 · ${p.img[0]}`)}<div class="row">${ph(`Imagen 2 · ${p.img[1]}`)}${ph(`Imagen 3 · ${p.img[2]}`)}</div></div>
+ <div class="imgs">${media(p, 0, `Imagen 1 · ${p.img[0]}`, true)}<div class="row">${media(p, 1, `Imagen 2 · ${p.img[1]}`, true)}${media(p, 2, `Imagen 3 · ${p.img[2]}`, true)}</div></div>
  <button class="nextp" type="button" data-k="${nx}"><span class="small mute">Siguiente</span><br><span class="word">${esc(PJ[nx].n)} →</span></button>`;
 }
 const rectInset = r => `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px)`;
@@ -330,6 +340,12 @@ document.addEventListener('click', e => {
 caseEl.querySelector('.x').addEventListener('click', closeCase);
 addEventListener('keydown', e => { if (e.key === 'Escape') closeCase(); });
 if (location.hash.startsWith('#caso-') && PJ[location.hash.slice(6)]) setTimeout(() => openCase(location.hash.slice(6)), 300);
+
+/* videos: se reproducen solo cuando están en pantalla */
+const vio = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting && !reduce) v.play().catch(() => {}); else v.pause(); }), {threshold:.35}) : null;
+const watchVideos = root => root.querySelectorAll('video').forEach(v => { if (reduce) v.controls = true; if (vio) vio.observe(v); });
+watchVideos(document);
+new MutationObserver(() => watchVideos(caseIn)).observe(caseIn, {childList:true});
 
 /* enlaces internos con scroll suave */
 document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const t = document.querySelector(a.getAttribute('href')); if (!t) return; e.preventDefault(); if (lenis) lenis.scrollTo(t, {offset:0}); else t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); }));

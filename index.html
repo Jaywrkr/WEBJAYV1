@@ -129,6 +129,8 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 .feat .ph.img:not(.vid){aspect-ratio:16/9}
 .ph.col img{filter:grayscale(1);transition:filter .6s steps(6)}
 .ph.col:hover img{filter:none}
+.ph.col video{filter:grayscale(1) brightness(1.35) contrast(1.35);transition:filter .6s steps(6)}
+.ph.col:hover video,.ph.col:focus-within video{filter:none}
 .feat .ph.vid,.case .imgs>.ph.vid{aspect-ratio:9/16;width:min(360px,100%);background:#000;outline:1px solid var(--line);outline-offset:-1px}
 
 /* Jay */
@@ -363,12 +365,9 @@ const PJ = {
  coreai:{n:'CoreAI',
   es:{dec:'Primero herramienta interna, después producto para clientes.', role:'Lidero la práctica', prob:'Empresas que quieren usar IA sin exponer sus datos o sin saber por dónde empezar.', did:['IA propia on-premise: primero herramienta interna, después producto.','Oferta ChatGPT Enterprise: Discovery, Launch, Adoption y Go.','Formación del equipo.'], img:['Diagrama de la oferta','Arquitectura on-premise','Taller con un cliente']},
   en:{dec:'Internal tool first, product for clients next.', role:'I lead the practice', prob:'Companies that want to use AI without exposing their data, or without knowing where to start.', did:['Our own on-premise AI: internal tool first, product next.','ChatGPT Enterprise offer: Discovery, Launch, Adoption and Go.','Team training.'], img:['Offer diagram','On-premise architecture','Workshop with a client']}},
- vj:{n:'Rig VJ', big:'20', url:'https://www.instagram.com/naturalnoise/',
-  es:{dec:'Un tablero fijo de 20 escenas que se controla a mano en vivo.', role:'TouchDesigner · @naturalnoise · @jay.infinito', prob:'Quería visuales en vivo que respondan a la música en el momento.', did:['20 escenas audio-reactivas en TouchDesigner.','Control con Arturia MiniLab MkII.','Tablero de 20 escenas en 5 × 4.'], bigL:'escenas audio-reactivas', img:['Clip en vivo de 10 s','Tablero de escenas','Foto del set']},
-  en:{dec:'A fixed board of 20 scenes controlled by hand, live.', role:'TouchDesigner · @naturalnoise · @jay.infinito', prob:'I wanted live visuals that respond to the music as it happens.', did:['20 audio-reactive scenes in TouchDesigner.','Controlled with an Arturia MiniLab MkII.','A 5 × 4 board of 20 scenes.'], bigL:'audio-reactive scenes', img:['10 s live clip','Scene board','Photo of the set']}},
- jdrums:{n:'J-Drums',
-  es:{dec:'Practicar con la batería real por MIDI, no con el teclado.', role:'Web · MIDI', prob:'Practicar batería solo es aburrido y sin guía.', did:['Las notas caen como en Guitar Hero y se tocan en una Roland TD-02.','Modo lecciones y modo grooves.','Calibración MIDI en la misma página.'], img:['Video de pantalla con la batería','Modo lecciones','Calibración MIDI']},
-  en:{dec:'Practice on the real kit over MIDI, not the keyboard.', role:'Web · MIDI', prob:'Practicing drums alone is boring and has no guidance.', did:['Notes fall like in Guitar Hero and are played on a Roland TD-02.','Lessons mode and grooves mode.','MIDI calibration on the same page.'], img:['Screen recording with the kit','Lessons mode','MIDI calibration']}},
+ vj:{n:'Rig VJ', big:'20', video:'assets/vj-1', color:true, url:'https://www.instagram.com/naturalnoise/',
+  es:{dec:'Un tablero fijo de 20 escenas que se controla a mano en vivo.', role:'TouchDesigner · @naturalnoise · @jay.infinito', prob:'Quería visuales en vivo que respondan a la música en el momento.', did:['20 escenas audio-reactivas en TouchDesigner.','Control con Arturia MiniLab MkII.','Tablero de 20 escenas en 5 × 4.'], bigL:'escenas audio-reactivas', img:['VJ set en vivo','Tablero de escenas','Foto del set']},
+  en:{dec:'A fixed board of 20 scenes controlled by hand, live.', role:'TouchDesigner · @naturalnoise · @jay.infinito', prob:'I wanted live visuals that respond to the music as it happens.', did:['20 audio-reactive scenes in TouchDesigner.','Controlled with an Arturia MiniLab MkII.','A 5 × 4 board of 20 scenes.'], bigL:'audio-reactive scenes', img:['Live VJ set','Scene board','Photo of the set']}},
  whitedot:{n:'WhiteDot',
   es:{dec:'Web primero; después iOS, Android y PC.', role:'Videojuego en desarrollo', prob:'Un juego que premie la constancia, no la suerte.', did:['Eres un pixel blanco en un mundo negro que crece.','La música electrónica se genera al jugar.','Web primero; después iOS, Android y PC.'], img:['Captura del juego','Bioma','Logros']},
   en:{dec:'Web first; then iOS, Android and PC.', role:'Video game in development', prob:'A game that rewards consistency, not luck.', did:['You are a white pixel in a black world that grows.','Electronic music is generated as you play.','Web first; then iOS, Android and PC.'], img:['Game screenshot','Biome','Achievements']}}
@@ -379,7 +378,7 @@ const CH = [
  {id:'escritor', w:{es:'escritor', en:'a writer'}, theme:'dark', line:{es:'Verdades incómodas, escritas simple.', en:'Uncomfortable truths, written simple.'}, feat:'jaywrkr', more:[], quote:{es:'Optimizar no es avanzar.', en:'Optimizing is not moving forward.'}, posts:{es:['Éxito es tener cada día menos arrepentimientos.','¿Cómo sería esto más divertido?','El único atajo es no buscar atajos.'], en:['Success is having fewer regrets every day.','How would this be more fun?','The only shortcut is not looking for one.']}, tile:{type:'video', src:'assets/jaywrkr-24'}},
  {id:'lider', w:{es:'líder', en:'a leader'}, theme:'light', line:{es:'Pragmatismo. Escucha, habla menos.', en:'Pragmatism. Listen, talk less.'}, feat:null, more:['coreai'], prin:{es:['Pragmatismo.','Escucha, habla menos.'], en:['Pragmatism.','Listen, talk less.']}, stats:{es:[['15','años en Coresolutions'],['70','proyectos al año']], en:[['15','years at Coresolutions'],['70','projects a year']]}, tile:{type:'num'}},
  {id:'vj', w:{es:'VJ', en:'a VJ'}, theme:'dark', line:{es:'Visuales en vivo que responden a la música.', en:'Live visuals that respond to the music.'}, feat:'vj', more:[], tile:{type:'vj'}},
- {id:'creador', w:{es:'creador', en:'a creator'}, theme:'light', line:{es:'Constancia, no suerte.', en:'Consistency, not luck.'}, feat:'whitedot', more:['jdrums'], tile:{type:'dot'}}
+ {id:'creador', w:{es:'creador', en:'a creator'}, theme:'light', line:{es:'Constancia, no suerte.', en:'Consistency, not luck.'}, feat:'whitedot', more:[], tile:{type:'dot'}}
 ];
 const P = k => Object.assign({k, n: PJ[k].n, big: PJ[k].big, src: PJ[k].src, video: PJ[k].video, color: PJ[k].color, url: PJ[k].url}, PJ[k][LANG]);
 
@@ -389,12 +388,12 @@ const ph = (label, cls = '', src = '', alt = '') => src
  ? `<div class="ph img ${cls}">${pic(src, alt, '(max-width: 900px) 100vw, 50vw')}</div>`
  : `<div class="ph ${cls}"><span class="small">${esc(label)}</span></div>`;
 const srcOf = (p, i) => (p.src && p.src[i]) || '';
-const vid = (src, label) => `<div class="ph img vid"><video poster="${src}.jpg" muted loop playsinline preload="none" aria-label="${esc(label)}"><source src="${src}.webm" type="video/webm"><source src="${src}.mp4" type="video/mp4"></video></div>`;
-const COV = {monitoreo:'4d → 10m', coreoperaciones:'6 → 1', sistema:'simple.', coreai:'IA on-prem', jdrums:'TD-02', whitedot:'■'};
+const vid = (src, label, cls = '') => `<div class="ph img vid ${cls}"><video poster="${src}.jpg" muted loop playsinline preload="none" aria-label="${esc(label)}"><source src="${src}.webm" type="video/webm"><source src="${src}.mp4" type="video/mp4"></video></div>`;
+const COV = {monitoreo:'4d → 10m', coreoperaciones:'6 → 1', sistema:'simple.', coreai:'IA on-prem', whitedot:'■'};
 const cover = p => p.k === 'vj'
  ? `<div class="cov vjg" aria-hidden="true">${'<i></i>'.repeat(20)}<span class="cap small">${esc(p.n)} · 5 × 4</span></div>`
  : `<div class="cov" aria-hidden="true"><span class="small mute">${esc(p.n)}</span><span class="cv">${esc(COV[p.k] || p.big || p.n)}</span></div>`;
-const media = (p, i, label, inCase) => p.video && i === 0 ? vid(p.video, p.img[0]) : srcOf(p, i) ? ph(label, p.color && !inCase ? 'col' : '', srcOf(p, i), p.img[i]) : cover(p);
+const media = (p, i, label, inCase) => p.video && i === 0 ? vid(p.video, p.img[0], p.color && !inCase ? 'col' : '') : srcOf(p, i) ? ph(label, p.color && !inCase ? 'col' : '', srcOf(p, i), p.img[i]) : cover(p);
 const gameHTML = () => `<div class="wd"><canvas width="640" height="360" tabindex="0" aria-label="WhiteDot. ${esc(t('wdHint'))}"></canvas><p class="sc small"><span>${t('wdScore')} <b class="n">0</b></span><span class="mute">${t('wdHint')}</span></p><p class="unl small" hidden>${t('wdUnlock')} <a href="https://www.instagram.com/jaywrkr/" target="_blank" rel="noopener">@jaywrkr ↗</a></p></div>`;
 function momentHTML(c){
  switch (c.id){
@@ -609,12 +608,12 @@ const TT = {
  es:{hello:['jay@cuenca — terminal', 'Escribe help.'],
   help:['whoami        quién es Jay', 'stack         con qué trabaja', 'proyectos     lista de proyectos', 'abrir <id>    abre un proyecto', 'ir <faceta>   va a un capítulo', 'idioma es|en  cambia el idioma', 'reticula      muestra la retícula', 'whitedot      el juego', 'clear · salir'],
   whoami:['Jay Jaramillo · Cuenca, Ecuador', 'Ingeniero en telecomunicaciones y diseñador UX/UI (Politecnico di Milano).', 'Líder de proyectos en Coresolutions desde 2011.', 'Director creativo en Minervo Studio.', 'Escribe como @jaywrkr. Hace visuales en vivo. Toca batería.'],
-  stack:['infra       VMware · IBM · Lenovo · HPE · Aruba · Synology', 'seguridad   Check Point · Veeam', 'devops      Terraform · Ansible · Docker · GitLab CI/CD', 'monitoreo   Prometheus · Grafana', 'producto    Next.js · Neon · MCP · GSAP', 'ia          ChatGPT Enterprise · IA on-premise', 'visuales    TouchDesigner · Arturia MiniLab MkII', 'batería     Roland TD-02 · MIDI'],
+  stack:['infra       VMware · IBM · Lenovo · HPE · Aruba · Synology', 'seguridad   Check Point · Veeam', 'devops      Terraform · Ansible · Docker · GitLab CI/CD', 'monitoreo   Prometheus · Grafana', 'producto    Next.js · Neon · MCP · GSAP', 'ia          ChatGPT Enterprise · IA on-premise', 'visuales    TouchDesigner · Arturia MiniLab MkII'],
   wd:['WhiteDot · en desarrollo', 'Un pixel blanco en un mundo negro que crece.', 'La demo está en el capítulo Creador: atrapa 7.', 'Sigue el desarrollo en @jaywrkr.'], openHint:'abrir <id> para ver uno.', noProj:'Ese proyecto no existe. Escribe proyectos.', facets:'Facetas: ingeniero, disenador, escritor, lider, vj, creador.', langOk:'Idioma: español.', sudo:'No hace falta. simple.', unknown:'No existe: %. Escribe help.'},
  en:{hello:['jay@cuenca — terminal', 'Type help.'],
   help:['whoami        who Jay is', 'stack         what he works with', 'projects      list of projects', 'open <id>     opens a project', 'go <facet>    jumps to a chapter', 'lang es|en    changes language', 'grid          shows the grid', 'whitedot      the game', 'clear · exit'],
   whoami:['Jay Jaramillo · Cuenca, Ecuador', 'Telecommunications engineer and UX/UI designer (Politecnico di Milano).', 'Project lead at Coresolutions since 2011.', 'Creative director at Minervo Studio.', 'Writes as @jaywrkr. Makes live visuals. Plays drums.'],
-  stack:['infra       VMware · IBM · Lenovo · HPE · Aruba · Synology', 'security    Check Point · Veeam', 'devops      Terraform · Ansible · Docker · GitLab CI/CD', 'monitoring  Prometheus · Grafana', 'product     Next.js · Neon · MCP · GSAP', 'ai          ChatGPT Enterprise · on-premise AI', 'visuals     TouchDesigner · Arturia MiniLab MkII', 'drums       Roland TD-02 · MIDI'],
+  stack:['infra       VMware · IBM · Lenovo · HPE · Aruba · Synology', 'security    Check Point · Veeam', 'devops      Terraform · Ansible · Docker · GitLab CI/CD', 'monitoring  Prometheus · Grafana', 'product     Next.js · Neon · MCP · GSAP', 'ai          ChatGPT Enterprise · on-premise AI', 'visuals     TouchDesigner · Arturia MiniLab MkII'],
   wd:['WhiteDot · in development', 'A white pixel in a black world that grows.', 'The demo is in the Creator chapter: catch 7.', 'Follow the build at @jaywrkr.'], openHint:'open <id> to see one.', noProj:'That project does not exist. Type projects.', facets:'Facets: engineer, designer, writer, leader, vj, creator.', langOk:'Language: English.', sudo:'Not needed. simple.', unknown:'Not found: %. Type help.'}
 };
 function say(lines, cls){ [].concat(lines).forEach(l => { const p = document.createElement('p'); if (cls) p.className = cls; p.textContent = l; tout.appendChild(p); }); tout.scrollTop = tout.scrollHeight; }

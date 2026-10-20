@@ -45,10 +45,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .lang button[aria-pressed=true]{opacity:1;background:#fff;color:#000}
 .prog{position:fixed;left:0;top:0;height:2px;width:100%;background:#fff;transform-origin:left;transform:scaleX(0);z-index:60;mix-blend-mode:difference;pointer-events:none}
 
-/* cursor */
-.cur{position:fixed;left:0;top:0;width:10px;height:10px;border:1px solid #fff;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:90;opacity:0}
-.cur.frame{background:transparent}
-.has-cur,.has-cur a,.has-cur button{cursor:none}
 
 /* portada */
 .hero{height:100svh;min-height:620px;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad);position:relative}
@@ -67,7 +63,7 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 .tile img,.tile video{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1)}
 .tile .lab{position:absolute;left:8px;bottom:8px;background:#000;color:#fff;padding:3px 6px;z-index:2}
 .tile>*{transition:opacity .3s steps(3)}
-.tiles.hov .tile:not(.act)>*:not(.lab):not(.small){opacity:.25}
+.tiles.hov .tile:not(.act)>*:not(.lab):not(.small):not(b){opacity:.25}
 .tiles.hov .tile.act{border-color:#fff}
 .tile.num{display:flex;flex-direction:column;justify-content:center;padding:14px}
 .tile.num b{font-weight:300;font-size:clamp(34px,4vw,56px);line-height:1}
@@ -77,6 +73,10 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 @keyframes bar{to{height:85%}}
 .tile.dot::before{content:"";position:absolute;width:8px;height:8px;background:#fff;left:20%;top:30%;animation:walk 6s steps(24) infinite}
 @keyframes walk{25%{left:70%;top:30%}50%{left:70%;top:60%}75%{left:20%;top:60%}}
+.pix{position:fixed;left:0;top:0;width:10px;height:10px;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:66;opacity:0}
+.pix.solid{mix-blend-mode:normal}
+.pix.blink{animation:blink 1s steps(1) infinite}
+.has-pix .caret{opacity:0;animation:none}
 .fly{position:fixed;z-index:65;pointer-events:none;overflow:hidden;outline:1px solid #fff}
 .fly img,.fly video{width:100%;height:100%;object-fit:cover;display:block}
 
@@ -110,7 +110,7 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 .more button{display:grid;grid-template-columns:200px 1fr auto;gap:24px;width:100%;text-align:left;padding:20px 0;border-bottom:1px solid var(--line);align-items:baseline}
 .more button:hover .go,.more button:focus-visible .go,.open.small:hover,.open.small:focus-visible{background:var(--fg);color:var(--bg)}
 .go,.open.small{padding:2px 6px}
-.posts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:56px}
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:56px}
 .post{aspect-ratio:4/5;background:#000;color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:16px;font-size:13px;line-height:1.4;outline:1px solid #262626;outline-offset:-1px}
 .post:nth-child(even){background:#fff;color:#000}
 .post .s{font-size:10px;align-self:flex-end}
@@ -156,6 +156,11 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 .case .imgs>.ph{aspect-ratio:16/9}
 .case .imgs .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .case .imgs .row .ph{aspect-ratio:4/3}
+.case .steps{display:grid;gap:40px;max-width:820px}
+.case .cs>p:first-child{margin-bottom:10px}
+.case .cs ul{list-style:none;display:grid;gap:10px}
+.case .cs li::before{content:"— ";color:var(--mute)}
+.case .cs .word{font-size:clamp(22px,2.6vw,32px);line-height:1.25;max-width:26ch}
 .case .nextp{margin-top:72px;width:100%;text-align:left;border-top:1px solid #000;padding-top:20px}
 
 /* portadas tipográficas */
@@ -215,7 +220,8 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
  .cols{grid-template-columns:1fr;gap:28px}
  .more button{grid-template-columns:1fr auto}
  .more button .d{display:none}
- .posts{grid-template-columns:1fr 1fr}
+ .posts{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ .post{font-size:11px;padding:10px;overflow-wrap:anywhere;hyphens:auto}
  .jay .grid{grid-template-columns:1fr}
  .jay .ph{max-width:320px}
  .time{grid-template-columns:1fr;border-top:0;border-left:1px solid var(--line);gap:20px;padding-left:20px}
@@ -257,7 +263,7 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 
 <div class="rail">
  <span class="n small" aria-hidden="true"></span>
- <span class="word" aria-hidden="true" data-t="lead">Jay es </span><span class="word" id="w" aria-hidden="true"></span>
+ <span class="word" aria-hidden="true" data-t="lead">Jay es </span><span class="word" id="w" aria-hidden="true"></span><span class="caret rc" aria-hidden="true"></span>
  <p class="line" aria-hidden="true"></p>
  <nav class="ticks" aria-label="Capítulos"></nav>
 </div>
@@ -281,7 +287,7 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
  <p class="small mute" data-t="navContact">Contacto</p>
  <p class="word" style="margin-top:20px" data-t="contactLine">Escríbeme por donde ya estoy.</p>
  <p class="links small"><a href="https://www.instagram.com/jaywrkr/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://github.com/Jaywrkr" target="_blank" rel="noopener">GitHub ↗</a><a href="https://jaywrkr.substack.com/" target="_blank" rel="noopener">Substack ↗</a><a href="https://www.instagram.com/coresolutionsec/" target="_blank" rel="noopener">Coresolutions ↗</a></p>
- <p class="simple">simple.</p>
+ <p class="simple">simple.<span class="caret ec" aria-hidden="true"></span></p>
  <p class="credits small mute"><span data-t="credits1">Diseño y código: Jay Jaramillo, con IA.</span><span data-t="credits2">Tipografía: Geist Mono.</span><span data-t="credits3">Hecho en Cuenca, Ecuador.</span><button class="termb btn" type="button" data-t="termBtn">~ terminal</button></p>
 </footer>
 
@@ -314,13 +320,13 @@ const T = {
  es:{skip:'Saltar al contenido', navJay:'Jay', navContact:'Contacto', lead:'Jay es ', leadSr:'ingeniero, diseñador, escritor, líder, VJ y creador', sub:'Seis formas de ver lo mismo', down:'Baja ↓', photoPh:'Foto de Jay · blanco y negro · 4:5',
   bio:'Jay Jaramillo. Ingeniero en telecomunicaciones y diseñador UX/UI, formado en el Politecnico di Milano. Lidero proyectos de infraestructura, cloud y ciberseguridad en Coresolutions, en Cuenca. Construyo productos con código e IA, escribo como @jaywrkr, hago visuales en vivo y toco batería.',
   oneLine:'Junto negocio, infraestructura y producto.', contactLine:'Escríbeme por donde ya estoy.', credits1:'Diseño y código: Jay Jaramillo, con IA.', credits2:'Tipografía: Geist Mono.', credits3:'Hecho en Cuenca, Ecuador.', close:'Cerrar · Esc',
-  problem:'Problema', did:'Qué hice', result:'Resultado', seeCase:'Ver caso →', see:'Ver →', next:'Siguiente', open:'Abrir ↗', img:'Imagen', postsNote:'Marcadores: aquí van 4 posts reales.', videoPh:'Video · clip en vivo de 10 s', chapters:'Capítulos', go:'Ir a',
-  time:[['1990','Ecuador. Empieza todo.'],['2011','Entra a Coresolutions.'],['2016','Milán. Telecomunicaciones y UX/UI en el Politecnico.'],['2020','Vuelve a Ecuador.'],['2026','Monitoreo automático, @jaywrkr en series, CoreOperaciones en operación.']], tileNum:'proyectos al año', mGraph:'Horas por informe mensual de monitoreo', mFrom:'2025 · 4 días', mTo:'mayo 2026 · 10 min', gridBtn:'Ver la retícula · G', gridOff:'Ocultar la retícula · G', gridNote:'Esta es la retícula de la página: margen, riel y 12 columnas.', sqNote:'Un cuadrado por proyecto. Setenta al año.', mic:'Activar micrófono', micOff:'Apagar micrófono', micNote:'Las barras escuchan en tu navegador. No se graba nada.', micErr:'Sin acceso al micrófono.', wdHint:'Flechas, WASD o toca para moverte.', wdScore:'Constancia', termBtn:'~ terminal', title:'Jay es ___ — Jay Jaramillo', locale:'es-EC'},
+  problem:'Problema', did:'Qué hice', context:'Contexto', decision:'Decisión', learned:'Qué aprendí', result:'Resultado', seeCase:'Ver caso →', see:'Ver →', next:'Siguiente', open:'Abrir ↗', img:'Imagen', postsNote:'Marcadores: aquí van 4 posts reales.', videoPh:'Video · clip en vivo de 10 s', chapters:'Capítulos', go:'Ir a',
+  time:[['1990','Ecuador. Empieza todo.'],['2011','Entra a Coresolutions.'],['2016','Milán. Telecomunicaciones y UX/UI en el Politecnico.'],['2020','Vuelve a Ecuador.'],['2026','Monitoreo automático, @jaywrkr en series, CoreOperaciones en operación.']], tileNum:'proyectos al año', mGraph:'Horas por informe mensual de monitoreo', mFrom:'2025 · 4 días', mTo:'mayo 2026 · 10 min', gridBtn:'Ver la guía', gridOff:'Ocultar la guía', gridNote:'Una guía de 12 columnas sobre la página, para ver cómo se alinea.', sqNote:'Un cuadrado por proyecto. Setenta al año.', mic:'Activar micrófono', micOff:'Apagar micrófono', micNote:'Las barras escuchan en tu navegador. No se graba nada.', micErr:'Sin acceso al micrófono.', wdHint:'Flechas, WASD o toca para moverte.', wdScore:'Constancia', termBtn:'~ terminal', title:'Jay es ___ — Jay Jaramillo', locale:'es-EC'},
  en:{skip:'Skip to content', navJay:'Jay', navContact:'Contact', lead:'Jay is ', leadSr:'an engineer, designer, writer, leader, VJ and creator', sub:'Six ways to see the same person', down:'Scroll ↓', photoPh:'Photo of Jay · black and white · 4:5',
   bio:'Jay Jaramillo. Telecommunications engineer and UX/UI designer, trained at Politecnico di Milano. I lead infrastructure, cloud and cybersecurity projects at Coresolutions, in Cuenca. I build products with code and AI, write as @jaywrkr, make live visuals and play drums.',
   oneLine:'I connect business, infrastructure and product.', contactLine:'Write to me where I already am.', credits1:'Design and code: Jay Jaramillo, with AI.', credits2:'Typeface: Geist Mono.', credits3:'Made in Cuenca, Ecuador.', close:'Close · Esc',
-  problem:'Problem', did:'What I did', result:'Result', seeCase:'See case →', see:'See →', next:'Next', open:'Open ↗', img:'Image', postsNote:'Placeholders: 4 real posts go here.', videoPh:'Video · 10 s live clip', chapters:'Chapters', go:'Go to',
-  time:[['1990','Ecuador. It all starts.'],['2011','Joins Coresolutions.'],['2016','Milan. Telecommunications and UX/UI at Politecnico.'],['2020','Back to Ecuador.'],['2026','Automated monitoring, @jaywrkr series, CoreOperaciones live.']], tileNum:'projects a year', mGraph:'Hours per monthly monitoring report', mFrom:'2025 · 4 days', mTo:'May 2026 · 10 min', gridBtn:'Show the grid · G', gridOff:'Hide the grid · G', gridNote:'This is the page grid: margin, rail and 12 columns.', sqNote:'One square per project. Seventy a year.', mic:'Turn on microphone', micOff:'Turn off microphone', micNote:'The bars listen in your browser. Nothing is recorded.', micErr:'No microphone access.', wdHint:'Arrows, WASD or tap to move.', wdScore:'Consistency', termBtn:'~ terminal', title:'Jay is ___ — Jay Jaramillo', locale:'en-US'}
+  problem:'Problem', did:'What I did', context:'Context', decision:'Decision', learned:'What I learned', result:'Result', seeCase:'See case →', see:'See →', next:'Next', open:'Open ↗', img:'Image', postsNote:'Placeholders: 4 real posts go here.', videoPh:'Video · 10 s live clip', chapters:'Chapters', go:'Go to',
+  time:[['1990','Ecuador. It all starts.'],['2011','Joins Coresolutions.'],['2016','Milan. Telecommunications and UX/UI at Politecnico.'],['2020','Back to Ecuador.'],['2026','Automated monitoring, @jaywrkr series, CoreOperaciones live.']], tileNum:'projects a year', mGraph:'Hours per monthly monitoring report', mFrom:'2025 · 4 days', mTo:'May 2026 · 10 min', gridBtn:'Show the guide', gridOff:'Hide the guide', gridNote:'A 12-column guide over the page, to see how it aligns.', sqNote:'One square per project. Seventy a year.', mic:'Turn on microphone', micOff:'Turn off microphone', micNote:'The bars listen in your browser. Nothing is recorded.', micErr:'No microphone access.', wdHint:'Arrows, WASD or tap to move.', wdScore:'Consistency', termBtn:'~ terminal', title:'Jay is ___ — Jay Jaramillo', locale:'en-US'}
 };
 const t = k => T[LANG][k];
 
@@ -330,38 +336,38 @@ const PJ = {
   es:{role:'Líder de proyectos · desde 2011', prob:'Empresas y entidades en Ecuador necesitan infraestructura que no falle.', did:['Dirijo proyectos de infraestructura, cloud y ciberseguridad con IBM, Lenovo, VMware, Veeam, Check Point, HPE, Aruba y Synology.','Coordino un equipo de ingenieros.','Llevo clientes y ventas.'], bigL:'proyectos al año', img:['Datacenter con racks Lenovo ThinkSystem e IBM','Diagrama de un proyecto real','Instalación en sitio']},
   en:{role:'Project lead · since 2011', prob:'Companies and institutions in Ecuador need infrastructure that does not fail.', did:['I lead infrastructure, cloud and cybersecurity projects with IBM, Lenovo, VMware, Veeam, Check Point, HPE, Aruba and Synology.','I coordinate a team of engineers.','I handle clients and sales.'], bigL:'projects a year', img:['Datacenter with Lenovo ThinkSystem and IBM racks','Diagram of a real project','On-site installation']}},
  monitoreo:{n:'Monitoreo', big:'4d → 10m',
-  es:{role:'Plataforma automática multicliente', prob:'Cada cliente nuevo obligaba a armar el monitoreo a mano.', did:['Terraform, Ansible, Docker, Prometheus, Grafana y GitLab CI/CD.','Informes mensuales automáticos hechos con IA.','Empaquetado para escalar a más clientes.'], bigL:'de 4 días a 10 minutos por informe mensual, en producción desde mayo de 2026', img:['Captura de Grafana sin datos sensibles','Página de un informe','Flujo de despliegue']},
-  en:{role:'Automated multi-client platform', prob:'Every new client meant building monitoring by hand.', did:['Terraform, Ansible, Docker, Prometheus, Grafana and GitLab CI/CD.','Automated monthly reports built with AI.','Packaged to scale to more clients.'], bigL:'from 4 days to 10 minutes per monthly report, live since May 2026', img:['Grafana screenshot without sensitive data','A report page','Deployment flow']}},
+  es:{dec:'Tratar el monitoreo como código: cada cliente nuevo sale de una plantilla.', role:'Plataforma automática multicliente', prob:'Cada cliente nuevo obligaba a armar el monitoreo a mano.', did:['Terraform, Ansible, Docker, Prometheus, Grafana y GitLab CI/CD.','Informes mensuales automáticos hechos con IA.','Empaquetado para escalar a más clientes.'], bigL:'de 4 días a 10 minutos por informe mensual, en producción desde mayo de 2026', img:['Captura de Grafana sin datos sensibles','Página de un informe','Flujo de despliegue']},
+  en:{dec:'Treat monitoring as code: every new client comes from a template.', role:'Automated multi-client platform', prob:'Every new client meant building monitoring by hand.', did:['Terraform, Ansible, Docker, Prometheus, Grafana and GitLab CI/CD.','Automated monthly reports built with AI.','Packaged to scale to more clients.'], bigL:'from 4 days to 10 minutes per monthly report, live since May 2026', img:['Grafana screenshot without sensitive data','A report page','Deployment flow']}},
  coreoperaciones:{n:'CoreOperaciones', big:'6 → 1',
-  es:{role:'En operación desde octubre de 2026', prob:'Las apps operativas de Coresolutions estaban separadas.', did:['Une CorePlanificación, CoreGestión, CoreOportunidades, CoreClientes, CoreTICS y CoreTrack en un solo tablero.','Next.js y Neon, con un MCP privado para consultar el negocio con IA.','Construido con IA.'], bigL:'apps en un solo tablero', img:['Tablero principal con datos anonimizados','Vista de decisión','Consulta por MCP']},
-  en:{role:'Live since October 2026', prob:'Coresolutions’ operational apps were scattered.', did:['Brings CorePlanificación, CoreGestión, CoreOportunidades, CoreClientes, CoreTICS and CoreTrack into one board.','Next.js and Neon, with a private MCP to query the business with AI.','Built with AI.'], bigL:'apps in one board', img:['Main board with anonymized data','Decision view','MCP query']}},
+  es:{dec:'Un solo tablero en lugar de seis apps separadas.', role:'En operación desde octubre de 2026', prob:'Las apps operativas de Coresolutions estaban separadas.', did:['Une CorePlanificación, CoreGestión, CoreOportunidades, CoreClientes, CoreTICS y CoreTrack en un solo tablero.','Next.js y Neon, con un MCP privado para consultar el negocio con IA.','Construido con IA.'], bigL:'apps en un solo tablero', img:['Tablero principal con datos anonimizados','Vista de decisión','Consulta por MCP']},
+  en:{dec:'One board instead of six separate apps.', role:'Live since October 2026', prob:'Coresolutions’ operational apps were scattered.', did:['Brings CorePlanificación, CoreGestión, CoreOportunidades, CoreClientes, CoreTICS and CoreTrack into one board.','Next.js and Neon, with a private MCP to query the business with AI.','Built with AI.'], bigL:'apps in one board', img:['Main board with anonymized data','Decision view','MCP query']}},
  minervo:{n:'Minervo Studio', src:['assets/minervo-1'], color:true, url:'https://www.instagram.com/minervostudio/',
   es:{role:'Director creativo', prob:'Marcas que necesitan un producto digital claro.', did:['Diseño de producto.','Landing pages.','Textos de interfaz.'], img:['Informe de Creatividad con IA 2026 (IACC)','Detalle de interfaz','Landing']},
   en:{role:'Creative director', prob:'Brands that need a clear digital product.', did:['Product design.','Landing pages.','Interface copy.'], img:['AI Creativity Report 2026 (IACC)','Interface detail','Landing page']}},
  sistema:{n:'Sistema @jaywrkr',
-  es:{role:'Sistema visual propio', prob:'Publicar todos los días sin que cada post sea un diseño nuevo.', did:['Negro y blanco. Geist Mono 300 y 400, nunca bold.','Solo ángulos rectos y 70% de vacío.','Siempre cierra con "simple.".'], img:['Plantillas de la serie','Marca de cada serie','Post en contexto']},
-  en:{role:'My own visual system', prob:'Publishing every day without designing every post from scratch.', did:['Black and white. Geist Mono 300 and 400, never bold.','Right angles only and 70% empty space.','Always ends with "simple.".'], img:['Series templates','Mark for each series','Post in context']}},
+  es:{dec:'Reglas fijas en lugar de diseñar cada post desde cero.', role:'Sistema visual propio', prob:'Publicar todos los días sin que cada post sea un diseño nuevo.', did:['Negro y blanco. Geist Mono 300 y 400, nunca bold.','Solo ángulos rectos y 70% de vacío.','Siempre cierra con "simple.".'], img:['Plantillas de la serie','Marca de cada serie','Post en contexto']},
+  en:{dec:'Fixed rules instead of designing every post from scratch.', role:'My own visual system', prob:'Publishing every day without designing every post from scratch.', did:['Black and white. Geist Mono 300 and 400, never bold.','Right angles only and 70% empty space.','Always ends with "simple.".'], img:['Series templates','Mark for each series','Post in context']}},
  jaywrkr:{n:'@jaywrkr', big:'7', video:'assets/jaywrkr-24', url:'https://www.instagram.com/jaywrkr/',
-  es:{role:'Escritura y contenido', prob:'El contenido de crecimiento personal suele ser cliché.', did:['Escribo verdades incómodas en blanco y negro.','Series semanales de lunes a domingo.','No vendo nada: es reputación.'], bigL:'series, una por día, desde el 5 de octubre de 2026', img:['Reel: Optimizar no es avanzar.','Post de la serie del miércoles','Post de la serie del viernes']},
-  en:{role:'Writing and content', prob:'Personal growth content is usually a cliché.', did:['I write uncomfortable truths in black and white.','Weekly series, Monday to Sunday.','I sell nothing: it is reputation.'], bigL:'series, one per day, since October 5, 2026', img:['Reel: Optimizing is not moving forward.','Wednesday series post','Friday series post']}},
+  es:{dec:'Una serie fija por día en lugar de publicar lo que salga.', role:'Escritura y contenido', prob:'El contenido de crecimiento personal suele ser cliché.', did:['Escribo verdades incómodas en blanco y negro.','Series semanales de lunes a domingo.','No vendo nada: es reputación.'], bigL:'series, una por día, desde el 5 de octubre de 2026', img:['Reel: Optimizar no es avanzar.','Post de la serie del miércoles','Post de la serie del viernes']},
+  en:{dec:'A fixed series per day instead of posting whatever comes up.', role:'Writing and content', prob:'Personal growth content is usually a cliché.', did:['I write uncomfortable truths in black and white.','Weekly series, Monday to Sunday.','I sell nothing: it is reputation.'], bigL:'series, one per day, since October 5, 2026', img:['Reel: Optimizing is not moving forward.','Wednesday series post','Friday series post']}},
  coreai:{n:'CoreAI',
-  es:{role:'Lidero la práctica', prob:'Empresas que quieren usar IA sin exponer sus datos o sin saber por dónde empezar.', did:['IA propia on-premise: primero herramienta interna, después producto.','Oferta ChatGPT Enterprise: Discovery, Launch, Adoption y Go.','Formación del equipo.'], img:['Diagrama de la oferta','Arquitectura on-premise','Taller con un cliente']},
-  en:{role:'I lead the practice', prob:'Companies that want to use AI without exposing their data, or without knowing where to start.', did:['Our own on-premise AI: internal tool first, product next.','ChatGPT Enterprise offer: Discovery, Launch, Adoption and Go.','Team training.'], img:['Offer diagram','On-premise architecture','Workshop with a client']}},
+  es:{dec:'Primero herramienta interna, después producto para clientes.', role:'Lidero la práctica', prob:'Empresas que quieren usar IA sin exponer sus datos o sin saber por dónde empezar.', did:['IA propia on-premise: primero herramienta interna, después producto.','Oferta ChatGPT Enterprise: Discovery, Launch, Adoption y Go.','Formación del equipo.'], img:['Diagrama de la oferta','Arquitectura on-premise','Taller con un cliente']},
+  en:{dec:'Internal tool first, product for clients next.', role:'I lead the practice', prob:'Companies that want to use AI without exposing their data, or without knowing where to start.', did:['Our own on-premise AI: internal tool first, product next.','ChatGPT Enterprise offer: Discovery, Launch, Adoption and Go.','Team training.'], img:['Offer diagram','On-premise architecture','Workshop with a client']}},
  vj:{n:'Rig VJ', big:'20', url:'https://www.instagram.com/naturalnoise/',
-  es:{role:'TouchDesigner · @naturalnoise · @jay.infinito', prob:'Quería visuales en vivo que respondan a la música en el momento.', did:['20 escenas audio-reactivas en TouchDesigner.','Control con Arturia MiniLab MkII.','Tablero de 20 escenas en 5 × 4.'], bigL:'escenas audio-reactivas', img:['Clip en vivo de 10 s','Tablero de escenas','Foto del set']},
-  en:{role:'TouchDesigner · @naturalnoise · @jay.infinito', prob:'I wanted live visuals that respond to the music as it happens.', did:['20 audio-reactive scenes in TouchDesigner.','Controlled with an Arturia MiniLab MkII.','A 5 × 4 board of 20 scenes.'], bigL:'audio-reactive scenes', img:['10 s live clip','Scene board','Photo of the set']}},
+  es:{dec:'Un tablero fijo de 20 escenas que se controla a mano en vivo.', role:'TouchDesigner · @naturalnoise · @jay.infinito', prob:'Quería visuales en vivo que respondan a la música en el momento.', did:['20 escenas audio-reactivas en TouchDesigner.','Control con Arturia MiniLab MkII.','Tablero de 20 escenas en 5 × 4.'], bigL:'escenas audio-reactivas', img:['Clip en vivo de 10 s','Tablero de escenas','Foto del set']},
+  en:{dec:'A fixed board of 20 scenes controlled by hand, live.', role:'TouchDesigner · @naturalnoise · @jay.infinito', prob:'I wanted live visuals that respond to the music as it happens.', did:['20 audio-reactive scenes in TouchDesigner.','Controlled with an Arturia MiniLab MkII.','A 5 × 4 board of 20 scenes.'], bigL:'audio-reactive scenes', img:['10 s live clip','Scene board','Photo of the set']}},
  jdrums:{n:'J-Drums',
-  es:{role:'Web · MIDI', prob:'Practicar batería solo es aburrido y sin guía.', did:['Las notas caen como en Guitar Hero y se tocan en una Roland TD-02.','Modo lecciones y modo grooves.','Calibración MIDI en la misma página.'], img:['Video de pantalla con la batería','Modo lecciones','Calibración MIDI']},
-  en:{role:'Web · MIDI', prob:'Practicing drums alone is boring and has no guidance.', did:['Notes fall like in Guitar Hero and are played on a Roland TD-02.','Lessons mode and grooves mode.','MIDI calibration on the same page.'], img:['Screen recording with the kit','Lessons mode','MIDI calibration']}},
+  es:{dec:'Practicar con la batería real por MIDI, no con el teclado.', role:'Web · MIDI', prob:'Practicar batería solo es aburrido y sin guía.', did:['Las notas caen como en Guitar Hero y se tocan en una Roland TD-02.','Modo lecciones y modo grooves.','Calibración MIDI en la misma página.'], img:['Video de pantalla con la batería','Modo lecciones','Calibración MIDI']},
+  en:{dec:'Practice on the real kit over MIDI, not the keyboard.', role:'Web · MIDI', prob:'Practicing drums alone is boring and has no guidance.', did:['Notes fall like in Guitar Hero and are played on a Roland TD-02.','Lessons mode and grooves mode.','MIDI calibration on the same page.'], img:['Screen recording with the kit','Lessons mode','MIDI calibration']}},
  whitedot:{n:'WhiteDot',
-  es:{role:'Videojuego en desarrollo', prob:'Un juego que premie la constancia, no la suerte.', did:['Eres un pixel blanco en un mundo negro que crece.','La música electrónica se genera al jugar.','Web primero; después iOS, Android y PC.'], img:['Captura del juego','Bioma','Logros']},
-  en:{role:'Video game in development', prob:'A game that rewards consistency, not luck.', did:['You are a white pixel in a black world that grows.','Electronic music is generated as you play.','Web first; then iOS, Android and PC.'], img:['Game screenshot','Biome','Achievements']}}
+  es:{dec:'Web primero; después iOS, Android y PC.', role:'Videojuego en desarrollo', prob:'Un juego que premie la constancia, no la suerte.', did:['Eres un pixel blanco en un mundo negro que crece.','La música electrónica se genera al jugar.','Web primero; después iOS, Android y PC.'], img:['Captura del juego','Bioma','Logros']},
+  en:{dec:'Web first; then iOS, Android and PC.', role:'Video game in development', prob:'A game that rewards consistency, not luck.', did:['You are a white pixel in a black world that grows.','Electronic music is generated as you play.','Web first; then iOS, Android and PC.'], img:['Game screenshot','Biome','Achievements']}}
 };
 const CH = [
  {id:'ingeniero', w:{es:'ingeniero', en:'an engineer'}, theme:'dark', line:{es:'Infraestructura, cloud y ciberseguridad. Que funcione.', en:'Infrastructure, cloud and cybersecurity. That works.'}, feat:'coresolutions', more:['monitoreo','coreoperaciones'], tile:{type:'img', src:'assets/coresolutions-1'}},
  {id:'disenador', w:{es:'diseñador', en:'a designer'}, theme:'light', line:{es:'Si no se entiende, no existe.', en:'If it is not clear, it does not exist.'}, feat:'minervo', more:['sistema'], tile:{type:'img', src:'assets/minervo-1'}},
- {id:'escritor', w:{es:'escritor', en:'a writer'}, theme:'dark', line:{es:'Verdades incómodas, escritas simple.', en:'Uncomfortable truths, written simple.'}, feat:'jaywrkr', more:[], quote:{es:'Optimizar no es avanzar.', en:'Optimizing is not moving forward.'}, posts:{es:['No es disciplina. Es un sistema.','Hazlo otra vez.','Nadie te está viendo. Hazlo igual.','El único atajo es no buscar atajos.'], en:['It is not discipline. It is a system.','Do it again.','Nobody is watching. Do it anyway.','The only shortcut is not looking for one.']}, tile:{type:'video', src:'assets/jaywrkr-24'}},
- {id:'lider', w:{es:'líder', en:'a leader'}, theme:'light', line:{es:'Pragmatismo. Escucha, habla menos.', en:'Pragmatism. Listen, talk less.'}, feat:null, more:['coreai'], prin:{es:['Pragmatismo.','Escucha, habla menos.','El único atajo es no buscar atajos.'], en:['Pragmatism.','Listen, talk less.','The only shortcut is not looking for one.']}, stats:{es:[['15','años en Coresolutions'],['70','proyectos al año']], en:[['15','years at Coresolutions'],['70','projects a year']]}, tile:{type:'num'}},
+ {id:'escritor', w:{es:'escritor', en:'a writer'}, theme:'dark', line:{es:'Verdades incómodas, escritas simple.', en:'Uncomfortable truths, written simple.'}, feat:'jaywrkr', more:[], quote:{es:'Optimizar no es avanzar.', en:'Optimizing is not moving forward.'}, posts:{es:['Éxito es tener cada día menos arrepentimientos.','¿Cómo sería esto más divertido?','El único atajo es no buscar atajos.'], en:['Success is having fewer regrets every day.','How would this be more fun?','The only shortcut is not looking for one.']}, tile:{type:'video', src:'assets/jaywrkr-24'}},
+ {id:'lider', w:{es:'líder', en:'a leader'}, theme:'light', line:{es:'Pragmatismo. Escucha, habla menos.', en:'Pragmatism. Listen, talk less.'}, feat:null, more:['coreai'], prin:{es:['Pragmatismo.','Escucha, habla menos.'], en:['Pragmatism.','Listen, talk less.']}, stats:{es:[['15','años en Coresolutions'],['70','proyectos al año']], en:[['15','years at Coresolutions'],['70','projects a year']]}, tile:{type:'num'}},
  {id:'vj', w:{es:'VJ', en:'a VJ'}, theme:'dark', line:{es:'Visuales en vivo que responden a la música.', en:'Live visuals that respond to the music.'}, feat:'vj', more:[], tile:{type:'vj'}},
  {id:'creador', w:{es:'creador', en:'a creator'}, theme:'light', line:{es:'Constancia, no suerte.', en:'Consistency, not luck.'}, feat:'whitedot', more:['jdrums'], tile:{type:'dot'}}
 ];
@@ -523,7 +529,7 @@ function initGame(){
  place(); vis[py * C + px] = 1; draw();
  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => { const v = es[0].isIntersecting; if (v && !timer) timer = setInterval(step, 90); if (!v && timer){ clearInterval(timer); timer = 0; } }) : null;
  if (io) io.observe(cv);
- game = {stop(){ clearInterval(timer); if (io) io.disconnect(); }};
+ game = {stop(){ clearInterval(timer); if (io) io.disconnect(); }, cell(){ const r = cv.getBoundingClientRect(), w = r.width / C, h = r.height / Rr; return {left: r.left + px * w, top: r.top + py * h, width: w, height: h}; }};
 }
 
 /* VJ: barras que escuchan el micrófono, solo si la persona lo activa */
@@ -593,11 +599,47 @@ addEventListener('keydown', e => {
  const tg = e.target;
  if (e.metaKey || e.ctrlKey || e.altKey || (tg.closest && tg.closest('input, textarea, canvas, [contenteditable]'))) return;
  if (e.key === '~' || e.key === '`' || e.key === 'º'){ e.preventDefault(); if (term.hidden) openTerm(); else closeTerm(); return; }
- if (e.key === 'g' || e.key === 'G') toggleGrid();
- kb = (kb + e.key.toLowerCase()).slice(-3); if (kb === 'jay'){ kb = ''; openTerm(); }
+ kb = (kb + e.key.toLowerCase()).slice(-3); if (kb === 'jay'){ kb = ''; e.preventDefault(); openTerm(); }
 });
 
 render(); setupScroll(); initGame();
+
+/* el pixel blanco: nace como cursor en la portada, pasa por el riel, dibuja la gráfica,
+   llena los 70 cuadrados y termina como jugador de WhiteDot */
+const pix = document.createElement('i'); pix.className = 'pix'; pix.setAttribute('aria-hidden', 'true'); document.body.appendChild(pix);
+if (G){
+ document.documentElement.classList.add('has-pix');
+ const dur = reduce ? 0 : .35, ease = 'power3.out';
+ const q = {x: G.quickTo(pix, 'x', {duration: dur, ease}), y: G.quickTo(pix, 'y', {duration: dur, ease}), w: G.quickTo(pix, 'width', {duration: dur, ease}), h: G.quickTo(pix, 'height', {duration: dur, ease})};
+ let shown = false, last = '', wantSolid = false, solidT = 0;
+ const inMid = el => { if (!el) return null; const r = el.getBoundingClientRect(); return r.width && r.top < innerHeight * .8 && r.bottom > innerHeight * .2 ? r : null; };
+ const graphHead = () => {
+  const ln = document.querySelector('.graph .ln'), r = inMid(ln && ln.ownerSVGElement); if (!r) return null;
+  const pr = 1 - (parseFloat(getComputedStyle(ln).strokeDashoffset) || 0); let d = pr * 760, x, y;
+  if (d <= 420){ x = d; y = 16; } else if (d <= 580){ x = 420; y = 16 + (d - 420); } else { x = 420 + (d - 580); y = 176; }
+  const sx = r.width / 600, sy = r.height / 180; return {left: r.left + x * sx - 5, top: r.top + y * sy - 5, width: 10, height: 10};
+ };
+ const sqHead = () => { const g = document.querySelector('.sq70'); if (!inMid(g)) return null; const el = g.querySelector('i:not(.on)') || g.lastElementChild; return el.getBoundingClientRect(); };
+ const caretOf = el => { const r = inMid(el); return r ? {left: r.left, top: r.top, width: r.width, height: r.height, blink: true} : null; };
+ function pick(){
+  if (!caseEl.hidden) return null;
+  if (game && inMid(document.querySelector('.wd canvas'))) return Object.assign(game.cell(), {solid: true});
+  return graphHead() || sqHead() || caretOf(document.querySelector('.typer .caret'))
+   || (scrollY < innerHeight * .6 ? caretOf(document.querySelector('.hero .caret')) : null)
+   || caretOf(document.querySelector('.end .ec'))
+   || (parseFloat(getComputedStyle(rail).opacity) > .5 ? caretOf(rail.querySelector('.rc')) : null);
+ }
+ G.ticker.add(() => {
+  const a = pick();
+  if (!a){ if (shown){ shown = false; pix.classList.remove('blink'); G.to(pix, {opacity: 0, duration: .2, overwrite: 'auto'}); } return; }
+  const k = [a.left, a.top, a.width, a.height].map(Math.round).join();
+  if (!shown){ shown = true; G.set(pix, {x: a.left, y: a.top, width: a.width, height: a.height}); G.to(pix, {opacity: 1, duration: .2, overwrite: 'auto'}); }
+  else if (k !== last){ if (a.solid && pix.classList.contains('solid')) G.set(pix, {x: a.left, y: a.top, width: a.width, height: a.height}); else { q.x(a.left); q.y(a.top); q.w(a.width); q.h(a.height); } }
+  last = k; pix.classList.toggle('blink', !!a.blink && !reduce);
+  wantSolid = !!a.solid;
+  if (wantSolid !== pix.classList.contains('solid')){ if (!wantSolid){ clearTimeout(solidT); solidT = 0; pix.classList.remove('solid'); } else if (!solidT) solidT = setTimeout(() => { solidT = 0; pix.classList.toggle('solid', wantSolid); }, 380); }
+ });
+}
 
 /* portada: entrada de los cuadrados */
 if (G && !reduce) G.from('.tile', {clipPath:'inset(50% 50% 50% 50%)', duration:.6, ease:'steps(8)', stagger:.09, delay:.25});
@@ -653,10 +695,18 @@ let caseFrom = null;
 const allKeys = () => CH.flatMap(c => [c.feat, ...c.more]).filter(Boolean);
 function caseHTML(k){
  const p = P(k), ks = allKeys(), nx = ks[(ks.indexOf(k) + 1) % ks.length];
+ const sec = (n, label, body) => `<div class="cs"><p class="small mute">${n} — ${label}</p>${body}</div>`;
+ let n = 0; const N = () => String(++n).padStart(2, '0');
  return `<p class="small mute">${esc(p.role)}</p><h2>${esc(p.n)}</h2>
- <div class="cols"><div><p class="small mute">${t('problem')}</p><p style="margin-top:8px">${esc(p.prob)}</p>${resultHTML(p)}${p.url ? `<p style="margin-top:28px"><a href="${p.url}" target="_blank" rel="noopener">${t('open')}</a></p>` : ''}</div>
- <div><p class="small mute">${t('did')}</p><ul style="margin-top:8px">${p.did.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div></div>
+ <div class="steps">
+  ${sec(N(), t('context'), `<p>${esc(p.prob)}</p>`)}
+  ${p.dec ? sec(N(), t('decision'), `<p class="word">${esc(p.dec)}</p>`) : ''}
+  ${sec(N(), t('did'), `<ul>${p.did.map(d => `<li>${esc(d)}</li>`).join('')}</ul>`)}
+  ${p.big ? sec(N(), t('result'), `<p class="big">${esc(p.big)}</p><p class="mute">${esc(p.bigL)}</p>`) : ''}
+ </div>
  <div class="imgs">${media(p, 0, `${t('img')} 1 · ${p.img[0]}`, true)}${[1, 2].some(i => srcOf(p, i)) ? `<div class="row">${[1, 2].filter(i => srcOf(p, i)).map(i => media(p, i, p.img[i], true)).join('')}</div>` : ''}</div>
+ ${p.learn ? `<div class="cs" style="margin-top:64px">${'<p class="small mute">' + t('learned') + '</p>'}<p class="word">${esc(p.learn)}</p></div>` : ''}
+ ${p.url ? `<p style="margin-top:40px"><a href="${p.url}" target="_blank" rel="noopener">${t('open')}</a></p>` : ''}
  <button class="nextp" type="button" data-k="${nx}"><span class="small mute">${t('next')}</span><br><span class="word">${esc(PJ[nx].n)} →</span></button>`;
 }
 const rectInset = r => `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px)`;
@@ -696,22 +746,6 @@ new MutationObserver(() => watchVideos(caseIn)).observe(caseIn, {childList:true}
 
 /* enlaces internos */
 document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const tg = document.querySelector(a.getAttribute('href')); if (!tg) return; e.preventDefault(); scrollTo(tg); }));
-
-/* cursor: un cuadrado que invierte y enmarca lo que se puede tocar */
-if (fine && G && !reduce){
- const cur = document.createElement('div'); cur.className = 'cur'; cur.setAttribute('aria-hidden', 'true'); document.body.appendChild(cur);
- document.documentElement.classList.add('has-cur');
- const qx = G.quickTo(cur, 'x', {duration:.18, ease:'power3'}), qy = G.quickTo(cur, 'y', {duration:.18, ease:'power3'});
- let tgt = null;
- addEventListener('pointermove', e => {
-  G.to(cur, {opacity:1, duration:.2, overwrite:'auto'});
-  const el = e.target.closest ? e.target.closest('a, button, .tile') : null;
-  if (el){ const r = el.getBoundingClientRect(); if (tgt !== el){ tgt = el; cur.classList.add('frame'); G.to(cur, {width: r.width + 10, height: r.height + 10, duration:.25, ease:'power3'}); } qx(r.left - 5); qy(r.top - 5); }
-  else { if (tgt){ tgt = null; cur.classList.remove('frame'); G.to(cur, {width:10, height:10, duration:.2}); } qx(e.clientX - 5); qy(e.clientY - 5); }
- }, {passive:true});
- addEventListener('scroll', () => { if (tgt){ tgt = null; cur.classList.remove('frame'); G.to(cur, {width:10, height:10, duration:.15}); } }, {passive:true});
- document.addEventListener('pointerleave', () => G.to(cur, {opacity:0, duration:.2}));
-}
 
 /* reloj de Cuenca */
 const clock = document.getElementById('clock');

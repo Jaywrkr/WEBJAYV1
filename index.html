@@ -6,7 +6,7 @@
 <title>Jay es ___ — Jay Jaramillo</title>
 <meta name="description" content="Jay Jaramillo (jaywrkr). Ingeniero, diseñador, escritor, líder, VJ y creador. Cuenca, Ecuador.">
 <meta name="theme-color" content="#000000">
-<meta property="og:title" content="Jay es ___">
+<meta property="og:title" content="Jay es ___ — Jay Jaramillo">
 <meta property="og:description" content="Ingeniero, diseñador, escritor, líder, VJ y creador. Cuenca, Ecuador.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="og.png">
@@ -15,15 +15,16 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23000'/%3E%3Crect x='5' y='5' width='6' height='6' fill='%23fff'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/geist-mono-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-:root{--bg:#000;--fg:#fff;--mute:#8a8a8a;--line:#262626;--pad:clamp(16px,6vw,112px);--rail:min(36vw,520px)}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:300;font-display:swap;src:url(fonts/geist-mono-latin-300-normal.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/geist-mono-latin-400-normal.woff2) format('woff2')}
+:root{--bg:#000;--fg:#fff;--mute:#8a8a8a;--line:#262626;--pad:clamp(16px,6vw,112px);--rail:min(36vw,520px);--t:clamp(104px,11.5vw,188px)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{background:#000;color:#fff;font:300 15px/1.65 'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;overflow-x:hidden}
 a{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
+a:hover,a:focus-visible{background:var(--fg);color:var(--bg);border-bottom-color:transparent}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 :focus-visible{outline:1px solid currentColor;outline-offset:4px}
 ::selection{background:#fff;color:#000}
@@ -33,29 +34,62 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .skip{position:fixed;left:16px;top:-48px;z-index:100;background:#fff;color:#000;padding:8px 12px;border:0}
 .skip:focus{top:16px}
 
-/* barra */
-.bar{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px var(--pad);mix-blend-mode:difference;color:#fff}
-.bar a{border:0}
+/* barra y progreso */
+.bar{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px var(--pad);mix-blend-mode:difference;color:#fff;--fg:#fff;--bg:#000}
+.bar a{border:0;padding:2px 0}
+.bar a:hover{background:none;color:#fff;text-decoration:underline;text-underline-offset:4px}
 .bar-l,.bar-r{display:flex;gap:24px;align-items:center}
 #clock{font-variant-numeric:tabular-nums}
+.lang{display:flex;gap:2px}
+.lang button{padding:2px 5px;opacity:.55}
+.lang button[aria-pressed=true]{opacity:1;background:#fff;color:#000}
+.prog{position:fixed;left:0;top:0;height:2px;width:100%;background:#fff;transform-origin:left;transform:scaleX(0);z-index:60;mix-blend-mode:difference;pointer-events:none}
+
+/* cursor */
+.cur{position:fixed;left:0;top:0;width:10px;height:10px;border:1px solid #fff;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:90;opacity:0}
+.cur.frame{background:transparent}
+.has-cur,.has-cur a,.has-cur button{cursor:none}
 
 /* portada */
-.hero{height:100svh;min-height:560px;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad);position:relative}
+.hero{height:100svh;min-height:620px;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad);position:relative}
 h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;letter-spacing:-.02em}
-.blank{display:inline-block;width:4.5ch;border-bottom:1px solid #fff;height:.9em;vertical-align:-.08em}
+.hw{display:inline-block;min-width:4.5ch;border-bottom:1px solid #fff;white-space:nowrap;vertical-align:baseline;line-height:1}
+.hw:empty::before{content:"\00a0"}
+.hw.on{border-bottom-color:transparent}
 .caret{display:inline-block;width:.5em;height:.9em;background:#fff;vertical-align:-.1em;margin-left:.08em;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .hero .sub{margin-top:28px;display:flex;gap:32px;flex-wrap:wrap}
 .hero .down{position:absolute;left:var(--pad);bottom:28px}
+.tiles{position:absolute;right:var(--pad);top:50%;margin-top:calc(var(--t)*-1);display:grid;grid-template-columns:repeat(3,var(--t));grid-auto-rows:var(--t);gap:12px}
+.tile{position:relative;display:block;width:100%;height:100%;overflow:hidden;background:#0b0b0b;border:1px solid #262626;text-align:left;transition:opacity .3s steps(3)}
+.tile:nth-child(2),.tile:nth-child(5){transform:translateY(-24px)}
+.tile picture{display:block;width:100%;height:100%}
+.tile img,.tile video{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1)}
+.tile .lab{position:absolute;left:8px;bottom:8px;background:#000;color:#fff;padding:3px 6px;z-index:2}
+.tile>*{transition:opacity .3s steps(3)}
+.tiles.hov .tile:not(.act)>*{opacity:.25}
+.tiles.hov .tile.act{border-color:#fff}
+.tile.num{display:flex;flex-direction:column;justify-content:center;padding:14px}
+.tile.num b{font-weight:300;font-size:clamp(34px,4vw,56px);line-height:1}
+.tile.vj{display:flex;align-items:flex-end;gap:5px;padding:18px 14px 34px}
+.tile.vj i{flex:1;background:#fff;height:20%;animation:bar 1.2s steps(6) infinite alternate}
+.tile.vj i:nth-child(2){animation-delay:-.3s}.tile.vj i:nth-child(3){animation-delay:-.7s}.tile.vj i:nth-child(4){animation-delay:-.2s}.tile.vj i:nth-child(5){animation-delay:-.9s}.tile.vj i:nth-child(6){animation-delay:-.5s}
+@keyframes bar{to{height:85%}}
+.tile.dot::before{content:"";position:absolute;width:8px;height:8px;background:#fff;left:20%;top:30%;animation:walk 6s steps(24) infinite}
+@keyframes walk{25%{left:70%;top:30%}50%{left:70%;top:60%}75%{left:20%;top:60%}}
+.fly{position:fixed;z-index:65;pointer-events:none;overflow:hidden;outline:1px solid #fff}
+.fly img,.fly video{width:100%;height:100%;object-fit:cover;display:block}
 
-/* el riel: "Jay es ___" fijo durante toda la historia */
+/* el riel */
 .rail{position:fixed;left:var(--pad);top:50%;transform:translateY(-50%);width:var(--rail);z-index:20;pointer-events:none;mix-blend-mode:difference;color:#fff;opacity:0;visibility:hidden}
 .rail .n{display:block;margin-bottom:18px}
 .rail .word{font-size:clamp(28px,3.4vw,48px)}
 .rail .line{margin-top:20px;max-width:30ch;font-size:15px;opacity:.8;min-height:3.3em}
-.rail .ticks{display:flex;gap:6px;margin-top:28px}
-.rail .ticks i{width:18px;height:2px;background:#fff;opacity:.25}
-.rail .ticks i.on{opacity:1}
+.rail .ticks{display:flex;gap:4px;margin-top:28px;pointer-events:auto}
+.rail .ticks button{width:26px;height:18px;position:relative}
+.rail .ticks button::after{content:"";position:absolute;left:4px;right:4px;top:8px;height:2px;background:#fff;opacity:.25}
+.rail .ticks button:hover::after{opacity:.6}
+.rail .ticks button.on::after{opacity:1}
 
 /* capítulos */
 .ch{position:relative;min-height:100vh;padding:22vh var(--pad) 18vh calc(var(--pad) + var(--rail) + 48px)}
@@ -74,7 +108,7 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 .big{font-size:56px;line-height:1;font-weight:300;letter-spacing:-.02em;margin:6px 0 8px;font-variant-numeric:tabular-nums}
 .more{margin-top:72px;border-top:1px solid var(--line)}
 .more button{display:grid;grid-template-columns:200px 1fr auto;gap:24px;width:100%;text-align:left;padding:20px 0;border-bottom:1px solid var(--line);align-items:baseline}
-.more button:hover .go,.more button:focus-visible .go,.open.small:hover{background:var(--fg);color:var(--bg)}
+.more button:hover .go,.more button:focus-visible .go,.open.small:hover,.open.small:focus-visible{background:var(--fg);color:var(--bg)}
 .go,.open.small{padding:2px 6px}
 .posts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:56px}
 .post{aspect-ratio:4/5;background:#000;color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:16px;font-size:13px;line-height:1.4;outline:1px solid #262626;outline-offset:-1px}
@@ -84,7 +118,7 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 .prin p{font-size:22px;line-height:1.35}
 .prin span{display:block;margin-bottom:4px}
 
-/* marcador de imagen: se reemplaza con material real */
+/* medios y marcadores */
 .ph{position:relative;width:100%;border:1px solid var(--line);background-image:linear-gradient(90deg,var(--line) 1px,transparent 1px),linear-gradient(var(--line) 1px,transparent 1px);background-size:24px 24px;overflow:hidden}
 .ph::after{content:"";position:absolute;top:0;bottom:0;left:0;width:30%;background:linear-gradient(90deg,transparent,rgba(128,128,128,.14),transparent);animation:scan 2.6s steps(26) infinite}
 @keyframes scan{from{transform:translateX(-100%)}to{transform:translateX(340%)}}
@@ -107,14 +141,16 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 .time b{display:block;font-weight:300;font-size:22px;margin-bottom:6px}
 
 /* cierre */
-.end{min-height:90vh;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad);background:#000;position:relative;z-index:2}
+.end{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad);background:#000;position:relative;z-index:2;--fg:#fff;--bg:#000}
 .end .links{display:flex;gap:28px;flex-wrap:wrap;margin-top:40px}
-.end .simple{margin-top:16vh;font-size:56px;font-weight:300}
+.end .simple{margin-top:14vh;font-size:56px;font-weight:300}
+.end .credits{margin-top:40px;display:flex;gap:24px;flex-wrap:wrap}
 
 /* caso abierto */
 .case{position:fixed;inset:0;z-index:70;background:#fff;color:#000;overflow:auto;overscroll-behavior:contain;clip-path:inset(50% 50% 50% 50%);visibility:hidden;--bg:#fff;--fg:#000;--mute:#6b6b6b;--line:#e2e2e2}
 .case .in{padding:96px var(--pad) 120px;max-width:1280px}
 .case .x{position:fixed;right:var(--pad);top:20px;padding:4px 8px;border:1px solid #000;background:#fff;z-index:2}
+.case .x:hover{background:#000;color:#fff}
 .case h2{font-weight:300;font-size:clamp(34px,5.2vw,56px);letter-spacing:-.02em;line-height:1.1;margin:16px 0 40px}
 .case .imgs{display:grid;gap:16px;margin-top:64px}
 .case .imgs>.ph{aspect-ratio:16/9}
@@ -123,7 +159,12 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
 .case .nextp{margin-top:72px;width:100%;text-align:left;border-top:1px solid #000;padding-top:20px}
 
 @media(max-width:900px){
- :root{--rail:0px}
+ :root{--rail:0px;--t:calc((100vw - var(--pad)*2 - 24px)/3)}
+ .hero{justify-content:flex-start;padding-top:22svh;height:auto;min-height:100svh}
+ .tiles{position:static;margin:48px 0 0}
+ .tile:nth-child(2),.tile:nth-child(5){transform:none}
+ .tile.num .small{display:none}
+ .hero .down{position:static;margin-top:32px}
  .rail{top:58px;transform:none;left:0;right:0;width:auto;padding:10px var(--pad);border-bottom:1px solid rgba(255,255,255,.3)}
  .rail .word{font-size:20px}
  .ch .tag{display:none}
@@ -143,30 +184,32 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
  .big{font-size:44px}
 }
 @media(prefers-reduced-motion:reduce){
- .caret{animation:none}.ph::after{animation:none}
+ .caret,.ph::after,.tile.vj i,.tile.dot::before{animation:none}
  .ch .bg{clip-path:none}
 }
 </style>
 </head>
 <body>
-<a class="skip" href="#historia">Saltar al contenido</a>
+<a class="skip" href="#historia" data-t="skip">Saltar al contenido</a>
+<i class="prog" aria-hidden="true"></i>
 
 <header class="bar small">
  <span class="bar-l"><a href="#top">Jay Jaramillo</a><span id="clock" class="hide-m">Cuenca</span></span>
- <span class="bar-r"><a href="#jay">Jay</a><a href="#contacto">Contacto</a></span>
+ <span class="bar-r"><a href="#jay" data-t="navJay">Jay</a><a href="#contacto" data-t="navContact">Contacto</a><span class="lang" role="group" aria-label="Idioma / Language"><button type="button" data-l="es" aria-pressed="true">ES</button><button type="button" data-l="en" aria-pressed="false">EN</button></span></span>
 </header>
 
 <section class="hero" id="top" aria-label="Portada">
- <h1>Jay es <span class="blank" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span><span class="sr">ingeniero, diseñador, escritor, líder, VJ y creador</span></h1>
- <p class="sub small mute"><span>Jay Jaramillo</span><span>Cuenca, Ecuador</span><span>Seis formas de ver lo mismo</span></p>
- <p class="down small mute">Baja ↓</p>
+ <h1><span data-t="lead">Jay es </span><span class="hw" id="hw" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span><span class="sr" data-t="leadSr">ingeniero, diseñador, escritor, líder, VJ y creador</span></h1>
+ <p class="sub small mute"><span>Jay Jaramillo</span><span>Cuenca, Ecuador</span><span data-t="sub">Seis formas de ver lo mismo</span></p>
+ <nav class="tiles" aria-label="Facetas"></nav>
+ <p class="down small mute" data-t="down">Baja ↓</p>
 </section>
 
-<div class="rail" aria-hidden="true">
- <span class="n small"></span>
- <span class="word">Jay es </span><span class="word" id="w"></span>
- <p class="line"></p>
- <span class="ticks"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+<div class="rail">
+ <span class="n small" aria-hidden="true"></span>
+ <span class="word" aria-hidden="true" data-t="lead">Jay es </span><span class="word" id="w" aria-hidden="true"></span>
+ <p class="line" aria-hidden="true"></p>
+ <nav class="ticks" aria-label="Capítulos"></nav>
 </div>
 
 <main id="historia"></main>
@@ -175,150 +218,249 @@ h1,.word{font-weight:300;font-size:clamp(34px,5.2vw,56px);line-height:1.12;lette
  <div class="bg"></div>
  <p class="tag small mute">Jay</p>
  <div class="grid">
-  <div class="ph"><span class="small">Foto de Jay · blanco y negro · 4:5</span></div>
+  <div class="ph"><span class="small" data-t="photoPh">Foto de Jay · blanco y negro · 4:5</span></div>
   <div>
-   <p class="bio">Jay Jaramillo. Ingeniero en telecomunicaciones y diseñador UX/UI, formado en el Politecnico di Milano. Lidero proyectos de infraestructura, cloud y ciberseguridad en Coresolutions, en Cuenca. Construyo productos con código e IA, escribo como @jaywrkr, hago visuales en vivo y toco batería.</p>
-   <p class="small mute" style="margin-top:28px">Junto negocio, infraestructura y producto.</p>
+   <p class="bio" data-t="bio">Jay Jaramillo. Ingeniero en telecomunicaciones y diseñador UX/UI, formado en el Politecnico di Milano. Lidero proyectos de infraestructura, cloud y ciberseguridad en Coresolutions, en Cuenca. Construyo productos con código e IA, escribo como @jaywrkr, hago visuales en vivo y toco batería.</p>
+   <p class="small mute" style="margin-top:28px" data-t="oneLine">Junto negocio, infraestructura y producto.</p>
   </div>
  </div>
- <ol class="time">
-  <li><b>1990</b><span class="mute">Ecuador. Empieza todo.</span></li>
-  <li><b>2011</b><span class="mute">Entra a Coresolutions.</span></li>
-  <li><b>2016</b><span class="mute">Milán. Telecomunicaciones y UX/UI en el Politecnico.</span></li>
-  <li><b>2020</b><span class="mute">Vuelve a Ecuador.</span></li>
-  <li><b>2026</b><span class="mute">Monitoreo automático, @jaywrkr en series, CoreOperaciones en operación.</span></li>
- </ol>
+ <ol class="time"></ol>
 </section>
 
 <footer class="end" id="contacto">
- <p class="small mute">Contacto</p>
- <p class="word" style="margin-top:20px">Escríbeme por donde ya estoy.</p>
+ <p class="small mute" data-t="navContact">Contacto</p>
+ <p class="word" style="margin-top:20px" data-t="contactLine">Escríbeme por donde ya estoy.</p>
  <p class="links small"><a href="https://www.instagram.com/jaywrkr/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://github.com/Jaywrkr" target="_blank" rel="noopener">GitHub ↗</a><a href="https://jaywrkr.substack.com/" target="_blank" rel="noopener">Substack ↗</a><a href="https://www.instagram.com/coresolutionsec/" target="_blank" rel="noopener">Coresolutions ↗</a></p>
  <p class="simple">simple.</p>
+ <p class="credits small mute"><span data-t="credits1">Diseño y código: Jay Jaramillo, con IA.</span><span data-t="credits2">Tipografía: Geist Mono.</span><span data-t="credits3">Hecho en Cuenca, Ecuador.</span></p>
 </footer>
 
 <div class="case" role="dialog" aria-modal="true" aria-label="Proyecto" hidden>
- <button class="x small" type="button">Cerrar · Esc</button>
+ <button class="x small" type="button" data-t="close">Cerrar · Esc</button>
  <div class="in"></div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script>
-(() => {
+<script src="js/gsap.min.js" defer></script>
+<script src="js/ScrollTrigger.min.js" defer></script>
+<script src="js/lenis.min.js" defer></script>
+<script defer>
+addEventListener('DOMContentLoaded', () => {
 'use strict';
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine = matchMedia('(pointer: fine)').matches;
 const G = window.gsap, ST = window.ScrollTrigger;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const store = {get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k, v){ try { localStorage.setItem(k, v); } catch(e){} }};
+
+/* ───────── idioma ───────── */
+let LANG = (() => { const q = new URLSearchParams(location.search).get('lang'); if (q === 'es' || q === 'en') return q; const s = store.get('jay-lang'); if (s === 'es' || s === 'en') return s; return (navigator.language || 'es').toLowerCase().startsWith('es') ? 'es' : 'en'; })();
+const T = {
+ es:{skip:'Saltar al contenido', navJay:'Jay', navContact:'Contacto', lead:'Jay es ', leadSr:'ingeniero, diseñador, escritor, líder, VJ y creador', sub:'Seis formas de ver lo mismo', down:'Baja ↓', photoPh:'Foto de Jay · blanco y negro · 4:5',
+  bio:'Jay Jaramillo. Ingeniero en telecomunicaciones y diseñador UX/UI, formado en el Politecnico di Milano. Lidero proyectos de infraestructura, cloud y ciberseguridad en Coresolutions, en Cuenca. Construyo productos con código e IA, escribo como @jaywrkr, hago visuales en vivo y toco batería.',
+  oneLine:'Junto negocio, infraestructura y producto.', contactLine:'Escríbeme por donde ya estoy.', credits1:'Diseño y código: Jay Jaramillo, con IA.', credits2:'Tipografía: Geist Mono.', credits3:'Hecho en Cuenca, Ecuador.', close:'Cerrar · Esc',
+  problem:'Problema', did:'Qué hice', result:'Resultado', seeCase:'Ver caso →', see:'Ver →', next:'Siguiente', open:'Abrir ↗', img:'Imagen', postsNote:'Marcadores: aquí van 4 posts reales.', videoPh:'Video · clip en vivo de 10 s', chapters:'Capítulos', go:'Ir a',
+  time:[['1990','Ecuador. Empieza todo.'],['2011','Entra a Coresolutions.'],['2016','Milán. Telecomunicaciones y UX/UI en el Politecnico.'],['2020','Vuelve a Ecuador.'],['2026','Monitoreo automático, @jaywrkr en series, CoreOperaciones en operación.']], tileNum:'proyectos al año', title:'Jay es ___ — Jay Jaramillo', locale:'es-EC'},
+ en:{skip:'Skip to content', navJay:'Jay', navContact:'Contact', lead:'Jay is ', leadSr:'an engineer, designer, writer, leader, VJ and creator', sub:'Six ways to see the same person', down:'Scroll ↓', photoPh:'Photo of Jay · black and white · 4:5',
+  bio:'Jay Jaramillo. Telecommunications engineer and UX/UI designer, trained at Politecnico di Milano. I lead infrastructure, cloud and cybersecurity projects at Coresolutions, in Cuenca. I build products with code and AI, write as @jaywrkr, make live visuals and play drums.',
+  oneLine:'I connect business, infrastructure and product.', contactLine:'Write to me where I already am.', credits1:'Design and code: Jay Jaramillo, with AI.', credits2:'Typeface: Geist Mono.', credits3:'Made in Cuenca, Ecuador.', close:'Close · Esc',
+  problem:'Problem', did:'What I did', result:'Result', seeCase:'See case →', see:'See →', next:'Next', open:'Open ↗', img:'Image', postsNote:'Placeholders: 4 real posts go here.', videoPh:'Video · 10 s live clip', chapters:'Chapters', go:'Go to',
+  time:[['1990','Ecuador. It all starts.'],['2011','Joins Coresolutions.'],['2016','Milan. Telecommunications and UX/UI at Politecnico.'],['2020','Back to Ecuador.'],['2026','Automated monitoring, @jaywrkr series, CoreOperaciones live.']], tileNum:'projects a year', title:'Jay is ___ — Jay Jaramillo', locale:'en-US'}
+};
+const t = k => T[LANG][k];
 
 /* ───────── contenido: una sola fuente ───────── */
 const PJ = {
- coresolutions:{n:'Coresolutions', role:'Líder de proyectos · desde 2011', prob:'Empresas y entidades en Ecuador necesitan infraestructura que no falle.', did:['Dirijo proyectos de infraestructura, cloud y ciberseguridad con IBM, Lenovo, VMware, Veeam, Check Point, HPE, Aruba y Synology.','Coordino un equipo de ingenieros.','Llevo clientes y ventas.'], big:'70', bigL:'proyectos al año', img:['Datacenter con racks Lenovo ThinkSystem e IBM','Diagrama de un proyecto real','Instalación en sitio'], src:['assets/coresolutions-1'], url:'https://www.instagram.com/coresolutionsec/'},
- monitoreo:{n:'Monitoreo', role:'Plataforma automática multicliente', prob:'Cada cliente nuevo obligaba a armar el monitoreo a mano.', did:['Terraform, Ansible, Docker, Prometheus, Grafana y GitLab CI/CD.','Informes mensuales automáticos hechos con IA.','Empaquetado para escalar a más clientes.'], big:'4 días → 10 min', bigL:'por informe mensual, en producción desde mayo de 2026', img:['Captura de Grafana sin datos sensibles','Página de un informe','Flujo de despliegue']},
- coreoperaciones:{n:'CoreOperaciones', role:'En operación desde octubre de 2026', prob:'Las apps operativas de Coresolutions estaban separadas.', did:['Une CorePlanificación, CoreGestión, CoreOportunidades, CoreClientes, CoreTICS y CoreTrack en un solo tablero.','Next.js y Neon, con un MCP privado para consultar el negocio con IA.','Construido con IA.'], big:'6 → 1', bigL:'apps en un solo tablero', img:['Tablero principal con datos anonimizados','Vista de decisión','Consulta por MCP']},
- minervo:{n:'Minervo Studio', role:'Director creativo', prob:'Marcas que necesitan un producto digital claro.', did:['Diseño de producto.','Landing pages.','Textos de interfaz.'], big:'', bigL:'', img:['Informe de Creatividad con IA 2026 (IACC)','Detalle de interfaz','Landing'], src:['assets/minervo-1'], color:true, url:'https://www.instagram.com/minervostudio/'},
- sistema:{n:'Sistema @jaywrkr', role:'Sistema visual propio', prob:'Publicar todos los días sin que cada post sea un diseño nuevo.', did:['Negro y blanco. Geist Mono 300 y 400, nunca bold.','Solo ángulos rectos y 70% de vacío.','Siempre cierra con "simple.".'], big:'', bigL:'', img:['Plantillas de la serie','Marca de cada serie','Post en contexto']},
- jaywrkr:{n:'@jaywrkr', role:'Escritura y contenido', prob:'El contenido de crecimiento personal suele ser cliché.', did:['Escribo verdades incómodas en blanco y negro.','Series semanales de lunes a domingo.','No vendo nada: es reputación.'], big:'7', bigL:'series, una por día, desde el 5 de octubre de 2026', img:['Reel: Optimizar no es avanzar.','Post de la serie del miércoles','Post de la serie del viernes'], video:'assets/jaywrkr-24', url:'https://www.instagram.com/jaywrkr/'},
- coreai:{n:'CoreAI', role:'Lidero la práctica', prob:'Empresas que quieren usar IA sin exponer sus datos o sin saber por dónde empezar.', did:['IA propia on-premise: primero herramienta interna, después producto.','Oferta ChatGPT Enterprise: Discovery, Launch, Adoption y Go.','Formación del equipo.'], big:'', bigL:'', img:['Diagrama de la oferta','Arquitectura on-premise','Taller con un cliente']},
- vj:{n:'Rig VJ', role:'TouchDesigner · @naturalnoise · @jay.infinito', prob:'Quería visuales en vivo que respondan a la música en el momento.', did:['20 escenas audio-reactivas en TouchDesigner.','Control con Arturia MiniLab MkII.','Tablero de 20 escenas en 5 × 4.'], big:'20', bigL:'escenas audio-reactivas', img:['Clip en vivo de 10 s','Tablero de escenas','Foto del set'], url:'https://www.instagram.com/naturalnoise/'},
- jdrums:{n:'J-Drums', role:'Web · MIDI', prob:'Practicar batería solo es aburrido y sin guía.', did:['Las notas caen como en Guitar Hero y se tocan en una Roland TD-02.','Modo lecciones y modo grooves.','Calibración MIDI en la misma página.'], big:'', bigL:'', img:['Video de pantalla con la batería','Modo lecciones','Calibración MIDI']},
- whitedot:{n:'WhiteDot', role:'Videojuego en desarrollo', prob:'Un juego que premie la constancia, no la suerte.', did:['Eres un pixel blanco en un mundo negro que crece.','La música electrónica se genera al jugar.','Web primero; después iOS, Android y PC.'], big:'', bigL:'', img:['Captura del juego','Bioma','Logros']}
+ coresolutions:{n:'Coresolutions', big:'70', src:['assets/coresolutions-1'], url:'https://www.instagram.com/coresolutionsec/',
+  es:{role:'Líder de proyectos · desde 2011', prob:'Empresas y entidades en Ecuador necesitan infraestructura que no falle.', did:['Dirijo proyectos de infraestructura, cloud y ciberseguridad con IBM, Lenovo, VMware, Veeam, Check Point, HPE, Aruba y Synology.','Coordino un equipo de ingenieros.','Llevo clientes y ventas.'], bigL:'proyectos al año', img:['Datacenter con racks Lenovo ThinkSystem e IBM','Diagrama de un proyecto real','Instalación en sitio']},
+  en:{role:'Project lead · since 2011', prob:'Companies and institutions in Ecuador need infrastructure that does not fail.', did:['I lead infrastructure, cloud and cybersecurity projects with IBM, Lenovo, VMware, Veeam, Check Point, HPE, Aruba and Synology.','I coordinate a team of engineers.','I handle clients and sales.'], bigL:'projects a year', img:['Datacenter with Lenovo ThinkSystem and IBM racks','Diagram of a real project','On-site installation']}},
+ monitoreo:{n:'Monitoreo', big:'4d → 10m',
+  es:{role:'Plataforma automática multicliente', prob:'Cada cliente nuevo obligaba a armar el monitoreo a mano.', did:['Terraform, Ansible, Docker, Prometheus, Grafana y GitLab CI/CD.','Informes mensuales automáticos hechos con IA.','Empaquetado para escalar a más clientes.'], bigL:'de 4 días a 10 minutos por informe mensual, en producción desde mayo de 2026', img:['Captura de Grafana sin datos sensibles','Página de un informe','Flujo de despliegue']},
+  en:{role:'Automated multi-client platform', prob:'Every new client meant building monitoring by hand.', did:['Terraform, Ansible, Docker, Prometheus, Grafana and GitLab CI/CD.','Automated monthly reports built with AI.','Packaged to scale to more clients.'], bigL:'from 4 days to 10 minutes per monthly report, live since May 2026', img:['Grafana screenshot without sensitive data','A report page','Deployment flow']}},
+ coreoperaciones:{n:'CoreOperaciones', big:'6 → 1',
+  es:{role:'En operación desde octubre de 2026', prob:'Las apps operativas de Coresolutions estaban separadas.', did:['Une CorePlanificación, CoreGestión, CoreOportunidades, CoreClientes, CoreTICS y CoreTrack en un solo tablero.','Next.js y Neon, con un MCP privado para consultar el negocio con IA.','Construido con IA.'], bigL:'apps en un solo tablero', img:['Tablero principal con datos anonimizados','Vista de decisión','Consulta por MCP']},
+  en:{role:'Live since October 2026', prob:'Coresolutions’ operational apps were scattered.', did:['Brings CorePlanificación, CoreGestión, CoreOportunidades, CoreClientes, CoreTICS and CoreTrack into one board.','Next.js and Neon, with a private MCP to query the business with AI.','Built with AI.'], bigL:'apps in one board', img:['Main board with anonymized data','Decision view','MCP query']}},
+ minervo:{n:'Minervo Studio', src:['assets/minervo-1'], color:true, url:'https://www.instagram.com/minervostudio/',
+  es:{role:'Director creativo', prob:'Marcas que necesitan un producto digital claro.', did:['Diseño de producto.','Landing pages.','Textos de interfaz.'], img:['Informe de Creatividad con IA 2026 (IACC)','Detalle de interfaz','Landing']},
+  en:{role:'Creative director', prob:'Brands that need a clear digital product.', did:['Product design.','Landing pages.','Interface copy.'], img:['AI Creativity Report 2026 (IACC)','Interface detail','Landing page']}},
+ sistema:{n:'Sistema @jaywrkr',
+  es:{role:'Sistema visual propio', prob:'Publicar todos los días sin que cada post sea un diseño nuevo.', did:['Negro y blanco. Geist Mono 300 y 400, nunca bold.','Solo ángulos rectos y 70% de vacío.','Siempre cierra con "simple.".'], img:['Plantillas de la serie','Marca de cada serie','Post en contexto']},
+  en:{role:'My own visual system', prob:'Publishing every day without designing every post from scratch.', did:['Black and white. Geist Mono 300 and 400, never bold.','Right angles only and 70% empty space.','Always ends with "simple.".'], img:['Series templates','Mark for each series','Post in context']}},
+ jaywrkr:{n:'@jaywrkr', big:'7', video:'assets/jaywrkr-24', url:'https://www.instagram.com/jaywrkr/',
+  es:{role:'Escritura y contenido', prob:'El contenido de crecimiento personal suele ser cliché.', did:['Escribo verdades incómodas en blanco y negro.','Series semanales de lunes a domingo.','No vendo nada: es reputación.'], bigL:'series, una por día, desde el 5 de octubre de 2026', img:['Reel: Optimizar no es avanzar.','Post de la serie del miércoles','Post de la serie del viernes']},
+  en:{role:'Writing and content', prob:'Personal growth content is usually a cliché.', did:['I write uncomfortable truths in black and white.','Weekly series, Monday to Sunday.','I sell nothing: it is reputation.'], bigL:'series, one per day, since October 5, 2026', img:['Reel: Optimizing is not moving forward.','Wednesday series post','Friday series post']}},
+ coreai:{n:'CoreAI',
+  es:{role:'Lidero la práctica', prob:'Empresas que quieren usar IA sin exponer sus datos o sin saber por dónde empezar.', did:['IA propia on-premise: primero herramienta interna, después producto.','Oferta ChatGPT Enterprise: Discovery, Launch, Adoption y Go.','Formación del equipo.'], img:['Diagrama de la oferta','Arquitectura on-premise','Taller con un cliente']},
+  en:{role:'I lead the practice', prob:'Companies that want to use AI without exposing their data, or without knowing where to start.', did:['Our own on-premise AI: internal tool first, product next.','ChatGPT Enterprise offer: Discovery, Launch, Adoption and Go.','Team training.'], img:['Offer diagram','On-premise architecture','Workshop with a client']}},
+ vj:{n:'Rig VJ', big:'20', url:'https://www.instagram.com/naturalnoise/',
+  es:{role:'TouchDesigner · @naturalnoise · @jay.infinito', prob:'Quería visuales en vivo que respondan a la música en el momento.', did:['20 escenas audio-reactivas en TouchDesigner.','Control con Arturia MiniLab MkII.','Tablero de 20 escenas en 5 × 4.'], bigL:'escenas audio-reactivas', img:['Clip en vivo de 10 s','Tablero de escenas','Foto del set']},
+  en:{role:'TouchDesigner · @naturalnoise · @jay.infinito', prob:'I wanted live visuals that respond to the music as it happens.', did:['20 audio-reactive scenes in TouchDesigner.','Controlled with an Arturia MiniLab MkII.','A 5 × 4 board of 20 scenes.'], bigL:'audio-reactive scenes', img:['10 s live clip','Scene board','Photo of the set']}},
+ jdrums:{n:'J-Drums',
+  es:{role:'Web · MIDI', prob:'Practicar batería solo es aburrido y sin guía.', did:['Las notas caen como en Guitar Hero y se tocan en una Roland TD-02.','Modo lecciones y modo grooves.','Calibración MIDI en la misma página.'], img:['Video de pantalla con la batería','Modo lecciones','Calibración MIDI']},
+  en:{role:'Web · MIDI', prob:'Practicing drums alone is boring and has no guidance.', did:['Notes fall like in Guitar Hero and are played on a Roland TD-02.','Lessons mode and grooves mode.','MIDI calibration on the same page.'], img:['Screen recording with the kit','Lessons mode','MIDI calibration']}},
+ whitedot:{n:'WhiteDot',
+  es:{role:'Videojuego en desarrollo', prob:'Un juego que premie la constancia, no la suerte.', did:['Eres un pixel blanco en un mundo negro que crece.','La música electrónica se genera al jugar.','Web primero; después iOS, Android y PC.'], img:['Captura del juego','Bioma','Logros']},
+  en:{role:'Video game in development', prob:'A game that rewards consistency, not luck.', did:['You are a white pixel in a black world that grows.','Electronic music is generated as you play.','Web first; then iOS, Android and PC.'], img:['Game screenshot','Biome','Achievements']}}
 };
 const CH = [
- {id:'ingeniero', w:'ingeniero', theme:'dark', line:'Infraestructura, cloud y ciberseguridad. Que funcione.', feat:'coresolutions', more:['monitoreo','coreoperaciones']},
- {id:'disenador', w:'diseñador', theme:'light', line:'Si no se entiende, no existe.', feat:'minervo', more:['sistema']},
- {id:'escritor', w:'escritor', theme:'dark', line:'Verdades incómodas, escritas simple.', feat:'jaywrkr', more:[], posts:['No es disciplina. Es un sistema.','Hazlo otra vez.','Nadie te está viendo. Hazlo igual.','El único atajo es no buscar atajos.']},
- {id:'lider', w:'líder', theme:'light', line:'Pragmatismo. Escucha, habla menos.', feat:null, more:['coreai'], prin:['Pragmatismo.','Escucha, habla menos.','El único atajo es no buscar atajos.'], stats:[['15','años en Coresolutions'],['70','proyectos al año']]},
- {id:'vj', w:'VJ', theme:'dark', line:'Visuales en vivo que responden a la música.', feat:'vj', more:[], video:true},
- {id:'creador', w:'creador', theme:'light', line:'Constancia, no suerte.', feat:'whitedot', more:['jdrums']}
+ {id:'ingeniero', w:{es:'ingeniero', en:'an engineer'}, theme:'dark', line:{es:'Infraestructura, cloud y ciberseguridad. Que funcione.', en:'Infrastructure, cloud and cybersecurity. That works.'}, feat:'coresolutions', more:['monitoreo','coreoperaciones'], tile:{type:'img', src:'assets/coresolutions-1'}},
+ {id:'disenador', w:{es:'diseñador', en:'a designer'}, theme:'light', line:{es:'Si no se entiende, no existe.', en:'If it is not clear, it does not exist.'}, feat:'minervo', more:['sistema'], tile:{type:'img', src:'assets/minervo-1'}},
+ {id:'escritor', w:{es:'escritor', en:'a writer'}, theme:'dark', line:{es:'Verdades incómodas, escritas simple.', en:'Uncomfortable truths, written simple.'}, feat:'jaywrkr', more:[], posts:{es:['No es disciplina. Es un sistema.','Hazlo otra vez.','Nadie te está viendo. Hazlo igual.','El único atajo es no buscar atajos.'], en:['It is not discipline. It is a system.','Do it again.','Nobody is watching. Do it anyway.','The only shortcut is not looking for one.']}, tile:{type:'video', src:'assets/jaywrkr-24'}},
+ {id:'lider', w:{es:'líder', en:'a leader'}, theme:'light', line:{es:'Pragmatismo. Escucha, habla menos.', en:'Pragmatism. Listen, talk less.'}, feat:null, more:['coreai'], prin:{es:['Pragmatismo.','Escucha, habla menos.','El único atajo es no buscar atajos.'], en:['Pragmatism.','Listen, talk less.','The only shortcut is not looking for one.']}, stats:{es:[['15','años en Coresolutions'],['70','proyectos al año']], en:[['15','years at Coresolutions'],['70','projects a year']]}, tile:{type:'num'}},
+ {id:'vj', w:{es:'VJ', en:'a VJ'}, theme:'dark', line:{es:'Visuales en vivo que responden a la música.', en:'Live visuals that respond to the music.'}, feat:'vj', more:[], video:true, tile:{type:'vj'}},
+ {id:'creador', w:{es:'creador', en:'a creator'}, theme:'light', line:{es:'Constancia, no suerte.', en:'Consistency, not luck.'}, feat:'whitedot', more:['jdrums'], tile:{type:'dot'}}
 ];
+const P = k => Object.assign({n: PJ[k].n, big: PJ[k].big, src: PJ[k].src, video: PJ[k].video, color: PJ[k].color, url: PJ[k].url}, PJ[k][LANG]);
 
 /* ───────── render ───────── */
+const pic = (src, alt, sizes) => `<picture><source type="image/webp" srcset="${src}-800.webp 800w, ${src}.webp 1600w" sizes="${sizes}"><img src="${src}.jpg" srcset="${src}-800.jpg 800w, ${src}.jpg 1600w" sizes="${sizes}" alt="${esc(alt)}" loading="lazy" decoding="async" width="1600" height="900"></picture>`;
 const ph = (label, cls = '', src = '', alt = '') => src
- ? `<div class="ph img ${cls}"><picture><source srcset="${src}.webp" type="image/webp"><img src="${src}.jpg" alt="${esc(alt)}" loading="lazy" decoding="async" width="1600" height="900"></picture></div>`
+ ? `<div class="ph img ${cls}">${pic(src, alt, '(max-width: 900px) 100vw, 50vw')}</div>`
  : `<div class="ph ${cls}"><span class="small">${esc(label)}</span></div>`;
 const srcOf = (p, i) => (p.src && p.src[i]) || '';
-const vid = (src, label) => `<div class="ph img vid"><video poster="${src}.jpg" muted loop playsinline preload="metadata" aria-label="${esc(label)}"><source src="${src}.webm" type="video/webm"><source src="${src}.mp4" type="video/mp4"></video></div>`;
+const vid = (src, label) => `<div class="ph img vid"><video poster="${src}.jpg" muted loop playsinline preload="none" aria-label="${esc(label)}"><source src="${src}.webm" type="video/webm"><source src="${src}.mp4" type="video/mp4"></video></div>`;
 const media = (p, i, label, inCase) => p.video && i === 0 ? vid(p.video, p.img[0]) : ph(label, p.color && !inCase ? 'col' : '', srcOf(p, i), p.img[i]);
-const featHTML = k => { const p = PJ[k]; return `<div class="feat">
- ${media(p, 0, `Imagen · ${p.n} · ${p.img[0]}`)}
+const resultHTML = p => p.big ? `<p class="small mute" style="margin-top:28px">${t('result')}</p><p class="big">${esc(p.big)}</p><p class="mute">${esc(p.bigL)}</p>` : '';
+const featHTML = k => { const p = P(k); return `<div class="feat">
+ ${media(p, 0, `${t('img')} · ${p.n} · ${p.img[0]}`)}
  <h2>${esc(p.n)}</h2><p class="role small mute">${esc(p.role)}</p>
  <div class="cols">
-  <div><p class="small mute">Problema</p><p style="margin-top:8px">${esc(p.prob)}</p>
-   ${p.big ? `<p class="small mute" style="margin-top:28px">Resultado</p><p class="big">${esc(p.big)}</p><p class="mute">${esc(p.bigL)}</p>` : ''}</div>
-  <div><p class="small mute">Qué hice</p><ul style="margin-top:8px">${p.did.map(d => `<li>${esc(d)}</li>`).join('')}</ul>
-   <p style="margin-top:24px"><button class="open small" data-k="${k}" type="button">Ver caso →</button></p></div>
+  <div><p class="small mute">${t('problem')}</p><p style="margin-top:8px">${esc(p.prob)}</p>${resultHTML(p)}</div>
+  <div><p class="small mute">${t('did')}</p><ul style="margin-top:8px">${p.did.map(d => `<li>${esc(d)}</li>`).join('')}</ul>
+   <p style="margin-top:24px"><button class="open small" data-k="${k}" type="button">${t('seeCase')}</button></p></div>
  </div></div>`; };
-const moreHTML = ks => ks.length ? `<div class="more">${ks.map(k => `<button type="button" class="open" data-k="${k}"><span>${esc(PJ[k].n)}</span><span class="d mute">${esc(PJ[k].prob)}</span><span class="go small">Ver →</span></button>`).join('')}</div>` : '';
-const main = document.getElementById('historia');
-main.innerHTML = CH.map((c, i) => `<section class="ch" id="${c.id}" data-theme="${c.theme}" aria-label="Jay es ${esc(c.w)}">
- <div class="bg"></div>
- <p class="tag small mute">${String(i + 1).padStart(2, '0')} / 06 — ${esc(c.w)}</p>
- ${c.feat ? featHTML(c.feat) : ''}
- ${c.posts ? `<div class="posts">${c.posts.map(t => `<div class="post"><span>${esc(t)}</span><span class="s">simple.</span></div>`).join('')}</div><p class="small mute" style="margin-top:12px">Marcadores: aquí van 4 posts reales.</p>` : ''}
- ${c.stats ? `<div class="cols" style="margin-top:0">${c.stats.map(([b, l]) => `<div><p class="big">${b}</p><p class="mute">${l}</p></div>`).join('')}</div>` : ''}
- ${c.prin ? `<div class="prin">${c.prin.map((t, k) => `<p><span class="small mute">0${k + 1}</span>${esc(t)}</p>`).join('')}</div>` : ''}
- ${c.video ? `<div style="margin-top:56px">${ph('Video · clip en vivo de 10 s', 'v')}</div>` : ''}
- ${moreHTML(c.more)}
-</section>`).join('');
-
-/* ───────── riel: la palabra se reescribe ───────── */
-const rail = document.querySelector('.rail'), wEl = document.getElementById('w'), nEl = rail.querySelector('.n'), lEl = rail.querySelector('.line'), ticks = [...rail.querySelectorAll('.ticks i')];
-const GL = '#$%&_/<>*+=01';
-let scr;
-function rewrite(txt){
- cancelAnimationFrame(scr);
- if (reduce){ wEl.textContent = txt; return; }
- const from = wEl.textContent, len = Math.max(from.length, txt.length), t0 = performance.now(), D = 520;
- const f = now => { const p = Math.min(1, (now - t0)/D); let s = ''; for (let i = 0; i < len; i++){ if (p > .25 + .75*i/len) s += txt[i] || ''; else if (i < Math.round(from.length + (txt.length - from.length)*p)) s += GL[(Math.random()*GL.length)|0]; } wEl.textContent = s; if (p < 1) scr = requestAnimationFrame(f); };
- scr = requestAnimationFrame(f);
+const moreHTML = ks => ks.length ? `<div class="more">${ks.map(k => { const p = P(k); return `<button type="button" class="open" data-k="${k}"><span>${esc(p.n)}</span><span class="d mute">${esc(p.prob)}</span><span class="go small">${t('see')}</span></button>`; }).join('')}</div>` : '';
+const main = document.getElementById('historia'), tilesEl = document.querySelector('.tiles'), ticksEl = document.querySelector('.ticks');
+const num = i => String(i + 1).padStart(2, '0');
+function tileHTML(c, i){
+ const lab = `<span class="lab small">${num(i)} ${esc(c.w[LANG].replace(/^an? /, ''))}</span>`, tl = c.tile;
+ let inner = '';
+ if (tl.type === 'img') inner = `<picture><source type="image/webp" srcset="${tl.src}-800.webp"><img src="${tl.src}-800.jpg" alt="" decoding="async" width="800" height="450"></picture>`;
+ else if (tl.type === 'video') inner = `<video poster="${tl.src}.jpg" muted loop playsinline preload="none"><source src="${tl.src}.webm" type="video/webm"><source src="${tl.src}.mp4" type="video/mp4"></video>`;
+ else if (tl.type === 'num') inner = `<b>70</b><span class="small mute" style="margin-top:6px">${t('tileNum')}</span>`;
+ else if (tl.type === 'vj') inner = '<i></i><i></i><i></i><i></i><i></i><i></i>';
+ return `<button type="button" class="tile ${tl.type === 'num' || tl.type === 'vj' || tl.type === 'dot' ? tl.type : ''}" data-i="${i}" aria-label="${t('go')} ${esc(c.w[LANG])}">${inner}${lab}</button>`;
 }
+function render(){
+ document.documentElement.lang = LANG; document.title = t('title');
+ document.querySelectorAll('[data-t]').forEach(el => { el.textContent = t(el.dataset.t); });
+ document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === LANG));
+ ticksEl.setAttribute('aria-label', t('chapters'));
+ main.innerHTML = CH.map((c, i) => `<section class="ch" id="${c.id}" data-theme="${c.theme}" aria-label="${esc(t('lead') + c.w[LANG])}">
+  <div class="bg"></div>
+  <p class="tag small mute">${num(i)} / 06 — ${esc(c.w[LANG])}</p>
+  ${c.feat ? featHTML(c.feat) : ''}
+  ${c.posts ? `<div class="posts">${c.posts[LANG].map(x => `<div class="post"><span>${esc(x)}</span><span class="s">simple.</span></div>`).join('')}</div><p class="small mute" style="margin-top:12px">${t('postsNote')}</p>` : ''}
+  ${c.stats ? `<div class="cols" style="margin-top:0">${c.stats[LANG].map(([b, l]) => `<div><p class="big">${b}</p><p class="mute">${l}</p></div>`).join('')}</div>` : ''}
+  ${c.prin ? `<div class="prin">${c.prin[LANG].map((x, k) => `<p><span class="small mute">0${k + 1}</span>${esc(x)}</p>`).join('')}</div>` : ''}
+  ${c.video ? `<div style="margin-top:56px">${ph(t('videoPh'), 'v')}</div>` : ''}
+  ${moreHTML(c.more)}
+ </section>`).join('');
+ tilesEl.innerHTML = CH.map(tileHTML).join('');
+ ticksEl.innerHTML = CH.map((c, i) => `<button type="button" data-i="${i}" aria-label="${num(i)} ${esc(c.w[LANG])}"></button>`).join('');
+ document.querySelector('.time').innerHTML = t('time').map(([y, x]) => `<li><b>${y}</b><span class="mute">${esc(x)}</span></li>`).join('');
+ cur = -1;
+}
+
+/* ───────── texto que se reescribe ───────── */
+const GL = '#$%&_/<>*+=01';
+function scramble(el, txt, D = 520){
+ cancelAnimationFrame(el._r);
+ if (reduce){ el.textContent = txt; return; }
+ const from = el.textContent, len = Math.max(from.length, txt.length), t0 = performance.now();
+ const f = now => { const p = Math.min(1, (now - t0)/D); let s = ''; for (let i = 0; i < len; i++){ if (p > .25 + .75*i/len) s += txt[i] || ''; else if (i < Math.round(from.length + (txt.length - from.length)*p)) s += GL[(Math.random()*GL.length)|0]; } el.textContent = s; if (p < 1) el._r = requestAnimationFrame(f); };
+ el._r = requestAnimationFrame(f);
+}
+const rail = document.querySelector('.rail'), wEl = document.getElementById('w'), nEl = rail.querySelector('.n'), lEl = rail.querySelector('.line'), hw = document.getElementById('hw');
 let cur = -1;
 function setCh(i){
  if (i === cur) return; cur = i;
- const c = CH[i]; rewrite(c.w); nEl.textContent = `${String(i + 1).padStart(2, '0')} / 06`; lEl.textContent = c.line;
- ticks.forEach((t, k) => t.classList.toggle('on', k === i));
+ const c = CH[i]; scramble(wEl, c.w[LANG]); nEl.textContent = `${num(i)} / 06`; lEl.textContent = c.line[LANG];
+ ticksEl.querySelectorAll('button').forEach((b, k) => { b.classList.toggle('on', k === i); b.setAttribute('aria-current', k === i ? 'true' : 'false'); });
  document.querySelector('meta[name=theme-color]').content = c.theme === 'light' ? '#ffffff' : '#000000';
+}
+function heroWord(i){
+ if (i < 0){ hw.classList.remove('on'); scramble(hw, '', 300); tilesEl.classList.remove('hov'); tilesEl.querySelectorAll('.tile').forEach(x => x.classList.remove('act')); return; }
+ hw.classList.add('on'); scramble(hw, CH[i].w[LANG], 420);
+ tilesEl.classList.add('hov'); tilesEl.querySelectorAll('.tile').forEach((x, k) => x.classList.toggle('act', k === i));
 }
 
 /* ───────── scroll ───────── */
 let lenis = null;
-if (G && ST){
- G.registerPlugin(ST);
- if (!reduce && window.Lenis){ lenis = new Lenis({lerp:.11}); lenis.on('scroll', ST.update); G.ticker.add(t => lenis.raf(t*1000)); G.ticker.lagSmoothing(0); }
- /* la ventana cuadrada abre cada capítulo */
+const scrollTo = (el, done) => { if (lenis) lenis.scrollTo(el, {offset:0, duration:1.4, onComplete: done}); else { el.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); if (done) setTimeout(done, reduce ? 0 : 900); } };
+function setupScroll(){
+ if (!(G && ST)){ rail.style.opacity = 1; rail.style.visibility = 'visible'; setCh(0); document.querySelectorAll('.ch .bg').forEach(b => b.style.clipPath = 'none'); return; }
+ ST.getAll().forEach(s => s.kill());
  document.querySelectorAll('.ch').forEach(sec => {
   const bg = sec.querySelector('.bg');
   if (reduce){ bg.style.clipPath = 'none'; return; }
   G.fromTo(bg, {clipPath:'inset(46% 46% 46% 46%)'}, {clipPath:'inset(0% 0% 0% 0%)', ease:'steps(10)', scrollTrigger:{trigger:sec, start:'top 95%', end:'top 15%', scrub:true}});
   const kids = sec.querySelectorAll('.tag, .feat .ph, .feat h2, .feat .role, .cols > div, .more, .posts, .prin p, .grid > *, .time li');
-  G.from(kids, {opacity:0, y:24, duration:.6, ease:'steps(6)', stagger:.06, scrollTrigger:{trigger:sec, start:'top 55%'}});
+  G.from(kids, {opacity:0, y:24, duration:.6, ease:'steps(6)', stagger:.06, scrollTrigger:{trigger:sec, start:'top 55%', once:true}});
  });
- /* el riel aparece al dejar la portada y cambia de palabra por capítulo */
  ST.create({trigger:'#historia', start:'top 60%', endTrigger:'#jay', end:'top 60%', onToggle: s => G.to(rail, {autoAlpha: s.isActive ? 1 : 0, duration:.3, ease:'steps(3)'})});
  CH.forEach((c, i) => ST.create({trigger:'#' + c.id, start:'top 50%', end:'bottom 50%', onToggle: s => { if (s.isActive) setCh(i); }}));
- const blank = document.querySelector('.blank');
- ST.create({trigger:'.hero', start:'top top', end:'bottom 40%', onUpdate: s => { blank.style.width = (4.5 + s.progress*5) + 'ch'; }});
-} else {
- rail.style.opacity = 1; rail.style.visibility = 'visible'; setCh(0);
- document.querySelectorAll('.ch .bg').forEach(b => b.style.clipPath = 'none');
+ if (!reduce) tilesEl.querySelectorAll('.tile').forEach((x, i) => G.to(x, {y: -(60 + (i % 3)*70), opacity: 0, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom 20%', scrub:true}}));
+ ST.create({start:0, end:'max', onUpdate: s => { prog.style.transform = `scaleX(${s.progress})`; }});
+ ST.refresh();
 }
+const prog = document.querySelector('.prog');
+if (G && ST){
+ G.registerPlugin(ST);
+ if (!reduce && window.Lenis){ lenis = new Lenis({lerp:.11}); lenis.on('scroll', ST.update); G.ticker.add(x => lenis.raf(x*1000)); G.ticker.lagSmoothing(0); }
+}
+render(); setupScroll();
+
+/* portada: entrada de los cuadrados */
+if (G && !reduce) G.from('.tile', {clipPath:'inset(50% 50% 50% 50%)', duration:.6, ease:'steps(8)', stagger:.09, delay:.25});
+
+/* portada: pasar por un cuadrado adelanta la faceta; tocarlo vuela a su capítulo */
+tilesEl.addEventListener('pointerover', e => { const b = e.target.closest('.tile'); if (b && fine) heroWord(+b.dataset.i); });
+tilesEl.addEventListener('pointerleave', () => { if (fine) heroWord(-1); });
+tilesEl.addEventListener('focusin', e => { const b = e.target.closest('.tile'); if (b) heroWord(+b.dataset.i); });
+tilesEl.addEventListener('focusout', () => heroWord(-1));
+function fly(i, from){
+ const c = CH[i], sec = document.getElementById(c.id), target = sec.querySelector('.feat .ph') || sec;
+ if (!G || reduce || !from){ scrollTo(sec); return; }
+ const r = from.getBoundingClientRect(), clone = document.createElement('div');
+ clone.className = 'fly'; clone.innerHTML = from.querySelector('img, video') ? from.querySelector('img, video').outerHTML : '';
+ if (!clone.innerHTML){ clone.style.background = c.theme === 'light' ? '#fff' : '#000'; }
+ Object.assign(clone.style, {left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px'});
+ document.body.appendChild(clone);
+ G.to(clone, {top: 72, left: innerWidth - r.width - 24, duration:.5, ease:'steps(8)'});
+ scrollTo(target === sec ? sec : target, () => {
+  const tr = target.getBoundingClientRect();
+  G.to(clone, {left: tr.left, top: tr.top, width: tr.width, height: Math.min(tr.height, innerHeight), duration:.6, ease:'power4.inOut', onComplete: () => G.to(clone, {opacity:0, duration:.3, ease:'steps(3)', onComplete: () => clone.remove()})});
+ });
+}
+tilesEl.addEventListener('click', e => { const b = e.target.closest('.tile'); if (!b) return; heroWord(+b.dataset.i); fly(+b.dataset.i, b); });
+
+/* riel: saltar a un capítulo */
+ticksEl.addEventListener('click', e => { const b = e.target.closest('button'); if (b) scrollTo(document.getElementById(CH[+b.dataset.i].id)); });
+
+/* idioma */
+document.querySelector('.lang').addEventListener('click', e => {
+ const b = e.target.closest('button'); if (!b || b.dataset.l === LANG) return;
+ LANG = b.dataset.l; store.set('jay-lang', LANG);
+ const y = scrollY; render(); setupScroll(); watchVideos(document); if (lenis) lenis.scrollTo(y, {immediate:true}); else window.scrollTo(0, y);
+ tick();
+});
 
 /* ───────── caso abierto: crece desde lo que tocaste ───────── */
 const caseEl = document.querySelector('.case'), caseIn = caseEl.querySelector('.in');
 let caseFrom = null;
-const allKeys = CH.flatMap(c => [c.feat, ...c.more]).filter(Boolean);
+const allKeys = () => CH.flatMap(c => [c.feat, ...c.more]).filter(Boolean);
 function caseHTML(k){
- const p = PJ[k], nx = allKeys[(allKeys.indexOf(k) + 1) % allKeys.length];
+ const p = P(k), ks = allKeys(), nx = ks[(ks.indexOf(k) + 1) % ks.length];
  return `<p class="small mute">${esc(p.role)}</p><h2>${esc(p.n)}</h2>
- <div class="cols"><div><p class="small mute">Problema</p><p style="margin-top:8px">${esc(p.prob)}</p>${p.big ? `<p class="small mute" style="margin-top:28px">Resultado</p><p class="big">${esc(p.big)}</p><p class="mute">${esc(p.bigL)}</p>` : ''}${p.url ? `<p style="margin-top:28px"><a href="${p.url}" target="_blank" rel="noopener">Abrir ↗</a></p>` : ''}</div>
- <div><p class="small mute">Qué hice</p><ul style="margin-top:8px">${p.did.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div></div>
- <div class="imgs">${media(p, 0, `Imagen 1 · ${p.img[0]}`, true)}<div class="row">${media(p, 1, `Imagen 2 · ${p.img[1]}`, true)}${media(p, 2, `Imagen 3 · ${p.img[2]}`, true)}</div></div>
- <button class="nextp" type="button" data-k="${nx}"><span class="small mute">Siguiente</span><br><span class="word">${esc(PJ[nx].n)} →</span></button>`;
+ <div class="cols"><div><p class="small mute">${t('problem')}</p><p style="margin-top:8px">${esc(p.prob)}</p>${resultHTML(p)}${p.url ? `<p style="margin-top:28px"><a href="${p.url}" target="_blank" rel="noopener">${t('open')}</a></p>` : ''}</div>
+ <div><p class="small mute">${t('did')}</p><ul style="margin-top:8px">${p.did.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div></div>
+ <div class="imgs">${media(p, 0, `${t('img')} 1 · ${p.img[0]}`, true)}<div class="row">${media(p, 1, `${t('img')} 2 · ${p.img[1]}`, true)}${media(p, 2, `${t('img')} 3 · ${p.img[2]}`, true)}</div></div>
+ <button class="nextp" type="button" data-k="${nx}"><span class="small mute">${t('next')}</span><br><span class="word">${esc(PJ[nx].n)} →</span></button>`;
 }
 const rectInset = r => `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px)`;
+let lastFocus = null;
 function openCase(k, from){
+ lastFocus = document.activeElement;
  caseIn.innerHTML = caseHTML(k); caseEl.scrollTop = 0; caseEl.hidden = false; caseEl.style.visibility = 'visible';
  caseFrom = from ? from.getBoundingClientRect() : null;
  if (lenis) lenis.stop();
@@ -330,7 +472,7 @@ function openCase(k, from){
 }
 function closeCase(){
  if (caseEl.hidden) return;
- const done = () => { caseEl.hidden = true; caseEl.style.visibility = 'hidden'; document.body.style.overflow = ''; if (lenis) lenis.start(); history.replaceState(null, '', location.pathname + location.search); };
+ const done = () => { caseEl.hidden = true; caseEl.style.visibility = 'hidden'; document.body.style.overflow = ''; if (lenis) lenis.start(); history.replaceState(null, '', location.pathname + location.search); if (lastFocus) lastFocus.focus({preventScroll:true}); };
  if (G && !reduce) G.to(caseEl, {clipPath: caseFrom ? rectInset(caseFrom) : 'inset(50% 50% 50% 50%)', duration:.5, ease:'power4.inOut', onComplete: done}); else done();
 }
 document.addEventListener('click', e => {
@@ -341,20 +483,36 @@ caseEl.querySelector('.x').addEventListener('click', closeCase);
 addEventListener('keydown', e => { if (e.key === 'Escape') closeCase(); });
 if (location.hash.startsWith('#caso-') && PJ[location.hash.slice(6)]) setTimeout(() => openCase(location.hash.slice(6)), 300);
 
-/* videos: se reproducen solo cuando están en pantalla */
-const vio = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting && !reduce) v.play().catch(() => {}); else v.pause(); }), {threshold:.35}) : null;
-const watchVideos = root => root.querySelectorAll('video').forEach(v => { if (reduce) v.controls = true; if (vio) vio.observe(v); });
+/* videos: solo se reproducen en pantalla */
+const vio = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting && !reduce){ v.preload = 'auto'; v.play().catch(() => {}); } else v.pause(); }), {threshold:.35}) : null;
+function watchVideos(root){ root.querySelectorAll('video').forEach(v => { if (reduce && !v.closest('.tile')) v.controls = true; if (vio) vio.observe(v); }); }
 watchVideos(document);
 new MutationObserver(() => watchVideos(caseIn)).observe(caseIn, {childList:true});
 
-/* enlaces internos con scroll suave */
-document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const t = document.querySelector(a.getAttribute('href')); if (!t) return; e.preventDefault(); if (lenis) lenis.scrollTo(t, {offset:0}); else t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); }));
+/* enlaces internos */
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const tg = document.querySelector(a.getAttribute('href')); if (!tg) return; e.preventDefault(); scrollTo(tg); }));
+
+/* cursor: un cuadrado que invierte y enmarca lo que se puede tocar */
+if (fine && G && !reduce){
+ const cur = document.createElement('div'); cur.className = 'cur'; cur.setAttribute('aria-hidden', 'true'); document.body.appendChild(cur);
+ document.documentElement.classList.add('has-cur');
+ const qx = G.quickTo(cur, 'x', {duration:.18, ease:'power3'}), qy = G.quickTo(cur, 'y', {duration:.18, ease:'power3'});
+ let tgt = null;
+ addEventListener('pointermove', e => {
+  G.to(cur, {opacity:1, duration:.2, overwrite:'auto'});
+  const el = e.target.closest ? e.target.closest('a, button, .tile') : null;
+  if (el){ const r = el.getBoundingClientRect(); if (tgt !== el){ tgt = el; cur.classList.add('frame'); G.to(cur, {width: r.width + 10, height: r.height + 10, duration:.25, ease:'power3'}); } qx(r.left - 5); qy(r.top - 5); }
+  else { if (tgt){ tgt = null; cur.classList.remove('frame'); G.to(cur, {width:10, height:10, duration:.2}); } qx(e.clientX - 5); qy(e.clientY - 5); }
+ }, {passive:true});
+ addEventListener('scroll', () => { if (tgt){ tgt = null; cur.classList.remove('frame'); G.to(cur, {width:10, height:10, duration:.15}); } }, {passive:true});
+ document.addEventListener('pointerleave', () => G.to(cur, {opacity:0, duration:.2}));
+}
 
 /* reloj de Cuenca */
 const clock = document.getElementById('clock');
-const tick = () => { clock.textContent = 'Cuenca ' + new Intl.DateTimeFormat('es-EC', {timeZone:'America/Guayaquil', hour:'2-digit', minute:'2-digit', hour12:false}).format(new Date()); };
+function tick(){ clock.textContent = 'Cuenca ' + new Intl.DateTimeFormat(t('locale'), {timeZone:'America/Guayaquil', hour:'2-digit', minute:'2-digit', hour12:false}).format(new Date()); }
 tick(); setInterval(tick, 30000);
-})();
+});
 </script>
 </body>
 </html>
